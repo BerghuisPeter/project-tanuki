@@ -1,0 +1,14 @@
+<h2>Global Chat: {{ this.chatService.userName }}</h2>
+<mat-list>
+  <mat-list-item *ngFor="let message of messages">
+    <span matListItemTitle [uuidColor]="message.user">{{ message.user ? message.user : message.value }}</span>
+    <span *ngIf="message.user" matListItemLine>{{message.value}}</span>
+  </mat-list-item>
+</mat-list>
+<mat-form-field class="example-full-width">
+  <input matInput
+         type="text"
+         placeholder="Type your shit take here..."
+         (keyup.enter)="onEnter()"
+         [formControl]="inputFormControl">
+</mat-form-field>
