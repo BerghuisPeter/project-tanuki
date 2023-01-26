@@ -4,10 +4,14 @@ import { PageNotFoundComponentComponent } from "./features/page-not-found-compon
 
 const routes: Routes = [
   {
-    path: 'global-chat',
+    path: 'chat',
     loadChildren: () => import('./features/global-chat/global-chat.module').then(m => m.GlobalChatModule)
   },
-  { path: '', redirectTo: '/global-chat', pathMatch: 'full' },
+  {
+    path: 'home',
+    loadChildren: () => import('./features/home/home.module').then(m => m.HomeModule)
+  },
+  { path: '', redirectTo: '/chat', pathMatch: 'full' },
   { path: '**', component: PageNotFoundComponentComponent },
 ];
 
