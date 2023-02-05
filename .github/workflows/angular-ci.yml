@@ -52,6 +52,13 @@ jobs:
       
     - name: Build
       run: npm run build -- --configuration production
+    
+    - name: Archive build
+      if: success()
+      uses: actions/upload-artifact@v3
+      with:
+        name: deploy_dist
+        path: dist
         
   deploy:
     needs: build
@@ -60,6 +67,12 @@ jobs:
       url: ${{ steps.deployment.outputs.page_url }}
     runs-on: ubuntu-latest
     steps:
+      - name: Checkout
+        uses: actions/checkout@v3
+      - name: Download build
+        uses: actions/download-artifact@v3
+        with:
+          name: deploy_dist
       - name: Setup Pages
         uses: actions/configure-pages@v3
       - name: Upload artifact
