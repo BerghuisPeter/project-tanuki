@@ -3,6 +3,7 @@ mat-toolbar {
 }
 
 .header_icon {
-  height: 100%;
+  width: 64px;
+  height: 64px;
   filter: invert(0.5) sepia(1) saturate(5) hue-rotate(175deg);
 }

@@ -1,6 +1,6 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
-import { PageNotFoundComponentComponent } from "./features/page-not-found-component/page-not-found-component.component"; // CLI imports router
+import { PageNotFoundComponentComponent } from "./features/page-not-found-component/page-not-found-component.component";
 
 const routes: Routes = [
   {
@@ -11,7 +11,7 @@ const routes: Routes = [
     path: 'home',
     loadChildren: () => import('./features/home/home.module').then(m => m.HomeModule)
   },
-  { path: '', redirectTo: '/chat', pathMatch: 'full' },
+  { path: '', redirectTo: '/home', pathMatch: 'full' },
   { path: '**', component: PageNotFoundComponentComponent },
 ];
 
