@@ -51,7 +51,7 @@ jobs:
       run: npm ci
       
     - name: Build
-      run: npm run build -- --configuration production
+      run: npm run build -- --configuration production --base-href='https://berghuispeter.github.io/project-tanuki/'
     
     - name: Archive build
       if: success()
