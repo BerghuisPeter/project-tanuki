@@ -8,7 +8,7 @@
     "watch": "ng build --watch --configuration development",
     "test": "ng test",
     "socket-server": "node socket-server/app.js",
-    "deploy": "ng deploy --base-href=/project-tanuki/"
+    "deploy": "ng deploy --base-href=https://berghuispeter.github.io/project-tanuki/"
   },
   "private": true,
   "dependencies": {
