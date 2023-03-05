@@ -1,7 +1,6 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 import { PageNotFoundComponentComponent } from "./features/page-not-found-component/page-not-found-component.component";
-import { BattleshipComponent } from "./features/battleship/battleship.component";
 
 const routes: Routes = [
   {
@@ -14,7 +13,7 @@ const routes: Routes = [
   },
   {
     path: 'boat',
-    component: BattleshipComponent
+    loadChildren: () => import('./features/battleship/battleship.module').then(m => m.BattleshipModule)
   },
   { path: '', redirectTo: '/home', pathMatch: 'full' },
   { path: '**', component: PageNotFoundComponentComponent },
