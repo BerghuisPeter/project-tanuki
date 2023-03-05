@@ -10,6 +10,7 @@ import { PageNotFoundComponentComponent } from './features/page-not-found-compon
 import { LoadingComponent } from './shared/components/loading/loading.component';
 import { MatIconModule } from "@angular/material/icon";
 import { HttpClientModule } from "@angular/common/http";
+import { BattleshipComponent } from './features/battleship/battleship.component';
 
 const options = {
   autoConnect: false,
@@ -23,6 +24,7 @@ const config: SocketIoConfig = { url: 'http://localhost:4444', options: options 
     AppComponent,
     PageNotFoundComponentComponent,
     LoadingComponent,
+    BattleshipComponent,
   ],
   imports: [
     BrowserModule,
