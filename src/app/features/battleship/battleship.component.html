@@ -1,12 +1,51 @@
-<table>
-  <tbody>
-  <tr *ngFor="let row of board; let rowIndex = index">
-    <td (click)="fire($event)" *ngFor="let cell of row; let colIndex = index">
-      {{ cell }}
-    </td>
-  </tr>
-  </tbody>
-</table>
+<div class="flex flex-col gap-3 py-3 md:p-3 md:flex-row">
+  <mat-card class="flex-grow">
+    <mat-card-header>
+      <mat-card-title>Opponent's board</mat-card-title>
+      <mat-card-subtitle></mat-card-subtitle>
+    </mat-card-header>
+    <mat-card-content class="flex justify-center pt-4">
+      <table>
+        <tbody>
+        <tr *ngFor="let row of board; let rowIndex = index">
+          <td (click)="fire(rowIndex, colIndex)" *ngFor="let cell of row; let colIndex = index">
+            <ng-container [ngSwitch]="cell">
+              <mat-icon *ngSwitchCase="BattleShipCellStatus.IDLE" fontIcon="water"
+                        style="color: lightseagreen"></mat-icon>
+              <mat-icon *ngSwitchCase="BattleShipCellStatus.MISS" fontIcon="waves" style="color: orange"></mat-icon>
+              <mat-icon *ngSwitchCase="BattleShipCellStatus.BOAT" fontIcon="directions_boat"></mat-icon>
+              <mat-icon *ngSwitchCase="BattleShipCellStatus.HIT" fontIcon="crisis_alert" style="color: red"></mat-icon>
+            </ng-container>
+          </td>
+        </tr>
+        </tbody>
+      </table>
+    </mat-card-content>
+  </mat-card>
+  <mat-card class="flex-grow">
+    <mat-card-header>
+      <mat-card-title class="green-400">Your board</mat-card-title>
+    </mat-card-header>
+    <mat-card-content class="flex justify-center pt-4">
+      <table>
+        <tbody>
+        <tr *ngFor="let row of board; let rowIndex = index">
+          <td *ngFor="let cell of row; let colIndex = index">
+            <ng-container [ngSwitch]="cell">
+              <mat-icon *ngSwitchCase="BattleShipCellStatus.IDLE" fontIcon="water"
+                        style="color: lightseagreen"></mat-icon>
+              <mat-icon *ngSwitchCase="BattleShipCellStatus.MISS" fontIcon="waves" style="color: orange"></mat-icon>
+              <mat-icon *ngSwitchCase="BattleShipCellStatus.BOAT" fontIcon="directions_boat"></mat-icon>
+              <mat-icon *ngSwitchCase="BattleShipCellStatus.HIT" fontIcon="crisis_alert" style="color: red"></mat-icon>
+            </ng-container>
+          </td>
+        </tr>
+        </tbody>
+      </table>
+    </mat-card-content>
+  </mat-card>
+
+</div>
 
 <div *ngIf="gameOver">
   <h2>Game Over!</h2>

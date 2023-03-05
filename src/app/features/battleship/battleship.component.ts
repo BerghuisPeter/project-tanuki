@@ -1,9 +1,10 @@
 import { Component } from '@angular/core';
+import { BattleShipCellStatus } from "./models/battleship.model";
 
 @Component({
   selector: 'app-battleship',
   templateUrl: './battleship.component.html',
-  styleUrls: ['./battleship.component.css']
+  styleUrls: ['./battleship.component.scss']
 })
 export class BattleshipComponent {
   board: any[][];
@@ -11,34 +12,33 @@ export class BattleshipComponent {
   hits: number[][];
   gameOver: boolean;
 
+  public BattleShipCellStatus = BattleShipCellStatus;
+
   constructor() {
-    this.board = this.createBoard(10, 10);
+    this.board = this.createBoard(5, 5);
     this.shipLocations = this.placeShips(5, 4, this.board);
     this.hits = [];
     this.gameOver = false;
   }
 
-  fire(event: any) {
+  fire(row: number, col: number) {
     if (this.gameOver) {
       return;
     }
 
-    const row = event.target.parentNode.rowIndex;
-    const col = event.target.cellIndex;
-
-    if (this.board[row][col] === 'X' || this.board[row][col] === '*') {
+    if (this.board[row][col] === BattleShipCellStatus.HIT || this.board[row][col] === BattleShipCellStatus.MISS) {
       return;
     }
 
     if (this.checkHit(row, col)) {
-      this.board[row][col] = 'X';
+      this.board[row][col] = BattleShipCellStatus.HIT;
       this.hits.push([row, col]);
 
       if (this.checkGameOver()) {
         this.gameOver = true;
       }
     } else {
-      this.board[row][col] = '*';
+      this.board[row][col] = BattleShipCellStatus.MISS;
     }
   }
 
@@ -73,11 +73,10 @@ export class BattleshipComponent {
     for (let i = 0; i < rows; i++) {
       const row = [];
       for (let j = 0; j < cols; j++) {
-        row.push('-');
+        row.push(BattleShipCellStatus.IDLE);
       }
       board.push(row);
     }
-
     return board;
   }
 
@@ -101,23 +100,21 @@ export class BattleshipComponent {
         }
       }
 
-      shipLocations.push(...shipLocation);
-
       if (this.checkCollision(shipLocation, board)) {
         i--;
       } else {
         for (const location of shipLocation) {
-          board[location[0]][location[1]] = 'S';
+          board[location[0]][location[1]] = BattleShipCellStatus.BOAT;
         }
+        shipLocations.push(...shipLocation);
       }
     }
-
     return shipLocations;
   }
 
   checkCollision(shipLocation: number[][], board: any[][]): boolean {
     for (const location of shipLocation) {
-      if (location[0] >= board.length || location[1] >= board[0].length || board[location[0]][location[1]] === 'S') {
+      if (location[0] >= board.length || location[1] >= board[0].length || board[location[0]][location[1]] === BattleShipCellStatus.BOAT) {
         return true;
       }
     }
