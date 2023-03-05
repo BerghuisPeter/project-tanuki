@@ -1,0 +1,16 @@
+<table>
+  <tbody>
+  <tr *ngFor="let row of board; let rowIndex = index">
+    <td (click)="fire(rowIndex, colIndex)" *ngFor="let cell of row; let colIndex = index">
+      <ng-container [ngSwitch]="cell">
+        <mat-icon *ngSwitchCase="BattleShipCellStatus.IDLE" class="text-cyan-500"
+                  fontIcon="water"></mat-icon>
+        <mat-icon *ngSwitchCase="BattleShipCellStatus.MISS" class="text-orange-500" fontIcon="waves"></mat-icon>
+        <mat-icon *ngSwitchCase="BattleShipCellStatus.BOAT" fontIcon="directions_boat"></mat-icon>
+        <mat-icon *ngSwitchCase="BattleShipCellStatus.HIT" class="text-red-500"
+                  fontIcon="crisis_alert"></mat-icon>
+      </ng-container>
+    </td>
+  </tr>
+  </tbody>
+</table>

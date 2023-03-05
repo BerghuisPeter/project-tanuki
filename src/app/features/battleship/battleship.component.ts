@@ -7,38 +7,45 @@ import { BattleShipCellStatus } from "./models/battleship.model";
   styleUrls: ['./battleship.component.scss']
 })
 export class BattleshipComponent {
-  board: any[][];
+  myBoard: any[][];
+  OpponentBoard: any[][];
   shipLocations: number[][];
   hits: number[][];
   gameOver: boolean;
-
-  public BattleShipCellStatus = BattleShipCellStatus;
+  rows = 5;
+  cols = 5;
+  numShips = 4;
+  shipLength = 3;
 
   constructor() {
-    this.board = this.createBoard(5, 5);
-    this.shipLocations = this.placeShips(5, 4, this.board);
+    this.myBoard = this.createBoard(this.rows, this.cols);
+    this.OpponentBoard = this.createBoard(this.rows, this.cols);
+    this.shipLocations = this.placeShips(this.numShips, this.shipLength, this.myBoard);
     this.hits = [];
     this.gameOver = false;
   }
 
-  fire(row: number, col: number) {
+  fire(rowCol: number[]) {
     if (this.gameOver) {
       return;
     }
 
-    if (this.board[row][col] === BattleShipCellStatus.HIT || this.board[row][col] === BattleShipCellStatus.MISS) {
+    const row = rowCol[0];
+    const col = rowCol[1];
+
+    if (this.myBoard[row][col] === BattleShipCellStatus.HIT || this.myBoard[row][col] === BattleShipCellStatus.MISS) {
       return;
     }
 
     if (this.checkHit(row, col)) {
-      this.board[row][col] = BattleShipCellStatus.HIT;
+      this.myBoard[row][col] = BattleShipCellStatus.HIT;
       this.hits.push([row, col]);
 
       if (this.checkGameOver()) {
         this.gameOver = true;
       }
     } else {
-      this.board[row][col] = BattleShipCellStatus.MISS;
+      this.myBoard[row][col] = BattleShipCellStatus.MISS;
     }
   }
 

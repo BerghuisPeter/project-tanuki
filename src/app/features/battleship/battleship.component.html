@@ -8,22 +8,8 @@
       <mat-card-subtitle></mat-card-subtitle>
     </mat-card-header>
     <mat-card-content class="flex justify-center pt-4 bg-gray-100">
-      <table>
-        <tbody>
-        <tr *ngFor="let row of board; let rowIndex = index">
-          <td (click)="fire(rowIndex, colIndex)" *ngFor="let cell of row; let colIndex = index">
-            <ng-container [ngSwitch]="cell">
-              <mat-icon *ngSwitchCase="BattleShipCellStatus.IDLE" fontIcon="water"
-                        class="text-cyan-500"></mat-icon>
-              <mat-icon *ngSwitchCase="BattleShipCellStatus.MISS" class="text-orange-500" fontIcon="waves"></mat-icon>
-              <mat-icon *ngSwitchCase="BattleShipCellStatus.BOAT" fontIcon="directions_boat"></mat-icon>
-              <mat-icon *ngSwitchCase="BattleShipCellStatus.HIT" class="text-red-500"
-                        fontIcon="crisis_alert"></mat-icon>
-            </ng-container>
-          </td>
-        </tr>
-        </tbody>
-      </table>
+      <app-battleship-board (fireEvent)="fire($event)" [board]="OpponentBoard"
+                            [yourBoard]="false"></app-battleship-board>
     </mat-card-content>
   </mat-card>
   <mat-card class="flex-grow">
@@ -31,24 +17,9 @@
       <mat-card-title>Your board</mat-card-title>
     </mat-card-header>
     <mat-card-content class="flex justify-center pt-4 bg-gray-100">
-      <table>
-        <tbody>
-        <tr *ngFor="let row of board; let rowIndex = index">
-          <td *ngFor="let cell of row; let colIndex = index">
-            <ng-container [ngSwitch]="cell">
-              <mat-icon *ngSwitchCase="BattleShipCellStatus.IDLE" fontIcon="water"
-                        style="color: lightseagreen"></mat-icon>
-              <mat-icon *ngSwitchCase="BattleShipCellStatus.MISS" fontIcon="waves" style="color: orange"></mat-icon>
-              <mat-icon *ngSwitchCase="BattleShipCellStatus.BOAT" fontIcon="directions_boat"></mat-icon>
-              <mat-icon *ngSwitchCase="BattleShipCellStatus.HIT" fontIcon="crisis_alert" style="color: red"></mat-icon>
-            </ng-container>
-          </td>
-        </tr>
-        </tbody>
-      </table>
+      <app-battleship-board [board]="myBoard" [yourBoard]="true"></app-battleship-board>
     </mat-card-content>
   </mat-card>
-
 </div>
 
 <div *ngIf="gameOver">

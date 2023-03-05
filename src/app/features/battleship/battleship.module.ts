@@ -6,6 +6,7 @@ import { MatCardModule } from "@angular/material/card";
 import { RouterModule } from "@angular/router";
 import { MatChipsModule } from "@angular/material/chips";
 import { BattleshipLegendComponent } from './components/battleship-legend/battleship-legend.component';
+import { BattleshipBoardComponent } from './components/battleship-board/battleship-board.component';
 
 const routes = [
   {
@@ -15,7 +16,7 @@ const routes = [
 ]
 
 @NgModule({
-  declarations: [BattleshipComponent, BattleshipLegendComponent],
+  declarations: [BattleshipComponent, BattleshipLegendComponent, BattleshipBoardComponent],
   imports: [
     RouterModule.forChild(routes),
     CommonModule,
