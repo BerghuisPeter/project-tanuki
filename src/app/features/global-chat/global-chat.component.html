@@ -1,4 +1,4 @@
-<h2>Global Chat: {{ this.chatService.userName }}</h2>
+<h2>Global Chat: <span [uuidColor]="chatService.userName">{{ this.chatService.userName }}</span></h2>
 <mat-list>
   <mat-list-item *ngFor="let message of messages">
     <span matListItemTitle [uuidColor]="message.user">{{ message.user ? message.user : message.value }}</span>

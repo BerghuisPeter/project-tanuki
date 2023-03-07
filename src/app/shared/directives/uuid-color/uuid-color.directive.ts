@@ -3,11 +3,10 @@ import { Directive, ElementRef, Input, OnInit } from '@angular/core';
 @Directive({
   selector: '[uuidColor]'
 })
-export class UuidColorDirective implements OnInit{
+export class UuidColorDirective implements OnInit {
   @Input() uuidColor = '';
-  private el: ElementRef
-  constructor(el: ElementRef) {
-    this.el = el;
+
+  constructor(private el: ElementRef) {
   }
 
   ngOnInit(): void {
