@@ -10,12 +10,13 @@ import { ChatService } from "../../shared/chat.service";
 })
 export class GlobalChatComponent implements OnInit, OnDestroy {
 
+  connection;
   messages: Message[] = [];
   inputFormControl: FormControl;
 
   constructor(public chatService: ChatService) {
     this.inputFormControl = new FormControl<string>('');
-    chatService.connect();
+    this.connection = chatService.connect();
   }
 
   ngOnInit(): void {

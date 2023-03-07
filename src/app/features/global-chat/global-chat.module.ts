@@ -6,6 +6,7 @@ import { ReactiveFormsModule } from "@angular/forms";
 import { MatInputModule } from "@angular/material/input";
 import { MatListModule } from "@angular/material/list";
 import { UuidColorModule } from "../../shared/directives/uuid-color/uuid-color.module";
+import { LoadingModule } from "../../shared/components/loading/loading.module";
 
 const routes = [
   {
@@ -22,7 +23,8 @@ const routes = [
     ReactiveFormsModule,
     MatInputModule,
     MatListModule,
-    UuidColorModule
+    UuidColorModule,
+    LoadingModule,
   ]
 })
 export class GlobalChatModule {

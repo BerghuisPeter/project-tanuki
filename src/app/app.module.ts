@@ -7,9 +7,9 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { MatToolbarModule } from "@angular/material/toolbar";
 import { AppRoutingModule } from "./app.routing";
 import { PageNotFoundComponentComponent } from './features/page-not-found-component/page-not-found-component.component';
-import { LoadingComponent } from './shared/components/loading/loading.component';
 import { MatIconModule } from "@angular/material/icon";
 import { HttpClientModule } from "@angular/common/http";
+import { LoadingModule } from "./shared/components/loading/loading.module";
 
 const options = {
   autoConnect: false,
@@ -22,7 +22,6 @@ const config: SocketIoConfig = { url: 'http://localhost:4444', options: options 
   declarations: [
     AppComponent,
     PageNotFoundComponentComponent,
-    LoadingComponent,
   ],
   imports: [
     BrowserModule,
@@ -32,8 +31,10 @@ const config: SocketIoConfig = { url: 'http://localhost:4444', options: options 
     BrowserAnimationsModule,
     MatToolbarModule,
     MatIconModule,
+    LoadingModule
   ],
   providers: [],
+  exports: [],
   bootstrap: [AppComponent]
 })
 export class AppModule {

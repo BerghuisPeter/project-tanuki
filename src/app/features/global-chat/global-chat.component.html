@@ -1,14 +1,21 @@
-<h2>Global Chat: <span [uuidColor]="chatService.userName">{{ this.chatService.userName }}</span></h2>
-<mat-list>
-  <mat-list-item *ngFor="let message of messages">
-    <span matListItemTitle [uuidColor]="message.user">{{ message.user ? message.user : message.value }}</span>
-    <span *ngIf="message.user" matListItemLine>{{message.value}}</span>
-  </mat-list-item>
-</mat-list>
-<mat-form-field class="example-full-width">
-  <input matInput
-         type="text"
-         placeholder="Type your shit take here..."
-         (keyup.enter)="onEnter()"
-         [formControl]="inputFormControl">
-</mat-form-field>
+<h2>You: <span [uuidColor]="chatService.userName">{{ this.chatService.userName }}</span></h2>
+
+<ng-container *ngIf="!connection.connected; else chatTemplate">
+  <app-loading class="flex justify-center mt-20" title="Connecting to Chat..."></app-loading>
+</ng-container>
+
+<ng-template #chatTemplate>
+  <mat-list>
+    <mat-list-item *ngFor="let message of messages">
+      <span [uuidColor]="message.user" matListItemTitle>{{ message.user ? message.user : message.value }}</span>
+      <span *ngIf="message.user" matListItemLine>{{message.value}}</span>
+    </mat-list-item>
+  </mat-list>
+  <mat-form-field class="example-full-width">
+    <input (keyup.enter)="onEnter()"
+           [formControl]="inputFormControl"
+           matInput
+           placeholder="Type your shit take here..."
+           type="text">
+  </mat-form-field>
+</ng-template>

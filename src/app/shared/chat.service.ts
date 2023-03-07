@@ -16,8 +16,8 @@ export class ChatService {
     this.userName = uuidv4();
   }
 
-  connect() {
-    this.socket.connect();
+  connect(): any {
+    return this.socket.connect();
   }
 
   disconnect() {
