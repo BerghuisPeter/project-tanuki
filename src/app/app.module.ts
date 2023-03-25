@@ -6,10 +6,10 @@ import { SocketIoConfig, SocketIoModule } from "ngx-socket-io";
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { MatToolbarModule } from "@angular/material/toolbar";
 import { AppRoutingModule } from "./app.routing";
-import { PageNotFoundComponentComponent } from './features/page-not-found-component/page-not-found-component.component';
 import { MatIconModule } from "@angular/material/icon";
 import { HttpClientModule } from "@angular/common/http";
 import { LoadingModule } from "./shared/components/loading/loading.module";
+import { PageNotFoundComponent } from "./features/page-not-found/page-not-found.component";
 
 const options = {
   autoConnect: false,
@@ -21,7 +21,7 @@ const config: SocketIoConfig = { url: 'http://localhost:4444', options: options 
 @NgModule({
   declarations: [
     AppComponent,
-    PageNotFoundComponentComponent,
+    PageNotFoundComponent,
   ],
   imports: [
     BrowserModule,
