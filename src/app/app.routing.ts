@@ -1,6 +1,6 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
-import { PageNotFoundComponentComponent } from "./features/page-not-found-component/page-not-found-component.component";
+import { PageNotFoundComponent } from "./features/page-not-found/page-not-found.component";
 
 const routes: Routes = [
   {
@@ -16,7 +16,7 @@ const routes: Routes = [
     loadChildren: () => import('./features/battleship/battleship.module').then(m => m.BattleshipModule)
   },
   { path: '', redirectTo: '/home', pathMatch: 'full' },
-  { path: '**', component: PageNotFoundComponentComponent },
+  { path: '**', component: PageNotFoundComponent },
 ];
 
 @NgModule({
