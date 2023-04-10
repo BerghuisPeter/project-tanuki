@@ -7,13 +7,14 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { AppRoutingModule } from "./app.routing";
 import { HttpClientModule } from "@angular/common/http";
 import { CoreModule } from "./core/core.module";
+import { environment } from "../environments/environment";
 
 const options = {
   autoConnect: false,
   query: { userName: 'testUser' }
 };
 
-const config: SocketIoConfig = { url: 'http://localhost:4444', options: options };
+const config: SocketIoConfig = { url: environment.socketNodeServerUrl, options: options };
 
 @NgModule({
   declarations: [
