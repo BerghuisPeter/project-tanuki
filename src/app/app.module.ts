@@ -4,9 +4,7 @@ import { BrowserModule } from '@angular/platform-browser';
 import { AppComponent } from './app.component';
 import { SocketIoConfig, SocketIoModule } from "ngx-socket-io";
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
-import { MatToolbarModule } from "@angular/material/toolbar";
 import { AppRoutingModule } from "./app.routing";
-import { MatIconModule } from "@angular/material/icon";
 import { HttpClientModule } from "@angular/common/http";
 import { CoreModule } from "./core/core.module";
 
@@ -28,8 +26,6 @@ const config: SocketIoConfig = { url: 'http://localhost:4444', options: options 
     CoreModule,
     SocketIoModule.forRoot(config),
     BrowserAnimationsModule,
-    MatToolbarModule,
-    MatIconModule,
   ],
   providers: [],
   exports: [],
