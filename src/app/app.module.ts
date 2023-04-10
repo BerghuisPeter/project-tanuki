@@ -8,8 +8,7 @@ import { MatToolbarModule } from "@angular/material/toolbar";
 import { AppRoutingModule } from "./app.routing";
 import { MatIconModule } from "@angular/material/icon";
 import { HttpClientModule } from "@angular/common/http";
-import { LoadingModule } from "./shared/components/loading/loading.module";
-import { PageNotFoundComponent } from "./features/page-not-found/page-not-found.component";
+import { CoreModule } from "./core/core.module";
 
 const options = {
   autoConnect: false,
@@ -21,17 +20,16 @@ const config: SocketIoConfig = { url: 'http://localhost:4444', options: options 
 @NgModule({
   declarations: [
     AppComponent,
-    PageNotFoundComponent,
   ],
   imports: [
     BrowserModule,
     AppRoutingModule,
     HttpClientModule,
+    CoreModule,
     SocketIoModule.forRoot(config),
     BrowserAnimationsModule,
     MatToolbarModule,
     MatIconModule,
-    LoadingModule
   ],
   providers: [],
   exports: [],

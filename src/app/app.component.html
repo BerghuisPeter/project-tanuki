@@ -1,9 +1,8 @@
-<mat-toolbar>
-  <mat-icon class="header_icon" svgIcon="racoon"></mat-icon>
-  <span>{{title | titlecase}}</span>
-</mat-toolbar>
-<router-outlet>
-  <pre *ngIf="loading" class="flex justify-center mt-20">
+<app-header [title]="title"></app-header>
+<router-outlet *ngIf="!loading; else loadingTemplate">
+</router-outlet>
+<ng-template #loadingTemplate>
+  <pre class="flex justify-center mt-20">
     ⠀⠀⠀⠀⣀⣀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀
   ⠀⠀⠀⡌⡀⠉⠓⢤⡀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⣀⣠⠄⡄⠀
   ⠀⠀⠀⣇⢧⣶⡠⣬⣿⣶⣤⣤⣠⣴⣦⣤⣄⣀⠀⣀⣠⠞⢛⣡⣴⣾⣾⠀
@@ -20,4 +19,4 @@
   ⠀⠀⠀⠀⠈⠋⠘⠻⠋⢿⣿⣿⣿⣿⣿⣿⣿⣿⠿⠟⠛⠛⠁⠁⠀⠀⠀⠀
   ⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠈⠀⠀⠀⠀⠀⠀⠀⠀
   </pre>
-</router-outlet>
+</ng-template>
