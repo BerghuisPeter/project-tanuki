@@ -5,8 +5,8 @@ import { RouterModule } from "@angular/router";
 import { ReactiveFormsModule } from "@angular/forms";
 import { MatInputModule } from "@angular/material/input";
 import { MatListModule } from "@angular/material/list";
-import { UuidColorModule } from "../../shared/directives/uuid-color/uuid-color.module";
 import { LoadingModule } from "../../shared/components/loading/loading.module";
+import { CharToColorModule } from "../../shared/directives/char-to-color/char-to-color.module";
 
 const routes = [
   {
@@ -23,7 +23,7 @@ const routes = [
     ReactiveFormsModule,
     MatInputModule,
     MatListModule,
-    UuidColorModule,
+    CharToColorModule,
     LoadingModule,
   ]
 })

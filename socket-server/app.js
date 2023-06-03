@@ -9,28 +9,27 @@ const io = require('socket.io')(http, {
 
 io.on("connection", socket => {
   // console.log(socket.request._query['userName']);
-  console.log("connected!");
+  console.log("connected! ", socket.id);
   let previousId;
-  let username;
-  const safeJoin = (newUser, currentId) => {
+  const safeJoin = (roomId) => {
     socket.leave(previousId);
-    socket.join(currentId, () => console.log(`NEW ${socket.id} is in room ${currentId}`));
-    previousId = currentId;
-    username = newUser;
+    console.log(`NEW ${socket.id} is in room ${roomId}`)
+    socket.join(roomId);
+    previousId = roomId;
   };
 
   socket.once("disconnect", () => {
-    console.log("disconnect ", username);
-    socket.broadcast.emit("message", { user: null, value: `${username} has left the building !` });
+    console.log("disconnect ", socket.id);
+    socket.broadcast.emit("message", { user: null, value: `${socket.id} has left the building !` });
   });
 
-  socket.on("joinChat", (newUser, chatRoomName) => {
-    safeJoin(newUser, chatRoomName);
-    io.in(chatRoomName).emit("message", { user: null, value: `${newUser} joined our forsaken people.` });
+  socket.on("joinChat", (chatRoomName) => {
+    safeJoin(chatRoomName);
+    io.in(chatRoomName).emit("message", { user: null, value: `${socket.id} joined our forsaken people.` });
   });
 
-  socket.on("sendMessage", (chatRoomName, value) => {
-    io.in(chatRoomName).emit("message", { user: username, value });
+  socket.on("sendMessage", (roomName, value) => {
+    io.in(roomName).emit("message", { user: username, value });
   });
 });
 
