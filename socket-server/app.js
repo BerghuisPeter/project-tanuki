@@ -8,7 +8,6 @@ const io = require('socket.io')(http, {
 });
 
 io.on("connection", socket => {
-  // console.log(socket.request._query['userName']);
   console.log("connected! ", socket.id);
   let previousId;
   const safeJoin = (roomId) => {

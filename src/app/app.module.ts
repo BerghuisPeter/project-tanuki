@@ -10,8 +10,7 @@ import { CoreModule } from "./core/core.module";
 import { environment } from "../environments/environment";
 
 const options = {
-  autoConnect: false,
-  query: { userName: 'testUser' }
+  autoConnect: false
 };
 
 const config: SocketIoConfig = { url: environment.socketNodeServerUrl, options: options };
