@@ -9,14 +9,14 @@ import { BattleShipCellStatus } from "../../models/battleship.model";
 export class BattleshipBoardComponent {
 
   @Input() board: any[][] | undefined;
-  @Input() yourBoard: boolean | undefined;
+  @Input() disabled: boolean | undefined;
 
   @Output() fireEvent = new EventEmitter<[number, number]>;
 
   public BattleShipCellStatus = BattleShipCellStatus;
 
   fire(rowIndex: number, colIndex: number) {
-    if (!this.yourBoard) {
+    if (!this.disabled) {
       this.fireEvent.emit([rowIndex, colIndex]);
     }
   }

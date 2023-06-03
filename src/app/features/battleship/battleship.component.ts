@@ -7,8 +7,8 @@ import { BattleShipCellStatus } from "./models/battleship.model";
   styleUrls: ['./battleship.component.scss']
 })
 export class BattleshipComponent {
-  myBoard: any[][];
-  OpponentBoard: any[][];
+  myBoard: BattleShipCellStatus[][];
+  OpponentBoard: BattleShipCellStatus[][];
   shipLocations: number[][];
   hits: number[][];
   gameOver: boolean;

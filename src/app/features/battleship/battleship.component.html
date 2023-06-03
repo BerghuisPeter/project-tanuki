@@ -9,7 +9,7 @@
     </mat-card-header>
     <mat-card-content class="flex justify-center pt-4 bg-gray-100">
       <app-battleship-board (fireEvent)="fire($event)" [board]="OpponentBoard"
-                            [yourBoard]="false"></app-battleship-board>
+                            [disabled]="false"></app-battleship-board>
     </mat-card-content>
   </mat-card>
   <mat-card class="flex-grow">
@@ -17,7 +17,7 @@
       <mat-card-title>Your board</mat-card-title>
     </mat-card-header>
     <mat-card-content class="flex justify-center pt-4 bg-gray-100">
-      <app-battleship-board [board]="myBoard" [yourBoard]="true"></app-battleship-board>
+      <app-battleship-board [board]="myBoard" [disabled]="true"></app-battleship-board>
     </mat-card-content>
   </mat-card>
 </div>
