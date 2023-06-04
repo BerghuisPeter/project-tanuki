@@ -11,7 +11,7 @@ import { ChatService } from "../../shared/chat.service";
 export class GlobalChatComponent implements OnInit, OnDestroy {
 
   connection;
-  messages: Message[] = [];
+  messages: (Message | string)[] = [];
   inputFormControl: FormControl;
 
   constructor(public chatService: ChatService) {
@@ -22,6 +22,11 @@ export class GlobalChatComponent implements OnInit, OnDestroy {
   ngOnInit(): void {
     this.chatService.joinChat('globalChat');
     this.chatService.message.subscribe(message => this.messages.push(message));
+    this.chatService.systemNotification.subscribe(message => this.messages.push(message));
+  }
+
+  ngOnDestroy(): void {
+    this.chatService.disconnect();
   }
 
   onEnter() {
@@ -32,8 +37,8 @@ export class GlobalChatComponent implements OnInit, OnDestroy {
     }
   }
 
-  ngOnDestroy(): void {
-    this.chatService.disconnect();
+  isString(item: Message | string): item is string {
+    return typeof item === 'string';
   }
 
 }

@@ -8,6 +8,7 @@ import { Message } from "./models/message.model";
 export class ChatService {
 
   message = this.socket.fromEvent<Message>('message');
+  systemNotification = this.socket.fromEvent<string>('systemNotification');
 
   constructor(private socket: Socket) {
   }

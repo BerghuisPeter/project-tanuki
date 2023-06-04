@@ -9,26 +9,26 @@ const io = require('socket.io')(http, {
 
 io.on("connection", socket => {
   console.log("connected! ", socket.id);
-  let previousId;
+  let previousRoomId;
   const safeJoin = (roomId) => {
-    socket.leave(previousId);
+    socket.leave(previousRoomId);
     console.log(`NEW ${socket.id} is in room ${roomId}`)
     socket.join(roomId);
-    previousId = roomId;
+    previousRoomId = roomId;
   };
 
   socket.once("disconnect", () => {
     console.log("disconnect ", socket.id);
-    socket.broadcast.emit("message", { user: null, value: `${socket.id} has left the building !` });
+    socket.broadcast.emit("systemNotification", `${socket.id} has left the building !`);
   });
 
   socket.on("joinChat", (chatRoomName) => {
     safeJoin(chatRoomName);
-    io.in(chatRoomName).emit("message", { user: null, value: `${socket.id} joined our forsaken people.` });
+    io.in(chatRoomName).emit("systemNotification", `${socket.id} joined our forsaken people.`);
   });
 
   socket.on("sendMessage", (roomName, value) => {
-    io.in(roomName).emit("message", { user: username, value });
+    io.in(roomName).emit("message", { user: socket.id, value });
   });
 });
 

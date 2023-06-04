@@ -6,8 +6,13 @@
   <h2>You: <span charToColor>{{ connection.id }}</span></h2>
   <mat-list>
     <mat-list-item *ngFor="let message of messages">
-      <span matListItemTitle>{{ message.user ? message.user : message.value }}</span>
-      <span *ngIf="message.user" matListItemLine>{{message.value}}</span>
+      <ng-container *ngIf="!isString(message); else systemNotificationBlock">
+        <span charToColor matListItemTitle>{{ message.user }}</span>
+        <span matListItemLine>{{ message.value }}</span>
+      </ng-container>
+      <ng-template #systemNotificationBlock>
+        <span matListItemLine>SYSTEM: {{ message }}</span>
+      </ng-template>
     </mat-list-item>
   </mat-list>
   <mat-form-field class="example-full-width">
