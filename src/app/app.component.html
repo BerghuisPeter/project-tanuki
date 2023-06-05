@@ -1,8 +1,9 @@
-<app-header [title]="title"></app-header>
-<router-outlet *ngIf="!loading; else loadingTemplate">
-</router-outlet>
-<ng-template #loadingTemplate>
-  <pre class="flex justify-center mt-20">
+<div class="flex flex-col h-full">
+  <app-header [title]="title"></app-header>
+  <router-outlet *ngIf="!loading; else loadingTemplate">
+  </router-outlet>
+  <ng-template #loadingTemplate>
+  <pre class="flex justify-center ">
     ⠀⠀⠀⠀⣀⣀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀
   ⠀⠀⠀⡌⡀⠉⠓⢤⡀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⣀⣠⠄⡄⠀
   ⠀⠀⠀⣇⢧⣶⡠⣬⣿⣶⣤⣤⣠⣴⣦⣤⣄⣀⠀⣀⣠⠞⢛⣡⣴⣾⣾⠀
@@ -19,4 +20,5 @@
   ⠀⠀⠀⠀⠈⠋⠘⠻⠋⢿⣿⣿⣿⣿⣿⣿⣿⣿⠿⠟⠛⠛⠁⠁⠀⠀⠀⠀
   ⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠈⠀⠀⠀⠀⠀⠀⠀⠀
   </pre>
-</ng-template>
+  </ng-template>
+</div>

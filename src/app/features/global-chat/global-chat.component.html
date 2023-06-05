@@ -3,23 +3,30 @@
 </ng-container>
 
 <ng-template #chatTemplate>
-  <h2>You: <span charToColor>{{ connection.id }}</span></h2>
-  <mat-list>
-    <mat-list-item *ngFor="let message of messages">
+
+  <h2 class="px-1 md:px-4 border-b-4">You: <span charToColor>{{ connection.id }}</span></h2>
+
+  <div #chatMessagesContainer class="flex-grow overflow-y-auto min-h-[150px] flex flex-col gap-4 px-1 md:px-4">
+    <div *ngFor="let message of messages" class="flex flex-col">
       <ng-container *ngIf="!isString(message); else systemNotificationBlock">
-        <span charToColor matListItemTitle>{{ message.user }}</span>
-        <span matListItemLine>{{ message.value }}</span>
+        <span charToColor>{{ message.user }}</span>
+        <span>{{ message.value }}</span>
       </ng-container>
       <ng-template #systemNotificationBlock>
-        <span matListItemLine>SYSTEM: {{ message }}</span>
+        <span>SYSTEM: {{ message }}</span>
       </ng-template>
-    </mat-list-item>
-  </mat-list>
-  <mat-form-field class="example-full-width">
+    </div>
+  </div>
+
+  <mat-form-field class="w-full">
     <input (keyup.enter)="onEnter()"
            [formControl]="inputFormControl"
            matInput
            placeholder="Type your shit take here..."
            type="text">
+    <!--    <mat-error *ngIf="inputFormControl.hasError('required')">-->
+    <!--      Email is <strong>required</strong>-->
+    <!--    </mat-error>-->
   </mat-form-field>
+
 </ng-template>
