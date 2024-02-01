@@ -72,10 +72,10 @@
           "builder": "@angular-devkit/build-angular:dev-server",
           "configurations": {
             "production": {
-              "browserTarget": "project-tanuki:build:production"
+              "buildTarget": "project-tanuki:build:production"
             },
             "development": {
-              "browserTarget": "project-tanuki:build:development"
+              "buildTarget": "project-tanuki:build:development"
             }
           },
           "defaultConfiguration": "development"
@@ -83,7 +83,7 @@
         "extract-i18n": {
           "builder": "@angular-devkit/build-angular:extract-i18n",
           "options": {
-            "browserTarget": "project-tanuki:build"
+            "buildTarget": "project-tanuki:build"
           }
         },
         "test": {
