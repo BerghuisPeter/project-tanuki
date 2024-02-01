@@ -32,6 +32,6 @@ io.on("connection", socket => {
   });
 });
 
-http.listen(4444, () => {
-  console.log('Listening on port 4444');
+http.listen(3000, () => {
+  console.log('Listening on port 3000');
 });

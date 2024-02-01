@@ -1,3 +1,3 @@
 export const environment = {
-  socketNodeServerUrl: 'http://localhost:4444'
+  socketNodeServerUrl: 'http://localhost:3000'
 };
