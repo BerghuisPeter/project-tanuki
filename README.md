@@ -1,5 +1,6 @@
 # ProjectTanuki
 This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 15.1.1.
+<br>
 now on 17
 
 ## Development server
@@ -22,4 +23,5 @@ node app.js
 
 launching it. add variables:
 NGINX_ENVSUBST_OUTPUT_DIR=/etc/nginx;NGINX_HOST=localhost;NGINX_PORT=80
+<br>
 maybe add compose next to automate it a bit?
