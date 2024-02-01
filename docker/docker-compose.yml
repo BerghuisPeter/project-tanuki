@@ -1,0 +1,38 @@
+# docker-compose.yaml
+version: '3.8'
+
+networks:
+  tanuki_network:
+    driver: bridge
+
+services:
+  tanuki-angular:
+    container_name: tanuki-angular
+    build:
+      context: ../.
+      dockerfile: docker/angular/Dockerfile
+    networks:
+      - tanuki_network
+    expose:
+      - 80
+      - 443
+    ports:
+      - "80:80"
+      - "443:443"
+    environment:
+      - NGINX_ENVSUBST_OUTPUT_DIR=/etc/nginx
+      - NGINX_HOST=localhost
+      - NGINX_PORT=80
+
+
+  tanuki-socket:
+    container_name: tanuki-socket
+    build:
+      context: ../.
+      dockerfile: docker/node/Dockerfile
+    networks:
+      - tanuki_network
+    expose:
+      - 3000
+    ports:
+      - "3000:3000"
