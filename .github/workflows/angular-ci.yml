@@ -59,25 +59,19 @@ jobs:
       with:
         name: deploy_dist
         path: dist
-        
-  deploy:
+
+  containerization:
     needs: build
-    environment:
-      name: github-pages
-      url: ${{ steps.deployment.outputs.page_url }}
     runs-on: ubuntu-latest
+    name: A job to say hello
     steps:
-      - name: Download build
-        uses: actions/download-artifact@v3
+      - name: Checkout
+        uses: actions/checkout@v4
+      - name: Hello world action step
+        uses: ./ # Uses an action in the root directory
+        id: hello
         with:
-          name: deploy_dist
-      - name: Setup Pages
-        uses: actions/configure-pages@v3
-      - name: Upload artifact
-        uses: actions/upload-pages-artifact@v1
-        with:
-          # Upload entire repository
-          path: './project-tanuki/'
-      - name: Deploy to GitHub Pages
-        id: deployment
-        uses: actions/deploy-pages@v1
+          who-to-greet: 'Mona the Octocat'
+      # Use the output from the `hello` step
+      - name: Get the output time
+        run: echo "The time was ${{ steps.hello.outputs.time }}"
