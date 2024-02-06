@@ -72,6 +72,6 @@ jobs:
         username: ${{ secrets.DOCKER_USERNAME }}
         password: ${{ secrets.DOCKER_PASSWORD }}
     - name: Build Docker image angular
-      run: docker build -t tinea/myDevOps-test:latest docker/angular/.
+      run: docker build -f Dockerfile -t tinea/myDevOps-test:latest docker/angular/. 
     - name: Push Docker image angular
       run: docker push tinea/myDevOps-test:latest
