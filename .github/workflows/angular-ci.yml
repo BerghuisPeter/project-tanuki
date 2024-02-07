@@ -82,7 +82,7 @@ jobs:
         
     - name: Build Docker image angular
       run: docker build -t tinea/my-dev-ops-test:latest docker/angular/.
-      working-directory: .
+      working-directory: /home/runner/work/project-tanuki/project-tanuki
       
     - name: Push Docker image angular
       run: docker push tinea/my-dev-ops-test:latest
