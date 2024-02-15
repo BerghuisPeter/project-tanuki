@@ -92,8 +92,10 @@ jobs:
     - name: Build and push
       uses: docker/build-push-action@v5
       with:
+        file: /docker/angular/Dockerfile
         push: false
         tags: ${{ secrets.DOCKER_USERNAME }}/my-dev-ops-test:latest
+        
         
     # - name: Build Docker image angular
     #   run: docker build -t tinea/my-dev-ops-test:latest docker/angular/.
