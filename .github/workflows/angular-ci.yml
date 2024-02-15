@@ -82,7 +82,7 @@ jobs:
       with:
         name: deploy_dist
         # Destination path. Supports basic tilde expansion. Defaults to $GITHUB_WORKSPACE
-        path: $GITHUB_WORKSPACE/dist/
+        path: /dist
 
     - name: test
       run: pwd && ls -lR
