@@ -93,7 +93,7 @@ jobs:
       uses: docker/build-push-action@v5
       with:
         context: .
-        file: ./docker/angular/Dockerfile
+        file: docker/angular/Dockerfile
         push: false
         tags: ${{ secrets.DOCKER_USERNAME }}/my-dev-ops-test:latest
         
