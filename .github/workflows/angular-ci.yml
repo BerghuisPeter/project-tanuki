@@ -23,7 +23,7 @@ jobs:
 
     strategy:
       matrix:
-        node-version: [18.x]
+        node-version: [20.x]
 
     steps:
     - uses: actions/checkout@v3
@@ -92,8 +92,7 @@ jobs:
     - name: Build and push
       uses: docker/build-push-action@v5
       with:
-        context: .
-        file: /docker/angular/Dockerfile
+        file: ./docker/angular/Dockerfile
         push: false
         tags: ${{ secrets.DOCKER_USERNAME }}/my-dev-ops-test:latest
         
