@@ -5,12 +5,6 @@ on:
     branches: [ "master" ]
   pull_request:
     branches: [ "master" ]
-    
-# Sets permissions of the GITHUB_TOKEN to allow deployment to GitHub Pages
-permissions:
-  contents: read
-  pages: write
-  id-token: write
 
 # Allow one concurrent deployment
 concurrency:
@@ -83,20 +77,23 @@ jobs:
         username: ${{ secrets.DOCKER_USERNAME }}
         password: ${{ secrets.DOCKER_PASSWORD }}
 
-    - name: test
-      run: pwd && ls -lR
+    - name: Authenticate to Google Cloud
+      uses: google-github-actions/auth@v2.1.0
+      with:
+        credentials_json: '${{ secrets.GOOGLE_CREDENTIALS }}'
+
+    # - name: test
+    #   run: pwd && ls -lR
 
     - name: Build and push
       uses: docker/build-push-action@v5
       with:
         context: .
         file: ./docker/angular/Dockerfile
+        platforms: linux/amd64,linux/arm64
         push: true
-        tags: ${{ secrets.DOCKER_USERNAME }}/my-dev-ops-test:latest
-        
-        
-    # - name: Build Docker image angular
-    #   run: docker build -t tinea/my-dev-ops-test:latest docker/angular/.
-      
-    # - name: Push Docker image angular
-    #   run: docker push tinea/my-dev-ops-test:latest
+        tags: |
+            ${{ secrets.DOCKER_USERNAME }}/tanuki-angular:latest
+            ${{ secrets.DOCKER_USERNAME }}/tanuki-angular:0.0.1
+            asia-northeast1-docker.pkg.dev/tanuki-angular:latest
+            asia-northeast1-docker.pkg.dev/tanuki-angular:0.0.1
