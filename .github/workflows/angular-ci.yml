@@ -84,7 +84,7 @@ jobs:
       run: pwd && ls -lR
         
     - name: Build Docker image angular
-      run: docker build -t tinea/my-dev-ops-test:latest docker/angular/.
+      run: docker build -t tinea/my-dev-ops-test:latest ${{ github.workspace }}/docker/angular/.
       
     - name: Push Docker image angular
       run: docker push tinea/my-dev-ops-test:latest
