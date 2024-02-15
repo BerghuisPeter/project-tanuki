@@ -98,4 +98,4 @@ jobs:
         push: true
         tags: |
             ${{ secrets.DOCKER_USERNAME }}/${{ secrets.ANGULAR_IMAGE_NAME }}:latest
-            ${{ secrets.GOOGLE_REGION }}-docker.pkg.dev/${{ secrets.GOOGLE_PROJECT_ID }}/${{ secrets.ANGULAR_GAR_REPO }}/${{ secrets.ANGULAR_IMAGE_NAME }}:latest
+            ${{ secrets.GOOGLE_REGION }}-docker.pkg.dev/${{ secrets.GOOGLE_PROJECT_ID }}/${{ secrets.ANGULAR_GAR_REPO }}/${{ secrets.ANGULAR_IMAGE_NAME }}:1.0
