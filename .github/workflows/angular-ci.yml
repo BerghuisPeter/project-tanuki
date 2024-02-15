@@ -97,7 +97,5 @@ jobs:
         platforms: linux/amd64,linux/arm64
         push: true
         tags: |
-            ${{ secrets.DOCKER_USERNAME }}/tanuki-angular:latest
-            ${{ secrets.DOCKER_USERNAME }}/tanuki-angular:${{ steps.get-tag.outputs.short_ref }}
-            ${{ secrets.GOOGLE_REGION }}-docker.pkg.dev/${{ secrets.GOOGLE_PROJECT_ID }}/${{ secrets.ANGULAR_GAR_REPO }}/${{ secrets.ANGULAR_IMAGE_NAME }}:${{ steps.get-tag.outputs.short_ref }}
+            ${{ secrets.DOCKER_USERNAME }}/${{ secrets.ANGULAR_IMAGE_NAME }}:latest
             ${{ secrets.GOOGLE_REGION }}-docker.pkg.dev/${{ secrets.GOOGLE_PROJECT_ID }}/${{ secrets.ANGULAR_GAR_REPO }}/${{ secrets.ANGULAR_IMAGE_NAME }}:latest
