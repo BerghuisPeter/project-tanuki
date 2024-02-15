@@ -7,4 +7,4 @@ COPY ./dist/project-tanuki /usr/share/nginx/html
 
 COPY ./docker/angular/variable-nginx.conf /etc/nginx/templates/nginx.conf.template
 
-EXPOSE 80 443
+EXPOSE 80 443 8080
