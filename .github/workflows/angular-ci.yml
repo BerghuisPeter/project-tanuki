@@ -65,8 +65,8 @@ jobs:
     runs-on: ubuntu-latest
     steps:
     
-    # - name: Checkout code
-    #   uses: actions/checkout@v4
+    - name: Checkout code
+      uses: actions/checkout@v4
 
     - name: Set up QEMU
       uses: docker/setup-qemu-action@v3
@@ -92,6 +92,7 @@ jobs:
     - name: Build and push
       uses: docker/build-push-action@v5
       with:
+        context: .
         file: ./docker/angular/Dockerfile
         push: false
         tags: ${{ secrets.DOCKER_USERNAME }}/my-dev-ops-test:latest
