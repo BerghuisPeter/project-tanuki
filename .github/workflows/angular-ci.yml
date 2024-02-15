@@ -6,6 +6,10 @@ on:
   pull_request:
     branches: [ "master" ]
 
+permissions:
+  contents: 'read'
+  id-token: 'write'
+
 # Allow one concurrent deployment
 concurrency:
   group: "docker deploy"
@@ -84,10 +88,6 @@ jobs:
 
     # - name: test
     #   run: pwd && ls -lR
-    
-    - name: Get tag
-      id: get-tag
-      run: echo ::set-output name=short_ref::${GITHUB_REF#refs/*/}
 
     - name: Build and push
       uses: docker/build-push-action@v5
