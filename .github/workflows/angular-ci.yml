@@ -101,16 +101,23 @@ jobs:
         tags: ${{ secrets.GOOGLE_REGION }}-docker.pkg.dev/${{ secrets.GOOGLE_PROJECT_ID }}/${{ secrets.ANGULAR_GAR_REPO }}/${{ secrets.ANGULAR_IMAGE_NAME }}:latest
 
     - name: Authenticate to Google Cloud
-      id: auth
       uses: google-github-actions/auth@v2.1.0
       with:
         credentials_json: '${{ secrets.GOOGLE_CREDENTIALS }}'
+
+    - name: test
+      run: echo ${{ vars.HOST_URL }}
     
     - id: 'deploy'
       uses: google-github-actions/deploy-cloudrun@v2
       with:
         service: ${{ secrets.ANGULAR_IMAGE_NAME }}
         image: ${{ secrets.GOOGLE_REGION }}-docker.pkg.dev/${{ secrets.GOOGLE_PROJECT_ID }}/${{ secrets.ANGULAR_GAR_REPO }}/${{ secrets.ANGULAR_IMAGE_NAME }}:latest
+        region: ${{ secrets.GOOGLE_REGION }}
+        env_vars: |
+          NGINX_ENVSUBST_OUTPUT_DIR=/etc/nginx
+          NGINX_HOST=${{ vars.HOST_URL }}
+          NGINX_PORT=80
 
     - name: 'Use output'
       run: 'curl "${{ steps.deploy.outputs.url }}"'
