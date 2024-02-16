@@ -1,3 +1,5 @@
+name: Tanuki-workflow
+
 on:
   push:
     branches: [ develop, master ]
