@@ -6,7 +6,7 @@ on:
 
 jobs:
   dev:
-    name: deploy to dev environment
+    name: deploy to dev
     if: ${{ github.ref == 'refs/heads/develop' || github.base_ref == 'develop' }}
     uses: ./.github/workflows/_deployment.yml
     permissions:
@@ -17,7 +17,7 @@ jobs:
       ref: ${{ github.sha }}
     secrets: inherit
   prod:
-    name: deploy to prod environment
+    name: deploy to prod
     if: ${{ github.ref == 'refs/heads/master' || github.base_ref == 'master' }}
     uses: ./.github/workflows/_deployment.yml
     permissions:
