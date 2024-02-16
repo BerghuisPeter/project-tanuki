@@ -116,5 +116,5 @@ jobs:
           NGINX_HOST=${{ vars.HOST_URL }}
           NGINX_PORT=8080
 
-    - name: 'Use output'
+    - name: 'Use output test'
       run: 'curl "${{ steps.deploy.outputs.url }}"'
