@@ -102,10 +102,10 @@ jobs:
           ${{ secrets.GOOGLE_REGION }}-docker.pkg.dev/${{ secrets.GOOGLE_PROJECT_ID }}/${{ secrets.ANGULAR_GAR_REPO }}/${{ secrets.ANGULAR_IMAGE_NAME }}:latest
           ${{ secrets.GOOGLE_REGION }}-docker.pkg.dev/${{ secrets.GOOGLE_PROJECT_ID }}/${{ secrets.ANGULAR_GAR_REPO }}/${{ secrets.ANGULAR_IMAGE_NAME }}:${{ github.sha }}
 
-    - name: Authenticate to Google Cloud
-      uses: google-github-actions/auth@v2.1.0
-      with:
-        credentials_json: '${{ secrets.GOOGLE_CREDENTIALS }}'
+    # - name: Authenticate to Google Cloud
+    #   uses: google-github-actions/auth@v2.1.0
+    #   with:
+    #     credentials_json: '${{ secrets.GOOGLE_CREDENTIALS }}'
     
     - id: 'deploy'
       uses: google-github-actions/deploy-cloudrun@v2
