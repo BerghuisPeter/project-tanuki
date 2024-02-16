@@ -98,7 +98,9 @@ jobs:
         file: ./docker/angular/Dockerfile
         platforms: linux/amd64,linux/arm64
         push: true
-        tags: ${{ secrets.GOOGLE_REGION }}-docker.pkg.dev/${{ secrets.GOOGLE_PROJECT_ID }}/${{ secrets.ANGULAR_GAR_REPO }}/${{ secrets.ANGULAR_IMAGE_NAME }}:latest
+        tags: |
+          ${{ secrets.GOOGLE_REGION }}-docker.pkg.dev/${{ secrets.GOOGLE_PROJECT_ID }}/${{ secrets.ANGULAR_GAR_REPO }}/${{ secrets.ANGULAR_IMAGE_NAME }}:latest
+          ${{ secrets.GOOGLE_REGION }}-docker.pkg.dev/${{ secrets.GOOGLE_PROJECT_ID }}/${{ secrets.ANGULAR_GAR_REPO }}/${{ secrets.ANGULAR_IMAGE_NAME }}:${{ github.sha }}
 
     - name: Authenticate to Google Cloud
       uses: google-github-actions/auth@v2.1.0
@@ -109,12 +111,13 @@ jobs:
       uses: google-github-actions/deploy-cloudrun@v2
       with:
         service: ${{ secrets.ANGULAR_IMAGE_NAME }}
-        image: ${{ secrets.GOOGLE_REGION }}-docker.pkg.dev/${{ secrets.GOOGLE_PROJECT_ID }}/${{ secrets.ANGULAR_GAR_REPO }}/${{ secrets.ANGULAR_IMAGE_NAME }}:latest
+        image: ${{ secrets.GOOGLE_REGION }}-docker.pkg.dev/${{ secrets.GOOGLE_PROJECT_ID }}/${{ secrets.ANGULAR_GAR_REPO }}/${{ secrets.ANGULAR_IMAGE_NAME }}:${{ github.sha }}
         region: ${{ secrets.GOOGLE_REGION }}
+        suffix: ${{ github.sha }}
         env_vars: |
           NGINX_ENVSUBST_OUTPUT_DIR=/etc/nginx
           NGINX_HOST=${{ vars.HOST_URL }}
           NGINX_PORT=8080
 
-    - name: 'Use output test'
+    - name: 'Use output'
       run: 'curl "${{ steps.deploy.outputs.url }}"'
