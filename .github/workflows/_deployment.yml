@@ -20,10 +20,18 @@ jobs:
         node-version: [ 20.x ]
 
     steps:
-      - run: echo ${{ inputs.environment }}
-      - run: echo ${{ env.HOST_URL }}
-
       - uses: actions/checkout@v4.1.1
+
+      - name: test 1
+        run: echo ${{ inputs.environment }}
+      - name: test 2
+        run: echo ${{ env.HOST_URL }}
+      - name: test 3
+        run: echo ${{ vars.HOST_URL }}
+      - name: test 4
+        env:
+          HOST_URL: ${{ env.HOST_URL }}
+        run: echo ${{ env.HOST_URL }}
 
       - name: Use Node.js ${{ matrix.node-version }}
         uses: actions/setup-node@v4.0.2

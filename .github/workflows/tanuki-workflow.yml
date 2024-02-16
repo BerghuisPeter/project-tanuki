@@ -9,21 +9,13 @@ jobs:
     name: deploy to dev
     if: ${{ github.ref == 'refs/heads/develop' || github.base_ref == 'develop' }}
     uses: ./.github/workflows/_deployment.yml
-    permissions:
-      id-token: write
-      contents: read
+    secrets: inherit
     with:
       environment: dev
-      ref: ${{ github.sha }}
-    secrets: inherit
   prod:
     name: deploy to prod
     if: ${{ github.ref == 'refs/heads/master' || github.base_ref == 'master' }}
     uses: ./.github/workflows/_deployment.yml
-    permissions:
-      id-token: write
-      contents: read
+    secrets: inherit
     with:
       environment: prod
-      ref: ${{ github.sha }}
-    secrets: inherit
