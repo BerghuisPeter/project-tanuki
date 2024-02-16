@@ -58,6 +58,7 @@ jobs:
           path: dist
 
   containerization:
+    environment: ${{ inputs.environment }}
     needs: build
     runs-on: ubuntu-latest
     steps:
