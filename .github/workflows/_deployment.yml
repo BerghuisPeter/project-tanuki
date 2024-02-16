@@ -18,17 +18,6 @@ jobs:
     steps:
       - uses: actions/checkout@v4.1.1
 
-      - name: test 1
-        run: echo ${{ inputs.environment }}
-      - name: test 2
-        run: echo ${{ env.HOST_URL }}
-      - name: test 3
-        run: echo ${{ vars.HOST_URL }}
-      - name: test 4
-        env:
-          HOST_URL: ${{ env.HOST_URL }}
-        run: echo ${{ env.HOST_URL }}
-
       - name: Use Node.js ${{ matrix.node-version }}
         uses: actions/setup-node@v4.0.2
         with:
@@ -52,7 +41,7 @@ jobs:
         run: npm ci
 
       - name: Build
-        run: npm run build -- --configuration production --base-href='${{ env.HOST_URL }}'
+        run: npm run build -- --configuration production --base-href='${{ vars.HOST_URL }}'
 
       - name: Archive build
         if: success()
