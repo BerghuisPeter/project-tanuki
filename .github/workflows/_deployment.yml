@@ -41,7 +41,7 @@ jobs:
         run: npm ci
 
       - name: Build
-        run: npm run build -- --configuration production --base-href='${{ vars.HOST_URL }}'
+        run: npm run build -- --configuration production
 
       - name: Archive build
         if: success()
