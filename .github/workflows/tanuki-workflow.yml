@@ -8,7 +8,7 @@ jobs:
   dev:
     name: deploy to dev environment
     if: ${{ github.ref == 'refs/heads/develop' || github.base_ref == 'develop' }}
-    uses: ./.github/workflows/_deployment.yaml
+    uses: _deployment.yaml
     permissions:
       id-token: write
       contents: read
@@ -19,7 +19,7 @@ jobs:
   prod:
     name: deploy to prod environment
     if: ${{ github.ref == 'refs/heads/master' || github.base_ref == 'master' }}
-    uses: ./.github/workflows/_deployment.yaml
+    uses: _deployment.yaml
     permissions:
       id-token: write
       contents: read
