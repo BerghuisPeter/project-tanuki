@@ -108,4 +108,3 @@ jobs:
           env_vars: |
             NGINX_ENVSUBST_OUTPUT_DIR=/etc/nginx
             NGINX_HOST=${{ vars.HOST_URL }}
-            NGINX_PORT=8080
