@@ -1,0 +1,6 @@
+# Ignore all files
+*
+
+# Add the ones we are interested in for our image
+!./dist
+!./docker/angular

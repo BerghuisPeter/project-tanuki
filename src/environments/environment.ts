@@ -1,3 +1,3 @@
 export const environment = {
-  socketNodeServerUrl: 'http://futureUrl.domain'
+  socketNodeServerUrl: 'https://socket.project-tanuki.net'
 };

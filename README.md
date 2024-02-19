@@ -22,6 +22,6 @@ node app.js
 ## docker angular
 
 launching it. add variables:
-NGINX_ENVSUBST_OUTPUT_DIR=/etc/nginx;NGINX_HOST=localhost;NGINX_PORT=80
+NGINX_ENVSUBST_OUTPUT_DIR=/etc/nginx;NGINX_HOST=localhost;PORT=80
 <br>
 maybe add compose next to automate it a bit?

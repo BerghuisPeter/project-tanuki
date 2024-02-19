@@ -1,19 +1,26 @@
-FROM node:21-alpine
+ARG NODE_VERSION=21
 
-# Change the working directory on the Docker image to /app
-WORKDIR /app
+FROM node:${NODE_VERSION}-alpine
 
-# Copy package.json and package-lock.json to the /app directory
+# Use production node environment by default.
+ENV NODE_ENV production
+
+WORKDIR /usr/src/app
+
+# Copy package.json and package-lock.json and
+# install dependencies without dev dependencies
 COPY ./socket-server/package.json ./
 COPY ./socket-server/package-lock.json ./
+RUN npm ci --omit=dev
+
+# Run the application as a non-root user.
+USER node
+
+# Copy the rest of the source files into the image.
 COPY ./socket-server/app.js ./
 
-# Install dependencies
-RUN npm install
+# Expose the port that the application listens on.
+EXPOSE 8000
 
-# Expose application port
-EXPOSE 3000
-
-# Start the application
+# Run the application.
 CMD npm start
-

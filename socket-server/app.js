@@ -1,5 +1,6 @@
 const app = require('express')();
 const http = require('http').Server(app);
+const EXPOSED_PORT = process.env.PORT || 3333;
 const io = require('socket.io')(http, {
   cors: {
     origin: "*",
@@ -32,6 +33,6 @@ io.on("connection", socket => {
   });
 });
 
-http.listen(3000, () => {
-  console.log('Listening on port 3000');
-});
+http.listen(EXPOSED_PORT, () =>
+  console.log(`Listening on port ${EXPOSED_PORT}`)
+);
