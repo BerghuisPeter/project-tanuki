@@ -101,7 +101,7 @@ jobs:
         uses: google-github-actions/deploy-cloudrun@v2
         with:
           service: ${{ secrets.ANGULAR_IMAGE_NAME }}-${{ inputs.environment }}
-          image: ${{ secrets.GOOGLE_REGION }}-docker.pkg.dev/${{ secrets.GOOGLE_PROJECT_ID }}/${{ secrets.ANGULAR_GAR_REPO }}/${{ secrets.ANGULAR_IMAGE_NAME }}:${{ github.sha }}
+          image: ${{ secrets.GOOGLE_REGION }}-docker.pkg.dev/${{ secrets.GOOGLE_PROJECT_ID }}/${{ vars.ANGULAR_GAR_REPO }}/${{ secrets.ANGULAR_IMAGE_NAME }}:${{ github.sha }}
           region: ${{ secrets.GOOGLE_REGION }}
           suffix: ${{ github.sha }}
           env_vars: |
