@@ -1,60 +1,48 @@
-#on:
-#  workflow_call:
-#    inputs:
-#      environment:
-#        type: string
-#        required: true
-#        description: Name of the target environment.
-#
-#concurrency:
-#  group: ${{ github.workflow }}-${{ github.ref }}
-#  cancel-in-progress: true
-#
-#jobs:
-#  containerization:
-#    environment: ${{ inputs.environment }}
-#    needs: build
-#    runs-on: ubuntu-latest
-#    steps:
-#
-#      - name: Checkout code
-#        uses: actions/checkout@v4.1.1
-#
-#      - name: Set up Docker Buildx
-#        uses: docker/setup-buildx-action@v3
-#
-#      - name: Download build
-#        uses: actions/download-artifact@v4.1.2
-#        with:
-#          name: deploy_dist
-#          path: dist
-#
-#      # - name: test
-#      #   run: pwd && ls -lR
-#
-#      - name: Login to GAR
-#        uses: docker/login-action@v3
-#        with:
-#          registry: ${{ secrets.GOOGLE_REGION }}-docker.pkg.dev
-#          username: _json_key
-#          password: ${{ secrets.GOOGLE_CREDENTIALS }}
-#
-#      - name: Build and push image to registry
-#        uses: docker/build-push-action@v5
-#        with:
-#          context: .
-#          file: ./docker/angular/Dockerfile
-#          platforms: linux/amd64,linux/arm64
-#          push: true
-#          tags: |
-#            ${{ secrets.GOOGLE_REGION }}-docker.pkg.dev/${{ secrets.GOOGLE_PROJECT_ID }}/${{ secrets.ANGULAR_GAR_REPO }}/${{ secrets.ANGULAR_IMAGE_NAME }}:latest
-#            ${{ secrets.GOOGLE_REGION }}-docker.pkg.dev/${{ secrets.GOOGLE_PROJECT_ID }}/${{ secrets.ANGULAR_GAR_REPO }}/${{ secrets.ANGULAR_IMAGE_NAME }}:${{ github.sha }}
-#
-#      - name: Authenticate to Google Cloud
-#        uses: google-github-actions/auth@v2.1.0
-#        with:
-#          credentials_json: '${{ secrets.GOOGLE_CREDENTIALS }}'
-#
+on:
+  workflow_call:
+    inputs:
+      environment:
+        type: string
+        required: true
+        description: Name of the target environment.
+
+concurrency:
+  group: ${{ github.workflow }}-${{ inputs.environment }}
+  cancel-in-progress: true
+
+jobs:
+  containerization:
+    environment: ${{ inputs.environment }}
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4.1.1
+
+      - name: Set up Docker Buildx
+        uses: docker/setup-buildx-action@v3
+
+      - name: Login to GAR
+        uses: docker/login-action@v3
+        with:
+          registry: ${{ secrets.GOOGLE_REGION }}-docker.pkg.dev
+          username: _json_key
+          password: ${{ secrets.GOOGLE_CREDENTIALS }}
+
+      - name: Build and push image to registry
+        uses: docker/build-push-action@v5
+        with:
+          context: .
+          file: ./docker/socket/Dockerfile
+          platforms: linux/amd64,linux/arm64
+          push: true
+          tags: |
+            ${{ secrets.GOOGLE_REGION }}-docker.pkg.dev/${{ secrets.GOOGLE_PROJECT_ID }}/${{ vars.SOCKET_GAR_REPO }}/${{ secrets.ANGULAR_IMAGE_NAME }}:${{ inputs.environment }}-${{ github.sha }}
+
+      - name: Authenticate to Google Cloud
+        uses: google-github-actions/auth@v2.1.0
+        with:
+          credentials_json: '${{ secrets.GOOGLE_CREDENTIALS }}'
+
 #      - id: 'deploy'
 #        uses: google-github-actions/deploy-cloudrun@v2
 #        with:
@@ -63,5 +51,4 @@
 #          region: ${{ secrets.GOOGLE_REGION }}
 #          suffix: ${{ github.sha }}
 #          env_vars: |
-#            NGINX_ENVSUBST_OUTPUT_DIR=/etc/nginx
-#            NGINX_HOST=${{ vars.HOST_URL }}
+#            NODE_ENV=development

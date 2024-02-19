@@ -7,9 +7,17 @@ on:
         description: Name of the target environment.
 
 jobs:
+
   angular:
     name: Build Artefact Deploy - Angular
     uses: ./.github/workflows/_angular.yml
+    secrets: inherit
+    with:
+      environment: ${{ inputs.environment }}
+
+  socket-server:
+    name: Build Artefact Deploy - Socket server
+    uses: ./.github/workflows/_socket.yml
     secrets: inherit
     with:
       environment: ${{ inputs.environment }}
