@@ -8,6 +8,10 @@ const io = require('socket.io')(http, {
   }
 });
 
+app.get('/health', (req, res) => {
+  res.send('We good bruh.');
+})
+
 io.on("connection", socket => {
   console.log("connected! ", socket.id);
   let previousRoomId;
