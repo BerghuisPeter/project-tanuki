@@ -7,7 +7,7 @@ on:
         description: Name of the target environment.
 
 concurrency:
-  group: ${{ github.workflow }}-${{ inputs.environment }}
+  group: "angular"-${{ inputs.environment }}
   cancel-in-progress: true
 
 jobs:
