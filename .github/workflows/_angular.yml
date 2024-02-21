@@ -87,23 +87,23 @@ jobs:
         with:
           context: .
           file: ./docker/angular/Dockerfile
-          platforms: linux/amd64,linux/arm64
+          #          platforms: linux/amd64,linux/arm64
           push: true
           provenance: false
           tags: ${{ secrets.GOOGLE_REGION }}-docker.pkg.dev/${{ secrets.GOOGLE_PROJECT_ID }}/${{ vars.ANGULAR_GAR_REPO }}/${{ secrets.ANGULAR_IMAGE_NAME }}:${{ inputs.environment }}-${{ github.sha }}
 
-#      - name: Authenticate to Google Cloud
-#        uses: google-github-actions/auth@v2.1.0
-#        with:
-#          credentials_json: '${{ secrets.GOOGLE_CREDENTIALS }}'
+      - name: Authenticate to Google Cloud
+        uses: google-github-actions/auth@v2.1.0
+        with:
+          credentials_json: '${{ secrets.GOOGLE_CREDENTIALS }}'
 
-#      - id: 'deploy'
-#        uses: google-github-actions/deploy-cloudrun@v2
-#        with:
-#          service: ${{ secrets.ANGULAR_IMAGE_NAME }}-${{ inputs.environment }}
-#          image: ${{ secrets.GOOGLE_REGION }}-docker.pkg.dev/${{ secrets.GOOGLE_PROJECT_ID }}/${{ vars.ANGULAR_GAR_REPO }}/${{ secrets.ANGULAR_IMAGE_NAME }}:${{ inputs.environment }}-${{ github.sha }}
-#          region: ${{ secrets.GOOGLE_REGION }}
-#          suffix: ${{ github.sha }}
-#          env_vars: |
-#            NGINX_ENVSUBST_OUTPUT_DIR=/etc/nginx
-#            NGINX_HOST=${{ vars.HOST_URL }}
+      - id: 'deploy'
+        uses: google-github-actions/deploy-cloudrun@v2
+        with:
+          service: ${{ secrets.ANGULAR_IMAGE_NAME }}-${{ inputs.environment }}
+          image: ${{ secrets.GOOGLE_REGION }}-docker.pkg.dev/${{ secrets.GOOGLE_PROJECT_ID }}/${{ vars.ANGULAR_GAR_REPO }}/${{ secrets.ANGULAR_IMAGE_NAME }}:${{ inputs.environment }}-${{ github.sha }}
+          region: ${{ secrets.GOOGLE_REGION }}
+          suffix: ${{ github.sha }}
+          env_vars: |
+            NGINX_ENVSUBST_OUTPUT_DIR=/etc/nginx
+            NGINX_HOST=${{ vars.HOST_URL }}
