@@ -87,7 +87,7 @@ jobs:
         with:
           context: .
           file: ./docker/angular/Dockerfile
-          #          platforms: linux/amd64,linux/arm64
+          platforms: linux/amd64,linux/arm64
           push: true
           provenance: false
           tags: ${{ secrets.GOOGLE_REGION }}-docker.pkg.dev/${{ secrets.GOOGLE_PROJECT_ID }}/${{ vars.ANGULAR_GAR_REPO }}/${{ secrets.ANGULAR_IMAGE_NAME }}:${{ inputs.environment }}-${{ github.sha }}
