@@ -75,12 +75,18 @@ jobs:
       # - name: test
       #   run: pwd && ls -lR
 
+      - name: Authenticate to Google Cloud
+        id: auth
+        uses: google-github-actions/auth@v2.1.0
+        with:
+          credentials_json: '${{ secrets.GOOGLE_CREDENTIALS }}'
+
       - name: Login to GAR
         uses: docker/login-action@v3
         with:
           registry: ${{ secrets.GOOGLE_REGION }}-docker.pkg.dev
-          username: _json_key
-          password: ${{ secrets.GOOGLE_CREDENTIALS }}
+          username: oauth2accesstoken
+          password: ${{ steps.auth.outputs.access_token }}
 
       - name: Build and push image to registry
         uses: docker/build-push-action@v5
@@ -91,11 +97,6 @@ jobs:
           push: true
           provenance: false
           tags: ${{ secrets.GOOGLE_REGION }}-docker.pkg.dev/${{ secrets.GOOGLE_PROJECT_ID }}/${{ vars.ANGULAR_GAR_REPO }}/${{ secrets.ANGULAR_IMAGE_NAME }}:${{ inputs.environment }}-${{ github.sha }}
-
-      - name: Authenticate to Google Cloud
-        uses: google-github-actions/auth@v2.1.0
-        with:
-          credentials_json: '${{ secrets.GOOGLE_CREDENTIALS }}'
 
       - id: 'deploy'
         uses: google-github-actions/deploy-cloudrun@v2
