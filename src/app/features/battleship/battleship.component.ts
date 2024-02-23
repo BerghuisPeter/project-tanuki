@@ -74,7 +74,7 @@ export class BattleshipComponent {
     return true;
   }
 
-  createBoard(rows: number, cols: number): any[][] {
+  createBoard(rows: number, cols: number): BattleShipCellStatus[][] {
     const board = [];
 
     for (let i = 0; i < rows; i++) {
@@ -87,7 +87,7 @@ export class BattleshipComponent {
     return board;
   }
 
-  placeShips(numShips: number, shipLength: number, board: any[][]): number[][] {
+  placeShips(numShips: number, shipLength: number, board: BattleShipCellStatus[][]): number[][] {
     const shipLocations = [];
 
     for (let i = 0; i < numShips; i++) {
@@ -119,7 +119,7 @@ export class BattleshipComponent {
     return shipLocations;
   }
 
-  checkCollision(shipLocation: number[][], board: any[][]): boolean {
+  checkCollision(shipLocation: number[][], board: BattleShipCellStatus[][]): boolean {
     for (const location of shipLocation) {
       if (location[0] >= board.length || location[1] >= board[0].length || board[location[0]][location[1]] === BattleShipCellStatus.BOAT) {
         return true;

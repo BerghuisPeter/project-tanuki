@@ -7,7 +7,8 @@
     "build": "ng build",
     "watch": "ng build --watch --configuration development",
     "test": "ng test",
-    "socket-server": "node socket-server/app.js"
+    "socket-server": "node socket-server/app.js",
+    "lint": "ng lint"
   },
   "private": true,
   "dependencies": {
@@ -29,11 +30,19 @@
   },
   "devDependencies": {
     "@angular-devkit/build-angular": "^17.1.2",
+    "@angular-eslint/builder": "17.2.1",
+    "@angular-eslint/eslint-plugin": "17.2.1",
+    "@angular-eslint/eslint-plugin-template": "17.2.1",
+    "@angular-eslint/schematics": "17.2.1",
+    "@angular-eslint/template-parser": "17.2.1",
     "@angular/cli": "~17.1.2",
     "@angular/compiler-cli": "^17.1.2",
     "@types/jasmine": "~4.3.0",
+    "@typescript-eslint/eslint-plugin": "6.19.0",
+    "@typescript-eslint/parser": "6.19.0",
     "angular-cli-ghpages": "^1.0.6",
     "autoprefixer": "^10.4.14",
+    "eslint": "^8.56.0",
     "jasmine-core": "~4.5.0",
     "karma": "~6.4.0",
     "karma-chrome-launcher": "~3.1.0",

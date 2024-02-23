@@ -1,7 +1,7 @@
 import { AfterViewInit, Directive, ElementRef } from '@angular/core';
 
 @Directive({
-  selector: '[charToColor]'
+  selector: '[appCharToColor]'
 })
 export class CharToColorDirective implements AfterViewInit {
 

@@ -4,12 +4,12 @@
 
 <ng-template #chatTemplate>
 
-  <h2 class="px-1 md:px-4 border-b-4">You: <span charToColor>{{ connection.id }}</span></h2>
+  <h2 class="px-1 md:px-4 border-b-4">You: <span appCharToColor>{{ connection.id }}</span></h2>
 
   <div #chatMessagesContainer class="flex-grow overflow-y-auto min-h-[150px] flex flex-col gap-4 px-1 md:px-4">
     <div *ngFor="let message of messages" class="flex flex-col">
       <ng-container *ngIf="!isString(message); else systemNotificationBlock">
-        <span charToColor>{{ message.user }}</span>
+        <span appCharToColor>{{ message.user }}</span>
         <span>{{ message.value }}</span>
       </ng-container>
       <ng-template #systemNotificationBlock>

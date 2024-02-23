@@ -13,7 +13,7 @@ export class ChatService {
   constructor(private socket: Socket) {
   }
 
-  connect(): any {
+  connect() {
     return this.socket.connect();
   }
 
