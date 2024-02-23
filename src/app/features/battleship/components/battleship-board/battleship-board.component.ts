@@ -8,7 +8,7 @@ import { BattleShipCellStatus } from "../../models/battleship.model";
 })
 export class BattleshipBoardComponent {
 
-  @Input() board: any[][] | undefined;
+  @Input() board: BattleShipCellStatus[][] | undefined;
   @Input() disabled: boolean | undefined;
 
   @Output() fireEvent = new EventEmitter<[number, number]>;
