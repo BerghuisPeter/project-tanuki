@@ -1,6 +1,6 @@
 import { ChangeDetectorRef, Component, ElementRef, OnDestroy, OnInit, ViewChild } from '@angular/core';
 import { Message } from "../../shared/models/message.model";
-import { FormControl } from "@angular/forms";
+import { FormControl, Validators } from "@angular/forms";
 import { ChatService } from "../../shared/chat.service";
 import { MAT_FORM_FIELD_DEFAULT_OPTIONS } from "@angular/material/form-field";
 
@@ -25,7 +25,7 @@ export class GlobalChatComponent implements OnInit, OnDestroy {
   @ViewChild('chatMessagesContainer') chatMessagesContainer!: ElementRef;
 
   constructor(public chatService: ChatService, private changeDetectorRef: ChangeDetectorRef) {
-    this.inputFormControl = new FormControl<string>('');
+    this.inputFormControl = new FormControl<string>('', Validators.required);
     this.connection = chatService.connect();
   }
 
@@ -41,7 +41,7 @@ export class GlobalChatComponent implements OnInit, OnDestroy {
 
   onEnter() {
     const value = this.inputFormControl.getRawValue();
-    if (value.trim()) {
+    if (value?.trim()) {
       this.chatService.sendMessage('globalChat', value.trim());
       this.inputFormControl.reset();
     }
