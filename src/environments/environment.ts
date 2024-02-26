@@ -1,3 +1,3 @@
 export const environment = {
-  socketNodeServerUrl: 'https://socket.project-tanuki.net'
+  socketNodeServerUrl: 'https://tanuki-socket-dev-5q4trefywq-an.a.run.app'
 };
