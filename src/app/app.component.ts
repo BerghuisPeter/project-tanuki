@@ -1,5 +1,6 @@
 import { Component } from '@angular/core';
 import { RouteConfigLoadEnd, RouteConfigLoadStart, Router } from "@angular/router";
+import { environment } from "../environments/environment";
 
 @Component({
   selector: 'app-root',
@@ -11,6 +12,7 @@ export class AppComponent {
   loading: boolean;
 
   constructor(private router: Router) {
+    console.log(environment.variableTest);
     this.loading = false;
 
     router.events.subscribe(event => {

@@ -57,6 +57,9 @@ jobs:
           name: deploy_dist
           path: dist
 
+    env:
+      VARIABLE_TEST: ${{ vars.VARIABLE_TEST }}
+
   containerization:
     environment: ${{ inputs.environment }}
     needs: build
