@@ -14,6 +14,9 @@ jobs:
   build:
     environment: ${{ inputs.environment }}
     runs-on: ubuntu-latest
+    env:
+      SOCKET_SERVER_URL: ${{ vars.SOCKET_SERVER_URL }}
+
 
     strategy:
       matrix:
@@ -41,10 +44,9 @@ jobs:
             ${{ runner.os }}-build-
             ${{ runner.os }}-
 
-      - run: vars
-
       - name: env replacement
         run: node update-environment.js
+
 
       - name: Install dependencies
         run: npm ci
