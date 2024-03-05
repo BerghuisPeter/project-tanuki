@@ -41,7 +41,7 @@ jobs:
             ${{ runner.os }}-build-
             ${{ runner.os }}-
 
-      - run: env
+      - run: vars
 
       - name: env replacement
         run: node update-environment.js
