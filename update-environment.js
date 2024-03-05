@@ -21,12 +21,13 @@ function extractPlaceholdersFromFile() {
 }
 
 /**
- * replaces all placeholders from the array with the environment variable
+ * Replaces all placeholders from the array with the environment variable
  * and creates anew the environment.ts file used in production prior to build.
  */
 function replaceEnvVariables() {
   // Read environment template file
   let updatedTemplate = fs.readFileSync(filePath, 'utf8');
+  console.log(placeholders);
   placeholders.forEach(element => {
     updatedTemplate = updatedTemplate.replace('${' + element + '}', process.env[element]);
   });
