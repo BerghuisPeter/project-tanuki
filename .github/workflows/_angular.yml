@@ -14,10 +14,6 @@ jobs:
   build:
     environment: ${{ inputs.environment }}
     runs-on: ubuntu-latest
-    env:
-      TEST: test
-    #      SOCKET_SERVER_URL: ${{ vars.SOCKET_SERVER_URL }}
-
 
     strategy:
       matrix:
@@ -31,9 +27,6 @@ jobs:
           echo "$VARS_JSON" | jq -r 'keys[] as $k | "\($k)=\(.[$k])"' >> $GITHUB_ENV
 
       - uses: actions/checkout@v4.1.1
-
-      - name: Print environment variables
-        run: printenv
 
       - name: Use Node.js ${{ matrix.node-version }}
         uses: actions/setup-node@v4.0.2
