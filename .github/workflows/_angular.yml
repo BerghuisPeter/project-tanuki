@@ -16,7 +16,6 @@ jobs:
     runs-on: ubuntu-latest
     env:
       TEST: test
-      vars: ${ vars }
     #      SOCKET_SERVER_URL: ${{ vars.SOCKET_SERVER_URL }}
 
 
@@ -25,6 +24,12 @@ jobs:
         node-version: [ 20.x ]
 
     steps:
+      - name: Set vars to env
+        env:
+          VARS_JSON: ${{ toJSON(vars) }}
+        run: |
+          echo "$VARS_JSON" | jq -r 'keys[] as $k | "\($k)=\(.[$k])"' >> $GITHUB_ENV
+
       - uses: actions/checkout@v4.1.1
 
       - name: Print environment variables
