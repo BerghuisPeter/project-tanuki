@@ -15,7 +15,8 @@ jobs:
     environment: ${{ inputs.environment }}
     runs-on: ubuntu-latest
     env:
-      SOCKET_SERVER_URL: ${{ vars.SOCKET_SERVER_URL }}
+      TEST: test
+    #      SOCKET_SERVER_URL: ${{ vars.SOCKET_SERVER_URL }}
 
 
     strategy:
@@ -24,6 +25,9 @@ jobs:
 
     steps:
       - uses: actions/checkout@v4.1.1
+
+      - name: Print environment variables
+        run: printenv
 
       - name: Use Node.js ${{ matrix.node-version }}
         uses: actions/setup-node@v4.0.2
@@ -46,7 +50,6 @@ jobs:
 
       - name: env replacement
         run: node update-environment.js
-
 
       - name: Install dependencies
         run: npm ci
