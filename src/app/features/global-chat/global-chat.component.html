@@ -4,9 +4,9 @@
 
 <ng-template #chatTemplate>
 
-  <h2 class="px-1 md:px-4 border-b-4">You: <span appCharToColor>{{ connection.id }}</span></h2>
+  <h2 class="px-1 md:px-4 border-b-4 m-0">You: <span appCharToColor>{{ connection.id }}</span></h2>
 
-  <div #chatMessagesContainer class="flex-grow overflow-y-auto min-h-[150px] flex flex-col gap-4 px-1 md:px-4">
+  <div #chatMessagesContainer class="flex-1 min-h-[100px] flex flex-col gap-4 overflow-y-auto pt-1 px-1 md:px-4">
     <div *ngFor="let message of messages" class="flex flex-col">
       <ng-container *ngIf="!isString(message); else systemNotificationBlock">
         <span appCharToColor>{{ message.user }}</span>
@@ -24,9 +24,6 @@
            matInput
            placeholder="Type your shit take here..."
            type="text">
-    <!--    <mat-error *ngIf="inputFormControl.hasError('required')">-->
-    <!--      Email is <strong>required</strong>-->
-    <!--    </mat-error>-->
   </mat-form-field>
 
 </ng-template>
