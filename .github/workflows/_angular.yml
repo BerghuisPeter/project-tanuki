@@ -28,7 +28,7 @@ jobs:
           node-version: ${{ matrix.node-version }}
 
       - name: Cache node modules
-        id: cache-nodemodules
+        id: cache-node-modules
         uses: actions/cache@v4.0.0
         env:
           cache-name: cache-node-modules
@@ -40,6 +40,9 @@ jobs:
             ${{ runner.os }}-build-${{ env.cache-name }}-
             ${{ runner.os }}-build-
             ${{ runner.os }}-
+
+      - name: env replacement
+        run: node update-environment.js
 
       - name: Install dependencies
         run: npm ci
@@ -56,9 +59,6 @@ jobs:
         with:
           name: deploy_dist
           path: dist
-
-    env:
-      VARIABLE_TEST: ${{ vars.VARIABLE_TEST }}
 
   containerization:
     environment: ${{ inputs.environment }}
