@@ -7,8 +7,8 @@ import { Message } from "./models/message.model";
 })
 export class ChatService {
 
-  message = this.socket.fromEvent<Message>('message');
-  systemNotification = this.socket.fromEvent<string>('systemNotification');
+  message = this.socket.fromEvent<Message>('chat:receiveMessage');
+  systemNotification = this.socket.fromEvent<string>('chat:systemNotification');
 
   constructor(private socket: Socket) {
   }
@@ -22,10 +22,10 @@ export class ChatService {
   }
 
   joinChat(roomId: string) {
-    this.socket.emit('joinChat', roomId);
+    this.socket.emit('chat:join', roomId);
   }
 
   sendMessage(id: string, value: string) {
-    this.socket.emit('sendMessage', id, value);
+    this.socket.emit('chat:sendMessage', id, value);
   }
 }
