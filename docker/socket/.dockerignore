@@ -1,7 +1,6 @@
 # Ignore all files
 *
+./socket-server/node_modules
 
 # Add the ones we are interested in for our image
-!./socket-server/package.json
-!./socket-server/package-lock.json
-!./socket-server/app.js
+!./socket-server/*

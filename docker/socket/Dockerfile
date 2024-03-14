@@ -17,7 +17,7 @@ RUN npm ci --omit=dev
 USER node
 
 # Copy the rest of the source files into the image.
-COPY ./socket-server/app.js ./
+COPY ./socket-server/ ./
 
 # Expose the port that the application listens on.
 EXPOSE 8000
