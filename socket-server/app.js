@@ -1,41 +1,29 @@
 const app = require('express')();
 const http = require('http').Server(app);
-const EXPOSED_PORT = process.env.PORT || 3333;
-const io = require('socket.io')(http, {
+const { Server } = require("socket.io");
+
+const EXPOSED_PORT = process.env.PORT || 8000;
+const CORS_DOMAIN = process.env.CORS_DOMAIN || "http://localhost:4200";
+
+const io = new Server(http, {
   cors: {
-    origin: "*",
-    methods: ["GET", "POST"]
+    origin: CORS_DOMAIN,
+    methods: ["GET", "POST"],
+    credentials: true
   }
 });
 
 app.get('/health', (req, res) => {
-  res.send('We good bruh.');
+  res.send('OK');
 })
 
-io.on("connection", socket => {
-  console.log("connected! ", socket.id);
-  let previousRoomId;
-  const safeJoin = (roomId) => {
-    socket.leave(previousRoomId);
-    console.log(`NEW ${socket.id} is in room ${roomId}`)
-    socket.join(roomId);
-    previousRoomId = roomId;
-  };
+const registerChatHandlers = require("./chatHandler");
 
-  socket.once("disconnect", () => {
-    console.log("disconnect ", socket.id);
-    socket.broadcast.emit("systemNotification", `${socket.id} has left the building !`);
-  });
+const onConnection = (socket) => {
+  registerChatHandlers(io, socket);
+}
 
-  socket.on("joinChat", (chatRoomName) => {
-    safeJoin(chatRoomName);
-    io.in(chatRoomName).emit("systemNotification", `${socket.id} joined our forsaken people.`);
-  });
-
-  socket.on("sendMessage", (roomName, value) => {
-    io.in(roomName).emit("message", { user: socket.id, value });
-  });
-});
+io.on("connection", onConnection);
 
 http.listen(EXPOSED_PORT, () =>
   console.log(`Listening on port ${EXPOSED_PORT}`)

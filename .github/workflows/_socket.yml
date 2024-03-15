@@ -52,4 +52,5 @@ jobs:
           region: ${{ secrets.GOOGLE_REGION }}
           suffix: ${{ github.sha }}
           env_vars: |
-            NODE_ENV=development
+            NODE_ENV=${{ inputs.environment == 'dev' && 'development' || 'production' }}
+            CORS_DOMAIN=${{ vars.HOST_URL }}
