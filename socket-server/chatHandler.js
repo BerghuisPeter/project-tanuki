@@ -5,7 +5,7 @@ module.exports = (io, socket) => {
 
   const joinChatRoom = (chatRoomName) => {
     safeJoin(chatRoomName);
-    io.in(chatRoomName).emit("chat:systemNotification", `${socket.id} joined our forsaken people.`);
+    io.in(chatRoomName).emit("chat:systemNotification", `${socket.id} graced us with his presence.`);
   }
 
   const safeJoin = (roomId) => {
