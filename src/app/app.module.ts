@@ -10,10 +10,14 @@ import { CoreModule } from "./core/core.module";
 import { environment } from "../environments/environment";
 
 const options = {
-  autoConnect: false
+  autoConnect: false,
+  withCredentials: true
 };
 
-const config: SocketIoConfig = { url: environment.socketNodeServerUrl, options: options };
+const config: SocketIoConfig = {
+  url: environment.socketNodeServerUrl,
+  options: options
+};
 
 @NgModule({
   declarations: [

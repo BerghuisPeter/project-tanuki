@@ -1,10 +1,15 @@
 const app = require('express')();
 const http = require('http').Server(app);
-const EXPOSED_PORT = process.env.PORT || 3333;
-const io = require('socket.io')(http, {
+const { Server } = require("socket.io");
+
+const EXPOSED_PORT = process.env.PORT || 8000;
+const CORS_DOMAIN = process.env.CORS_DOMAIN || "http://localhost:4200";
+
+const io = new Server(http, {
   cors: {
-    origin: "*",
-    methods: ["GET", "POST"]
+    origin: CORS_DOMAIN,
+    methods: ["GET", "POST"],
+    credentials: true
   }
 });
 

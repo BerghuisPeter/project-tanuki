@@ -53,3 +53,4 @@ jobs:
           suffix: ${{ github.sha }}
           env_vars: |
             NODE_ENV=development
+            CORS_DOMAIN=${{ vars.HOST_URL }}
