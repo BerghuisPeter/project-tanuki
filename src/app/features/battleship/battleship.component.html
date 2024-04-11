@@ -1,11 +1,11 @@
-<div class="px-1 py-3 md:p-3">
-  <app-battleship-legend></app-battleship-legend>
-</div>
-<div class="flex flex-col gap-3 px-1 py-3 md:p-3 md:flex-row">
+<app-battleship-legend></app-battleship-legend>
+
+<app-room-setup (roomCodeEntered)="connectToRoom($event)" [roomCode]="myRoomCode"></app-room-setup>
+
+<div class="flex flex-col gap-3 md:flex-row">
   <mat-card class="flex-grow">
     <mat-card-header class="bg-blue-100 pb-3">
       <mat-card-title>Opponent's board</mat-card-title>
-      <mat-card-subtitle></mat-card-subtitle>
     </mat-card-header>
     <mat-card-content class="flex justify-center pt-4 bg-gray-100">
       <app-battleship-board (fireEvent)="fire($event)" [board]="OpponentBoard"

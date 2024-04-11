@@ -1,5 +1,6 @@
 import { Component } from '@angular/core';
 import { BattleShipCellStatus } from "./models/battleship.model";
+import * as uuid from 'uuid';
 
 @Component({
   selector: 'app-battleship',
@@ -17,12 +18,19 @@ export class BattleshipComponent {
   numShips = 4;
   shipLength = 3;
 
+  myRoomCode: string;
+
   constructor() {
     this.myBoard = this.createBoard(this.rows, this.cols);
     this.OpponentBoard = this.createBoard(this.rows, this.cols);
     this.shipLocations = this.placeShips(this.numShips, this.shipLength, this.myBoard);
     this.hits = [];
     this.gameOver = false;
+    this.myRoomCode = uuid.v4();
+  }
+
+  connectToRoom(roomCode: string) {
+    // connect to new room here.
   }
 
   fire(rowCol: number[]) {

@@ -5,8 +5,8 @@ import { RouterModule } from "@angular/router";
 import { ReactiveFormsModule } from "@angular/forms";
 import { MatInputModule } from "@angular/material/input";
 import { MatListModule } from "@angular/material/list";
-import { LoadingModule } from "../../shared/components/loading/loading.module";
 import { CharToColorModule } from "../../shared/directives/char-to-color/char-to-color.module";
+import { LoadingComponent } from "../../shared/components/loading/loading.component";
 
 const routes = [
   {
@@ -24,7 +24,7 @@ const routes = [
     MatInputModule,
     MatListModule,
     CharToColorModule,
-    LoadingModule,
+    LoadingComponent,
   ]
 })
 export class GlobalChatModule {

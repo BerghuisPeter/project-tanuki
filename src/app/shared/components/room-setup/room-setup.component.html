@@ -1,0 +1,21 @@
+<mat-card>
+  <mat-card-content class="flex flex-col bg-gray-100 gap-4 md:flex-row">
+    <div class="flex-1 flex justify-center items-center flex-col gap-1 text-center">
+      <h2 class="m-0">Your code:</h2>
+      <p class="m-0">{{ roomCode }}</p>
+      <button (click)="copyCodeToClipboard()" mat-raised-button>Copy code</button>
+    </div>
+    <div class="border-dashed border-t-2 md:border-l-2 border-indigo-500"></div>
+    <div class="flex-1 flex justify-center items-center flex-col gap-1 text-center">
+      <h2 class="m-0">Enter code:</h2>
+      <mat-form-field class="w-full">
+        <input [formControl]="roomCodeInputFormControl"
+               [maxLength]="36"
+               matInput
+               placeholder="friend's code here."
+               type="text">
+        <mat-error>Not a valid code.</mat-error>
+      </mat-form-field>
+    </div>
+  </mat-card-content>
+</mat-card>
