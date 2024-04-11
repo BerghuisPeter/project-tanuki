@@ -97,13 +97,12 @@ export class BattleshipComponent {
 
   placeShips(numShips: number, shipLength: number, board: BattleShipCellStatus[][]): number[][] {
     const shipLocations = [];
+    let i = 0;
 
-    for (let i = 0; i < numShips; i++) {
+    while (i < numShips) {
       let row = Math.floor(Math.random() * board.length);
       let col = Math.floor(Math.random() * board[0].length);
-
       const direction = Math.floor(Math.random() * 2);
-
       const shipLocation = [];
 
       for (let j = 0; j < shipLength; j++) {
@@ -116,14 +115,17 @@ export class BattleshipComponent {
       }
 
       if (this.checkCollision(shipLocation, board)) {
-        i--;
-      } else {
-        for (const location of shipLocation) {
-          board[location[0]][location[1]] = BattleShipCellStatus.BOAT;
-        }
-        shipLocations.push(...shipLocation);
+        // Retry placement if collision detected
+        continue;
       }
+
+      for (const location of shipLocation) {
+        board[location[0]][location[1]] = BattleShipCellStatus.BOAT;
+      }
+      shipLocations.push(...shipLocation);
+      i++; // Increment loop counter only on successful placement
     }
+
     return shipLocations;
   }
 
