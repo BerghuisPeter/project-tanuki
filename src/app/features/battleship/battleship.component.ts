@@ -30,6 +30,7 @@ export class BattleshipComponent {
   }
 
   connectToRoom(roomCode: string) {
+    console.log(roomCode);
     // connect to new room here.
   }
 
