@@ -21,7 +21,7 @@ export class BattleshipComponent implements OnInit, OnDestroy {
   numShips = 4;
   shipLength = 3;
 
-  connection: any;
+  // connection: any;
 
   myRoomCode: string;
   connected$ = this.battleshipService.connected$;
@@ -40,7 +40,8 @@ export class BattleshipComponent implements OnInit, OnDestroy {
 
   ngOnInit() {
 
-    this.connection = this.battleshipService.connect();
+    this.battleshipService.connect();
+    // this.connection = this.battleshipService.connect();
     // console.log(this.connection);
 
     this.connected$

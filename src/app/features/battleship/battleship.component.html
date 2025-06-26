@@ -2,7 +2,7 @@
 
 <ng-template #content>
 
-  <app-loading *ngIf="!(connected$ | async); else setupTemplate"></app-loading>
+  <app-loading *ngIf="(connected$ | async) === false; else setupTemplate"></app-loading>
 
   <ng-template #setupTemplate>
     <app-room-setup (roomCodeEntered)="connectToRoom($event)"
