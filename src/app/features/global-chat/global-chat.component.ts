@@ -1,7 +1,7 @@
 import { ChangeDetectorRef, Component, ElementRef, OnDestroy, OnInit, ViewChild } from '@angular/core';
 import { Message } from "../../shared/models/message.model";
 import { FormControl, Validators } from "@angular/forms";
-import { ChatService } from "../../shared/chat.service";
+import { ChatService } from "../../shared/services/chat.service";
 import { MAT_FORM_FIELD_DEFAULT_OPTIONS } from "@angular/material/form-field";
 
 @Component({

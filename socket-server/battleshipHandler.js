@@ -4,7 +4,7 @@ module.exports = (io, socket) => {
 
   const joinChatRoom = (chatRoomName) => {
     safeJoin(chatRoomName);
-    io.in(chatRoomName).emit("chat:systemNotification", `${socket.id} graced us with his presence.`);
+    io.in(chatRoomName).emit("bs:systemNotification", `${socket.id} graced us with his presence.`);
   }
 
   const safeJoin = (roomId) => {
@@ -15,15 +15,15 @@ module.exports = (io, socket) => {
   }
 
   const sendMessage = (roomName, value) => {
-    io.in(roomName).emit("chat:receiveMessage", { user: socket.id, value });
+    io.in(roomName).emit("bs:receiveMessage", { user: socket.id, value });
   }
 
   const onDisconnect = () => {
     console.log("disconnect ", socket.id);
-    socket.broadcast.emit("chat:systemNotification", `${socket.id} has left the building !`);
+    socket.broadcast.emit("bs:systemNotification", `${socket.id} has left the building !`);
   }
 
-  socket.on("chat:join", joinChatRoom);
-  socket.on("chat:sendMessage", sendMessage);
+  socket.on("bs:join", joinChatRoom);
+  socket.on("bs:sendMessage", sendMessage);
   socket.once("disconnect", onDisconnect);
 }

@@ -1,13 +1,16 @@
-import { Component } from '@angular/core';
+import { Component, OnDestroy, OnInit } from '@angular/core';
 import { BattleShipCellStatus } from "./models/battleship.model";
 import * as uuid from 'uuid';
+import { BattleshipService } from "./services/battleship.service";
+import { Subject } from 'rxjs';
+import { takeUntil } from 'rxjs/operators';
 
 @Component({
   selector: 'app-battleship',
   templateUrl: './battleship.component.html',
   styleUrls: ['./battleship.component.scss']
 })
-export class BattleshipComponent {
+export class BattleshipComponent implements OnInit, OnDestroy {
   myBoard: BattleShipCellStatus[][];
   OpponentBoard: BattleShipCellStatus[][];
   shipLocations: number[][];
@@ -18,20 +21,51 @@ export class BattleshipComponent {
   numShips = 4;
   shipLength = 3;
 
-  myRoomCode: string;
+  connection: any;
 
-  constructor() {
+  myRoomCode: string;
+  connected$ = this.battleshipService.connected$;
+  connectionError$ = this.battleshipService.connectionError$;
+  private readonly destroy$ = new Subject<void>();
+
+  constructor(private readonly battleshipService: BattleshipService) {
     this.myBoard = this.createBoard(this.rows, this.cols);
     this.OpponentBoard = this.createBoard(this.rows, this.cols);
     this.shipLocations = this.placeShips(this.numShips, this.shipLength, this.myBoard);
     this.hits = [];
     this.gameOver = false;
+
     this.myRoomCode = uuid.v4();
+  }
+
+  ngOnInit() {
+
+    this.connection = this.battleshipService.connect();
+    // console.log(this.connection);
+
+    this.connected$
+      .pipe(takeUntil(this.destroy$))
+      .subscribe((v) => {
+        console.log('component: Socket', v);
+        this.battleshipService.joinBattleshipRoom(this.myRoomCode);
+      });
+
+    // this.battleshipService.connectionError$
+    //   .pipe(takeUntil(this.destroy$))
+    //   .subscribe((val) => {
+    //     console.log('component: ERROR!', val);
+    //     // handle error;
+    //   });
+  }
+
+  ngOnDestroy() {
+    this.destroy$.next();
+    this.destroy$.complete();
   }
 
   connectToRoom(roomCode: string) {
     console.log(roomCode);
-    // connect to new room here.
+    this.battleshipService.joinBattleshipRoom(roomCode);
   }
 
   fire(rowCol: number[]) {

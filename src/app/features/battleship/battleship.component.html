@@ -1,27 +1,41 @@
-<app-battleship-legend></app-battleship-legend>
+<h1 *ngIf="connectionError$ | async; else content">Connection error...</h1>
 
-<app-room-setup (roomCodeEntered)="connectToRoom($event)" [roomCode]="myRoomCode"></app-room-setup>
+<ng-template #content>
 
-<div class="flex flex-col gap-3 md:flex-row">
-  <mat-card class="flex-grow">
-    <mat-card-header class="bg-blue-100 pb-3">
-      <mat-card-title>Opponent's board</mat-card-title>
-    </mat-card-header>
-    <mat-card-content class="flex justify-center pt-4 bg-gray-100">
-      <app-battleship-board (fireEvent)="fire($event)" [board]="OpponentBoard"
-                            [disabled]="false"></app-battleship-board>
-    </mat-card-content>
-  </mat-card>
-  <mat-card class="flex-grow">
-    <mat-card-header class="bg-green-100 pb-3">
-      <mat-card-title>Your board</mat-card-title>
-    </mat-card-header>
-    <mat-card-content class="flex justify-center pt-4 bg-gray-100">
-      <app-battleship-board [board]="myBoard" [disabled]="true"></app-battleship-board>
-    </mat-card-content>
-  </mat-card>
-</div>
+  <app-loading *ngIf="!(connected$ | async); else setupTemplate"></app-loading>
 
-<div *ngIf="gameOver">
-  <h2>Game Over!</h2>
-</div>
+  <ng-template #setupTemplate>
+    <app-room-setup (roomCodeEntered)="connectToRoom($event)"
+                    [roomCode]="myRoomCode"/>
+  </ng-template>
+
+  <ng-template #battleshipGameBoard>
+
+    <app-battleship-legend></app-battleship-legend>
+
+    <div class="flex flex-col gap-3 md:flex-row">
+      <mat-card class="flex-grow">
+        <mat-card-header class="bg-blue-100 pb-3">
+          <mat-card-title>Opponent's board</mat-card-title>
+        </mat-card-header>
+        <mat-card-content class="flex justify-center pt-4 bg-gray-100">
+          <app-battleship-board (fireEvent)="fire($event)" [board]="OpponentBoard"
+                                [disabled]="false"></app-battleship-board>
+        </mat-card-content>
+      </mat-card>
+      <mat-card class="flex-grow">
+        <mat-card-header class="bg-green-100 pb-3">
+          <mat-card-title>Your board</mat-card-title>
+        </mat-card-header>
+        <mat-card-content class="flex justify-center pt-4 bg-gray-100">
+          <app-battleship-board [board]="myBoard" [disabled]="true"></app-battleship-board>
+        </mat-card-content>
+      </mat-card>
+    </div>
+
+    <div *ngIf="gameOver">
+      <h2>Game Over!</h2>
+    </div>
+  </ng-template>
+
+</ng-template>

@@ -10,6 +10,7 @@ import { BattleshipBoardComponent } from './components/battleship-board/battlesh
 import { MatButtonModule } from "@angular/material/button";
 import { MatInputModule } from "@angular/material/input";
 import { RoomSetupComponent } from "../../shared/components/room-setup/room-setup.component";
+import { LoadingComponent } from "../../shared/components/loading/loading.component";
 
 const routes = [
   {
@@ -28,7 +29,8 @@ const routes = [
     MatChipsModule,
     MatButtonModule,
     MatInputModule,
-    RoomSetupComponent
+    RoomSetupComponent,
+    LoadingComponent
   ]
 })
 export class BattleshipModule {
