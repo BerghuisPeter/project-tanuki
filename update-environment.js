@@ -27,9 +27,17 @@ function extractPlaceholdersFromFile() {
 function replaceEnvVariables() {
   // Read environment template file
   let updatedTemplate = fs.readFileSync(filePath, 'utf8');
-  console.log(placeholders);
+  console.log('Detected placeholders:', placeholders);
+
   placeholders.forEach(element => {
-    updatedTemplate = updatedTemplate.replace('${' + element + '}', process.env[element]);
+    const value = process.env[element];
+    if (value === undefined) {
+      console.warn(`[WARNING] Environment variable "${element}" is not defined. Keeping placeholder.`);
+    } else {
+      console.log(`[INFO] Replacing \${${element}} with provided value.`);
+      // Using split/join to replace ALL occurrences if there are any
+      updatedTemplate = updatedTemplate.split('${' + element + '}').join(value);
+    }
   });
 
   // Write updated environment file
