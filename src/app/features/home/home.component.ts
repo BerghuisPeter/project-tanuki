@@ -25,5 +25,5 @@ import { AppConfigService } from '../../core/services/app-config.service';
 export class HomeComponent {
   private readonly configService = inject(AppConfigService);
   APP_PATHS = APP_PATHS;
-  readonly enableBattleShipFeature = this.configService.get('ENABLE_BATTLESHIP') == 'true';
+  readonly enableBattleShipFeature = this.configService.get('NG_APP_ENABLE_BATTLESHIP') == 'true';
 }

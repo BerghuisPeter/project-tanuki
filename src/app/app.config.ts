@@ -26,18 +26,18 @@ export const appConfig: ApplicationConfig = {
     {
       provide: Socket,
       useFactory: (config: AppConfigService) => {
-        return new Socket({ url: config.get('SOCKET_SERVER_URL'), options }, inject(ApplicationRef));
+        return new Socket({ url: config.get('NG_APP_SOCKET_SERVER_URL'), options }, inject(ApplicationRef));
       },
       deps: [AppConfigService]
     },
     {
       provide: BASE_PATH_AUTH,
-      useFactory: (config: AppConfigService) => config.get('AUTH_SERVICE_URL'),
+      useFactory: (config: AppConfigService) => config.get('NG_APP_AUTH_SERVICE_URL'),
       deps: [AppConfigService]
     },
     {
       provide: BASE_PATH_PROFILE,
-      useFactory: (config: AppConfigService) => config.get('PROFILE_SERVICE_URL'),
+      useFactory: (config: AppConfigService) => config.get('NG_APP_PROFILE_SERVICE_URL'),
       deps: [AppConfigService]
     },
     provideAppInitializer(() => {

@@ -20,8 +20,8 @@ envsubst '${PORT}' < "$NGINX_CONF_TEMPLATE" > "$NGINX_CONF"
 # Start the JSON object
 echo "{" > $CONFIG_FILE
 
-# Get all environment variables and format them as JSON
-env | while IFS='=' read -r key value; do
+# Get all environment variables starting with NG_APP_ and format them as JSON
+env | grep '^NG_APP_' | while IFS='=' read -r key value; do
   # Skip if key is empty
   if [ -n "$key" ]; then
     # Escape double quotes in value if any
