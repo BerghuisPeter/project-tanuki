@@ -1,0 +1,6 @@
+{
+  "SOCKET_SERVER_URL": "http://localhost:8000",
+  "ENABLE_BATTLESHIP": "true",
+  "AUTH_SERVICE_URL": "http://localhost:8081",
+  "PROFILE_SERVICE_URL": "http://localhost:8082"
+}
