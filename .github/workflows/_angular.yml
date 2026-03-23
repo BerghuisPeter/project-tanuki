@@ -54,9 +54,6 @@ jobs:
             ${{ runner.os }}-build-
             ${{ runner.os }}-
 
-      - name: env replacement
-        run: node update-environment.js
-
       - name: Install dependencies
         run: npm ci
 
@@ -135,5 +132,3 @@ jobs:
           image: ${{ vars.GAR_LOCATION }}-docker.pkg.dev/${{ vars.GCP_PROJECT_ID }}/${{ vars.ANGULAR_GAR_REPOSITORY }}/${{ vars.ANGULAR_IMAGE_NAME }}:${{ github.sha }}
           region: ${{ vars.GAR_LOCATION }}
           suffix: ${{ github.sha }}
-          env_vars: |
-            NGINX_ENVSUBST_OUTPUT_DIR=/etc/nginx

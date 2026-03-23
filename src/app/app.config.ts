@@ -1,24 +1,19 @@
-import { ApplicationConfig, importProvidersFrom, inject, provideAppInitializer } from '@angular/core';
+import { ApplicationConfig, ApplicationRef, importProvidersFrom, inject, provideAppInitializer } from '@angular/core';
 import { provideRouter } from '@angular/router';
 import { routes } from './app.routes';
 import { provideHttpClient, withInterceptors } from '@angular/common/http';
-import { SocketIoConfig, SocketIoModule } from 'ngx-socket-io';
-import { environment } from '../environments/environment';
+import { Socket, SocketIoModule } from 'ngx-socket-io';
 import { BASE_PATH as BASE_PATH_AUTH } from "../openApi/auth";
 import { BASE_PATH as BASE_PATH_PROFILE } from "../openApi/profile";
 import { authInterceptor } from "./core/interceptors/auth.interceptor";
 import { AuthService } from "./core/services/auth.service";
 import { provideAnimationsAsync } from "@angular/platform-browser/animations/async";
 import { MatSnackBarModule } from "@angular/material/snack-bar";
+import { AppConfigService } from './core/services/app-config.service';
 
 const options = {
   autoConnect: false,
   withCredentials: true
-};
-
-const config: SocketIoConfig = {
-  url: environment.socketNodeServerUrl,
-  options: options
 };
 
 export const appConfig: ApplicationConfig = {
@@ -27,9 +22,28 @@ export const appConfig: ApplicationConfig = {
     provideHttpClient(withInterceptors([authInterceptor])),
     // Replace deprecated when Angular material has replacement.
     provideAnimationsAsync(),
-    importProvidersFrom(SocketIoModule.forRoot(config), MatSnackBarModule),
-    { provide: BASE_PATH_AUTH, useValue: environment.authServiceUrl },
-    { provide: BASE_PATH_PROFILE, useValue: environment.profileServiceUrl },
+    importProvidersFrom(SocketIoModule, MatSnackBarModule),
+    {
+      provide: Socket,
+      useFactory: (config: AppConfigService) => {
+        return new Socket({ url: config.get('NG_APP_SOCKET_SERVER_URL'), options }, inject(ApplicationRef));
+      },
+      deps: [AppConfigService]
+    },
+    {
+      provide: BASE_PATH_AUTH,
+      useFactory: (config: AppConfigService) => config.get('NG_APP_AUTH_SERVICE_URL'),
+      deps: [AppConfigService]
+    },
+    {
+      provide: BASE_PATH_PROFILE,
+      useFactory: (config: AppConfigService) => config.get('NG_APP_PROFILE_SERVICE_URL'),
+      deps: [AppConfigService]
+    },
+    provideAppInitializer(() => {
+      const config = inject(AppConfigService);
+      return config.load();
+    }),
     provideAppInitializer(() => {
       const authService = inject(AuthService);
       return authService.initializeAuth();
