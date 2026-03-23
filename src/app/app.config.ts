@@ -40,11 +40,10 @@ export const appConfig: ApplicationConfig = {
       useFactory: (config: AppConfigService) => config.get('NG_APP_PROFILE_API_URL'),
       deps: [AppConfigService]
     },
-    provideAppInitializer(() => {
+    provideAppInitializer(async () => {
       const config = inject(AppConfigService);
-      return config.load();
-    }),
-    provideAppInitializer(() => {
+      await config.load();
+
       const authService = inject(AuthService);
       return authService.initializeAuth();
     })
