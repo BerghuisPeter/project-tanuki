@@ -6,8 +6,8 @@ export class AppConfigService {
   private readonly config: Record<string, string>;
 
   constructor() {
-    const env = (globalThis as any).__ENV__;
-    this.config = environment.isLocal ? environment : env;
+    const env: Record<string, string> | undefined = globalThis.__ENV__;
+    this.config = environment.isLocal === 'true' ? environment : env;
   }
 
   get(key: string): string {
