@@ -41,9 +41,6 @@ export const appConfig: ApplicationConfig = {
       deps: [AppConfigService]
     },
     provideAppInitializer(async () => {
-      const config = inject(AppConfigService);
-      await config.load();
-
       const authService = inject(AuthService);
       return authService.initializeAuth();
     })
