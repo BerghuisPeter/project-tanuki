@@ -52,6 +52,16 @@
   </style>
 </head>
 <body>
+
+<script>
+  globalThis.__ENV__ = {
+    NG_APP_AUTH_API_URL: '${NG_APP_AUTH_API_URL}',
+    NG_APP_PROFILE_API_URL: '${NG_APP_PROFILE_API_URL}',
+    NG_APP_SOCKET_SERVER_URL: '${NG_APP_SOCKET_SERVER_URL}',
+    NG_APP_ENABLE_BATTLESHIP: '${NG_APP_ENABLE_BATTLESHIP}'
+  };
+</script>
+
 <div id="preloader">
   <svg class="tanuki-spinner" viewBox="0 0 512 512" xmlns="http://www.w3.org/2000/svg">
     <!-- Simplified Tanuki Head -->

@@ -1,5 +1,5 @@
 import { Component, inject, OnDestroy, signal } from '@angular/core';
-import { environment } from "../../../../environments/environment";
+import { AppConfigService } from "../../../core/services/app-config.service";
 import { AuthService } from "../../../core/services/auth.service";
 import { MatSnackBar, MatSnackBarModule } from "@angular/material/snack-bar";
 import { MatIconButton } from "@angular/material/button";
@@ -31,6 +31,7 @@ import { Subscription } from "rxjs";
 })
 export class GoogleSigningComponent implements OnDestroy {
   private readonly authService = inject(AuthService);
+  private readonly appConfig = inject(AppConfigService);
   private readonly snackBar = inject(MatSnackBar);
   private readonly router = inject(Router);
   protected readonly isDisabled = signal(false);
@@ -45,7 +46,7 @@ export class GoogleSigningComponent implements OnDestroy {
     const left = globalThis.screen.width / 2 - width / 2;
     const top = globalThis.screen.height / 2 - height / 2;
 
-    const url = `${environment.authServiceUrl}/oauth2/authorization/google`;
+    const url = `${this.appConfig.get('NG_APP_AUTH_API_URL')}/oauth2/authorization/google`;
     const popup = globalThis.open(
       url,
       'google-login',

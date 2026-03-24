@@ -32,19 +32,15 @@ export const appConfig: ApplicationConfig = {
     },
     {
       provide: BASE_PATH_AUTH,
-      useFactory: (config: AppConfigService) => config.get('NG_APP_AUTH_SERVICE_URL'),
+      useFactory: (config: AppConfigService) => config.get('NG_APP_AUTH_API_URL'),
       deps: [AppConfigService]
     },
     {
       provide: BASE_PATH_PROFILE,
-      useFactory: (config: AppConfigService) => config.get('NG_APP_PROFILE_SERVICE_URL'),
+      useFactory: (config: AppConfigService) => config.get('NG_APP_PROFILE_API_URL'),
       deps: [AppConfigService]
     },
-    provideAppInitializer(() => {
-      const config = inject(AppConfigService);
-      return config.load();
-    }),
-    provideAppInitializer(() => {
+    provideAppInitializer(async () => {
       const authService = inject(AuthService);
       return authService.initializeAuth();
     })
