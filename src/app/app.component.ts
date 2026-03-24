@@ -4,7 +4,6 @@ import { HeaderComponent } from "./core/components/header/header.component";
 import { PageLoaderComponent } from "./core/components/page-loader/page-loader.component";
 import { MatIconRegistry } from "@angular/material/icon";
 import { DomSanitizer } from "@angular/platform-browser";
-import { environment } from "../environments/environment";
 
 @Component({
   selector: 'app-root',
@@ -23,7 +22,6 @@ export class AppComponent implements AfterViewInit {
       `racoon`,
       this.domSanitizer.bypassSecurityTrustResourceUrl("assets/racoon.svg")
     );
-    console.log(environment.socketNodeServerUrl);
   }
 
   ngAfterViewInit(): void {
