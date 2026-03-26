@@ -116,7 +116,9 @@ jobs:
           file: ./docker/angular/Dockerfile
           push: true
           provenance: false
-          tags: ${{ vars.GAR_LOCATION }}-docker.pkg.dev/${{ vars.GCP_PROJECT_ID }}/${{ vars.ANGULAR_GAR_REPOSITORY }}/${{ vars.ANGULAR_IMAGE_NAME }}:${{ github.sha }}
+          tags: |
+            ${{ vars.GAR_LOCATION }}-docker.pkg.dev/${{ vars.GCP_PROJECT_ID }}/${{ vars.ANGULAR_GAR_REPOSITORY }}/${{ vars.ANGULAR_IMAGE_NAME }}:${{ github.sha }}
+            ${{ vars.GAR_LOCATION }}-docker.pkg.dev/${{ vars.GCP_PROJECT_ID }}/${{ vars.ANGULAR_GAR_REPOSITORY }}/${{ vars.ANGULAR_IMAGE_NAME }}:latest
           cache-from: type=gha
           cache-to: type=gha,mode=max
 

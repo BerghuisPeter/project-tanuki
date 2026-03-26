@@ -56,6 +56,7 @@ jobs:
           provenance: false
           tags: |
             ${{ vars.GAR_LOCATION }}-docker.pkg.dev/${{ vars.GCP_PROJECT_ID }}/${{ vars.SOCKET_GAR_REPOSITORY }}/${{ vars.SOCKET_IMAGE_NAME }}:${{ github.sha }}
+            ${{ vars.GAR_LOCATION }}-docker.pkg.dev/${{ vars.GCP_PROJECT_ID }}/${{ vars.SOCKET_GAR_REPOSITORY }}/${{ vars.SOCKET_IMAGE_NAME }}:latest
           cache-from: type=gha
           cache-to: type=gha,mode=max
 
