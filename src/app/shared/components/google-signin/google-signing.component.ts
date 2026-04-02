@@ -4,7 +4,7 @@ import { AuthService } from "../../../core/services/auth.service";
 import { MatSnackBar, MatSnackBarModule } from "@angular/material/snack-bar";
 import { MatIconButton } from "@angular/material/button";
 import { Router } from "@angular/router";
-import { APP_PATHS } from "../../../shared/models/app-paths.model";
+import { APP_PATHS } from "../../models/app-paths.model";
 import { Subscription } from "rxjs";
 
 @Component({
@@ -65,10 +65,10 @@ export class GoogleSigningComponent implements OnDestroy {
     this.messageListener = (event: MessageEvent) => {
       if (event.origin !== globalThis.location.origin) return;
 
-      if (event.data.type === 'OAUTH2_CODE') {
-        const code = event.data.code;
+      if (event.data.type === 'OAUTH2_TOKEN') {
+        const token = event.data.token;
         popup.close();
-        this.handleCodeExchange(code);
+        this.handleTempLoginTokenExchange(token);
         this.cleanupListener();
       }
     };
@@ -89,8 +89,8 @@ export class GoogleSigningComponent implements OnDestroy {
     this.authSubscription?.unsubscribe();
   }
 
-  private handleCodeExchange(code: string) {
-    this.authSubscription = this.authService.exchangeOAuth2Code(code).subscribe({
+  private handleTempLoginTokenExchange(token: string) {
+    this.authSubscription = this.authService.exchangeTempLoginToken(token).subscribe({
       next: () => {
         this.router.navigate([APP_PATHS.HOME], { replaceUrl: true });
       },
