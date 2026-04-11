@@ -2,6 +2,7 @@ import { inject, Injectable } from '@angular/core';
 import { Socket } from "ngx-socket-io";
 import { Message } from "../models/message.model";
 import { UserService } from "../../core/services/user.service";
+import { map, merge, startWith } from "rxjs";
 
 @Injectable({
   providedIn: 'root'
@@ -10,8 +11,16 @@ export class ChatService {
   private readonly socket = inject(Socket);
   private readonly userService = inject(UserService);
 
+  readonly isConnected$ = merge(
+    this.socket.fromEvent('connect').pipe(map(() => true)),
+    this.socket.fromEvent('disconnect').pipe(map(() => false))
+  ).pipe(
+    startWith(this.socket.ioSocket.connected)
+  );
+
   message = this.socket.fromEvent<Message, 'chat:receiveMessage'>('chat:receiveMessage');
-  systemNotification = this.socket.fromEvent<string, 'chat:systemNotification'>('chat:systemNotification');
+  history = this.socket.fromEvent<Message[], 'chat:history'>('chat:history');
+  systemNotification = this.socket.fromEvent<Message, 'chat:systemNotification'>('chat:systemNotification');
 
   connect() {
     return this.socket.connect();

@@ -3,7 +3,7 @@ import { UserService } from "./user.service";
 import {
   AuthControllerAuthService,
   AuthResponse,
-  ExchangeOAuth2CodeRequest,
+  ExchangeTempLoginTokenRequest,
   LoginRequest,
   RefreshRequest,
   RegisterRequest,
@@ -24,9 +24,9 @@ export class AuthService {
   private readonly router = inject(Router);
   private readonly snackBar = inject(MatSnackBar);
 
-  exchangeOAuth2Code(code: string) {
-    const exchangeRequest: ExchangeOAuth2CodeRequest = { code };
-    return this.authControllerAuthService.exchangeOAuth2Code(exchangeRequest)
+  exchangeTempLoginToken(token: string) {
+    const exchangeTempLoginTokenRequest: ExchangeTempLoginTokenRequest = { token };
+    return this.authControllerAuthService.exchangeTempLoginToken(exchangeTempLoginTokenRequest)
       .pipe(
         tap(authRes => this.handleAuthResponse(authRes))
       );

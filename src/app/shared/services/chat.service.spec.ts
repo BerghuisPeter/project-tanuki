@@ -9,6 +9,10 @@ import { provideZoneChangeDetection } from '@angular/core';
 import { UserService } from "../../core/services/user.service";
 
 class MockSocket {
+  ioSocket = {
+    connected: false
+  };
+
   emit = jasmine.createSpy('emit');
   connect = jasmine.createSpy('connect');
   disconnect = jasmine.createSpy('disconnect');
@@ -16,6 +20,11 @@ class MockSocket {
   private streams: Record<string, Subject<any>> = {};
 
   fromEvent<T>(eventName: string) {
+    if (eventName === 'connect' || eventName === 'disconnect') {
+      if (!this.streams[eventName]) {
+        this.streams[eventName] = new Subject<void>();
+      }
+    }
     if (!this.streams[eventName]) {
       this.streams[eventName] = new Subject<T>();
     }

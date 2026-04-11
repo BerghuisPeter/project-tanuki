@@ -33,11 +33,11 @@
 <body>
 <div class="loader"></div>
 <script>const urlParams = new URLSearchParams(globalThis.location.search);
-const code = urlParams.get("code");
-if (globalThis.opener && code) {
-  globalThis.opener.postMessage({ type: "OAUTH2_CODE", code }, globalThis.location.origin);
+const token = urlParams.get("token");
+if (globalThis.opener && token) {
+  globalThis.opener.postMessage({ type: "OAUTH2_TOKEN", token }, globalThis.location.origin);
 } else {
-  console.error("No code found or opener window missing");
+  console.error("No token found or opener window missing");
 }</script>
 </body>
 </html>
