@@ -1,4 +1,4 @@
-import { ChangeDetectorRef, Component, ElementRef, inject, OnDestroy, OnInit, ViewChild } from '@angular/core';
+import { Component, effect, ElementRef, inject, OnDestroy, OnInit, ViewChild } from '@angular/core';
 import { Message } from "../../shared/models/message.model";
 import { FormControl, ReactiveFormsModule, Validators } from "@angular/forms";
 import { ChatService } from "../../shared/services/chat.service";
@@ -10,6 +10,8 @@ import { MatIconModule } from "@angular/material/icon";
 import { CharToColorDirective } from "../../shared/directives/char-to-color/char-to-color.directive";
 import { LoadingComponent } from "../../shared/components/loading/loading.component";
 import { UserService } from "../../core/services/user.service";
+import { toSignal } from "@angular/core/rxjs-interop";
+import { map, merge, scan } from "rxjs";
 
 @Component({
   selector: 'app-global-chat',
@@ -36,19 +38,37 @@ import { UserService } from "../../core/services/user.service";
 })
 export class GlobalChatComponent implements OnInit, OnDestroy {
 
-  messages: (Message)[] = [];
   inputFormControl = new FormControl<string>('', { nonNullable: true, validators: [Validators.required] });
   @ViewChild('chatMessagesContainer') chatMessagesContainer!: ElementRef;
 
   public chatService = inject(ChatService);
   public readonly userService = inject(UserService);
-  connection = this.chatService.connect();
-  private readonly changeDetectorRef = inject(ChangeDetectorRef);
+
+  readonly isConnected = toSignal(this.chatService.isConnected$, { initialValue: false });
+
+  private readonly messageStream$ = merge(
+    this.chatService.message.pipe(map(m => ({ ...m, origin: 'USER' as const }))),
+    this.chatService.systemNotification.pipe(map(m => ({ ...m, origin: 'SYSTEM' as const })))
+  );
+
+  readonly messages = toSignal(
+    this.messageStream$.pipe(
+      scan((acc, curr) => [...acc, curr], [] as Message[])
+    ),
+    { initialValue: [] }
+  );
+
+  constructor() {
+    this.chatService.connect();
+    effect(() => {
+      if (this.messages().length > 0) {
+        setTimeout(() => this.scrollMessagesToBottom(), 0);
+      }
+    });
+  }
 
   ngOnInit(): void {
     this.chatService.joinChat('globalChat');
-    this.chatService.message.subscribe((message: Message) => this.addNewMessage(message));
-    this.chatService.systemNotification.subscribe((message: Message) => this.addNewMessage(message, true));
   }
 
   ngOnDestroy(): void {
@@ -61,12 +81,6 @@ export class GlobalChatComponent implements OnInit, OnDestroy {
       this.chatService.sendMessage('globalChat', value.trim());
       this.inputFormControl.reset();
     }
-  }
-
-  private addNewMessage(message: Message, isSystemNotification = false) {
-    this.messages.push({ ...message, origin: isSystemNotification ? 'SYSTEM' : 'USER' });
-    this.changeDetectorRef.detectChanges();
-    this.scrollMessagesToBottom();
   }
 
   private scrollMessagesToBottom() {
