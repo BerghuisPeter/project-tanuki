@@ -48,12 +48,18 @@ export class GlobalChatComponent implements OnInit, OnDestroy {
 
   private readonly messageStream$ = merge(
     this.chatService.message.pipe(map(m => ({ ...m, origin: 'USER' as const }))),
-    this.chatService.systemNotification.pipe(map(m => ({ ...m, origin: 'SYSTEM' as const })))
+    this.chatService.systemNotification.pipe(map(m => ({ ...m, origin: 'SYSTEM' as const }))),
+    this.chatService.history.pipe(map(h => ({ history: h })))
   );
 
   readonly messages = toSignal(
     this.messageStream$.pipe(
-      scan((acc, curr) => [...acc, curr], [] as Message[])
+      scan((acc, curr) => {
+        if ('history' in curr) {
+          return curr.history.map(m => ({ ...m, origin: 'USER' as any }));
+        }
+        return [...acc, curr as Message];
+      }, [] as Message[])
     ),
     { initialValue: [] }
   );

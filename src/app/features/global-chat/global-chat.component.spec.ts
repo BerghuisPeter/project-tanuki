@@ -22,6 +22,7 @@ describe('GlobalChatComponent', () => {
 
   class MockChatService {
     message = new Subject();
+    history = new Subject();
     systemNotification = new Subject();
     isConnected$ = new Subject();
 

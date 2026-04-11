@@ -1,3 +1,6 @@
+const messageHistory = [];
+const MAX_HISTORY = 50;
+
 const chatHandler = (io, socket) => {
 
   let previousRoomId;
@@ -6,6 +9,9 @@ const chatHandler = (io, socket) => {
   const joinChatRoom = (roomId, userId) => {
     currentUserId = userId;
     safeJoin(roomId, userId);
+
+    socket.emit("chat:history", messageHistory);
+
     io.in(roomId).emit("chat:systemNotification", { user: currentUserId, value: "graced us with their presence." });
   }
 
@@ -17,7 +23,15 @@ const chatHandler = (io, socket) => {
   }
 
   const sendMessage = (roomId, userId, value) => {
-    io.in(roomId).emit("chat:receiveMessage", { user: userId, value });
+    const message = { user: userId, value, timestamp: Date.now() };
+
+    // Save to history, keep only last 50
+    messageHistory.push(message);
+    if (messageHistory.length > MAX_HISTORY) {
+      messageHistory.shift();
+    }
+
+    io.in(roomId).emit("chat:receiveMessage", message);
   }
 
   const onDisconnect = () => {

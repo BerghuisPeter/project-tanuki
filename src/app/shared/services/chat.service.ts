@@ -19,6 +19,7 @@ export class ChatService {
   );
 
   message = this.socket.fromEvent<Message, 'chat:receiveMessage'>('chat:receiveMessage');
+  history = this.socket.fromEvent<Message[], 'chat:history'>('chat:history');
   systemNotification = this.socket.fromEvent<Message, 'chat:systemNotification'>('chat:systemNotification');
 
   connect() {
