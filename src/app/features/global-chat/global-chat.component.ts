@@ -56,7 +56,7 @@ export class GlobalChatComponent implements OnInit, OnDestroy {
     this.messageStream$.pipe(
       scan((acc, curr) => {
         if ('history' in curr) {
-          return curr.history.map(m => ({ ...m, origin: 'USER' as any }));
+          return curr.history.map(m => ({ ...m, origin: 'USER' } as Message));
         }
         return [...acc, curr as Message];
       }, [] as Message[])
