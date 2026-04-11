@@ -11,7 +11,7 @@ export class ChatService {
   private readonly userService = inject(UserService);
 
   message = this.socket.fromEvent<Message, 'chat:receiveMessage'>('chat:receiveMessage');
-  systemNotification = this.socket.fromEvent<string, 'chat:systemNotification'>('chat:systemNotification');
+  systemNotification = this.socket.fromEvent<Message, 'chat:systemNotification'>('chat:systemNotification');
 
   connect() {
     return this.socket.connect();

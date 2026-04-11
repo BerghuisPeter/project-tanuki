@@ -36,7 +36,7 @@ import { UserService } from "../../core/services/user.service";
 })
 export class GlobalChatComponent implements OnInit, OnDestroy {
 
-  messages: (Message | string)[] = [];
+  messages: (Message)[] = [];
   inputFormControl = new FormControl<string>('', { nonNullable: true, validators: [Validators.required] });
   @ViewChild('chatMessagesContainer') chatMessagesContainer!: ElementRef;
 
@@ -47,8 +47,8 @@ export class GlobalChatComponent implements OnInit, OnDestroy {
 
   ngOnInit(): void {
     this.chatService.joinChat('globalChat');
-    this.chatService.message.subscribe((message: Message | string) => this.addNewMessage(message));
-    this.chatService.systemNotification.subscribe((message: Message | string) => this.addNewMessage(message));
+    this.chatService.message.subscribe((message: Message) => this.addNewMessage(message));
+    this.chatService.systemNotification.subscribe((message: Message) => this.addNewMessage(message, true));
   }
 
   ngOnDestroy(): void {
@@ -63,8 +63,8 @@ export class GlobalChatComponent implements OnInit, OnDestroy {
     }
   }
 
-  private addNewMessage(message: string | Message) {
-    this.messages.push(message);
+  private addNewMessage(message: Message, isSystemNotification = false) {
+    this.messages.push({ ...message, origin: isSystemNotification ? 'SYSTEM' : 'USER' });
     this.changeDetectorRef.detectChanges();
     this.scrollMessagesToBottom();
   }
@@ -73,9 +73,4 @@ export class GlobalChatComponent implements OnInit, OnDestroy {
     const container = this.chatMessagesContainer.nativeElement;
     container.scrollTop = container.scrollHeight;
   }
-
-  isString(item: Message | string): item is string {
-    return typeof item === 'string';
-  }
-
 }

@@ -6,7 +6,7 @@ const chatHandler = (io, socket) => {
   const joinChatRoom = (roomId, userId) => {
     currentUserId = userId;
     safeJoin(roomId, userId);
-    io.in(roomId).emit("chat:systemNotification", `${userId} graced us with his presence.`);
+    io.in(roomId).emit("chat:systemNotification", { user: currentUserId, value: "graced us with their presence." });
   }
 
   const safeJoin = (roomId, userId) => {
@@ -22,7 +22,7 @@ const chatHandler = (io, socket) => {
 
   const onDisconnect = () => {
     console.log("disconnect ", socket.id);
-    socket.broadcast.emit("chat:systemNotification", `${currentUserId} has left the building !`);
+    socket.broadcast.emit("chat:systemNotification", { user: currentUserId, value: "has left the building !" });
   }
 
   socket.on("chat:join", joinChatRoom);
