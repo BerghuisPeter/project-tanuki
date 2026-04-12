@@ -21,6 +21,12 @@
     "sonar": "npm run test:headless && npm run lint:report && cross-env sonar-scanner -Dsonar.login=$SONAR_TOKEN"
   },
   "private": true,
+  "overrides": {
+    "lightningcss": "1.32.0"
+  },
+  "optionalDependencies": {
+    "lightningcss-linux-x64-gnu": "1.32.0"
+  },
   "dependencies": {
     "@angular/animations": "^21.1.3",
     "@angular/cdk": "^21.1.3",
