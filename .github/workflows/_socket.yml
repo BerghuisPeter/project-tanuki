@@ -72,6 +72,3 @@ jobs:
           image: ${{ vars.GAR_LOCATION }}-docker.pkg.dev/${{ vars.GCP_PROJECT_ID }}/${{ vars.SOCKET_GAR_REPOSITORY }}/${{ vars.SOCKET_IMAGE_NAME }}:${{ github.sha }}
           region: ${{ vars.GAR_LOCATION }}
           suffix: ${{ github.sha }}
-          env_vars: |
-            NODE_ENV=${{ inputs.environment == 'dev' && 'development' || 'production' }}
-            CORS_DOMAIN=${{ vars.APP_CORS_ALLOWED_ORIGINS }}
