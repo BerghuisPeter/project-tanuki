@@ -3,7 +3,7 @@
 } @else {
   <h2 class="py-1 px-1 border-b-1 border-gray-300 md:px-4 m-0">You: <span
     appCharToColor>{{ userService.user().id }}</span></h2>
-  <div #chatMessagesContainer class="flex-1 min-h-[100px] flex flex-col gap-4 overflow-y-auto pt-1 px-1 md:px-4">
+  <div #chatMessagesContainer class="flex-1 min-h-[100px] flex flex-col gap-4 overflow-y-auto pt-1 px-2 md:px-4">
     @for (message of messages(); track message) {
       @if (message.origin === 'USER') {
         <div class="flex flex-col">
