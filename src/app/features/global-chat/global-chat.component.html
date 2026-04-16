@@ -7,13 +7,23 @@
     @for (message of messages(); track message) {
       @if (message.origin === 'USER') {
         <div class="flex flex-col">
-          <span appCharToColor>{{ message.user }}</span>
+          <div class="flex items-center gap-2">
+            <span appCharToColor>{{ message.user }}</span>
+            @if (message.timestamp) {
+              <span class="text-xs text-gray-500">{{ message.timestamp | date: 'HH:mm' }}</span>
+            }
+          </div>
           <span>{{ message.value }}</span>
         </div>
       } @else {
         <div class="flex items-center gap-2">
           <mat-icon class="icon-primary !overflow-visible" fontIcon="smart_toy"></mat-icon>
-          <span>SYSTEM: <span appCharToColor>{{ message.user }}</span> {{ message.value }}</span>
+          <div class="flex items-center gap-2">
+            <span>SYSTEM: <span appCharToColor>{{ message.user }}</span> {{ message.value }}</span>
+            @if (message.timestamp) {
+              <span class="text-xs text-gray-500">{{ message.timestamp | date: 'HH:mm' }}</span>
+            }
+          </div>
         </div>
       }
     }
