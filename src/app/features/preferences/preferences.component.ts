@@ -7,10 +7,12 @@ import { MatInputModule } from '@angular/material/input';
 import { MatButtonModule } from '@angular/material/button';
 import { MatSelectModule } from '@angular/material/select';
 import { MatOptionModule } from '@angular/material/core';
-import { MatSnackBar, MatSnackBarModule } from '@angular/material/snack-bar';
+import { MatIconModule } from '@angular/material/icon';
 import { PreferencesProfileService } from '../../../openApi/profile/api/preferences.service';
 import { UserPreferences } from '../../../openApi/profile/model/userPreferences';
 import { UserService } from '../../core/services/user.service';
+import { MatSnackBar, MatSnackBarModule } from "@angular/material/snack-bar";
+import { MatTooltip } from "@angular/material/tooltip";
 
 @Component({
   selector: 'app-preferences',
@@ -22,9 +24,11 @@ import { UserService } from '../../core/services/user.service';
     MatFormFieldModule,
     MatInputModule,
     MatButtonModule,
-    MatSnackBarModule,
     MatSelectModule,
-    MatOptionModule
+    MatOptionModule,
+    MatIconModule,
+    MatSnackBarModule,
+    MatTooltip
   ],
   templateUrl: './preferences.component.html',
   styleUrl: './preferences.component.scss'
@@ -55,6 +59,14 @@ export class PreferencesComponent {
         this.preferencesForm.patchValue(prefs, { emitEvent: false });
       }
     });
+  }
+
+  clearColor(): void {
+    const colorControl = this.preferencesForm.get('color');
+    if (colorControl) {
+      colorControl.setValue('');
+      colorControl.markAsDirty();
+    }
   }
 
   onReset(): void {

@@ -15,12 +15,20 @@
         </mat-form-field>
 
         <div class="flex flex-col md:flex-row md:gap-4">
-          <mat-form-field appearance="outline" class="w-full">
+          <mat-form-field appearance="outline" class="w-full md:w-1/2">
             <mat-label>Color Preference</mat-label>
-            <input formControlName="color" matInput type="color">
+            <div class="flex items-center gap-2">
+              <input class="color-picker-square" formControlName="color" matInput type="color">
+            </div>
+            @if (preferencesForm.get('color')?.value) {
+              <button (click)="clearColor()" mat-icon-button matSuffix matTooltip="Clear color" size="small"
+                      type="button">
+                <mat-icon>format_color_reset</mat-icon>
+              </button>
+            }
           </mat-form-field>
 
-          <mat-form-field appearance="outline" class="w-full">
+          <mat-form-field appearance="outline" class="w-full md:w-1/2">
             <mat-label>Language</mat-label>
             <mat-select formControlName="locale">
               @for (loc of locales; track loc.value) {
@@ -47,7 +55,11 @@
               Reset Changes
             </button>
           }
-          <button [disabled]="isSaving() || preferencesForm.invalid" color="primary" mat-raised-button type="submit">
+          <button
+            [disabled]="isSaving() || preferencesForm.invalid || !preferencesForm.dirty"
+            color="primary"
+            mat-raised-button
+            type="submit">
             {{ isSaving() ? 'Saving...' : 'Save Preferences' }}
           </button>
         </div>

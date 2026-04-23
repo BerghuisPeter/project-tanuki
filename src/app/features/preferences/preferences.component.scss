@@ -1,1 +1,22 @@
 /* Preferences Styles */
+
+.color-picker-square {
+  background-color: transparent;
+  border: none;
+  cursor: pointer;
+
+  &::-webkit-color-swatch-wrapper {
+    padding: 0;
+  }
+
+  &::-webkit-color-swatch {
+    border: 1px solid rgba(0, 0, 0, 0.12);
+    border-radius: 4px;
+  }
+
+  &::-moz-color-swatch {
+    border: 1px solid rgba(0, 0, 0, 0.12);
+    border-radius: 4px;
+  }
+}
+
