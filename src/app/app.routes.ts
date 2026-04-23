@@ -2,6 +2,7 @@ import { Routes } from '@angular/router';
 import { APP_PATHS } from "./shared/models/app-paths.model";
 import { PageNotFoundComponent } from "./core/components/page-not-found/page-not-found.component";
 import { guestGuard } from "./core/guards/guest.guard";
+import { authGuard } from "./core/guards/auth.guard";
 
 export const routes: Routes = [
   {
@@ -21,6 +22,11 @@ export const routes: Routes = [
     path: APP_PATHS.AUTHENTICATION,
     canActivate: [guestGuard],
     loadComponent: () => import('./features/authentication/authentication.component').then(m => m.AuthenticationComponent)
+  },
+  {
+    path: APP_PATHS.PREFERENCES,
+    canActivate: [authGuard],
+    loadComponent: () => import('./features/preferences/preferences.component').then(m => m.PreferencesComponent)
   },
   {
     path: '**',

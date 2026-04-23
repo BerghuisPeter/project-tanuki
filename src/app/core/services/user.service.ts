@@ -3,6 +3,7 @@ import { v4 as uuidv4 } from 'uuid';
 import { User } from '../../shared/models/user.model';
 import { Router } from "@angular/router";
 import { UserResponse } from "../../../openApi/auth";
+import { PreferencesProfileService, UserPreferences } from "../../../openApi/profile";
 
 @Injectable({
   providedIn: 'root',
@@ -14,14 +15,24 @@ export class UserService {
   readonly user = this.userSignal.asReadonly();
   readonly isLoggedIn = computed(() => !this.user().isGuest);
   private readonly router = inject(Router);
+  private readonly preferencesService = inject(PreferencesProfileService);
 
-  setLoggedInUser(userResponse: UserResponse): void {
+  async setLoggedInUser(userResponse: UserResponse): Promise<void> {
     const user: User = {
       ...userResponse,
       isGuest: false,
     };
     this.userSignal.set(user);
     this.saveUser(user);
+  }
+
+  setUserPreferences(preferences: UserPreferences): void {
+    const currentUser = this.userSignal();
+    if (!currentUser.isGuest) {
+      const updatedUser = { ...currentUser, userPreferences: preferences };
+      this.userSignal.set(updatedUser);
+      this.saveUser(updatedUser);
+    }
   }
 
   logout(): void {

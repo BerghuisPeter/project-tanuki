@@ -21,6 +21,7 @@ export class AuthButtonComponent {
 
   protected readonly isLoggingOut = signal<boolean>(false);
   public readonly userService = inject(UserService);
+  protected readonly APP_PATHS = APP_PATHS;
   private readonly authService = inject(AuthService);
   private readonly router = inject(Router);
 
