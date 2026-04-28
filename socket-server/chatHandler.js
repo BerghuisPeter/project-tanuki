@@ -5,15 +5,23 @@ const chatHandler = (io, socket) => {
 
   let previousRoomId;
   let currentUserId;
+  let currentDisplayName;
+  let currentColor;
 
-  const joinChatRoom = (roomId, userId) => {
+  const joinChatRoom = (roomId, userId, displayName, color) => {
     currentUserId = userId;
+    currentDisplayName = displayName;
+    currentColor = color;
     safeJoin(roomId, userId);
 
     socket.emit("chat:history", messageHistory);
 
     io.in(roomId).emit("chat:systemNotification", {
-      user: currentUserId,
+      user: {
+        id: userId,
+        displayName: displayName,
+        color: color,
+      },
       value: "graced us with their presence.",
       timestamp: Date.now()
     });
@@ -26,8 +34,17 @@ const chatHandler = (io, socket) => {
     previousRoomId = roomId;
   }
 
-  const sendMessage = (roomId, userId, value) => {
-    const message = { user: userId, value, timestamp: Date.now() };
+  const sendMessage = (payload) => {
+    const { roomId, user, message: messageValue } = payload;
+    const message = {
+      user: {
+        id: user.userId,
+        displayName: user.displayName,
+        color: user.color,
+      },
+      value: messageValue,
+      timestamp: Date.now()
+    };
 
     // Save to history, keep only last 50
     messageHistory.push(message);
@@ -41,7 +58,11 @@ const chatHandler = (io, socket) => {
   const onDisconnect = () => {
     console.log("disconnect ", socket.id);
     socket.broadcast.emit("chat:systemNotification", {
-      user: currentUserId,
+      user: {
+        id: currentUserId,
+        displayName: currentDisplayName,
+        color: currentColor,
+      },
       value: "has left the building !",
       timestamp: Date.now()
     });
