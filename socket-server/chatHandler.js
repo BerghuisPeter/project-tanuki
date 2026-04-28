@@ -7,11 +7,13 @@ const chatHandler = (io, socket) => {
   let currentUserId;
   let currentDisplayName;
   let currentColor;
+  let currentAvatarUrl;
 
-  const joinChatRoom = (roomId, userId, displayName, color) => {
+  const joinChatRoom = (roomId, userId, displayName, color, avatarUrl) => {
     currentUserId = userId;
     currentDisplayName = displayName;
     currentColor = color;
+    currentAvatarUrl = avatarUrl;
     safeJoin(roomId, userId);
 
     socket.emit("chat:history", messageHistory);
@@ -21,6 +23,7 @@ const chatHandler = (io, socket) => {
         id: userId,
         displayName: displayName,
         color: color,
+        avatarUrl: avatarUrl,
       },
       value: "graced us with their presence.",
       timestamp: Date.now()
@@ -41,6 +44,7 @@ const chatHandler = (io, socket) => {
         id: user.userId,
         displayName: user.displayName,
         color: user.color,
+        avatarUrl: user.avatarUrl,
       },
       value: messageValue,
       timestamp: Date.now()
@@ -62,6 +66,7 @@ const chatHandler = (io, socket) => {
         id: currentUserId,
         displayName: currentDisplayName,
         color: currentColor,
+        avatarUrl: currentAvatarUrl,
       },
       value: "has left the building !",
       timestamp: Date.now()

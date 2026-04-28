@@ -32,7 +32,7 @@ export class ChatService {
 
   joinChat(roomId: string) {
     const user = this.userService.user();
-    this.socket.emit('chat:join', roomId, user.id, user.userPreferences?.displayName, user.userPreferences?.color);
+    this.socket.emit('chat:join', roomId, user.id, user.userPreferences?.displayName, user.userPreferences?.color, user.userPreferences?.avatarUrl);
   }
 
   sendMessage(roomId: string, value: string) {
@@ -42,7 +42,8 @@ export class ChatService {
       user: {
         userId: user.id,
         displayName: user.userPreferences?.displayName,
-        color: user.userPreferences?.color
+        color: user.userPreferences?.color,
+        avatarUrl: user.userPreferences?.avatarUrl
       },
       message: value
     });
