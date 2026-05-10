@@ -1,15 +1,18 @@
 #!/bin/sh
-# Dynamically collect all NG_APP_ env vars and format them as a JS object
-# We create a JSON-like string: key1: "val1", key2: "val2"
-# Note: This handles basic string values.
-ENV_JSON=$(env | grep '^NG_APP_' | sed 's/=/": "/' | sed 's/^/    "/' | sed 's/$/",/' | sed '$ s/,$//')
+# Dynamically collect all NG_APP_ env vars for envsubst
+NG_APP_VARS=$(env | grep '^NG_APP_' | cut -d= -f1 | sed 's/^/\${/' | sed 's/$/}/' | tr '\n' ',')
 
-# Replace the placeholder in all index.html files
-# We use a custom placeholder __NG_APP_ENV_PAYLOAD__
-find /usr/share/nginx/html -name "index.html" -exec sh -c '
-  export ENV_JSON="$1"
-  envsubst "\$ENV_JSON" < "$2" > "$2.tmp" && mv "$2.tmp" "$2"
-' -- "$ENV_JSON" {} \;
+# Replace Angular environment variables in index.html for each language
+envsubst "$NG_APP_VARS" \
+  < /usr/share/nginx/html/en/index.html \
+  > /usr/share/nginx/html/en/index.html.tmp && \
+  mv /usr/share/nginx/html/en/index.html.tmp /usr/share/nginx/html/en/index.html
+
+envsubst "$NG_APP_VARS" \
+  < /usr/share/nginx/html/fr/index.html \
+  > /usr/share/nginx/html/fr/index.html.tmp && \
+  mv /usr/share/nginx/html/fr/index.html.tmp /usr/share/nginx/html/fr/index.html
+
 
 # Replace PORT and other environment variables in Nginx configuration
 envsubst '${PORT}' < /etc/nginx/templates/nginx.conf.template > /etc/nginx/nginx.conf
