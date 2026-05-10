@@ -10,9 +10,9 @@ import { MatIconModule } from "@angular/material/icon";
 import { LoadingComponent } from "../../shared/components/loading/loading.component";
 import { UserService } from "../../core/services/user.service";
 import { ChatUserInfoComponent } from "./components/chat-user-info/chat-user-info.component";
+import { ChatSystemMessageComponent } from "./components/chat-system-message/chat-system-message.component";
 import { toSignal } from "@angular/core/rxjs-interop";
 import { map, merge, scan } from "rxjs";
-import { CharToColorDirective } from "../../shared/directives/char-to-color/char-to-color.directive";
 
 @Component({
   selector: 'app-global-chat',
@@ -35,7 +35,7 @@ import { CharToColorDirective } from "../../shared/directives/char-to-color/char
     MatIconModule,
     LoadingComponent,
     ChatUserInfoComponent,
-    CharToColorDirective
+    ChatSystemMessageComponent
   ]
 })
 export class GlobalChatComponent implements OnInit, OnDestroy {

@@ -20,21 +20,7 @@
           <span>{{ message.value }}</span>
         </div>
       } @else {
-        <div class="flex items-center gap-2">
-          <mat-icon class="icon-primary !overflow-visible mt-1" fontIcon="smart_toy"></mat-icon>
-          <div class="flex flex-col">
-            <div class="flex flex-wrap items-center gap-x-2">
-              <span>SYSTEM: <span [appCharToColor]="message.user.color">
-                {{ message.user.displayName || message.user.id }}
-              </span></span>
-              <span class="text-xs text-gray-500">{{ message.timestamp | date: 'HH:mm' }}</span>
-            </div>
-            @if (message.user.displayName) {
-              <span class="text-xs text-gray-500">({{ message.user.id }})</span>
-            }
-            <span>{{ message.value }}</span>
-          </div>
-        </div>
+        <app-chat-system-message [message]="message"></app-chat-system-message>
       }
     }
   </div>
