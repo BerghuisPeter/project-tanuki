@@ -1,4 +1,4 @@
-import { Component, inject, Input } from '@angular/core';
+import { ChangeDetectionStrategy, Component, inject, Input } from '@angular/core';
 import { RouterLink } from "@angular/router";
 import { MatIconModule } from "@angular/material/icon";
 import { MatToolbarModule } from "@angular/material/toolbar";
@@ -16,6 +16,7 @@ import { MatMenu, MatMenuTrigger } from "@angular/material/menu";
   styleUrls: ['./header.component.scss'],
   standalone: true,
   imports: [MatIconModule, MatToolbarModule, MatButtonModule, TitleCasePipe, AuthButtonComponent, PreferencesButtonComponent, ThemeToggleComponent, RouterLink, MatMenu, MatMenuTrigger],
+  changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class HeaderComponent {
   @Input() title: string = 'headerTitle';

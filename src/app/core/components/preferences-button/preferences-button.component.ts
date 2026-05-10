@@ -1,4 +1,4 @@
-import { Component, inject, input } from "@angular/core";
+import { ChangeDetectionStrategy, Component, inject, input } from "@angular/core";
 import { MatIconModule } from "@angular/material/icon";
 import { MatButtonModule } from "@angular/material/button";
 import { MatMenuModule } from "@angular/material/menu";
@@ -10,6 +10,7 @@ import { UserService } from "../../services/user.service";
   selector: "app-preferences-button",
   standalone: true,
   imports: [MatIconModule, MatButtonModule, MatMenuModule],
+  changeDetection: ChangeDetectionStrategy.OnPush,
   template: `
     @if (userService.isLoggedIn()) {
       @if (isMenuItem()) {
