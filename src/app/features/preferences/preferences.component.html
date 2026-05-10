@@ -10,7 +10,7 @@
           <mat-label>Display Name</mat-label>
           <input formControlName="displayName" matInput placeholder="Your display name">
           @if (preferencesForm.get('displayName')?.hasError('maxlength')) {
-            <mat-error>Display name cannot exceed 50 characters</mat-error>
+            <mat-error>Display name cannot exceed 45 characters</mat-error>
           }
         </mat-form-field>
 
@@ -43,7 +43,8 @@
 
         <mat-form-field appearance="outline" class="w-full">
           <mat-label>Avatar URL</mat-label>
-          <input formControlName="avatarUrl" matInput placeholder="https://example.com/avatar.png">
+          <textarea formControlName="avatarUrl" matInput placeholder="https://example.com/avatar.png"
+                    rows="3"></textarea>
           @if (preferencesForm.get('avatarUrl')?.hasError('pattern')) {
             <mat-error>Please enter a valid URL (starting with http:// or https://)</mat-error>
           }

@@ -8,8 +8,7 @@ import { MatButtonModule } from '@angular/material/button';
 import { MatSelectModule } from '@angular/material/select';
 import { MatOptionModule } from '@angular/material/core';
 import { MatIconModule } from '@angular/material/icon';
-import { PreferencesProfileService } from '../../../openApi/profile/api/preferences.service';
-import { UserPreferences } from '../../../openApi/profile/model/userPreferences';
+import { PreferencesProfileService, UserPreferences } from '../../../openApi/profile';
 import { UserService } from '../../core/services/user.service';
 import { MatSnackBar, MatSnackBarModule } from "@angular/material/snack-bar";
 import { MatTooltip } from "@angular/material/tooltip";
@@ -43,7 +42,7 @@ export class PreferencesComponent {
   ];
   private readonly fb = inject(FormBuilder);
   preferencesForm: FormGroup = this.fb.group({
-    displayName: ['', [Validators.maxLength(50)]],
+    displayName: ['', [Validators.maxLength(45)]],
     color: [''],
     locale: ['en-US', [Validators.required]],
     avatarUrl: ['', [Validators.pattern('^(https?://.*)?$')]]
