@@ -1,4 +1,4 @@
-import { Component, input } from '@angular/core';
+import { ChangeDetectionStrategy, Component, input } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { CharToColorDirective } from '../../../../shared/directives/char-to-color/char-to-color.directive';
 import { MatIconModule } from "@angular/material/icon";
@@ -8,6 +8,7 @@ import { MatIconModule } from "@angular/material/icon";
   standalone: true,
   imports: [CommonModule, CharToColorDirective, MatIconModule],
   templateUrl: './chat-user-info.component.html',
+  changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class ChatUserInfoComponent {
   id = input.required<string>();
