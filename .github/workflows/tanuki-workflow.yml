@@ -6,7 +6,6 @@ on:
     paths-ignore:
       - '**.md'
       - 'docker/**'
-      - '.github/workflows/old/**'
       - 'sonar-project.properties'
   workflow_dispatch:
     inputs:
