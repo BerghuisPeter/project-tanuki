@@ -21,6 +21,6 @@ export class ThemeToggleComponent {
   }
 
   get ThemeTooltip(): string {
-    return this.isDarkMode ? "Light mode" : "Dark mode";
+    return this.isDarkMode ? $localize`:@@core.theme-toggle.tooltip.light-mode:Light mode` : $localize`:@@core.theme-toggle.tooltip.dark-mode:Dark mode`;
   }
 }
