@@ -31,10 +31,21 @@ export class ChatService {
   }
 
   joinChat(roomId: string) {
-    this.socket.emit('chat:join', roomId, this.userService.user().id);
+    const user = this.userService.user();
+    this.socket.emit('chat:join', roomId, user.id, user.userPreferences?.displayName, user.userPreferences?.color, user.userPreferences?.avatarUrl);
   }
 
   sendMessage(roomId: string, value: string) {
-    this.socket.emit('chat:sendMessage', roomId, this.userService.user().id, value);
+    const user = this.userService.user();
+    this.socket.emit('chat:sendMessage', {
+      roomId,
+      user: {
+        userId: user.id,
+        displayName: user.userPreferences?.displayName,
+        color: user.userPreferences?.color,
+        avatarUrl: user.userPreferences?.avatarUrl
+      },
+      message: value
+    });
   }
 }

@@ -1,0 +1,18 @@
+<div class="flex flex-wrap items-center justify-between md:justify-start gap-x-2">
+  <div class="flex items-center gap-2">
+    @if (avatarUrl()) {
+      <img [src]="avatarUrl()" alt="avatar" class="w-6 h-6 rounded-full">
+    } @else {
+      <mat-icon class="icon-primary !overflow-visible" fontIcon="person"></mat-icon>
+    }
+    <span [appCharToColor]="color()">
+      {{ displayName() || id() }}
+    </span>
+  </div>
+  @if (timestamp()) {
+    <span class="text-xs text-gray-500 ">{{ timestamp() | date: 'HH:mm' }}</span>
+  }
+</div>
+@if (displayName()) {
+  <span class="text-xs text-gray-500">({{ id() }})</span>
+}

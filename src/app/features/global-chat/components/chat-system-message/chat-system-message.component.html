@@ -1,0 +1,12 @@
+<div class="flex items-center gap-2 w-full">
+  <div class="flex-1 border-b border-gray-700"></div>
+  <div class="flex flex-col justify-center gap-x-1 text-xs items-center">
+    <app-chat-user-info [avatarUrl]="message().user.avatarUrl"
+                        [color]="message().user.color"
+                        [displayName]="message().user.displayName"
+                        [id]="message().user.id"
+                        [timestamp]="message().timestamp"></app-chat-user-info>
+    <span>{{ message().value }}</span>
+  </div>
+  <div class="flex-1 border-b border-gray-700"></div>
+</div>

@@ -1,4 +1,4 @@
-import { AfterViewInit, Directive, effect, ElementRef, inject, Renderer2 } from '@angular/core';
+import { AfterViewInit, Directive, effect, ElementRef, inject, input, Renderer2 } from '@angular/core';
 import { ThemeService } from '../../../core/services/theme.service';
 
 @Directive({
@@ -10,9 +10,12 @@ export class CharToColorDirective implements AfterViewInit {
   private readonly renderer = inject(Renderer2);
   private readonly themeService = inject(ThemeService);
 
+  appCharToColor = input<string | undefined>();
+
   constructor() {
     effect(() => {
       this.themeService.isDarkMode();
+      this.appCharToColor();
       this.updateColor();
     });
   }
@@ -22,6 +25,12 @@ export class CharToColorDirective implements AfterViewInit {
   }
 
   private updateColor(): void {
+    const overrideColor = this.appCharToColor();
+    if (overrideColor) {
+      this.renderer.setStyle(this.el.nativeElement, 'color', overrideColor);
+      return;
+    }
+
     const characters = this.el.nativeElement.innerText;
     if (characters) {
       this.renderer.setStyle(this.el.nativeElement, 'color', this.stringToHexColor(characters));

@@ -7,9 +7,10 @@ import { CommonModule } from "@angular/common";
 import { MatInputModule } from "@angular/material/input";
 import { MatListModule } from "@angular/material/list";
 import { MatIconModule } from "@angular/material/icon";
-import { CharToColorDirective } from "../../shared/directives/char-to-color/char-to-color.directive";
 import { LoadingComponent } from "../../shared/components/loading/loading.component";
 import { UserService } from "../../core/services/user.service";
+import { ChatUserInfoComponent } from "./components/chat-user-info/chat-user-info.component";
+import { ChatSystemMessageComponent } from "./components/chat-system-message/chat-system-message.component";
 import { toSignal } from "@angular/core/rxjs-interop";
 import { map, merge, scan } from "rxjs";
 
@@ -32,8 +33,9 @@ import { map, merge, scan } from "rxjs";
     MatInputModule,
     MatListModule,
     MatIconModule,
-    CharToColorDirective,
-    LoadingComponent
+    LoadingComponent,
+    ChatUserInfoComponent,
+    ChatSystemMessageComponent
   ]
 })
 export class GlobalChatComponent implements OnInit, OnDestroy {

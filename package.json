@@ -6,7 +6,7 @@
     "start": "ng serve",
     "build": "ng build",
     "watch": "ng build --watch --configuration development",
-    "test": "ng test",
+    "test": "npm run test:headless",
     "test:headless": "ng test --karma-config=karma.conf.js --browsers=ChromeHeadless --watch=false --code-coverage",
     "socket-server": "node socket-server/app.js",
     "lint": "ng lint",

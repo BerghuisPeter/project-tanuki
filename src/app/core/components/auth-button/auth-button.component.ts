@@ -1,4 +1,4 @@
-import { Component, inject, input, signal } from "@angular/core";
+import { ChangeDetectionStrategy, Component, inject, input, signal } from "@angular/core";
 import { MatIconModule } from "@angular/material/icon";
 import { MatButtonModule } from "@angular/material/button";
 import { MatMenuModule } from "@angular/material/menu";
@@ -14,6 +14,7 @@ import { APP_PATHS } from "../../../shared/models/app-paths.model";
   imports: [MatIconModule, MatButtonModule, MatMenuModule, MatTooltipModule],
   templateUrl: "./auth-button.component.html",
   styleUrl: "./auth-button.component.scss",
+  changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class AuthButtonComponent {
 
@@ -21,6 +22,7 @@ export class AuthButtonComponent {
 
   protected readonly isLoggingOut = signal<boolean>(false);
   public readonly userService = inject(UserService);
+  protected readonly APP_PATHS = APP_PATHS;
   private readonly authService = inject(AuthService);
   private readonly router = inject(Router);
 

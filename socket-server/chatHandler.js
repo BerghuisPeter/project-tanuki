@@ -5,14 +5,29 @@ const chatHandler = (io, socket) => {
 
   let previousRoomId;
   let currentUserId;
+  let currentDisplayName;
+  let currentColor;
+  let currentAvatarUrl;
 
-  const joinChatRoom = (roomId, userId) => {
+  const joinChatRoom = (roomId, userId, displayName, color, avatarUrl) => {
     currentUserId = userId;
+    currentDisplayName = displayName;
+    currentColor = color;
+    currentAvatarUrl = avatarUrl;
     safeJoin(roomId, userId);
 
     socket.emit("chat:history", messageHistory);
 
-    io.in(roomId).emit("chat:systemNotification", { user: currentUserId, value: "graced us with their presence." });
+    io.in(roomId).emit("chat:systemNotification", {
+      user: {
+        id: userId,
+        displayName: displayName,
+        color: color,
+        avatarUrl: avatarUrl,
+      },
+      value: "graced us with their presence.",
+      timestamp: Date.now()
+    });
   }
 
   const safeJoin = (roomId, userId) => {
@@ -22,8 +37,18 @@ const chatHandler = (io, socket) => {
     previousRoomId = roomId;
   }
 
-  const sendMessage = (roomId, userId, value) => {
-    const message = { user: userId, value, timestamp: Date.now() };
+  const sendMessage = (payload) => {
+    const { roomId, user, message: messageValue } = payload;
+    const message = {
+      user: {
+        id: user.userId,
+        displayName: user.displayName,
+        color: user.color,
+        avatarUrl: user.avatarUrl,
+      },
+      value: messageValue,
+      timestamp: Date.now()
+    };
 
     // Save to history, keep only last 50
     messageHistory.push(message);
@@ -36,7 +61,16 @@ const chatHandler = (io, socket) => {
 
   const onDisconnect = () => {
     console.log("disconnect ", socket.id);
-    socket.broadcast.emit("chat:systemNotification", { user: currentUserId, value: "has left the building !" });
+    socket.broadcast.emit("chat:systemNotification", {
+      user: {
+        id: currentUserId,
+        displayName: currentDisplayName,
+        color: currentColor,
+        avatarUrl: currentAvatarUrl,
+      },
+      value: "has left the building !",
+      timestamp: Date.now()
+    });
   }
 
   socket.on("chat:join", joinChatRoom);

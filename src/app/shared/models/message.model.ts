@@ -1,5 +1,11 @@
 export interface Message {
-  user: string;
+  user: {
+    id: string;
+    displayName?: string;
+    color?: string;
+    avatarUrl?: string;
+  };
   value: string;
   origin: 'SYSTEM' | 'USER';
+  timestamp?: number;
 }

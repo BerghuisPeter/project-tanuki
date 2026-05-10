@@ -11,12 +11,14 @@
       <mat-icon>more_vert</mat-icon>
     </button>
     <mat-menu #menu="matMenu">
+      <app-preferences-button [isMenuItem]="true"></app-preferences-button>
       <app-auth-button [isMenuItem]="true"></app-auth-button>
       <app-theme-toggle [isMenuItem]="true"></app-theme-toggle>
     </mat-menu>
   </div>
 
   <div class="hidden md:flex items-center px-4">
+    <app-preferences-button></app-preferences-button>
     <app-auth-button></app-auth-button>
     <app-theme-toggle></app-theme-toggle>
   </div>

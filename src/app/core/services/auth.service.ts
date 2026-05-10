@@ -9,11 +9,12 @@ import {
   RegisterRequest,
   UserResponse
 } from "../../../openApi/auth";
-import { catchError, firstValueFrom, tap, throwError } from "rxjs";
+import { catchError, firstValueFrom, from, of, switchMap, tap, throwError } from "rxjs";
 import { Router } from "@angular/router";
 import { APP_PATHS } from "../../shared/models/app-paths.model";
 import { HttpErrorResponse } from "@angular/common/http";
 import { MatSnackBar } from "@angular/material/snack-bar";
+import { PreferencesProfileService } from "../../../openApi/profile";
 
 @Injectable({
   providedIn: 'root',
@@ -21,6 +22,7 @@ import { MatSnackBar } from "@angular/material/snack-bar";
 export class AuthService {
   private readonly userService = inject(UserService);
   private readonly authControllerAuthService = inject(AuthControllerAuthService);
+  private readonly preferencesService = inject(PreferencesProfileService);
   private readonly router = inject(Router);
   private readonly snackBar = inject(MatSnackBar);
 
@@ -28,7 +30,9 @@ export class AuthService {
     const exchangeTempLoginTokenRequest: ExchangeTempLoginTokenRequest = { token };
     return this.authControllerAuthService.exchangeTempLoginToken(exchangeTempLoginTokenRequest)
       .pipe(
-        tap(authRes => this.handleAuthResponse(authRes))
+        switchMap(authRes => {
+          return from(this.handleAuthResponse(authRes)).pipe(switchMap(() => of(authRes)));
+        })
       );
   }
 
@@ -36,7 +40,9 @@ export class AuthService {
     const registerRequest: RegisterRequest = { email, password };
     return this.authControllerAuthService.register(registerRequest)
       .pipe(
-        tap(authRes => this.handleAuthResponse(authRes))
+        switchMap(authRes => {
+          return from(this.handleAuthResponse(authRes)).pipe(switchMap(() => of(authRes)));
+        })
       );
   }
 
@@ -44,7 +50,9 @@ export class AuthService {
     const loginRequest: LoginRequest = { email: email, password: password };
     return this.authControllerAuthService.login(loginRequest)
       .pipe(
-        tap(authRes => this.handleAuthResponse(authRes))
+        switchMap(authRes => {
+          return from(this.handleAuthResponse(authRes)).pipe(switchMap(() => of(authRes)));
+        })
       );
   }
 
@@ -78,7 +86,9 @@ export class AuthService {
   refreshToken(refreshToken: string) {
     const refreshRequest: RefreshRequest = { refreshToken: refreshToken };
     return this.authControllerAuthService.refresh(refreshRequest).pipe(
-      tap(authRes => this.handleAuthResponse(authRes))
+      switchMap(authRes => {
+        return from(this.handleAuthResponse(authRes)).pipe(switchMap(() => of(authRes)));
+      })
     );
   }
 
@@ -98,7 +108,7 @@ export class AuthService {
 
     try {
       const user: UserResponse = await firstValueFrom(this.authControllerAuthService.me());
-      this.userService.setLoggedInUser(user);
+      await this.handleUserAndPreferences(user);
     } catch (error) {
       // If error is 401, the interceptor handles the refresh flow.
       // If it reaches here with 401, it means the refresh failed and interceptor already handled logout.
@@ -109,9 +119,21 @@ export class AuthService {
     }
   }
 
-  handleAuthResponse(authRes: AuthResponse) {
+  async handleAuthResponse(authRes: AuthResponse) {
     localStorage.setItem('access_token', authRes.accessToken);
     localStorage.setItem('refresh_token', authRes.refreshToken);
-    this.userService.setLoggedInUser(authRes.user);
+    await this.handleUserAndPreferences(authRes.user);
+  }
+
+  private async handleUserAndPreferences(user: UserResponse) {
+    await this.userService.setLoggedInUser(user);
+    try {
+      const preferences = await firstValueFrom(this.preferencesService.getUserPreferences());
+      if (preferences) {
+        this.userService.setUserPreferences(preferences);
+      }
+    } catch (e) {
+      console.log('Failed to fetch user preferences (could be empty)', e);
+    }
   }
 }
