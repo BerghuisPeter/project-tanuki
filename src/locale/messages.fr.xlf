@@ -48,7 +48,7 @@
       </trans-unit>
       <trans-unit id="core.page-not-found.subtitle" datatype="html">
         <source>The racoons didn&apos;t find anything. Not even garbage!</source>
-        <target>Les ratons laveurs n&apos;ont rien trouvé. Pas même des ordures !</target>
+        <target>Les racoons n&apos;ont rien trouvé. Pas même des ordures !</target>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/core/components/page-not-found/page-not-found.component.html</context>
           <context context-type="linenumber">2,3</context>
