@@ -4,6 +4,7 @@ import { MatIconModule } from "@angular/material/icon";
 import { MatButtonModule } from "@angular/material/button";
 import { MatMenuModule } from "@angular/material/menu";
 import { LanguageService } from "../../services/language.service";
+import { PreferencesProfileService } from "../../../../openApi/profile";
 
 @Component({
   selector: "app-language-button",
@@ -15,11 +16,13 @@ import { LanguageService } from "../../services/language.service";
 export class LanguageButtonComponent {
   public readonly isMenuItem = input<boolean>(false);
   private readonly languageService = inject(LanguageService);
+  private readonly preferencesService = inject(PreferencesProfileService);
 
   locales = this.languageService.getLocales();
   currentLocale = this.languageService.currentLocale;
 
   changeLanguage(localeCode: string): void {
+    this.preferencesService.updateUserPreferences({ locale: localeCode }).subscribe();
     this.languageService.setLanguage(localeCode);
   }
 }
