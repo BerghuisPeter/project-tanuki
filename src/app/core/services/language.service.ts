@@ -10,7 +10,7 @@ export interface LocaleInfo {
   providedIn: 'root'
 })
 export class LanguageService {
-  private static readonly COOKIE_NAME = 'user-locale';
+  private static readonly COOKIE_NAME = 'user_locale';
   private readonly document = inject(DOCUMENT);
   private readonly currentLocaleId = inject(LOCALE_ID);
   // Current locale code (e.g., 'en-US')
@@ -46,7 +46,7 @@ export class LanguageService {
    */
   setLanguage(localeCode: string): void {
     if (globalThis.window !== undefined) {
-      localStorage.setItem('user-locale', localeCode);
+      localStorage.setItem('user_locale', localeCode);
       this.setCookie(localeCode);
     }
 
@@ -73,7 +73,7 @@ export class LanguageService {
     if (globalThis.window === undefined) {
       return;
     }
-    const savedLocale = localStorage.getItem('user-locale');
+    const savedLocale = localStorage.getItem('user_locale');
     if (savedLocale) {
       this.setCookie(savedLocale);
     } else {

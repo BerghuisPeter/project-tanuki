@@ -65,11 +65,11 @@ describe('LanguageService', () => {
 
   it('should save to localStorage when setting language', () => {
     service.setLanguage('fr-FR');
-    expect(localStorage.setItem).toHaveBeenCalledWith('user-locale', 'fr-FR');
+    expect(localStorage.setItem).toHaveBeenCalledWith('user_locale', 'fr-FR');
   });
 
   it('should initialize with language from localStorage', () => {
-    localStorage.setItem('user-locale', 'ja-JP');
+    localStorage.setItem('user_locale', 'ja-JP');
 
     // We need to re-inject/re-create to test init logic
     TestBed.resetTestingModule();
@@ -83,11 +83,11 @@ describe('LanguageService', () => {
     service = TestBed.inject(LanguageService);
 
     expect(mockDocument.location.href).toBe('');
-    expect(document.cookie).toContain('user-locale=ja-JP');
+    expect(document.cookie).toContain('user_locale=ja-JP');
   });
 
   it('should NOT redirect if stored locale matches current short code even if long codes differ', () => {
-    localStorage.setItem('user-locale', 'fr-BE'); // Different long code, same short code 'fr'
+    localStorage.setItem('user_locale', 'fr-BE'); // Different long code, same short code 'fr'
 
     TestBed.resetTestingModule();
     TestBed.configureTestingModule({
@@ -101,6 +101,6 @@ describe('LanguageService', () => {
     service = TestBed.inject(LanguageService);
 
     expect(mockDocument.location.href).toBe(''); // Should NOT redirect
-    expect(document.cookie).toContain('user-locale=fr-BE');
+    expect(document.cookie).toContain('user_locale=fr-BE');
   });
 });
