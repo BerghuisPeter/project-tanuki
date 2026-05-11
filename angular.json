@@ -191,7 +191,8 @@
           "options": {
             "buildTarget": "project-tanuki:build",
             "outputPath": "src/locale",
-            "outFile": "messages.xlf"
+            "outFile": "messages.xlf",
+            "format": "xlf2"
           }
         },
         "test": {

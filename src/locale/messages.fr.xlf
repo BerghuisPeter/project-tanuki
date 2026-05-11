@@ -1,519 +1,500 @@
 <?xml version="1.0" encoding="UTF-8" ?>
-<xliff version="1.2" xmlns="urn:oasis:names:tc:xliff:document:1.2">
-  <file source-language="en-US" datatype="plaintext" original="ng2.template">
-    <body>
-      <trans-unit id="core.auth-button.loading" datatype="html">
+<xliff xmlns="urn:oasis:names:tc:xliff:document:2.0" version="2.0" srcLang="en-US" trgLang="fr">
+  <file id="ngi18n" original="ng.template">
+    <unit id="core.auth-button.loading">
+      <notes>
+        <note category="location">src/app/core/components/auth-button/auth-button.component.html:6,8</note>
+        <note category="location">src/app/core/components/auth-button/auth-button.component.html:22,24</note>
+      </notes>
+      <segment>
         <source>Loading</source>
-        <target>Chargement</target>
-        <context-group purpose="location">
-          <context context-type="sourcefile">src/app/core/components/auth-button/auth-button.component.html</context>
-          <context context-type="linenumber">6,8</context>
-        </context-group>
-        <context-group purpose="location">
-          <context context-type="sourcefile">src/app/core/components/auth-button/auth-button.component.html</context>
-          <context context-type="linenumber">22,24</context>
-        </context-group>
-      </trans-unit>
-      <trans-unit id="core.auth-button.logout" datatype="html">
+      <target>Chargement</target></segment>
+    </unit>
+    <unit id="core.auth-button.logout">
+      <notes>
+        <note category="location">src/app/core/components/auth-button/auth-button.component.html:8,11</note>
+        <note category="location">src/app/core/components/auth-button/auth-button.component.html:24,27</note>
+      </notes>
+      <segment>
         <source>Logout</source>
-        <target>Déconnexion</target>
-        <context-group purpose="location">
-          <context context-type="sourcefile">src/app/core/components/auth-button/auth-button.component.html</context>
-          <context context-type="linenumber">8,11</context>
-        </context-group>
-        <context-group purpose="location">
-          <context context-type="sourcefile">src/app/core/components/auth-button/auth-button.component.html</context>
-          <context context-type="linenumber">24,27</context>
-        </context-group>
-      </trans-unit>
-      <trans-unit id="core.auth-button.login" datatype="html">
+      <target>Déconnexion</target></segment>
+    </unit>
+    <unit id="core.auth-button.login">
+      <notes>
+        <note category="location">src/app/core/components/auth-button/auth-button.component.html:14,17</note>
+        <note category="location">src/app/core/components/auth-button/auth-button.component.html:30,34</note>
+      </notes>
+      <segment>
         <source>Login</source>
-        <target>Connexion</target>
-        <context-group purpose="location">
-          <context context-type="sourcefile">src/app/core/components/auth-button/auth-button.component.html</context>
-          <context context-type="linenumber">14,17</context>
-        </context-group>
-        <context-group purpose="location">
-          <context context-type="sourcefile">src/app/core/components/auth-button/auth-button.component.html</context>
-          <context context-type="linenumber">30,34</context>
-        </context-group>
-      </trans-unit>
-      <trans-unit id="core.page-not-found.title" datatype="html">
+      <target>Connexion</target></segment>
+    </unit>
+    <unit id="core.page-not-found.title">
+      <notes>
+        <note category="location">src/app/core/components/page-not-found/page-not-found.component.html:1,2</note>
+      </notes>
+      <segment>
         <source>404!</source>
-        <target>404 !</target>
-        <context-group purpose="location">
-          <context context-type="sourcefile">src/app/core/components/page-not-found/page-not-found.component.html</context>
-          <context context-type="linenumber">1,2</context>
-        </context-group>
-      </trans-unit>
-      <trans-unit id="core.page-not-found.subtitle" datatype="html">
-        <source>The racoons didn&apos;t find anything. Not even garbage!</source>
-        <target>Les racoons n&apos;ont rien trouvé. Pas même des ordures !</target>
-        <context-group purpose="location">
-          <context context-type="sourcefile">src/app/core/components/page-not-found/page-not-found.component.html</context>
-          <context context-type="linenumber">2,3</context>
-        </context-group>
-      </trans-unit>
-      <trans-unit id="core.page-not-found.button.home" datatype="html">
-        <source>Main menu is HERE! (click me bro)</source>
-        <target>Le menu principal est ICI ! (clique-moi mon frère)</target>
-        <context-group purpose="location">
-          <context context-type="sourcefile">src/app/core/components/page-not-found/page-not-found.component.html</context>
-          <context context-type="linenumber">3,4</context>
-        </context-group>
-      </trans-unit>
-      <trans-unit id="core.page-not-found.text.cops" datatype="html">
-        <source>Also I ain&apos;t feeling the way the cops be movin.</source>
-        <target>De plus, je n&apos;aime pas la façon dont les flics se déplacent.</target>
-        <context-group purpose="location">
-          <context context-type="sourcefile">src/app/core/components/page-not-found/page-not-found.component.html</context>
-          <context context-type="linenumber">4,5</context>
-        </context-group>
-      </trans-unit>
-      <trans-unit id="core.page-not-found.alt.raccoon-crime" datatype="html">
+      <target>404 !</target></segment>
+    </unit>
+    <unit id="core.page-not-found.subtitle">
+      <notes>
+        <note category="location">src/app/core/components/page-not-found/page-not-found.component.html:2,3</note>
+      </notes>
+      <segment>
+        <source>The racoons didn't find anything. Not even garbage!</source>
+      <target>Les racoons n'ont rien trouvé. Pas même des ordures !</target></segment>
+    </unit>
+    <unit id="core.page-not-found.button.home">
+      <notes>
+        <note category="location">src/app/core/components/page-not-found/page-not-found.component.html:3,6</note>
+      </notes>
+      <segment>
+        <source>Main menu is HERE! (click me bro)
+</source>
+      <target>Le menu principal est ICI ! (clique-moi mon frère)</target></segment>
+    </unit>
+    <unit id="core.page-not-found.text.cops">
+      <notes>
+        <note category="location">src/app/core/components/page-not-found/page-not-found.component.html:6,7</note>
+      </notes>
+      <segment>
+        <source>Also I ain't feeling the way the cops be movin.</source>
+      <target>De plus, je n'aime pas la façon dont les flics se déplacent.</target></segment>
+    </unit>
+    <unit id="core.page-not-found.alt.raccoon-crime">
+      <notes>
+        <note category="location">src/app/core/components/page-not-found/page-not-found.component.html:7</note>
+      </notes>
+      <segment>
         <source>racoon_committing_crime</source>
-        <target>raton_laveur_commettant_un_crime</target>
-        <context-group purpose="location">
-          <context context-type="sourcefile">src/app/core/components/page-not-found/page-not-found.component.html</context>
-          <context context-type="linenumber">5</context>
-        </context-group>
-      </trans-unit>
-      <trans-unit id="core.preferences-button.label" datatype="html">
+      <target>raton_laveur_commettant_un_crime</target></segment>
+    </unit>
+    <unit id="core.preferences-button.label">
+      <notes>
+        <note category="location">src/app/core/components/preferences-button/preferences-button.component.ts:19,21</note>
+        <note category="location">src/app/core/components/preferences-button/preferences-button.component.ts:24,28</note>
+      </notes>
+      <segment>
         <source>Preferences</source>
-        <target>Préférences</target>
-        <context-group purpose="location">
-          <context context-type="sourcefile">src/app/core/components/preferences-button/preferences-button.component.ts</context>
-          <context context-type="linenumber">19,21</context>
-        </context-group>
-        <context-group purpose="location">
-          <context context-type="sourcefile">src/app/core/components/preferences-button/preferences-button.component.ts</context>
-          <context context-type="linenumber">24,28</context>
-        </context-group>
-      </trans-unit>
-      <trans-unit id="core.theme-toggle.label" datatype="html">
+      <target>Préférences</target></segment>
+    </unit>
+    <unit id="core.theme-toggle.label">
+      <notes>
+        <note category="location">src/app/core/components/theme-toggle/theme-toggle.component.html:11,14</note>
+      </notes>
+      <segment>
         <source>Theme</source>
-        <target>Thème</target>
-        <context-group purpose="location">
-          <context context-type="sourcefile">src/app/core/components/theme-toggle/theme-toggle.component.html</context>
-          <context context-type="linenumber">11,14</context>
-        </context-group>
-      </trans-unit>
-      <trans-unit id="core.theme-toggle.tooltip.light-mode" datatype="html">
+      <target>Thème</target></segment>
+    </unit>
+    <unit id="core.theme-toggle.tooltip.light-mode">
+      <notes>
+        <note category="location">src/app/core/components/theme-toggle/theme-toggle.component.ts:24</note>
+      </notes>
+      <segment>
         <source>Light mode</source>
-        <target>Mode clair</target>
-        <context-group purpose="location">
-          <context context-type="sourcefile">src/app/core/components/theme-toggle/theme-toggle.component.ts</context>
-          <context context-type="linenumber">24</context>
-        </context-group>
-      </trans-unit>
-      <trans-unit id="core.theme-toggle.tooltip.dark-mode" datatype="html">
+      <target>Mode clair</target></segment>
+    </unit>
+    <unit id="core.theme-toggle.tooltip.dark-mode">
+      <notes>
+        <note category="location">src/app/core/components/theme-toggle/theme-toggle.component.ts:24</note>
+      </notes>
+      <segment>
         <source>Dark mode</source>
-        <target>Mode sombre</target>
-        <context-group purpose="location">
-          <context context-type="sourcefile">src/app/core/components/theme-toggle/theme-toggle.component.ts</context>
-          <context context-type="linenumber">24</context>
-        </context-group>
-      </trans-unit>
-      <trans-unit id="auth.authentication.title.login" datatype="html">
+      <target>Mode sombre</target></segment>
+    </unit>
+    <unit id="auth.authentication.title.login">
+      <notes>
+        <note category="location">src/app/features/authentication/authentication.component.html:6,8</note>
+      </notes>
+      <segment>
         <source>Login</source>
-        <target>Connexion</target>
-        <context-group purpose="location">
-          <context context-type="sourcefile">src/app/features/authentication/authentication.component.html</context>
-          <context context-type="linenumber">6,8</context>
-        </context-group>
-      </trans-unit>
-      <trans-unit id="auth.authentication.title.create-account" datatype="html">
+      <target>Connexion</target></segment>
+    </unit>
+    <unit id="auth.authentication.title.create-account">
+      <notes>
+        <note category="location">src/app/features/authentication/authentication.component.html:8,11</note>
+      </notes>
+      <segment>
         <source>Create Account</source>
-        <target>Créer un compte</target>
-        <context-group purpose="location">
-          <context context-type="sourcefile">src/app/features/authentication/authentication.component.html</context>
-          <context context-type="linenumber">8,11</context>
-        </context-group>
-      </trans-unit>
-      <trans-unit id="auth.authentication.label.email" datatype="html">
+      <target>Créer un compte</target></segment>
+    </unit>
+    <unit id="auth.authentication.label.email">
+      <notes>
+        <note category="location">src/app/features/authentication/authentication.component.html:16,17</note>
+      </notes>
+      <segment>
         <source>Email</source>
-        <target>Email</target>
-        <context-group purpose="location">
-          <context context-type="sourcefile">src/app/features/authentication/authentication.component.html</context>
-          <context context-type="linenumber">16,17</context>
-        </context-group>
-      </trans-unit>
-      <trans-unit id="auth.authentication.placeholder.email" datatype="html">
+      <target>Email</target></segment>
+    </unit>
+    <unit id="auth.authentication.placeholder.email">
+      <notes>
+        <note category="location">src/app/features/authentication/authentication.component.html:18,19</note>
+      </notes>
+      <segment>
         <source>email@example.com</source>
-        <target>email@exemple.com</target>
-        <context-group purpose="location">
-          <context context-type="sourcefile">src/app/features/authentication/authentication.component.html</context>
-          <context context-type="linenumber">17,18</context>
-        </context-group>
-      </trans-unit>
-      <trans-unit id="auth.authentication.error.email-invalid" datatype="html">
+      <target>email@exemple.com</target></segment>
+    </unit>
+    <unit id="auth.authentication.error.email-invalid">
+      <notes>
+        <note category="location">src/app/features/authentication/authentication.component.html:20,23</note>
+      </notes>
+      <segment>
         <source>Please enter a valid email</source>
-        <target>Veuillez entrer un email valide</target>
-        <context-group purpose="location">
-          <context context-type="sourcefile">src/app/features/authentication/authentication.component.html</context>
-          <context context-type="linenumber">19,22</context>
-        </context-group>
-      </trans-unit>
-      <trans-unit id="auth.authentication.label.password" datatype="html">
+      <target>Veuillez entrer un email valide</target></segment>
+    </unit>
+    <unit id="auth.authentication.label.password">
+      <notes>
+        <note category="location">src/app/features/authentication/authentication.component.html:25,26</note>
+      </notes>
+      <segment>
         <source>Password</source>
-        <target>Mot de passe</target>
-        <context-group purpose="location">
-          <context context-type="sourcefile">src/app/features/authentication/authentication.component.html</context>
-          <context context-type="linenumber">24,25</context>
-        </context-group>
-      </trans-unit>
-      <trans-unit id="auth.authentication.error.password-minlength" datatype="html">
-        <source>password needs to be at least 6 characters</source>
-        <target>le mot de passe doit contenir au moins 6 caractères</target>
-        <context-group purpose="location">
-          <context context-type="sourcefile">src/app/features/authentication/authentication.component.html</context>
-          <context context-type="linenumber">27,31</context>
-        </context-group>
-      </trans-unit>
-      <trans-unit id="auth.authentication.label.confirm-password" datatype="html">
+      <target>Mot de passe</target></segment>
+    </unit>
+    <unit id="auth.authentication.error.password-minlength">
+      <notes>
+        <note category="location">src/app/features/authentication/authentication.component.html:28,32</note>
+      </notes>
+      <segment>
+        <source>password needs to be at least 6 characters </source>
+      <target>le mot de passe doit contenir au moins 6 caractères</target></segment>
+    </unit>
+    <unit id="auth.authentication.label.confirm-password">
+      <notes>
+        <note category="location">src/app/features/authentication/authentication.component.html:36,37</note>
+      </notes>
+      <segment>
         <source>Confirm Password</source>
-        <target>Confirmer le mot de passe</target>
-        <context-group purpose="location">
-          <context context-type="sourcefile">src/app/features/authentication/authentication.component.html</context>
-          <context context-type="linenumber">33,34</context>
-        </context-group>
-      </trans-unit>
-      <trans-unit id="auth.authentication.error.passwords-mismatch" datatype="html">
-        <source>Password needs to be identical to other password</source>
-        <target>Le mot de passe doit être identique à l&apos;autre mot de passe</target>
-        <context-group purpose="location">
-          <context context-type="sourcefile">src/app/features/authentication/authentication.component.html</context>
-          <context context-type="linenumber">36,39</context>
-        </context-group>
-      </trans-unit>
-      <trans-unit id="auth.authentication.button.login" datatype="html">
+      <target>Confirmer le mot de passe</target></segment>
+    </unit>
+    <unit id="auth.authentication.error.passwords-mismatch">
+      <notes>
+        <note category="location">src/app/features/authentication/authentication.component.html:39,42</note>
+      </notes>
+      <segment>
+        <source>Password needs to be identical to other password </source>
+      <target>Le mot de passe doit être identique à l'autre mot de passe</target></segment>
+    </unit>
+    <unit id="auth.authentication.button.login">
+      <notes>
+        <note category="location">src/app/features/authentication/authentication.component.html:63,65</note>
+      </notes>
+      <segment>
         <source>Login</source>
-        <target>Se connecter</target>
-        <context-group purpose="location">
-          <context context-type="sourcefile">src/app/features/authentication/authentication.component.html</context>
-          <context context-type="linenumber">58,60</context>
-        </context-group>
-      </trans-unit>
-      <trans-unit id="auth.authentication.button.register" datatype="html">
+      <target>Se connecter</target></segment>
+    </unit>
+    <unit id="auth.authentication.button.register">
+      <notes>
+        <note category="location">src/app/features/authentication/authentication.component.html:65,68</note>
+      </notes>
+      <segment>
         <source>Register</source>
-        <target>S&apos;inscrire</target>
-        <context-group purpose="location">
-          <context context-type="sourcefile">src/app/features/authentication/authentication.component.html</context>
-          <context context-type="linenumber">60,63</context>
-        </context-group>
-      </trans-unit>
-      <trans-unit id="auth.authentication.link.goto-register" datatype="html">
-        <source>Don&apos;t have an account? Register</source>
-        <target>Vous n&apos;avez pas de compte ? S&apos;inscrire</target>
-        <context-group purpose="location">
-          <context context-type="sourcefile">src/app/features/authentication/authentication.component.html</context>
-          <context context-type="linenumber">68,70</context>
-        </context-group>
-      </trans-unit>
-      <trans-unit id="auth.authentication.link.goto-login" datatype="html">
+      <target>S'inscrire</target></segment>
+    </unit>
+    <unit id="auth.authentication.link.goto-register">
+      <notes>
+        <note category="location">src/app/features/authentication/authentication.component.html:73,75</note>
+      </notes>
+      <segment>
+        <source>Don't have an account? Register</source>
+      <target>Vous n'avez pas de compte ? S'inscrire</target></segment>
+    </unit>
+    <unit id="auth.authentication.link.goto-login">
+      <notes>
+        <note category="location">src/app/features/authentication/authentication.component.html:75,78</note>
+      </notes>
+      <segment>
         <source>Already have an account? Login</source>
-        <target>Vous avez déjà un compte ? Se connecter</target>
-        <context-group purpose="location">
-          <context context-type="sourcefile">src/app/features/authentication/authentication.component.html</context>
-          <context context-type="linenumber">70,73</context>
-        </context-group>
-      </trans-unit>
-      <trans-unit id="auth.authentication.text.or" datatype="html">
+      <target>Vous avez déjà un compte ? Se connecter</target></segment>
+    </unit>
+    <unit id="auth.authentication.text.or">
+      <notes>
+        <note category="location">src/app/features/authentication/authentication.component.html:82,83</note>
+      </notes>
+      <segment>
         <source>OR</source>
-        <target>OU</target>
-        <context-group purpose="location">
-          <context context-type="sourcefile">src/app/features/authentication/authentication.component.html</context>
-          <context context-type="linenumber">77,78</context>
-        </context-group>
-      </trans-unit>
-      <trans-unit id="auth.authentication.error.invalid-credentials" datatype="html">
+      <target>OU</target></segment>
+    </unit>
+    <unit id="auth.authentication.error.invalid-credentials">
+      <notes>
+        <note category="location">src/app/features/authentication/authentication.component.ts:100</note>
+      </notes>
+      <segment>
         <source>Invalid email or password</source>
-        <target>Email ou mot de passe invalide</target>
-        <context-group purpose="location">
-          <context context-type="sourcefile">src/app/features/authentication/authentication.component.ts</context>
-          <context context-type="linenumber">100</context>
-        </context-group>
-      </trans-unit>
-      <trans-unit id="auth.authentication.error.server-error" datatype="html">
+      <target>Email ou mot de passe invalide</target></segment>
+    </unit>
+    <unit id="auth.authentication.error.server-error">
+      <notes>
+        <note category="location">src/app/features/authentication/authentication.component.ts:102</note>
+        <note category="location">src/app/features/authentication/authentication.component.ts:121</note>
+      </notes>
+      <segment>
         <source>Server error. Try again.</source>
-        <target>Erreur serveur. Réessayez.</target>
-        <context-group purpose="location">
-          <context context-type="sourcefile">src/app/features/authentication/authentication.component.ts</context>
-          <context context-type="linenumber">102</context>
-        </context-group>
-        <context-group purpose="location">
-          <context context-type="sourcefile">src/app/features/authentication/authentication.component.ts</context>
-          <context context-type="linenumber">121</context>
-        </context-group>
-      </trans-unit>
-      <trans-unit id="auth.authentication.error.email-registered" datatype="html">
+      <target>Erreur serveur. Réessayez.</target></segment>
+    </unit>
+    <unit id="auth.authentication.error.email-registered">
+      <notes>
+        <note category="location">src/app/features/authentication/authentication.component.ts:119</note>
+      </notes>
+      <segment>
         <source>Email already registered. Try to login instead.</source>
-        <target>Email déjà enregistré. Essayez de vous connecter à la place.</target>
-        <context-group purpose="location">
-          <context context-type="sourcefile">src/app/features/authentication/authentication.component.ts</context>
-          <context context-type="linenumber">119</context>
-        </context-group>
-      </trans-unit>
-      <trans-unit id="battleship.game.error.connection" datatype="html">
+      <target>Email déjà enregistré. Essayez de vous connecter à la place.</target></segment>
+    </unit>
+    <unit id="battleship.game.error.connection">
+      <notes>
+        <note category="location">src/app/features/battleship/battleship.component.html:2,4</note>
+      </notes>
+      <segment>
         <source>Connection error...</source>
-        <target>Erreur de connexion...</target>
-        <context-group purpose="location">
-          <context context-type="sourcefile">src/app/features/battleship/battleship.component.html</context>
-          <context context-type="linenumber">2,4</context>
-        </context-group>
-      </trans-unit>
-      <trans-unit id="battleship.game.board.opponent" datatype="html">
-        <source>Opponent&apos;s board</source>
-        <target>Plateau de l&apos;adversaire</target>
-        <context-group purpose="location">
-          <context context-type="sourcefile">src/app/features/battleship/battleship.component.html</context>
-          <context context-type="linenumber">15,17</context>
-        </context-group>
-      </trans-unit>
-      <trans-unit id="battleship.game.board.yours" datatype="html">
+      <target>Erreur de connexion...</target></segment>
+    </unit>
+    <unit id="battleship.game.board.opponent">
+      <notes>
+        <note category="location">src/app/features/battleship/battleship.component.html:15,17</note>
+      </notes>
+      <segment>
+        <source>Opponent's board</source>
+      <target>Plateau de l'adversaire</target></segment>
+    </unit>
+    <unit id="battleship.game.board.yours">
+      <notes>
+        <note category="location">src/app/features/battleship/battleship.component.html:24,25</note>
+      </notes>
+      <segment>
         <source>Your board</source>
-        <target>Votre plateau</target>
-        <context-group purpose="location">
-          <context context-type="sourcefile">src/app/features/battleship/battleship.component.html</context>
-          <context context-type="linenumber">24,25</context>
-        </context-group>
-      </trans-unit>
-      <trans-unit id="battleship.game.status.game-over" datatype="html">
+      <target>Votre plateau</target></segment>
+    </unit>
+    <unit id="battleship.game.status.game-over">
+      <notes>
+        <note category="location">src/app/features/battleship/battleship.component.html:33,38</note>
+      </notes>
+      <segment>
         <source>Game Over!</source>
-        <target>Fin de partie !</target>
-        <context-group purpose="location">
-          <context context-type="sourcefile">src/app/features/battleship/battleship.component.html</context>
-          <context context-type="linenumber">33,38</context>
-        </context-group>
-      </trans-unit>
-      <trans-unit id="profile.preferences.title" datatype="html">
+      <target>Fin de partie !</target></segment>
+    </unit>
+    <unit id="profile.preferences.title">
+      <notes>
+        <note category="location">src/app/features/preferences/preferences.component.html:4,5</note>
+      </notes>
+      <segment>
         <source>User Preferences</source>
-        <target>Préférences Utilisateur</target>
-        <context-group purpose="location">
-          <context context-type="sourcefile">src/app/features/preferences/preferences.component.html</context>
-          <context context-type="linenumber">4,5</context>
-        </context-group>
-      </trans-unit>
-      <trans-unit id="profile.preferences.label.display-name" datatype="html">
+      <target>Préférences Utilisateur</target></segment>
+    </unit>
+    <unit id="profile.preferences.label.display-name">
+      <notes>
+        <note category="location">src/app/features/preferences/preferences.component.html:10,11</note>
+      </notes>
+      <segment>
         <source>Display Name</source>
-        <target>Nom d&apos;affichage</target>
-        <context-group purpose="location">
-          <context context-type="sourcefile">src/app/features/preferences/preferences.component.html</context>
-          <context context-type="linenumber">10,11</context>
-        </context-group>
-      </trans-unit>
-      <trans-unit id="profile.preferences.placeholder.display-name" datatype="html">
+      <target>Nom d'affichage</target></segment>
+    </unit>
+    <unit id="profile.preferences.placeholder.display-name">
+      <notes>
+        <note category="location">src/app/features/preferences/preferences.component.html:12,13</note>
+      </notes>
+      <segment>
         <source>Your display name</source>
-        <target>Votre nom d&apos;affichage</target>
-        <context-group purpose="location">
-          <context context-type="sourcefile">src/app/features/preferences/preferences.component.html</context>
-          <context context-type="linenumber">11,12</context>
-        </context-group>
-      </trans-unit>
-      <trans-unit id="profile.preferences.error.display-name-maxlength" datatype="html">
-        <source>Display name cannot exceed 45 characters</source>
-        <target>Le nom d&apos;affichage ne peut pas dépasser 45 caractères</target>
-        <context-group purpose="location">
-          <context context-type="sourcefile">src/app/features/preferences/preferences.component.html</context>
-          <context context-type="linenumber">13,17</context>
-        </context-group>
-      </trans-unit>
-      <trans-unit id="profile.preferences.label.color-preference" datatype="html">
+      <target>Votre nom d'affichage</target></segment>
+    </unit>
+    <unit id="profile.preferences.error.display-name-maxlength">
+      <notes>
+        <note category="location">src/app/features/preferences/preferences.component.html:14,18</note>
+      </notes>
+      <segment>
+        <source>Display name cannot exceed 45 characters </source>
+      <target>Le nom d'affichage ne peut pas dépasser 45 caractères</target></segment>
+    </unit>
+    <unit id="profile.preferences.label.color-preference">
+      <notes>
+        <note category="location">src/app/features/preferences/preferences.component.html:22,23</note>
+      </notes>
+      <segment>
         <source>Color Preference</source>
-        <target>Préférence de couleur</target>
-        <context-group purpose="location">
-          <context context-type="sourcefile">src/app/features/preferences/preferences.component.html</context>
-          <context context-type="linenumber">19,20</context>
-        </context-group>
-      </trans-unit>
-      <trans-unit id="profile.preferences.tooltip.clear-color" datatype="html">
+      <target>Préférence de couleur</target></segment>
+    </unit>
+    <unit id="profile.preferences.tooltip.clear-color">
+      <notes>
+        <note category="location">src/app/features/preferences/preferences.component.html:28,30</note>
+      </notes>
+      <segment>
         <source>Clear color</source>
-        <target>Effacer la couleur</target>
-        <context-group purpose="location">
-          <context context-type="sourcefile">src/app/features/preferences/preferences.component.html</context>
-          <context context-type="linenumber">24,26</context>
-        </context-group>
-      </trans-unit>
-      <trans-unit id="profile.preferences.label.language" datatype="html">
+      <target>Effacer la couleur</target></segment>
+    </unit>
+    <unit id="profile.preferences.label.language">
+      <notes>
+        <note category="location">src/app/features/preferences/preferences.component.html:36,37</note>
+      </notes>
+      <segment>
         <source>Language</source>
-        <target>Langue</target>
-        <context-group purpose="location">
-          <context context-type="sourcefile">src/app/features/preferences/preferences.component.html</context>
-          <context context-type="linenumber">32,33</context>
-        </context-group>
-      </trans-unit>
-      <trans-unit id="profile.preferences.error.locale-required" datatype="html">
+      <target>Langue</target></segment>
+    </unit>
+    <unit id="profile.preferences.error.locale-required">
+      <notes>
+        <note category="location">src/app/features/preferences/preferences.component.html:43,45</note>
+      </notes>
+      <segment>
         <source>Locale is required</source>
-        <target>La langue est requise</target>
-        <context-group purpose="location">
-          <context context-type="sourcefile">src/app/features/preferences/preferences.component.html</context>
-          <context context-type="linenumber">39,41</context>
-        </context-group>
-      </trans-unit>
-      <trans-unit id="profile.preferences.label.avatar-url" datatype="html">
+      <target>La langue est requise</target></segment>
+    </unit>
+    <unit id="profile.preferences.label.avatar-url">
+      <notes>
+        <note category="location">src/app/features/preferences/preferences.component.html:49,50</note>
+      </notes>
+      <segment>
         <source>Avatar URL</source>
-        <target>URL de l&apos;avatar</target>
-        <context-group purpose="location">
-          <context context-type="sourcefile">src/app/features/preferences/preferences.component.html</context>
-          <context context-type="linenumber">45,46</context>
-        </context-group>
-      </trans-unit>
-      <trans-unit id="profile.preferences.placeholder.avatar-url" datatype="html">
+      <target>URL de l'avatar</target></segment>
+    </unit>
+    <unit id="profile.preferences.placeholder.avatar-url">
+      <notes>
+        <note category="location">src/app/features/preferences/preferences.component.html:51,53</note>
+      </notes>
+      <segment>
         <source>https://example.com/avatar.png</source>
-        <target>https://exemple.com/avatar.png</target>
-        <context-group purpose="location">
-          <context context-type="sourcefile">src/app/features/preferences/preferences.component.html</context>
-          <context context-type="linenumber">46,48</context>
-        </context-group>
-      </trans-unit>
-      <trans-unit id="profile.preferences.error.avatar-url-invalid" datatype="html">
-        <source>Please enter a valid URL (starting with http:// or https://)</source>
-        <target>Veuillez entrer une URL valide (commençant par http:// ou https://)</target>
-        <context-group purpose="location">
-          <context context-type="sourcefile">src/app/features/preferences/preferences.component.html</context>
-          <context context-type="linenumber">49,53</context>
-        </context-group>
-      </trans-unit>
-      <trans-unit id="profile.preferences.button.reset" datatype="html">
+      <target>https://exemple.com/avatar.png</target></segment>
+    </unit>
+    <unit id="profile.preferences.error.avatar-url-invalid">
+      <notes>
+        <note category="location">src/app/features/preferences/preferences.component.html:54,58</note>
+      </notes>
+      <segment>
+        <source>Please enter a valid URL (starting with http:// or https://) </source>
+      <target>Veuillez entrer une URL valide (commençant par http:// ou https://)</target></segment>
+    </unit>
+    <unit id="profile.preferences.button.reset">
+      <notes>
+        <note category="location">src/app/features/preferences/preferences.component.html:64,66</note>
+      </notes>
+      <segment>
         <source> Reset Changes </source>
-        <target> Réinitialiser les modifications </target>
-        <context-group purpose="location">
-          <context context-type="sourcefile">src/app/features/preferences/preferences.component.html</context>
-          <context context-type="linenumber">56,58</context>
-        </context-group>
-      </trans-unit>
-      <trans-unit id="profile.preferences.button.saving" datatype="html">
+      <target> Réinitialiser les modifications </target></segment>
+    </unit>
+    <unit id="profile.preferences.button.saving">
+      <notes>
+        <note category="location">src/app/features/preferences/preferences.component.html:73,75</note>
+      </notes>
+      <segment>
         <source>Saving...</source>
-        <target>Enregistrement...</target>
-        <context-group purpose="location">
-          <context context-type="sourcefile">src/app/features/preferences/preferences.component.html</context>
-          <context context-type="linenumber">65,67</context>
-        </context-group>
-      </trans-unit>
-      <trans-unit id="profile.preferences.button.save" datatype="html">
+      <target>Enregistrement...</target></segment>
+    </unit>
+    <unit id="profile.preferences.button.save">
+      <notes>
+        <note category="location">src/app/features/preferences/preferences.component.html:75,78</note>
+      </notes>
+      <segment>
         <source>Save Preferences</source>
-        <target>Enregistrer les préférences</target>
-        <context-group purpose="location">
-          <context context-type="sourcefile">src/app/features/preferences/preferences.component.html</context>
-          <context context-type="linenumber">67,70</context>
-        </context-group>
-      </trans-unit>
-      <trans-unit id="profile.preferences.locale.dutch" datatype="html">
+      <target>Enregistrer les préférences</target></segment>
+    </unit>
+    <unit id="profile.preferences.locale.dutch">
+      <notes>
+        <note category="location">src/app/features/preferences/preferences.component.ts:38</note>
+      </notes>
+      <segment>
         <source>Dutch</source>
-        <target>Néerlandais</target>
-        <context-group purpose="location">
-          <context context-type="sourcefile">src/app/features/preferences/preferences.component.ts</context>
-          <context context-type="linenumber">38</context>
-        </context-group>
-      </trans-unit>
-      <trans-unit id="profile.preferences.locale.french" datatype="html">
+      <target>Néerlandais</target></segment>
+    </unit>
+    <unit id="profile.preferences.locale.french">
+      <notes>
+        <note category="location">src/app/features/preferences/preferences.component.ts:39</note>
+      </notes>
+      <segment>
         <source>French</source>
-        <target>Français</target>
-        <context-group purpose="location">
-          <context context-type="sourcefile">src/app/features/preferences/preferences.component.ts</context>
-          <context context-type="linenumber">39</context>
-        </context-group>
-      </trans-unit>
-      <trans-unit id="profile.preferences.locale.english" datatype="html">
+      <target>Français</target></segment>
+    </unit>
+    <unit id="profile.preferences.locale.english">
+      <notes>
+        <note category="location">src/app/features/preferences/preferences.component.ts:40</note>
+      </notes>
+      <segment>
         <source>English</source>
-        <target>Anglais</target>
-        <context-group purpose="location">
-          <context context-type="sourcefile">src/app/features/preferences/preferences.component.ts</context>
-          <context context-type="linenumber">40</context>
-        </context-group>
-      </trans-unit>
-      <trans-unit id="profile.preferences.locale.japanese" datatype="html">
+      <target>Anglais</target></segment>
+    </unit>
+    <unit id="profile.preferences.locale.japanese">
+      <notes>
+        <note category="location">src/app/features/preferences/preferences.component.ts:41</note>
+      </notes>
+      <segment>
         <source>Japanese</source>
-        <target>Japonais</target>
-        <context-group purpose="location">
-          <context context-type="sourcefile">src/app/features/preferences/preferences.component.ts</context>
-          <context context-type="linenumber">41</context>
-        </context-group>
-      </trans-unit>
-      <trans-unit id="profile.preferences.snackbar.success" datatype="html">
+      <target>Japonais</target></segment>
+    </unit>
+    <unit id="profile.preferences.snackbar.success">
+      <notes>
+        <note category="location">src/app/features/preferences/preferences.component.ts:93</note>
+      </notes>
+      <segment>
         <source>Preferences saved successfully</source>
-        <target>Préférences enregistrées avec succès</target>
-        <context-group purpose="location">
-          <context context-type="sourcefile">src/app/features/preferences/preferences.component.ts</context>
-          <context context-type="linenumber">93</context>
-        </context-group>
-      </trans-unit>
-      <trans-unit id="profile.preferences.snackbar.close" datatype="html">
+      <target>Préférences enregistrées avec succès</target></segment>
+    </unit>
+    <unit id="profile.preferences.snackbar.close">
+      <notes>
+        <note category="location">src/app/features/preferences/preferences.component.ts:93</note>
+        <note category="location">src/app/features/preferences/preferences.component.ts:98</note>
+      </notes>
+      <segment>
         <source>Close</source>
-        <target>Fermer</target>
-        <context-group purpose="location">
-          <context context-type="sourcefile">src/app/features/preferences/preferences.component.ts</context>
-          <context context-type="linenumber">93</context>
-        </context-group>
-        <context-group purpose="location">
-          <context context-type="sourcefile">src/app/features/preferences/preferences.component.ts</context>
-          <context context-type="linenumber">98</context>
-        </context-group>
-      </trans-unit>
-      <trans-unit id="profile.preferences.snackbar.error" datatype="html">
+      <target>Fermer</target></segment>
+    </unit>
+    <unit id="profile.preferences.snackbar.error">
+      <notes>
+        <note category="location">src/app/features/preferences/preferences.component.ts:98</note>
+      </notes>
+      <segment>
         <source>Failed to save preferences</source>
-        <target>Échec de l&apos;enregistrement des préférences</target>
-        <context-group purpose="location">
-          <context context-type="sourcefile">src/app/features/preferences/preferences.component.ts</context>
-          <context context-type="linenumber">98</context>
-        </context-group>
-      </trans-unit>
-      <trans-unit id="shared.loading.title" datatype="html">
+      <target>Échec de l'enregistrement des préférences</target></segment>
+    </unit>
+    <unit id="shared.loading.title">
+      <notes>
+        <note category="location">src/app/shared/components/loading/loading.component.ts:15</note>
+      </notes>
+      <segment>
         <source>Loading...</source>
-        <target>Chargement...</target>
-        <context-group purpose="location">
-          <context context-type="sourcefile">src/app/shared/components/loading/loading.component.ts</context>
-          <context context-type="linenumber">15</context>
-        </context-group>
-      </trans-unit>
-      <trans-unit id="shared.loading.subtitle" datatype="html">
+      <target>Chargement...</target></segment>
+    </unit>
+    <unit id="shared.loading.subtitle">
+      <notes>
+        <note category="location">src/app/shared/components/loading/loading.component.ts:16</note>
+      </notes>
+      <segment>
         <source>The racoons are going going as fast as they can.</source>
-        <target>Les ratons laveurs vont aussi vite qu&apos;ils le peuvent.</target>
-        <context-group purpose="location">
-          <context context-type="sourcefile">src/app/shared/components/loading/loading.component.ts</context>
-          <context context-type="linenumber">16</context>
-        </context-group>
-      </trans-unit>
-      <trans-unit id="shared.room-setup.title.your-code" datatype="html">
+      <target>Les ratons laveurs vont aussi vite qu'ils le peuvent.</target></segment>
+    </unit>
+    <unit id="shared.room-setup.title.your-code">
+      <notes>
+        <note category="location">src/app/shared/components/room-setup/room-setup.component.html:4,6</note>
+      </notes>
+      <segment>
         <source>Your code:</source>
-        <target>Votre code :</target>
-        <context-group purpose="location">
-          <context context-type="sourcefile">src/app/shared/components/room-setup/room-setup.component.html</context>
-          <context context-type="linenumber">4,6</context>
-        </context-group>
-      </trans-unit>
-      <trans-unit id="shared.room-setup.button.copy" datatype="html">
-        <source>Copy code</source>
-        <target>Copier le code</target>
-        <context-group purpose="location">
-          <context context-type="sourcefile">src/app/shared/components/room-setup/room-setup.component.html</context>
-          <context context-type="linenumber">6,8</context>
-        </context-group>
-      </trans-unit>
-      <trans-unit id="shared.room-setup.title.enter-code" datatype="html">
+      <target>Votre code :</target></segment>
+    </unit>
+    <unit id="shared.room-setup.button.copy">
+      <notes>
+        <note category="location">src/app/shared/components/room-setup/room-setup.component.html:7,10</note>
+      </notes>
+      <segment>
+        <source> Copy code </source>
+      <target>Copier le code</target></segment>
+    </unit>
+    <unit id="shared.room-setup.title.enter-code">
+      <notes>
+        <note category="location">src/app/shared/components/room-setup/room-setup.component.html:12,13</note>
+      </notes>
+      <segment>
         <source>Enter code:</source>
-        <target>Entrez le code :</target>
-        <context-group purpose="location">
-          <context context-type="sourcefile">src/app/shared/components/room-setup/room-setup.component.html</context>
-          <context context-type="linenumber">10,11</context>
-        </context-group>
-      </trans-unit>
-      <trans-unit id="shared.room-setup.placeholder.enter-code" datatype="html">
-        <source>friend&apos;s code here.</source>
-        <target>code de l&apos;ami ici.</target>
-        <context-group purpose="location">
-          <context context-type="sourcefile">src/app/shared/components/room-setup/room-setup.component.html</context>
-          <context context-type="linenumber">16,18</context>
-        </context-group>
-      </trans-unit>
-      <trans-unit id="shared.room-setup.error.invalid-code" datatype="html">
+      <target>Entrez le code :</target></segment>
+    </unit>
+    <unit id="shared.room-setup.placeholder.enter-code">
+      <notes>
+        <note category="location">src/app/shared/components/room-setup/room-setup.component.html:18,20</note>
+      </notes>
+      <segment>
+        <source>friend's code here.</source>
+      <target>code de l'ami ici.</target></segment>
+    </unit>
+    <unit id="shared.room-setup.error.invalid-code">
+      <notes>
+        <note category="location">src/app/shared/components/room-setup/room-setup.component.html:20,23</note>
+      </notes>
+      <segment>
         <source>Not a valid code.</source>
-        <target>Code non valide.</target>
-        <context-group purpose="location">
-          <context context-type="sourcefile">src/app/shared/components/room-setup/room-setup.component.html</context>
-          <context context-type="linenumber">18,21</context>
-        </context-group>
-      </trans-unit>
-    </body>
+      <target>Code non valide.</target></segment>
+    </unit>
   </file>
 </xliff>
