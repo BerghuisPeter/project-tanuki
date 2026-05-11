@@ -1,0 +1,520 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<xliff version="1.2" xmlns="urn:oasis:names:tc:xliff:document:1.2">
+  <file source-language="en-US" datatype="plaintext" original="ng2.template">
+    <body>
+      <trans-unit id="core.auth-button.loading" datatype="html">
+        <source>Loading</source>
+        <target>読み込み中</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/core/components/auth-button/auth-button.component.html</context>
+          <context context-type="linenumber">6,8</context>
+        </context-group>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/core/components/auth-button/auth-button.component.html</context>
+          <context context-type="linenumber">22,24</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="core.auth-button.logout" datatype="html">
+        <source>Logout</source>
+        <target>ログアウト</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/core/components/auth-button/auth-button.component.html</context>
+          <context context-type="linenumber">8,11</context>
+        </context-group>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/core/components/auth-button/auth-button.component.html</context>
+          <context context-type="linenumber">24,27</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="core.auth-button.login" datatype="html">
+        <source>Login</source>
+        <target>ログイン</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/core/components/auth-button/auth-button.component.html</context>
+          <context context-type="linenumber">14,17</context>
+        </context-group>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/core/components/auth-button/auth-button.component.html</context>
+          <context context-type="linenumber">30,34</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="core.page-not-found.title" datatype="html">
+        <source>404!</source>
+        <target>404!</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/core/components/page-not-found/page-not-found.component.html</context>
+          <context context-type="linenumber">1,2</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="core.page-not-found.subtitle" datatype="html">
+        <source>The racoons didn&apos;t find anything. Not even garbage!</source>
+        <target>アライグマは何も見つけられませんでした。ゴミさえも！</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/core/components/page-not-found/page-not-found.component.html</context>
+          <context context-type="linenumber">2,3</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="core.page-not-found.button.home" datatype="html">
+        <source>Main menu is HERE! (click me bro)
+</source>
+        <target>メインメニューはこちら！（クリックしてね）</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/core/components/page-not-found/page-not-found.component.html</context>
+          <context context-type="linenumber">3,6</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="core.page-not-found.text.cops" datatype="html">
+        <source>Also I ain&apos;t feeling the way the cops be movin.</source>
+        <target>それに、警察の動きが気に入りません。</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/core/components/page-not-found/page-not-found.component.html</context>
+          <context context-type="linenumber">6,7</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="core.page-not-found.alt.raccoon-crime" datatype="html">
+        <source>racoon_committing_crime</source>
+        <target>犯罪を犯すアライグマ</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/core/components/page-not-found/page-not-found.component.html</context>
+          <context context-type="linenumber">7</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="core.preferences-button.label" datatype="html">
+        <source>Preferences</source>
+        <target>設定</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/core/components/preferences-button/preferences-button.component.ts</context>
+          <context context-type="linenumber">19,21</context>
+        </context-group>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/core/components/preferences-button/preferences-button.component.ts</context>
+          <context context-type="linenumber">24,28</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="core.theme-toggle.label" datatype="html">
+        <source>Theme</source>
+        <target>テーマ</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/core/components/theme-toggle/theme-toggle.component.html</context>
+          <context context-type="linenumber">11,14</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="core.theme-toggle.tooltip.light-mode" datatype="html">
+        <source>Light mode</source>
+        <target>ライトモード</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/core/components/theme-toggle/theme-toggle.component.ts</context>
+          <context context-type="linenumber">24</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="core.theme-toggle.tooltip.dark-mode" datatype="html">
+        <source>Dark mode</source>
+        <target>ダークモード</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/core/components/theme-toggle/theme-toggle.component.ts</context>
+          <context context-type="linenumber">24</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="auth.authentication.title.login" datatype="html">
+        <source>Login</source>
+        <target>ログイン</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/features/authentication/authentication.component.html</context>
+          <context context-type="linenumber">6,8</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="auth.authentication.title.create-account" datatype="html">
+        <source>Create Account</source>
+        <target>アカウント作成</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/features/authentication/authentication.component.html</context>
+          <context context-type="linenumber">8,11</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="auth.authentication.label.email" datatype="html">
+        <source>Email</source>
+        <target>メールアドレス</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/features/authentication/authentication.component.html</context>
+          <context context-type="linenumber">16,17</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="auth.authentication.placeholder.email" datatype="html">
+        <source>email@example.com</source>
+        <target>email@example.com</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/features/authentication/authentication.component.html</context>
+          <context context-type="linenumber">18,19</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="auth.authentication.error.email-invalid" datatype="html">
+        <source>Please enter a valid email</source>
+        <target>有効なメールアドレスを入力してください</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/features/authentication/authentication.component.html</context>
+          <context context-type="linenumber">20,23</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="auth.authentication.label.password" datatype="html">
+        <source>Password</source>
+        <target>パスワード</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/features/authentication/authentication.component.html</context>
+          <context context-type="linenumber">25,26</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="auth.authentication.error.password-minlength" datatype="html">
+        <source>password needs to be at least 6 characters </source>
+        <target>パスワードは6文字以上である必要があります</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/features/authentication/authentication.component.html</context>
+          <context context-type="linenumber">28,32</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="auth.authentication.label.confirm-password" datatype="html">
+        <source>Confirm Password</source>
+        <target>パスワード（確認）</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/features/authentication/authentication.component.html</context>
+          <context context-type="linenumber">36,37</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="auth.authentication.error.passwords-mismatch" datatype="html">
+        <source>Password needs to be identical to other password </source>
+        <target>パスワードが一致しません</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/features/authentication/authentication.component.html</context>
+          <context context-type="linenumber">39,42</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="auth.authentication.button.login" datatype="html">
+        <source>Login</source>
+        <target>ログイン</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/features/authentication/authentication.component.html</context>
+          <context context-type="linenumber">63,65</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="auth.authentication.button.register" datatype="html">
+        <source>Register</source>
+        <target>登録</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/features/authentication/authentication.component.html</context>
+          <context context-type="linenumber">65,68</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="auth.authentication.link.goto-register" datatype="html">
+        <source>Don&apos;t have an account? Register</source>
+        <target>アカウントをお持ちでないですか？ 登録</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/features/authentication/authentication.component.html</context>
+          <context context-type="linenumber">73,75</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="auth.authentication.link.goto-login" datatype="html">
+        <source>Already have an account? Login</source>
+        <target>既にアカウントをお持ちですか？ ログイン</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/features/authentication/authentication.component.html</context>
+          <context context-type="linenumber">75,78</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="auth.authentication.text.or" datatype="html">
+        <source>OR</source>
+        <target>または</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/features/authentication/authentication.component.html</context>
+          <context context-type="linenumber">82,83</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="auth.authentication.error.invalid-credentials" datatype="html">
+        <source>Invalid email or password</source>
+        <target>メールアドレスまたはパスワードが正しくありません</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/features/authentication/authentication.component.ts</context>
+          <context context-type="linenumber">100</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="auth.authentication.error.server-error" datatype="html">
+        <source>Server error. Try again.</source>
+        <target>サーバーエラーが発生しました。もう一度お試しください。</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/features/authentication/authentication.component.ts</context>
+          <context context-type="linenumber">102</context>
+        </context-group>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/features/authentication/authentication.component.ts</context>
+          <context context-type="linenumber">121</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="auth.authentication.error.email-registered" datatype="html">
+        <source>Email already registered. Try to login instead.</source>
+        <target>このメールアドレスは既に登録されています。ログインしてください。</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/features/authentication/authentication.component.ts</context>
+          <context context-type="linenumber">119</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="battleship.game.error.connection" datatype="html">
+        <source>Connection error...</source>
+        <target>接続エラー...</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/features/battleship/battleship.component.html</context>
+          <context context-type="linenumber">2,4</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="battleship.game.board.opponent" datatype="html">
+        <source>Opponent&apos;s board</source>
+        <target>相手のボード</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/features/battleship/battleship.component.html</context>
+          <context context-type="linenumber">15,17</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="battleship.game.board.yours" datatype="html">
+        <source>Your board</source>
+        <target>自分のボード</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/features/battleship/battleship.component.html</context>
+          <context context-type="linenumber">24,25</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="battleship.game.status.game-over" datatype="html">
+        <source>Game Over!</source>
+        <target>ゲームオーバー！</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/features/battleship/battleship.component.html</context>
+          <context context-type="linenumber">33,38</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="profile.preferences.title" datatype="html">
+        <source>User Preferences</source>
+        <target>ユーザー設定</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/features/preferences/preferences.component.html</context>
+          <context context-type="linenumber">4,5</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="profile.preferences.label.display-name" datatype="html">
+        <source>Display Name</source>
+        <target>表示名</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/features/preferences/preferences.component.html</context>
+          <context context-type="linenumber">10,11</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="profile.preferences.placeholder.display-name" datatype="html">
+        <source>Your display name</source>
+        <target>あなたの表示名</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/features/preferences/preferences.component.html</context>
+          <context context-type="linenumber">12,13</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="profile.preferences.error.display-name-maxlength" datatype="html">
+        <source>Display name cannot exceed 45 characters </source>
+        <target>表示名は45文字以内である必要があります</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/features/preferences/preferences.component.html</context>
+          <context context-type="linenumber">14,18</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="profile.preferences.label.color-preference" datatype="html">
+        <source>Color Preference</source>
+        <target>色の設定</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/features/preferences/preferences.component.html</context>
+          <context context-type="linenumber">22,23</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="profile.preferences.tooltip.clear-color" datatype="html">
+        <source>Clear color</source>
+        <target>色をクリア</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/features/preferences/preferences.component.html</context>
+          <context context-type="linenumber">28,30</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="profile.preferences.label.language" datatype="html">
+        <source>Language</source>
+        <target>言語</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/features/preferences/preferences.component.html</context>
+          <context context-type="linenumber">36,37</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="profile.preferences.error.locale-required" datatype="html">
+        <source>Locale is required</source>
+        <target>ロケールは必須です</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/features/preferences/preferences.component.html</context>
+          <context context-type="linenumber">43,45</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="profile.preferences.label.avatar-url" datatype="html">
+        <source>Avatar URL</source>
+        <target>アバターURL</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/features/preferences/preferences.component.html</context>
+          <context context-type="linenumber">49,50</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="profile.preferences.placeholder.avatar-url" datatype="html">
+        <source>https://example.com/avatar.png</source>
+        <target>https://example.com/avatar.png</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/features/preferences/preferences.component.html</context>
+          <context context-type="linenumber">51,53</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="profile.preferences.error.avatar-url-invalid" datatype="html">
+        <source>Please enter a valid URL (starting with http:// or https://) </source>
+        <target>有効なURLを入力してください（http:// または https:// で始まるもの）</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/features/preferences/preferences.component.html</context>
+          <context context-type="linenumber">54,58</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="profile.preferences.button.reset" datatype="html">
+        <source> Reset Changes </source>
+        <target> 変更をリセット </target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/features/preferences/preferences.component.html</context>
+          <context context-type="linenumber">64,66</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="profile.preferences.button.saving" datatype="html">
+        <source>Saving...</source>
+        <target>保存中...</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/features/preferences/preferences.component.html</context>
+          <context context-type="linenumber">73,75</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="profile.preferences.button.save" datatype="html">
+        <source>Save Preferences</source>
+        <target>設定を保存</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/features/preferences/preferences.component.html</context>
+          <context context-type="linenumber">75,78</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="profile.preferences.locale.dutch" datatype="html">
+        <source>Dutch</source>
+        <target>オランダ語</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/features/preferences/preferences.component.ts</context>
+          <context context-type="linenumber">38</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="profile.preferences.locale.french" datatype="html">
+        <source>French</source>
+        <target>フランス語</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/features/preferences/preferences.component.ts</context>
+          <context context-type="linenumber">39</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="profile.preferences.locale.english" datatype="html">
+        <source>English</source>
+        <target>英語</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/features/preferences/preferences.component.ts</context>
+          <context context-type="linenumber">40</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="profile.preferences.locale.japanese" datatype="html">
+        <source>Japanese</source>
+        <target>日本語</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/features/preferences/preferences.component.ts</context>
+          <context context-type="linenumber">41</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="profile.preferences.snackbar.success" datatype="html">
+        <source>Preferences saved successfully</source>
+        <target>設定が正常に保存されました</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/features/preferences/preferences.component.ts</context>
+          <context context-type="linenumber">93</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="profile.preferences.snackbar.close" datatype="html">
+        <source>Close</source>
+        <target>閉じる</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/features/preferences/preferences.component.ts</context>
+          <context context-type="linenumber">93</context>
+        </context-group>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/features/preferences/preferences.component.ts</context>
+          <context context-type="linenumber">98</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="profile.preferences.snackbar.error" datatype="html">
+        <source>Failed to save preferences</source>
+        <target>設定の保存に失敗しました</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/features/preferences/preferences.component.ts</context>
+          <context context-type="linenumber">98</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="shared.loading.title" datatype="html">
+        <source>Loading...</source>
+        <target>読み込み中...</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/shared/components/loading/loading.component.ts</context>
+          <context context-type="linenumber">15</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="shared.loading.subtitle" datatype="html">
+        <source>The racoons are going going as fast as they can.</source>
+        <target>アライグマが全速力で進んでいます。</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/shared/components/loading/loading.component.ts</context>
+          <context context-type="linenumber">16</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="shared.room-setup.title.your-code" datatype="html">
+        <source>Your code:</source>
+        <target>あなたのコード：</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/shared/components/room-setup/room-setup.component.html</context>
+          <context context-type="linenumber">4,6</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="shared.room-setup.button.copy" datatype="html">
+        <source> Copy code </source>
+        <target> コードをコピー </target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/shared/components/room-setup/room-setup.component.html</context>
+          <context context-type="linenumber">7,10</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="shared.room-setup.title.enter-code" datatype="html">
+        <source>Enter code:</source>
+        <target>コードを入力：</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/shared/components/room-setup/room-setup.component.html</context>
+          <context context-type="linenumber">12,13</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="shared.room-setup.placeholder.enter-code" datatype="html">
+        <source>friend&apos;s code here.</source>
+        <target>友達のコードをここに入力。</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/shared/components/room-setup/room-setup.component.html</context>
+          <context context-type="linenumber">18,20</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="shared.room-setup.error.invalid-code" datatype="html">
+        <source>Not a valid code.</source>
+        <target>無効なコードです。</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/shared/components/room-setup/room-setup.component.html</context>
+          <context context-type="linenumber">20,23</context>
+        </context-group>
+      </trans-unit>
+    </body>
+  </file>
+</xliff>

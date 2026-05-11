@@ -6,6 +6,8 @@
     "start": "ng serve",
     "start:en": "ng serve -c en",
     "start:fr": "ng serve -c fr",
+    "start:ja": "ng serve -c ja",
+    "start:nl": "ng serve -c nl",
     "build": "ng build",
     "watch": "ng build --watch --configuration development",
     "test": "npm run test:headless",
