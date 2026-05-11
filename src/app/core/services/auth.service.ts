@@ -15,6 +15,7 @@ import { APP_PATHS } from "../../shared/models/app-paths.model";
 import { HttpErrorResponse } from "@angular/common/http";
 import { MatSnackBar } from "@angular/material/snack-bar";
 import { PreferencesProfileService } from "../../../openApi/profile";
+import { LanguageService } from "./language.service";
 
 @Injectable({
   providedIn: 'root',
@@ -23,6 +24,7 @@ export class AuthService {
   private readonly userService = inject(UserService);
   private readonly authControllerAuthService = inject(AuthControllerAuthService);
   private readonly preferencesService = inject(PreferencesProfileService);
+  private readonly languageService = inject(LanguageService);
   private readonly router = inject(Router);
   private readonly snackBar = inject(MatSnackBar);
 
@@ -131,6 +133,10 @@ export class AuthService {
       const preferences = await firstValueFrom(this.preferencesService.getUserPreferences());
       if (preferences) {
         this.userService.setUserPreferences(preferences);
+        const storedLocale = localStorage.getItem('user_locale');
+        if (preferences.locale && preferences.locale !== storedLocale) {
+          this.languageService.setLanguage(preferences.locale);
+        }
       }
     } catch (e) {
       console.log('Failed to fetch user preferences (could be empty)', e);
