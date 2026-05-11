@@ -12,6 +12,7 @@ import { PreferencesProfileService, UserPreferences } from '../../../openApi/pro
 import { UserService } from '../../core/services/user.service';
 import { MatSnackBar, MatSnackBarModule } from "@angular/material/snack-bar";
 import { MatTooltip } from "@angular/material/tooltip";
+import { LanguageService } from '../../core/services/language.service';
 
 @Component({
   selector: 'app-preferences',
@@ -34,12 +35,8 @@ import { MatTooltip } from "@angular/material/tooltip";
 })
 export class PreferencesComponent {
   isSaving = signal(false);
-  locales = [
-    { value: 'nl-NL', label: 'Dutch' },
-    { value: 'fr-FR', label: 'French' },
-    { value: 'en-US', label: 'English' },
-    { value: 'ja-JP', label: 'Japanese' }
-  ];
+  private readonly languageService = inject(LanguageService);
+  locales = this.languageService.getLocales();
   private readonly fb = inject(FormBuilder);
   preferencesForm: FormGroup = this.fb.group({
     displayName: ['', [Validators.maxLength(45)]],
@@ -90,12 +87,15 @@ export class PreferencesComponent {
         next: (prefs) => {
           this.userService.setUserPreferences(prefs);
           this.isSaving.set(false);
-          this.snackBar.open('Preferences saved successfully', 'Close', { duration: 3000 });
+          this.snackBar.open($localize`:@@profile.preferences.snackbar.success:Preferences saved successfully`, $localize`:@@profile.preferences.snackbar.close:Close`, { duration: 3000 });
           this.preferencesForm.markAsPristine();
+          if (prefs.locale) {
+            this.languageService.setLanguage(prefs.locale);
+          }
         },
         error: (err) => {
           console.error('Error saving preferences', err);
-          this.snackBar.open('Failed to save preferences', 'Close', { duration: 3000 });
+          this.snackBar.open($localize`:@@profile.preferences.snackbar.error:Failed to save preferences`, $localize`:@@profile.preferences.snackbar.close:Close`, { duration: 3000 });
           this.isSaving.set(false);
         }
       });

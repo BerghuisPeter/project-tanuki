@@ -1,0 +1,500 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<xliff xmlns="urn:oasis:names:tc:xliff:document:2.0" version="2.0" srcLang="en-US" trgLang="nl">
+  <file id="ngi18n" original="ng.template">
+    <unit id="core.auth-button.loading">
+      <notes>
+        <note category="location">src/app/core/components/auth-button/auth-button.component.html:6,8</note>
+        <note category="location">src/app/core/components/auth-button/auth-button.component.html:22,24</note>
+      </notes>
+      <segment>
+        <source>Loading</source>
+      <target>Laden...</target></segment>
+    </unit>
+    <unit id="core.auth-button.logout">
+      <notes>
+        <note category="location">src/app/core/components/auth-button/auth-button.component.html:8,11</note>
+        <note category="location">src/app/core/components/auth-button/auth-button.component.html:24,27</note>
+      </notes>
+      <segment>
+        <source>Logout</source>
+      <target>Uitloggen</target></segment>
+    </unit>
+    <unit id="core.auth-button.login">
+      <notes>
+        <note category="location">src/app/core/components/auth-button/auth-button.component.html:14,17</note>
+        <note category="location">src/app/core/components/auth-button/auth-button.component.html:30,34</note>
+      </notes>
+      <segment>
+        <source>Login</source>
+      <target>Inloggen</target></segment>
+    </unit>
+    <unit id="core.page-not-found.title">
+      <notes>
+        <note category="location">src/app/core/components/page-not-found/page-not-found.component.html:1,2</note>
+      </notes>
+      <segment>
+        <source>404!</source>
+      <target>404!</target></segment>
+    </unit>
+    <unit id="core.page-not-found.subtitle">
+      <notes>
+        <note category="location">src/app/core/components/page-not-found/page-not-found.component.html:2,3</note>
+      </notes>
+      <segment>
+        <source>The racoons didn't find anything. Not even garbage!</source>
+      <target>De wasberen hebben niets gevonden. Zelfs geen afval!</target></segment>
+    </unit>
+    <unit id="core.page-not-found.button.home">
+      <notes>
+        <note category="location">src/app/core/components/page-not-found/page-not-found.component.html:3,6</note>
+      </notes>
+      <segment>
+        <source>Main menu is HERE! (click me bro)
+</source>
+      <target>Hoofdmenu is HIER! (klik me bro)</target></segment>
+    </unit>
+    <unit id="core.page-not-found.text.cops">
+      <notes>
+        <note category="location">src/app/core/components/page-not-found/page-not-found.component.html:6,7</note>
+      </notes>
+      <segment>
+        <source>Also I ain't feeling the way the cops be movin.</source>
+      <target>Bovendien bevalt de manier waarop de politie beweegt me niet.</target></segment>
+    </unit>
+    <unit id="core.page-not-found.alt.raccoon-crime">
+      <notes>
+        <note category="location">src/app/core/components/page-not-found/page-not-found.component.html:7</note>
+      </notes>
+      <segment>
+        <source>racoon_committing_crime</source>
+      <target>wasbeer_pleegt_misdaad</target></segment>
+    </unit>
+    <unit id="core.preferences-button.label">
+      <notes>
+        <note category="location">src/app/core/components/preferences-button/preferences-button.component.ts:19,21</note>
+        <note category="location">src/app/core/components/preferences-button/preferences-button.component.ts:24,28</note>
+      </notes>
+      <segment>
+        <source>Preferences</source>
+      <target>Voorkeuren</target></segment>
+    </unit>
+    <unit id="core.theme-toggle.label">
+      <notes>
+        <note category="location">src/app/core/components/theme-toggle/theme-toggle.component.html:11,14</note>
+      </notes>
+      <segment>
+        <source>Theme</source>
+      <target>Thema</target></segment>
+    </unit>
+    <unit id="core.theme-toggle.tooltip.light-mode">
+      <notes>
+        <note category="location">src/app/core/components/theme-toggle/theme-toggle.component.ts:24</note>
+      </notes>
+      <segment>
+        <source>Light mode</source>
+      <target>Lichtmodus</target></segment>
+    </unit>
+    <unit id="core.theme-toggle.tooltip.dark-mode">
+      <notes>
+        <note category="location">src/app/core/components/theme-toggle/theme-toggle.component.ts:24</note>
+      </notes>
+      <segment>
+        <source>Dark mode</source>
+      <target>Donkere modus</target></segment>
+    </unit>
+    <unit id="auth.authentication.title.login">
+      <notes>
+        <note category="location">src/app/features/authentication/authentication.component.html:6,8</note>
+      </notes>
+      <segment>
+        <source>Login</source>
+      <target>Inloggen</target></segment>
+    </unit>
+    <unit id="auth.authentication.title.create-account">
+      <notes>
+        <note category="location">src/app/features/authentication/authentication.component.html:8,11</note>
+      </notes>
+      <segment>
+        <source>Create Account</source>
+      <target>Account Aanmaken</target></segment>
+    </unit>
+    <unit id="auth.authentication.label.email">
+      <notes>
+        <note category="location">src/app/features/authentication/authentication.component.html:16,17</note>
+      </notes>
+      <segment>
+        <source>Email</source>
+      <target>E-mail</target></segment>
+    </unit>
+    <unit id="auth.authentication.placeholder.email">
+      <notes>
+        <note category="location">src/app/features/authentication/authentication.component.html:18,19</note>
+      </notes>
+      <segment>
+        <source>email@example.com</source>
+      <target>email@voorbeeld.com</target></segment>
+    </unit>
+    <unit id="auth.authentication.error.email-invalid">
+      <notes>
+        <note category="location">src/app/features/authentication/authentication.component.html:20,23</note>
+      </notes>
+      <segment>
+        <source>Please enter a valid email</source>
+      <target>Voer een geldig e-mailadres in</target></segment>
+    </unit>
+    <unit id="auth.authentication.label.password">
+      <notes>
+        <note category="location">src/app/features/authentication/authentication.component.html:25,26</note>
+      </notes>
+      <segment>
+        <source>Password</source>
+      <target>Wachtwoord</target></segment>
+    </unit>
+    <unit id="auth.authentication.error.password-minlength">
+      <notes>
+        <note category="location">src/app/features/authentication/authentication.component.html:28,32</note>
+      </notes>
+      <segment>
+        <source>password needs to be at least 6 characters </source>
+      <target>wachtwoord moet minimaal 6 tekens bevatten</target></segment>
+    </unit>
+    <unit id="auth.authentication.label.confirm-password">
+      <notes>
+        <note category="location">src/app/features/authentication/authentication.component.html:36,37</note>
+      </notes>
+      <segment>
+        <source>Confirm Password</source>
+      <target>Wachtwoord Bevestigen</target></segment>
+    </unit>
+    <unit id="auth.authentication.error.passwords-mismatch">
+      <notes>
+        <note category="location">src/app/features/authentication/authentication.component.html:39,42</note>
+      </notes>
+      <segment>
+        <source>Password needs to be identical to other password </source>
+      <target>Wachtwoorden moeten identiek zijn</target></segment>
+    </unit>
+    <unit id="auth.authentication.button.login">
+      <notes>
+        <note category="location">src/app/features/authentication/authentication.component.html:63,65</note>
+      </notes>
+      <segment>
+        <source>Login</source>
+      <target>Inloggen</target></segment>
+    </unit>
+    <unit id="auth.authentication.button.register">
+      <notes>
+        <note category="location">src/app/features/authentication/authentication.component.html:65,68</note>
+      </notes>
+      <segment>
+        <source>Register</source>
+      <target>Registreren</target></segment>
+    </unit>
+    <unit id="auth.authentication.link.goto-register">
+      <notes>
+        <note category="location">src/app/features/authentication/authentication.component.html:73,75</note>
+      </notes>
+      <segment>
+        <source>Don't have an account? Register</source>
+      <target>Nog geen account? Registreren</target></segment>
+    </unit>
+    <unit id="auth.authentication.link.goto-login">
+      <notes>
+        <note category="location">src/app/features/authentication/authentication.component.html:75,78</note>
+      </notes>
+      <segment>
+        <source>Already have an account? Login</source>
+      <target>Heb je al een account? Inloggen</target></segment>
+    </unit>
+    <unit id="auth.authentication.text.or">
+      <notes>
+        <note category="location">src/app/features/authentication/authentication.component.html:82,83</note>
+      </notes>
+      <segment>
+        <source>OR</source>
+      <target>OF</target></segment>
+    </unit>
+    <unit id="auth.authentication.error.invalid-credentials">
+      <notes>
+        <note category="location">src/app/features/authentication/authentication.component.ts:100</note>
+      </notes>
+      <segment>
+        <source>Invalid email or password</source>
+      <target>Ongeldig e-mailadres of wachtwoord</target></segment>
+    </unit>
+    <unit id="auth.authentication.error.server-error">
+      <notes>
+        <note category="location">src/app/features/authentication/authentication.component.ts:102</note>
+        <note category="location">src/app/features/authentication/authentication.component.ts:121</note>
+      </notes>
+      <segment>
+        <source>Server error. Try again.</source>
+      <target>Serverfout. Probeer het opnieuw.</target></segment>
+    </unit>
+    <unit id="auth.authentication.error.email-registered">
+      <notes>
+        <note category="location">src/app/features/authentication/authentication.component.ts:119</note>
+      </notes>
+      <segment>
+        <source>Email already registered. Try to login instead.</source>
+      <target>E-mailadres is al geregistreerd. Probeer in te loggen.</target></segment>
+    </unit>
+    <unit id="battleship.game.error.connection">
+      <notes>
+        <note category="location">src/app/features/battleship/battleship.component.html:2,4</note>
+      </notes>
+      <segment>
+        <source>Connection error...</source>
+      <target>Verbindingsfout...</target></segment>
+    </unit>
+    <unit id="battleship.game.board.opponent">
+      <notes>
+        <note category="location">src/app/features/battleship/battleship.component.html:15,17</note>
+      </notes>
+      <segment>
+        <source>Opponent's board</source>
+      <target>Bord van de tegenstander</target></segment>
+    </unit>
+    <unit id="battleship.game.board.yours">
+      <notes>
+        <note category="location">src/app/features/battleship/battleship.component.html:24,25</note>
+      </notes>
+      <segment>
+        <source>Your board</source>
+      <target>Jouw bord</target></segment>
+    </unit>
+    <unit id="battleship.game.status.game-over">
+      <notes>
+        <note category="location">src/app/features/battleship/battleship.component.html:33,38</note>
+      </notes>
+      <segment>
+        <source>Game Over!</source>
+      <target>Game Over!</target></segment>
+    </unit>
+    <unit id="profile.preferences.title">
+      <notes>
+        <note category="location">src/app/features/preferences/preferences.component.html:4,5</note>
+      </notes>
+      <segment>
+        <source>User Preferences</source>
+      <target>Gebruikersvoorkeuren</target></segment>
+    </unit>
+    <unit id="profile.preferences.label.display-name">
+      <notes>
+        <note category="location">src/app/features/preferences/preferences.component.html:10,11</note>
+      </notes>
+      <segment>
+        <source>Display Name</source>
+      <target>Weergavenaam</target></segment>
+    </unit>
+    <unit id="profile.preferences.placeholder.display-name">
+      <notes>
+        <note category="location">src/app/features/preferences/preferences.component.html:12,13</note>
+      </notes>
+      <segment>
+        <source>Your display name</source>
+      <target>Jouw weergavenaam</target></segment>
+    </unit>
+    <unit id="profile.preferences.error.display-name-maxlength">
+      <notes>
+        <note category="location">src/app/features/preferences/preferences.component.html:14,18</note>
+      </notes>
+      <segment>
+        <source>Display name cannot exceed 45 characters </source>
+      <target>Weergavenaam mag niet langer zijn dan 45 tekens</target></segment>
+    </unit>
+    <unit id="profile.preferences.label.color-preference">
+      <notes>
+        <note category="location">src/app/features/preferences/preferences.component.html:22,23</note>
+      </notes>
+      <segment>
+        <source>Color Preference</source>
+      <target>Kleurvoorkeur</target></segment>
+    </unit>
+    <unit id="profile.preferences.tooltip.clear-color">
+      <notes>
+        <note category="location">src/app/features/preferences/preferences.component.html:28,30</note>
+      </notes>
+      <segment>
+        <source>Clear color</source>
+      <target>Kleur wissen</target></segment>
+    </unit>
+    <unit id="profile.preferences.label.language">
+      <notes>
+        <note category="location">src/app/features/preferences/preferences.component.html:36,37</note>
+      </notes>
+      <segment>
+        <source>Language</source>
+      <target>Taal</target></segment>
+    </unit>
+    <unit id="profile.preferences.error.locale-required">
+      <notes>
+        <note category="location">src/app/features/preferences/preferences.component.html:43,45</note>
+      </notes>
+      <segment>
+        <source>Locale is required</source>
+      <target>Taalinstelling is verplicht</target></segment>
+    </unit>
+    <unit id="profile.preferences.label.avatar-url">
+      <notes>
+        <note category="location">src/app/features/preferences/preferences.component.html:49,50</note>
+      </notes>
+      <segment>
+        <source>Avatar URL</source>
+      <target>Avatar URL</target></segment>
+    </unit>
+    <unit id="profile.preferences.placeholder.avatar-url">
+      <notes>
+        <note category="location">src/app/features/preferences/preferences.component.html:51,53</note>
+      </notes>
+      <segment>
+        <source>https://example.com/avatar.png</source>
+      <target>https://voorbeeld.com/avatar.png</target></segment>
+    </unit>
+    <unit id="profile.preferences.error.avatar-url-invalid">
+      <notes>
+        <note category="location">src/app/features/preferences/preferences.component.html:54,58</note>
+      </notes>
+      <segment>
+        <source>Please enter a valid URL (starting with http:// or https://) </source>
+      <target>Voer een geldige URL in (beginnend met http:// of https://)</target></segment>
+    </unit>
+    <unit id="profile.preferences.button.reset">
+      <notes>
+        <note category="location">src/app/features/preferences/preferences.component.html:64,66</note>
+      </notes>
+      <segment>
+        <source> Reset Changes </source>
+      <target> Wijzigingen herstellen </target></segment>
+    </unit>
+    <unit id="profile.preferences.button.saving">
+      <notes>
+        <note category="location">src/app/features/preferences/preferences.component.html:73,75</note>
+      </notes>
+      <segment>
+        <source>Saving...</source>
+      <target>Opslaan...</target></segment>
+    </unit>
+    <unit id="profile.preferences.button.save">
+      <notes>
+        <note category="location">src/app/features/preferences/preferences.component.html:75,78</note>
+      </notes>
+      <segment>
+        <source>Save Preferences</source>
+      <target>Voorkeuren Opslaan</target></segment>
+    </unit>
+    <unit id="profile.preferences.locale.dutch">
+      <notes>
+        <note category="location">src/app/features/preferences/preferences.component.ts:38</note>
+      </notes>
+      <segment>
+        <source>Dutch</source>
+      <target>Nederlands</target></segment>
+    </unit>
+    <unit id="profile.preferences.locale.french">
+      <notes>
+        <note category="location">src/app/features/preferences/preferences.component.ts:39</note>
+      </notes>
+      <segment>
+        <source>French</source>
+      <target>Frans</target></segment>
+    </unit>
+    <unit id="profile.preferences.locale.english">
+      <notes>
+        <note category="location">src/app/features/preferences/preferences.component.ts:40</note>
+      </notes>
+      <segment>
+        <source>English</source>
+      <target>Engels</target></segment>
+    </unit>
+    <unit id="profile.preferences.locale.japanese">
+      <notes>
+        <note category="location">src/app/features/preferences/preferences.component.ts:41</note>
+      </notes>
+      <segment>
+        <source>Japanese</source>
+      <target>Japans</target></segment>
+    </unit>
+    <unit id="profile.preferences.snackbar.success">
+      <notes>
+        <note category="location">src/app/features/preferences/preferences.component.ts:93</note>
+      </notes>
+      <segment>
+        <source>Preferences saved successfully</source>
+      <target>Voorkeuren succesvol opgeslagen</target></segment>
+    </unit>
+    <unit id="profile.preferences.snackbar.close">
+      <notes>
+        <note category="location">src/app/features/preferences/preferences.component.ts:93</note>
+        <note category="location">src/app/features/preferences/preferences.component.ts:98</note>
+      </notes>
+      <segment>
+        <source>Close</source>
+      <target>Sluiten</target></segment>
+    </unit>
+    <unit id="profile.preferences.snackbar.error">
+      <notes>
+        <note category="location">src/app/features/preferences/preferences.component.ts:98</note>
+      </notes>
+      <segment>
+        <source>Failed to save preferences</source>
+      <target>Opslaan van voorkeuren mislukt</target></segment>
+    </unit>
+    <unit id="shared.loading.title">
+      <notes>
+        <note category="location">src/app/shared/components/loading/loading.component.ts:15</note>
+      </notes>
+      <segment>
+        <source>Loading...</source>
+      <target>Laden...</target></segment>
+    </unit>
+    <unit id="shared.loading.subtitle">
+      <notes>
+        <note category="location">src/app/shared/components/loading/loading.component.ts:16</note>
+      </notes>
+      <segment>
+        <source>The racoons are going going as fast as they can.</source>
+      <target>De wasberen gaan zo snel als ze kunnen.</target></segment>
+    </unit>
+    <unit id="shared.room-setup.title.your-code">
+      <notes>
+        <note category="location">src/app/shared/components/room-setup/room-setup.component.html:4,6</note>
+      </notes>
+      <segment>
+        <source>Your code:</source>
+      <target>Jouw code:</target></segment>
+    </unit>
+    <unit id="shared.room-setup.button.copy">
+      <notes>
+        <note category="location">src/app/shared/components/room-setup/room-setup.component.html:7,10</note>
+      </notes>
+      <segment>
+        <source> Copy code </source>
+      <target> Code kopiëren </target></segment>
+    </unit>
+    <unit id="shared.room-setup.title.enter-code">
+      <notes>
+        <note category="location">src/app/shared/components/room-setup/room-setup.component.html:12,13</note>
+      </notes>
+      <segment>
+        <source>Enter code:</source>
+      <target>Voer code in:</target></segment>
+    </unit>
+    <unit id="shared.room-setup.placeholder.enter-code">
+      <notes>
+        <note category="location">src/app/shared/components/room-setup/room-setup.component.html:18,20</note>
+      </notes>
+      <segment>
+        <source>friend's code here.</source>
+      <target>code van vriend hier.</target></segment>
+    </unit>
+    <unit id="shared.room-setup.error.invalid-code">
+      <notes>
+        <note category="location">src/app/shared/components/room-setup/room-setup.component.html:20,23</note>
+      </notes>
+      <segment>
+        <source>Not a valid code.</source>
+      <target>Geen geldige code.</target></segment>
+    </unit>
+  </file>
+</xliff>

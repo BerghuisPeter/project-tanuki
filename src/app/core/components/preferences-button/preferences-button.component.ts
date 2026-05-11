@@ -16,12 +16,12 @@ import { UserService } from "../../services/user.service";
       @if (isMenuItem()) {
         <button (click)="toPreferences()" class="flex items-center" mat-menu-item>
           <mat-icon class="mr-1">settings</mat-icon>
-          Preferences
+          <span i18n="@@core.preferences-button.label">Preferences</span>
         </button>
       } @else {
         <button (click)="toPreferences()" class="flex items-center" mat-button>
           <mat-icon class="mr-1">settings</mat-icon>
-          Preferences
+          <span i18n="@@core.preferences-button.label">Preferences</span>
         </button>
       }
     }

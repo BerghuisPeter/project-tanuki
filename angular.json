@@ -13,6 +13,27 @@
       "root": "",
       "sourceRoot": "src",
       "prefix": "app",
+      "i18n": {
+        "sourceLocale": "en-US",
+        "locales": {
+          "en": {
+            "translation": "src/locale/messages.en.xlf",
+            "baseHref": "/en/"
+          },
+          "fr": {
+            "translation": "src/locale/messages.fr.xlf",
+            "baseHref": "/fr/"
+          },
+          "ja": {
+            "translation": "src/locale/messages.ja.xlf",
+            "baseHref": "/ja/"
+          },
+          "nl": {
+            "translation": "src/locale/messages.nl.xlf",
+            "baseHref": "/nl/"
+          }
+        }
+      },
       "architect": {
         "build": {
           "builder": "@angular/build:application",
@@ -22,7 +43,8 @@
             },
             "index": "src/index.html",
             "polyfills": [
-              "zone.js"
+              "zone.js",
+              "@angular/localize/init"
             ],
             "tsConfig": "tsconfig.app.json",
             "inlineStyleLanguage": "scss",
@@ -39,6 +61,12 @@
           },
           "configurations": {
             "production": {
+              "localize": [
+                "en",
+                "fr",
+                "ja",
+                "nl"
+              ],
               "budgets": [
                 {
                   "type": "initial",
@@ -58,6 +86,72 @@
               "extractLicenses": false,
               "sourceMap": true,
               "namedChunks": true,
+              "localize": [
+                "en",
+                "fr",
+                "ja",
+                "nl"
+              ],
+              "fileReplacements": [
+                {
+                  "replace": "src/environments/environment.ts",
+                  "with": "src/environments/environment.development.ts"
+                }
+              ]
+            },
+            "en": {
+              "optimization": false,
+              "extractLicenses": false,
+              "sourceMap": true,
+              "namedChunks": true,
+              "localize": [
+                "en"
+              ],
+              "fileReplacements": [
+                {
+                  "replace": "src/environments/environment.ts",
+                  "with": "src/environments/environment.development.ts"
+                }
+              ]
+            },
+            "fr": {
+              "optimization": false,
+              "extractLicenses": false,
+              "sourceMap": true,
+              "namedChunks": true,
+              "localize": [
+                "fr"
+              ],
+              "fileReplacements": [
+                {
+                  "replace": "src/environments/environment.ts",
+                  "with": "src/environments/environment.development.ts"
+                }
+              ]
+            },
+            "ja": {
+              "optimization": false,
+              "extractLicenses": false,
+              "sourceMap": true,
+              "namedChunks": true,
+              "localize": [
+                "ja"
+              ],
+              "fileReplacements": [
+                {
+                  "replace": "src/environments/environment.ts",
+                  "with": "src/environments/environment.development.ts"
+                }
+              ]
+            },
+            "nl": {
+              "optimization": false,
+              "extractLicenses": false,
+              "sourceMap": true,
+              "namedChunks": true,
+              "localize": [
+                "nl"
+              ],
               "fileReplacements": [
                 {
                   "replace": "src/environments/environment.ts",
@@ -76,6 +170,18 @@
             },
             "development": {
               "buildTarget": "project-tanuki:build:development"
+            },
+            "en": {
+              "buildTarget": "project-tanuki:build:development,en"
+            },
+            "fr": {
+              "buildTarget": "project-tanuki:build:development,fr"
+            },
+            "ja": {
+              "buildTarget": "project-tanuki:build:development,ja"
+            },
+            "nl": {
+              "buildTarget": "project-tanuki:build:development,nl"
             }
           },
           "defaultConfiguration": "development"
@@ -83,7 +189,10 @@
         "extract-i18n": {
           "builder": "@angular/build:extract-i18n",
           "options": {
-            "buildTarget": "project-tanuki:build"
+            "buildTarget": "project-tanuki:build",
+            "outputPath": "src/locale",
+            "outFile": "messages.xlf",
+            "format": "xlf2"
           }
         },
         "test": {
@@ -91,7 +200,8 @@
           "options": {
             "polyfills": [
               "zone.js",
-              "zone.js/testing"
+              "zone.js/testing",
+              "@angular/localize/init"
             ],
             "tsConfig": "tsconfig.spec.json",
             "inlineStyleLanguage": "scss",
@@ -103,7 +213,8 @@
             "styles": [
               "src/styles.scss"
             ],
-            "scripts": [],
+            "scripts": [
+            ],
             "fileReplacements": [
               {
                 "replace": "src/environments/environment.ts",

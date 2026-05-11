@@ -1,0 +1,20 @@
+@if (isMenuItem()) {
+  <button [matMenuTriggerFor]="langMenu" class="flex items-center" mat-menu-item>
+    <mat-icon class="mr-1">language</mat-icon>
+    <span i18n="@@core.language-button.label">Language</span>
+  </button>
+} @else {
+  <button [matMenuTriggerFor]="langMenu" class="flex items-center" mat-button>
+    <mat-icon class="mr-1">language</mat-icon>
+    <span i18n="@@core.language-button.label">Language</span>
+  </button>
+}
+
+<mat-menu #langMenu="matMenu">
+  @for (loc of locales; track loc.code) {
+    <button (click)="changeLanguage(loc.code)" mat-menu-item>
+      <mat-icon *ngIf="currentLocale() === loc.code">check</mat-icon>
+      <span [class.font-bold]="currentLocale() === loc.code">{{ loc.label }}</span>
+    </button>
+  }
+</mat-menu>
