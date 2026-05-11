@@ -5,7 +5,12 @@ import { DOCUMENT } from '@angular/common';
 
 describe('LanguageService', () => {
   let service: LanguageService;
-  let mockDocument: any;
+  let mockDocument: {
+    location: {
+      pathname: string;
+      href: string;
+    }
+  };
 
   beforeEach(() => {
     mockDocument = {
