@@ -16,10 +16,10 @@ export class LanguageService {
   // Current locale code (e.g., 'en-US')
   public readonly currentLocale = signal<string>(this.currentLocaleId);
   private readonly supportedLocales: LocaleInfo[] = [
-    { code: 'en-US', label: $localize`:@@language.en:English` },
-    { code: 'fr-FR', label: $localize`:@@language.fr:French` },
-    { code: 'nl-NL', label: $localize`:@@language.nl:Dutch` },
-    { code: 'ja-JP', label: $localize`:@@language.ja:Japanese` }
+    { code: 'en-US', label: 'English' },
+    { code: 'fr-FR', label: 'Français' },
+    { code: 'nl-NL', label: 'Nederlands' },
+    { code: 'ja-JP', label: '日本語' }
   ];
 
   constructor() {
