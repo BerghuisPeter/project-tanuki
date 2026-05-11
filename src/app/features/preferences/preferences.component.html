@@ -35,8 +35,8 @@
           <mat-form-field appearance="outline" class="w-full md:w-1/2">
             <mat-label i18n="@@profile.preferences.label.language">Language</mat-label>
             <mat-select formControlName="locale">
-              @for (loc of locales; track loc.value) {
-                <mat-option [value]="loc.value">{{ loc.label }}</mat-option>
+              @for (loc of locales; track loc.code) {
+                <mat-option [value]="loc.code">{{ loc.label }}</mat-option>
               }
             </mat-select>
             @if (preferencesForm.get('locale')?.hasError('required')) {

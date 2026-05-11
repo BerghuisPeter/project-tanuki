@@ -12,6 +12,7 @@ import { PreferencesProfileService, UserPreferences } from '../../../openApi/pro
 import { UserService } from '../../core/services/user.service';
 import { MatSnackBar, MatSnackBarModule } from "@angular/material/snack-bar";
 import { MatTooltip } from "@angular/material/tooltip";
+import { LanguageService } from '../../core/services/language.service';
 
 @Component({
   selector: 'app-preferences',
@@ -34,12 +35,8 @@ import { MatTooltip } from "@angular/material/tooltip";
 })
 export class PreferencesComponent {
   isSaving = signal(false);
-  locales = [
-    { value: 'nl-NL', label: $localize`:@@profile.preferences.locale.dutch:Dutch` },
-    { value: 'fr-FR', label: $localize`:@@profile.preferences.locale.french:French` },
-    { value: 'en-US', label: $localize`:@@profile.preferences.locale.english:English` },
-    { value: 'ja-JP', label: $localize`:@@profile.preferences.locale.japanese:Japanese` }
-  ];
+  private readonly languageService = inject(LanguageService);
+  locales = this.languageService.getLocales();
   private readonly fb = inject(FormBuilder);
   preferencesForm: FormGroup = this.fb.group({
     displayName: ['', [Validators.maxLength(45)]],
@@ -92,6 +89,9 @@ export class PreferencesComponent {
           this.isSaving.set(false);
           this.snackBar.open($localize`:@@profile.preferences.snackbar.success:Preferences saved successfully`, $localize`:@@profile.preferences.snackbar.close:Close`, { duration: 3000 });
           this.preferencesForm.markAsPristine();
+          if (prefs.locale) {
+            this.languageService.setLanguage(prefs.locale);
+          }
         },
         error: (err) => {
           console.error('Error saving preferences', err);
