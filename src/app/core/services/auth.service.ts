@@ -14,7 +14,7 @@ import { Router } from "@angular/router";
 import { APP_PATHS } from "../../shared/models/app-paths.model";
 import { HttpErrorResponse } from "@angular/common/http";
 import { MatSnackBar } from "@angular/material/snack-bar";
-import { PreferencesProfileService } from "../../../openApi/profile";
+import { PreferencesProfileService, UserPreferences } from "../../../openApi/profile";
 import { LanguageService } from "./language.service";
 
 @Injectable({
@@ -138,18 +138,21 @@ export class AuthService {
   }
 
   private async handleUserAndPreferences(user: UserResponse): Promise<void> {
-    await this.userService.setLoggedInUser(user);
+    let preferences: UserPreferences | undefined;
     try {
-      const preferences = await firstValueFrom(this.preferencesService.getUserPreferences());
-      if (preferences) {
-        this.userService.setUserPreferences(preferences);
-        const storedLocale = localStorage.getItem('user_locale');
-        if (preferences.locale && preferences.locale !== storedLocale) {
-          this.languageService.setLanguage(preferences.locale);
-        }
-      }
+      const prefs = await firstValueFrom(this.preferencesService.getUserPreferences());
+      preferences = prefs ?? undefined;
     } catch (e) {
       console.log('Failed to fetch user preferences (could be empty)', e);
+    }
+
+    this.userService.setLoggedInUser(user, preferences);
+
+    if (preferences) {
+      const storedLocale = localStorage.getItem('user_locale');
+      if (preferences.locale && preferences.locale !== storedLocale) {
+        this.languageService.setLanguage(preferences.locale);
+      }
     }
   }
 }
