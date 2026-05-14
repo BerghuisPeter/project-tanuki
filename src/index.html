@@ -2,54 +2,15 @@
 <html lang="en">
 <head>
   <meta charset="utf-8">
-  <title>ProjectTanuki</title>
+  <title>Tanuki</title>
   <base href="/">
   <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta content="Project Tanuki: built with Angular and Socket.io." name="description">
   <link rel="icon" type="image/x-icon" href="favicon.ico">
   <link href="https://fonts.googleapis.com" rel="preconnect">
   <link crossorigin href="https://fonts.gstatic.com" rel="preconnect">
   <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500&display=swap" rel="stylesheet">
   <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
-  <style>
-    #preloader {
-      position: fixed;
-      top: 0;
-      left: 0;
-      width: 100%;
-      height: 100%;
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      justify-content: center;
-      background: #f8fafc;
-      z-index: 9999;
-      transition: opacity 0.4s ease-out, visibility 0.4s;
-    }
-
-    #preloader.fade-out {
-      opacity: 0;
-      visibility: hidden;
-    }
-
-    .tanuki-spinner {
-      width: 80px;
-      height: 80px;
-      animation: spin 2s linear infinite;
-    }
-
-    @keyframes spin {
-      100% {
-        transform: rotate(360deg);
-      }
-    }
-
-    .loading-text {
-      margin-top: 20px;
-      font-family: 'Roboto', sans-serif;
-      font-weight: 500;
-      color: #334155;
-    }
-  </style>
 </head>
 <body>
 
@@ -61,26 +22,6 @@
     NG_APP_ENABLE_BATTLESHIP: '${NG_APP_ENABLE_BATTLESHIP}'
   };
 </script>
-
-<div id="preloader">
-  <svg class="tanuki-spinner" viewBox="0 0 512 512" xmlns="http://www.w3.org/2000/svg">
-    <!-- Simplified Tanuki Head -->
-    <circle cx="256" cy="256" fill="#e2e8f0" r="200" stroke="#475569" stroke-width="20"/>
-    <!-- Ears -->
-    <path d="M140 120 L80 40 L180 80 Z" fill="#475569"/>
-    <path d="M372 120 L432 40 L332 80 Z" fill="#475569"/>
-    <!-- Mask area -->
-    <path d="M120 256 Q120 180 256 180 Q392 180 392 256 Q392 332 256 332 Q120 332 120 256" fill="#1e293b"/>
-    <!-- Eyes -->
-    <circle cx="200" cy="256" fill="#ffffff" r="25"/>
-    <circle cx="312" cy="256" fill="#ffffff" r="25"/>
-    <circle cx="200" cy="256" fill="#000000" r="10"/>
-    <circle cx="312" cy="256" fill="#000000" r="10"/>
-    <!-- Nose -->
-    <path d="M240 290 L272 290 L256 310 Z" fill="#000000"/>
-  </svg>
-  <div class="loading-text">Loading Tanuki...</div>
-</div>
 
 <app-root></app-root>
 </body>

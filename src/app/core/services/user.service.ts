@@ -5,15 +5,23 @@ import { Router } from "@angular/router";
 import { UserResponse } from "../../../openApi/auth";
 import { PreferencesProfileService, UserPreferences } from "../../../openApi/profile";
 
+export enum AuthState {
+  Authenticated = 'Authenticated',
+  Unauthenticated = 'Unauthenticated',
+  Unknown = 'Unknown'
+}
+
 @Injectable({
   providedIn: 'root',
 })
 export class UserService {
   private readonly USER_KEY = 'tanuki_user';
   private readonly userSignal = signal<User>(this.loadOrCreateGuestUser());
+  readonly isLoggedIn = computed(() => this.authState() === AuthState.Authenticated);
 
   readonly user = this.userSignal.asReadonly();
-  readonly isLoggedIn = computed(() => !this.user().isGuest);
+  private readonly authStateSignal = signal<AuthState>(AuthState.Unknown);
+  readonly authState = this.authStateSignal.asReadonly();
   private readonly router = inject(Router);
   private readonly preferencesService = inject(PreferencesProfileService);
 
@@ -24,6 +32,7 @@ export class UserService {
     };
     this.userSignal.set(user);
     this.saveUser(user);
+    this.authStateSignal.set(AuthState.Authenticated);
   }
 
   setUserPreferences(preferences: UserPreferences): void {
@@ -35,6 +44,10 @@ export class UserService {
     }
   }
 
+  setUnauthenticated(): void {
+    this.authStateSignal.set(AuthState.Unauthenticated);
+  }
+
   logout(): void {
     const newUser: User = {
       id: uuidv4(),
@@ -42,6 +55,7 @@ export class UserService {
     };
     this.userSignal.set(newUser);
     this.saveUser(newUser);
+    this.authStateSignal.set(AuthState.Unauthenticated);
   }
 
   private loadOrCreateGuestUser(): User {

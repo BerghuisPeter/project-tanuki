@@ -1,9 +1,10 @@
-import { AfterViewInit, Component, inject } from '@angular/core';
+import { Component, inject, OnInit } from '@angular/core';
 import { RouterOutlet } from "@angular/router";
 import { HeaderComponent } from "./core/components/header/header.component";
 import { PageLoaderComponent } from "./core/components/page-loader/page-loader.component";
 import { MatIconRegistry } from "@angular/material/icon";
 import { DomSanitizer } from "@angular/platform-browser";
+import { AuthService } from "./core/services/auth.service";
 
 @Component({
   selector: 'app-root',
@@ -12,10 +13,11 @@ import { DomSanitizer } from "@angular/platform-browser";
   standalone: true,
   imports: [HeaderComponent, RouterOutlet, PageLoaderComponent]
 })
-export class AppComponent implements AfterViewInit {
+export class AppComponent implements OnInit {
   title: string = 'project-tanuki';
   private readonly matIconRegistry = inject(MatIconRegistry);
   private readonly domSanitizer = inject(DomSanitizer);
+  private readonly authService = inject(AuthService);
 
   constructor() {
     this.matIconRegistry.addSvgIcon(
@@ -24,14 +26,7 @@ export class AppComponent implements AfterViewInit {
     );
   }
 
-  ngAfterViewInit(): void {
-    const preloader = document.getElementById('preloader');
-    if (preloader) {
-      preloader.classList.add('fade-out');
-      // Remove from DOM after transition
-      setTimeout(() => {
-        preloader.remove();
-      }, 500);
-    }
+  ngOnInit(): void {
+    this.authService.initializeAuth();
   }
 }

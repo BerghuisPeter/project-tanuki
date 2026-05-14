@@ -9,7 +9,7 @@ import {
   RegisterRequest,
   UserResponse
 } from "../../../openApi/auth";
-import { catchError, firstValueFrom, from, of, switchMap, tap, throwError } from "rxjs";
+import { catchError, firstValueFrom, from, map, switchMap, tap, throwError } from "rxjs";
 import { Router } from "@angular/router";
 import { APP_PATHS } from "../../shared/models/app-paths.model";
 import { HttpErrorResponse } from "@angular/common/http";
@@ -28,12 +28,14 @@ export class AuthService {
   private readonly router = inject(Router);
   private readonly snackBar = inject(MatSnackBar);
 
+  private initPromise: Promise<void> | null = null;
+
   exchangeTempLoginToken(token: string) {
     const exchangeTempLoginTokenRequest: ExchangeTempLoginTokenRequest = { token };
     return this.authControllerAuthService.exchangeTempLoginToken(exchangeTempLoginTokenRequest)
       .pipe(
         switchMap(authRes => {
-          return from(this.handleAuthResponse(authRes)).pipe(switchMap(() => of(authRes)));
+          return from(this.handleAuthResponse(authRes)).pipe(map(() => authRes));
         })
       );
   }
@@ -43,7 +45,7 @@ export class AuthService {
     return this.authControllerAuthService.register(registerRequest)
       .pipe(
         switchMap(authRes => {
-          return from(this.handleAuthResponse(authRes)).pipe(switchMap(() => of(authRes)));
+          return from(this.handleAuthResponse(authRes)).pipe(map(() => authRes));
         })
       );
   }
@@ -53,7 +55,7 @@ export class AuthService {
     return this.authControllerAuthService.login(loginRequest)
       .pipe(
         switchMap(authRes => {
-          return from(this.handleAuthResponse(authRes)).pipe(switchMap(() => of(authRes)));
+          return from(this.handleAuthResponse(authRes)).pipe(map(() => authRes));
         })
       );
   }
@@ -89,7 +91,7 @@ export class AuthService {
     const refreshRequest: RefreshRequest = { refreshToken: refreshToken };
     return this.authControllerAuthService.refresh(refreshRequest).pipe(
       switchMap(authRes => {
-        return from(this.handleAuthResponse(authRes)).pipe(switchMap(() => of(authRes)));
+        return from(this.handleAuthResponse(authRes)).pipe(map(() => authRes));
       })
     );
   }
@@ -103,31 +105,39 @@ export class AuthService {
   }
 
   async initializeAuth(): Promise<void> {
-    const accessToken = this.getAccessToken();
-    if (!accessToken) {
-      return;
+    if (this.initPromise) {
+      return this.initPromise;
     }
 
-    try {
-      const user: UserResponse = await firstValueFrom(this.authControllerAuthService.me());
-      await this.handleUserAndPreferences(user);
-    } catch (error) {
-      // If error is 401, the interceptor handles the refresh flow.
-      // If it reaches here with 401, it means the refresh failed and interceptor already handled logout.
-      // If it's another error (like 403 or server down), we log it.
-      if (error instanceof HttpErrorResponse && error.status !== 401) {
-        console.error('Error fetching user info', error);
+    this.initPromise = (async () => {
+      const accessToken = this.getAccessToken();
+
+      if (!accessToken) {
+        this.userService.setUnauthenticated();
+        return;
       }
-    }
+
+      try {
+        const user = await firstValueFrom(this.authControllerAuthService.me());
+        await this.handleUserAndPreferences(user);
+      } catch (error) {
+        this.userService.setUnauthenticated();
+        if (error instanceof HttpErrorResponse && error.status !== 401) {
+          console.error('Error fetching user info', error);
+        }
+      }
+    })();
+
+    return this.initPromise;
   }
 
-  async handleAuthResponse(authRes: AuthResponse) {
+  async handleAuthResponse(authRes: AuthResponse): Promise<void> {
     localStorage.setItem('access_token', authRes.accessToken);
     localStorage.setItem('refresh_token', authRes.refreshToken);
     await this.handleUserAndPreferences(authRes.user);
   }
 
-  private async handleUserAndPreferences(user: UserResponse) {
+  private async handleUserAndPreferences(user: UserResponse): Promise<void> {
     await this.userService.setLoggedInUser(user);
     try {
       const preferences = await firstValueFrom(this.preferencesService.getUserPreferences());
