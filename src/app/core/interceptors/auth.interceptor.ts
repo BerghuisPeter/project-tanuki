@@ -30,6 +30,14 @@ export const authInterceptor: HttpInterceptorFn = (req, next) => {
     });
   }
 
+  if (req.headers.has('Content-Type') && req.headers.get('Content-Type') === 'application/json') {
+    authReq = authReq.clone({
+      setHeaders: {
+        'Content-Type': 'application/json; charset=utf-8'
+      }
+    });
+  }
+
   return next(authReq).pipe(
     catchError((error) => {
       // Check for 401 error and make sure it's not from a refresh request itself
