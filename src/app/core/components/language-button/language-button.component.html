@@ -13,7 +13,9 @@
 <mat-menu #langMenu="matMenu">
   @for (loc of locales; track loc.code) {
     <button (click)="changeLanguage(loc.code)" mat-menu-item>
-      <mat-icon *ngIf="currentLocale() === loc.code">check</mat-icon>
+      @if (currentLocale() === loc.code) {
+        <mat-icon>check</mat-icon>
+      }
       <span [class.font-bold]="currentLocale() === loc.code">{{ loc.label }}</span>
     </button>
   }

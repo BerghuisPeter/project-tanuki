@@ -1,9 +1,8 @@
-import { computed, inject, Injectable, signal } from '@angular/core';
+import { computed, Injectable, signal } from '@angular/core';
 import { v4 as uuidv4 } from 'uuid';
 import { User } from '../../shared/models/user.model';
-import { Router } from "@angular/router";
 import { UserResponse } from "../../../openApi/auth";
-import { PreferencesProfileService, UserPreferences } from "../../../openApi/profile";
+import { UserPreferences } from "../../../openApi/profile";
 
 export enum AuthState {
   Authenticated = 'Authenticated',
@@ -23,8 +22,6 @@ export class UserService {
   readonly user = this.userSignal.asReadonly();
   private readonly authStateSignal = signal<AuthState>(AuthState.Unknown);
   readonly authState = this.authStateSignal.asReadonly();
-  private readonly router = inject(Router);
-  private readonly preferencesService = inject(PreferencesProfileService);
 
   async setLoggedInUser(userResponse: UserResponse): Promise<void> {
     const user: User = {
