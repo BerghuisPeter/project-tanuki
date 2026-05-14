@@ -18,6 +18,7 @@ export class UserService {
   private readonly USER_KEY = 'tanuki_user';
   private readonly userSignal = signal<User>(this.loadOrCreateGuestUser());
   readonly isLoggedIn = computed(() => this.authState() === AuthState.Authenticated);
+  readonly isReady = computed(() => this.authState() !== AuthState.Unknown);
 
   readonly user = this.userSignal.asReadonly();
   private readonly authStateSignal = signal<AuthState>(AuthState.Unknown);
