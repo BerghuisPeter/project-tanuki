@@ -1,0 +1,103 @@
+{
+  "header": {
+    "appTitle": "Project Tanuki"
+  },
+  "auth": {
+    "title": {
+      "login": "Login",
+      "createAccount": "Create Account"
+    },
+    "label": {
+      "email": "Email",
+      "password": "Password",
+      "confirmPassword": "Confirm Password"
+    },
+    "placeholder": {
+      "email": "email@example.com"
+    },
+    "error": {
+      "emailInvalid": "Please enter a valid email",
+      "passwordMinlength": "password needs to be at least 6 characters",
+      "passwordsMismatch": "Password needs to be identical to other password",
+      "invalidCredentials": "Invalid email or password",
+      "serverError": "Server error. Try again.",
+      "emailRegistered": "Email already registered. Try to login instead."
+    },
+    "button": {
+      "login": "Login",
+      "register": "Register",
+      "logout": "Logout",
+      "loading": "Loading"
+    },
+    "link": {
+      "gotoRegister": "Don't have an account? Register",
+      "gotoLogin": "Already have an account? Login"
+    },
+    "text": {
+      "or": "OR"
+    }
+  },
+  "globalChat": {
+    "loading": {
+      "connecting": "Connecting to Chat..."
+    },
+    "currentUser": {
+      "label": "You:"
+    },
+    "placeholder": {
+      "message": "Your objectively wrong message goes here..."
+    }
+  },
+  "home": {
+    "navigation": {
+      "globalChat": "Global Chat"
+    }
+  },
+  "preferences": {
+    "title": "User Preferences",
+    "label": {
+      "displayName": "Display Name",
+      "colorPreference": "Color Preference",
+      "language": "Language",
+      "avatarUrl": "Avatar URL"
+    },
+    "placeholder": {
+      "displayName": "Your display name",
+      "avatarUrl": "https://example.com/avatar.png"
+    },
+    "tooltip": {
+      "clearColor": "Clear color"
+    },
+    "error": {
+      "displayNameMaxlength": "Display name cannot exceed 45 characters",
+      "localeRequired": "Locale is required",
+      "avatarUrlInvalid": "Please enter a valid URL (starting with http:// or https://)"
+    },
+    "button": {
+      "open": "Preferences",
+      "reset": "Reset Changes",
+      "saving": "Saving...",
+      "save": "Save Preferences"
+    },
+    "snackbar": {
+      "success": "Preferences saved successfully",
+      "error": "Failed to save preferences",
+      "close": "Close"
+    }
+  },
+  "theme": {
+    "label": "Theme",
+    "tooltip": {
+      "lightMode": "Light mode",
+      "darkMode": "Dark mode"
+    }
+  },
+  "pageNotFound": {
+    "title": "404!",
+    "message": "The raccoons didn't find anything. Not even garbage!",
+    "backHome": "Main menu is here!",
+    "footer": "Looks like this page went missing too.",
+    "imageAlt": "Raccoon looking guilty"
+  }
+}
+

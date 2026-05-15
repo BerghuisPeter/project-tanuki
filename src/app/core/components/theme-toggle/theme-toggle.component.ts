@@ -4,11 +4,12 @@ import { MatButtonModule } from "@angular/material/button";
 import { MatMenuModule } from "@angular/material/menu";
 import { MatTooltipModule } from "@angular/material/tooltip";
 import { ThemeService } from "../../services/theme.service";
+import { TranslocoModule } from '@jsverse/transloco';
 
 @Component({
   selector: "app-theme-toggle",
   standalone: true,
-  imports: [MatIconModule, MatButtonModule, MatMenuModule, MatTooltipModule],
+  imports: [MatIconModule, MatButtonModule, MatMenuModule, MatTooltipModule, TranslocoModule],
   templateUrl: "./theme-toggle.component.html",
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
@@ -20,7 +21,7 @@ export class ThemeToggleComponent {
     return this.themeService.isDarkMode();
   }
 
-  get ThemeTooltip(): string {
-    return this.isDarkMode ? $localize`:@@core.theme-toggle.tooltip.light-mode:Light mode` : $localize`:@@core.theme-toggle.tooltip.dark-mode:Dark mode`;
+  get themeTooltipKey(): string {
+    return this.isDarkMode ? 'theme.tooltip.lightMode' : 'theme.tooltip.darkMode';
   }
 }

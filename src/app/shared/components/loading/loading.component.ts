@@ -12,6 +12,6 @@ import { NgOptimizedImage } from "@angular/common";
   ]
 })
 export class LoadingComponent {
-  @Input() title: string = $localize`:@@shared.loading.title:Loading...`;
-  @Input() subTitle: string = $localize`:@@shared.loading.subtitle:The racoons are going going as fast as they can.`;
+  @Input() title: string = 'Loading...';
+  @Input() subTitle: string = 'The racoons are going going as fast as they can.';
 }

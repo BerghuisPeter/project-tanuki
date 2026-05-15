@@ -4,12 +4,14 @@ import { provideHttpClient } from "@angular/common/http";
 import { provideRouter } from "@angular/router";
 
 import { provideZoneChangeDetection } from '@angular/core';
+import { getTranslocoTestingModule } from './testing/transloco-testing';
 
 describe('AppComponent', () => {
   beforeEach(async () => {
     await TestBed.configureTestingModule({
       imports: [
-        AppComponent
+        AppComponent,
+        getTranslocoTestingModule()
       ],
       providers: [
         provideHttpClient(),
@@ -25,16 +27,17 @@ describe('AppComponent', () => {
     expect(app).toBeTruthy();
   });
 
-  it(`should have as title 'project-tanuki'`, () => {
-    const fixture = TestBed.createComponent(AppComponent);
-    const app = fixture.componentInstance;
-    expect(app.title).toEqual('project-tanuki');
-  });
-
-  it('should render title', () => {
+  it('should render the header component', () => {
     const fixture = TestBed.createComponent(AppComponent);
     fixture.detectChanges();
-    const app = fixture.componentInstance;
-    expect(app.title).toEqual('project-tanuki');
+    const compiled = fixture.nativeElement as HTMLElement;
+    expect(compiled.querySelector('app-header')).toBeTruthy();
+  });
+
+  it('should render the page loader component', () => {
+    const fixture = TestBed.createComponent(AppComponent);
+    fixture.detectChanges();
+    const compiled = fixture.nativeElement as HTMLElement;
+    expect(compiled.querySelector('app-page-loader')).toBeTruthy();
   });
 });

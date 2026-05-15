@@ -1,5 +1,5 @@
 import { inject, Injectable, LOCALE_ID, signal } from '@angular/core';
-import { DOCUMENT } from '@angular/common';
+import { TranslocoService } from '@jsverse/transloco';
 
 export interface LocaleInfo {
   code: string;
@@ -10,20 +10,18 @@ export interface LocaleInfo {
   providedIn: 'root'
 })
 export class LanguageService {
-  private static readonly COOKIE_NAME = 'user_locale';
-  private readonly document = inject(DOCUMENT);
   private readonly currentLocaleId = inject(LOCALE_ID);
-  // Current locale code (e.g., 'en-US')
-  public readonly currentLocale = signal<string>(this.currentLocaleId);
+  private readonly translocoService = inject(TranslocoService);
   private readonly supportedLocales: LocaleInfo[] = [
     { code: 'en-US', label: 'English' },
     { code: 'fr-FR', label: 'Français' },
     { code: 'nl-NL', label: 'Nederlands' },
     { code: 'ja-JP', label: '日本語' }
   ];
+  public readonly currentLocale = signal<string>(this.resolveInitialLocale());
 
   constructor() {
-    this.initLocale();
+    this.translocoService.setActiveLang(this.currentLocale());
   }
 
   /**
@@ -41,44 +39,47 @@ export class LanguageService {
   }
 
   /**
-   * Switches the application to a new locale by redirecting to the corresponding base HREF.
+   * Switches the application to a new locale and updates Transloco.
    * @param localeCode The locale code to switch to (e.g., 'en-US', 'fr-FR').
    */
   setLanguage(localeCode: string): void {
+    const resolvedLocale = this.resolveSupportedLocale(localeCode);
+
     if (globalThis.window !== undefined) {
-      localStorage.setItem('user_locale', localeCode);
-      this.setCookie(localeCode);
+      localStorage.setItem('user_locale', resolvedLocale);
+    }
+
+    if (this.currentLocale() === resolvedLocale) {
+      return;
+    }
+
+    this.translocoService.setActiveLang(resolvedLocale);
+    this.currentLocale.set(resolvedLocale);
+  }
+
+  private resolveInitialLocale(): string {
+    if (globalThis.window !== undefined) {
+      const storedLocale = localStorage.getItem('user_locale');
+      if (storedLocale) {
+        return this.resolveSupportedLocale(storedLocale);
+      }
+    }
+
+    return this.resolveSupportedLocale(this.currentLocaleId);
+  }
+
+  private resolveSupportedLocale(localeCode: string): string {
+    const normalizedCode = localeCode.toLowerCase();
+    const exactLocale = this.supportedLocales.find(locale => locale.code.toLowerCase() === normalizedCode);
+
+    if (exactLocale) {
+      return exactLocale.code;
     }
 
     const shortCode = this.getShortCode(localeCode);
-    const currentShortCode = this.getShortCode(this.currentLocaleId);
+    const matchedLocale = this.supportedLocales.find(locale => locale.code.toLowerCase().startsWith(shortCode));
 
-    if (currentShortCode === shortCode) {
-      return;
-    }
-
-    const currentUrl = this.document.location.pathname;
-    const newUrl = currentUrl.replace(`/${currentShortCode}/`, `/${shortCode}/`);
-
-    // If the URL doesn't contain the short code, we might need to prepend it
-    // but usually Angular i18n with baseHref handles this.
-    if (newUrl === currentUrl) {
-      this.document.location.href = `/${shortCode}/`;
-    } else {
-      this.document.location.href = newUrl;
-    }
-  }
-
-  private initLocale(): void {
-    if (globalThis.window === undefined) {
-      return;
-    }
-    const savedLocale = localStorage.getItem('user_locale');
-    if (savedLocale) {
-      this.setCookie(savedLocale);
-    } else {
-      this.setCookie(this.currentLocaleId);
-    }
+    return matchedLocale?.code ?? 'en-US';
   }
 
   private getShortCode(localeCode: string): string {
@@ -87,15 +88,6 @@ export class LanguageService {
     if (code.startsWith('fr')) return 'fr';
     if (code.startsWith('nl')) return 'nl';
     if (code.startsWith('ja')) return 'ja';
-    return 'en'; // Default
-  }
-
-  private setCookie(value: string): void {
-    if (typeof document !== 'undefined') {
-      const date = new Date();
-      date.setTime(date.getTime() + (365 * 24 * 60 * 60 * 1000)); // 1 year
-      const expires = "; expires=" + date.toUTCString();
-      document.cookie = LanguageService.COOKIE_NAME + "=" + (value || "") + expires + "; path=/; SameSite=Lax";
-    }
+    return 'en';
   }
 }

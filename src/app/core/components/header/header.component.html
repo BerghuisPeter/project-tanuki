@@ -1,27 +1,29 @@
-<mat-toolbar class="flex items-center px-4" color="primary">
-  <a class="flex items-center shrink-0 cursor-pointer no-underline text-inherit" routerLink="/">
-    <mat-icon class="header_icon" svgIcon="racoon"></mat-icon>
-  </a>
-  <span class="text-lg font-semibold">{{ title | titlecase }}</span>
+<ng-container *transloco="let t">
+  <mat-toolbar class="flex items-center px-4" color="primary">
+    <a class="flex items-center shrink-0 cursor-pointer no-underline text-inherit" routerLink="/">
+      <mat-icon class="header_icon" svgIcon="racoon"></mat-icon>
+    </a>
+    <h1 class="text-lg font-semibold">{{ t('header.appTitle') }}</h1>
 
-  <span class="spacer flex-grow"></span>
+    <span class="spacer flex-grow"></span>
 
-  <div class="md:hidden">
-    <button [matMenuTriggerFor]="menu" class="md:hidden" matIconButton>
-      <mat-icon>more_vert</mat-icon>
-    </button>
-    <mat-menu #menu="matMenu">
-      <app-language-button [isMenuItem]="true"></app-language-button>
-      <app-preferences-button [isMenuItem]="true"></app-preferences-button>
-      <app-auth-button [isMenuItem]="true"></app-auth-button>
-      <app-theme-toggle [isMenuItem]="true"></app-theme-toggle>
-    </mat-menu>
-  </div>
+    <div class="md:hidden">
+      <button [matMenuTriggerFor]="menu" class="md:hidden" matIconButton>
+        <mat-icon>more_vert</mat-icon>
+      </button>
+      <mat-menu #menu="matMenu">
+        <app-language-button [isMenuItem]="true"></app-language-button>
+        <app-preferences-button [isMenuItem]="true"></app-preferences-button>
+        <app-auth-button [isMenuItem]="true"></app-auth-button>
+        <app-theme-toggle [isMenuItem]="true"></app-theme-toggle>
+      </mat-menu>
+    </div>
 
-  <div class="hidden md:flex items-center px-4">
-    <app-language-button></app-language-button>
-    <app-preferences-button></app-preferences-button>
-    <app-auth-button></app-auth-button>
-    <app-theme-toggle></app-theme-toggle>
-  </div>
-</mat-toolbar>
+    <div class="hidden md:flex items-center px-4">
+      <app-language-button></app-language-button>
+      <app-preferences-button></app-preferences-button>
+      <app-auth-button></app-auth-button>
+      <app-theme-toggle></app-theme-toggle>
+    </div>
+  </mat-toolbar>
+</ng-container>

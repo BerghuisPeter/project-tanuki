@@ -1,24 +1,26 @@
-@if (isMenuItem()) {
-  <button
-    (click)="themeService.toggleTheme()"
-    [attr.aria-label]="ThemeTooltip"
-    [matTooltip]="ThemeTooltip"
-    mat-menu-item
-  >
-    <mat-icon>
-      {{ isDarkMode ? 'light_mode' : 'dark_mode' }}
-    </mat-icon>
-    <span i18n="@@core.theme-toggle.label">Theme</span>
-  </button>
-} @else {
-  <button
-    (click)="themeService.toggleTheme()"
-    [attr.aria-label]="ThemeTooltip"
-    [matTooltip]="ThemeTooltip"
-    mat-icon-button
-  >
-    <mat-icon>
-      {{ isDarkMode ? 'light_mode' : 'dark_mode' }}
-    </mat-icon>
-  </button>
-}
+<ng-container *transloco="let t">
+  @if (isMenuItem()) {
+    <button
+      (click)="themeService.toggleTheme()"
+      [attr.aria-label]="t(themeTooltipKey)"
+      [matTooltip]="t(themeTooltipKey)"
+      mat-menu-item
+    >
+      <mat-icon>
+        {{ isDarkMode ? 'light_mode' : 'dark_mode' }}
+      </mat-icon>
+      <span>{{ t('theme.label') }}</span>
+    </button>
+  } @else {
+    <button
+      (click)="themeService.toggleTheme()"
+      [attr.aria-label]="t(themeTooltipKey)"
+      [matTooltip]="t(themeTooltipKey)"
+      mat-icon-button
+    >
+      <mat-icon>
+        {{ isDarkMode ? 'light_mode' : 'dark_mode' }}
+      </mat-icon>
+    </button>
+  }
+</ng-container>

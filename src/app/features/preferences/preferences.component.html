@@ -1,31 +1,30 @@
-<div class="flex min-h-[80vh] items-center justify-center p-4">
+<div *transloco="let t" class="flex min-h-[80vh] items-center justify-center p-4">
   <mat-card class="w-full max-w-md p-6">
     <mat-card-header class="mb-4">
-      <mat-card-title class="text-2xl font-bold" i18n="@@profile.preferences.title">User Preferences</mat-card-title>
+      <mat-card-title class="text-2xl font-bold">{{ t('preferences.title') }}</mat-card-title>
     </mat-card-header>
 
     <mat-card-content>
       <form (ngSubmit)="onSubmit()" [formGroup]="preferencesForm" class="flex flex-col gap-4">
         <mat-form-field appearance="outline" class="w-full">
-          <mat-label i18n="@@profile.preferences.label.display-name">Display Name</mat-label>
-          <input formControlName="displayName" i18n-placeholder="@@profile.preferences.placeholder.display-name"
-                 matInput placeholder="Your display name">
+          <mat-label>{{ t('preferences.label.displayName') }}</mat-label>
+          <input formControlName="displayName"
+                 matInput
+                 [placeholder]="t('preferences.placeholder.displayName')">
           @if (preferencesForm.get('displayName')?.hasError('maxlength')) {
-            <mat-error i18n="@@profile.preferences.error.display-name-maxlength">Display name cannot exceed 45
-              characters
-            </mat-error>
+            <mat-error>{{ t('preferences.error.displayNameMaxlength') }}</mat-error>
           }
         </mat-form-field>
 
         <div class="flex flex-col md:flex-row md:gap-4">
           <mat-form-field appearance="outline" class="w-full md:w-1/2">
-            <mat-label i18n="@@profile.preferences.label.color-preference">Color Preference</mat-label>
+            <mat-label>{{ t('preferences.label.colorPreference') }}</mat-label>
             <div class="flex items-center gap-2">
               <input class="color-picker-square" formControlName="color" matInput type="color">
             </div>
             @if (preferencesForm.get('color')?.value) {
-              <button (click)="clearColor()" i18n-matTooltip="@@profile.preferences.tooltip.clear-color" mat-icon-button
-                      matSuffix matTooltip="Clear color" size="small"
+              <button (click)="clearColor()" mat-icon-button
+                      matSuffix [matTooltip]="t('preferences.tooltip.clearColor')" size="small"
                       type="button">
                 <mat-icon>format_color_reset</mat-icon>
               </button>
@@ -33,35 +32,33 @@
           </mat-form-field>
 
           <mat-form-field appearance="outline" class="w-full md:w-1/2">
-            <mat-label i18n="@@profile.preferences.label.language">Language</mat-label>
+            <mat-label>{{ t('preferences.label.language') }}</mat-label>
             <mat-select formControlName="locale">
               @for (loc of locales; track loc.code) {
                 <mat-option [value]="loc.code">{{ loc.label }}</mat-option>
               }
             </mat-select>
             @if (preferencesForm.get('locale')?.hasError('required')) {
-              <mat-error i18n="@@profile.preferences.error.locale-required">Locale is required</mat-error>
+              <mat-error>{{ t('preferences.error.localeRequired') }}</mat-error>
             }
           </mat-form-field>
         </div>
 
         <mat-form-field appearance="outline" class="w-full">
-          <mat-label i18n="@@profile.preferences.label.avatar-url">Avatar URL</mat-label>
-          <textarea formControlName="avatarUrl" i18n-placeholder="@@profile.preferences.placeholder.avatar-url" matInput
-                    placeholder="https://example.com/avatar.png"
+          <mat-label>{{ t('preferences.label.avatarUrl') }}</mat-label>
+          <textarea formControlName="avatarUrl" matInput
+                    [placeholder]="t('preferences.placeholder.avatarUrl')"
                     rows="3"></textarea>
           @if (preferencesForm.get('avatarUrl')?.hasError('pattern')) {
-            <mat-error i18n="@@profile.preferences.error.avatar-url-invalid">Please enter a valid URL (starting with
-              http:// or https://)
-            </mat-error>
+            <mat-error>{{ t('preferences.error.avatarUrlInvalid') }}</mat-error>
           }
         </mat-form-field>
 
         <div class="flex flex-col md:flex-row justify-end gap-2 mt-4">
           @if (preferencesForm.dirty) {
-            <button (click)="onReset()" [disabled]="isSaving()" color="warn" i18n="@@profile.preferences.button.reset"
+            <button (click)="onReset()" [disabled]="isSaving()" color="warn"
                     mat-button type="button">
-              Reset Changes
+              {{ t('preferences.button.reset') }}
             </button>
           }
           <button
@@ -70,9 +67,9 @@
             mat-raised-button
             type="submit">
             @if (isSaving()) {
-              <span i18n="@@profile.preferences.button.saving">Saving...</span>
+              <span>{{ t('preferences.button.saving') }}</span>
             } @else {
-              <span i18n="@@profile.preferences.button.save">Save Preferences</span>
+              <span>{{ t('preferences.button.save') }}</span>
             }
           </button>
         </div>

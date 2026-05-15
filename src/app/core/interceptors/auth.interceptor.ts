@@ -8,7 +8,7 @@ let isRefreshing = false;
 const refreshTokenSubject: BehaviorSubject<string | null> = new BehaviorSubject<string | null>(null);
 
 export const authInterceptor: HttpInterceptorFn = (req, next) => {
-  if (req.url.includes('/assets/config.json')) {
+  if (req.url.includes('/assets/')) {
     return next(req);
   }
   const authService = inject(AuthService);
@@ -26,6 +26,14 @@ export const authInterceptor: HttpInterceptorFn = (req, next) => {
     authReq = req.clone({
       setHeaders: {
         Authorization: `Bearer ${token}`
+      }
+    });
+  }
+
+  if (req.headers.has('Content-Type') && req.headers.get('Content-Type') === 'application/json') {
+    authReq = authReq.clone({
+      setHeaders: {
+        'Content-Type': 'application/json; charset=utf-8'
       }
     });
   }

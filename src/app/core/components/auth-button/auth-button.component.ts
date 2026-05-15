@@ -7,11 +7,12 @@ import { UserService } from "../../services/user.service";
 import { AuthService } from "../../services/auth.service";
 import { Router } from "@angular/router";
 import { APP_PATHS } from "../../../shared/models/app-paths.model";
+import { TranslocoModule } from '@jsverse/transloco';
 
 @Component({
   selector: "app-auth-button",
   standalone: true,
-  imports: [MatIconModule, MatButtonModule, MatMenuModule, MatTooltipModule],
+  imports: [MatIconModule, MatButtonModule, MatMenuModule, MatTooltipModule, TranslocoModule],
   templateUrl: "./auth-button.component.html",
   styleUrl: "./auth-button.component.scss",
   changeDetection: ChangeDetectionStrategy.OnPush,

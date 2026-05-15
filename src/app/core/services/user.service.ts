@@ -1,9 +1,14 @@
-import { computed, inject, Injectable, signal } from '@angular/core';
+import { computed, Injectable, signal } from '@angular/core';
 import { v4 as uuidv4 } from 'uuid';
 import { User } from '../../shared/models/user.model';
-import { Router } from "@angular/router";
 import { UserResponse } from "../../../openApi/auth";
-import { PreferencesProfileService, UserPreferences } from "../../../openApi/profile";
+import { UserPreferences } from "../../../openApi/profile";
+
+export enum AuthState {
+  Authenticated = 'Authenticated',
+  Unauthenticated = 'Unauthenticated',
+  Unknown = 'Unknown'
+}
 
 @Injectable({
   providedIn: 'root',
@@ -11,19 +16,22 @@ import { PreferencesProfileService, UserPreferences } from "../../../openApi/pro
 export class UserService {
   private readonly USER_KEY = 'tanuki_user';
   private readonly userSignal = signal<User>(this.loadOrCreateGuestUser());
+  readonly isLoggedIn = computed(() => this.authState() === AuthState.Authenticated);
+  readonly isReady = computed(() => this.authState() !== AuthState.Unknown);
 
   readonly user = this.userSignal.asReadonly();
-  readonly isLoggedIn = computed(() => !this.user().isGuest);
-  private readonly router = inject(Router);
-  private readonly preferencesService = inject(PreferencesProfileService);
+  private readonly authStateSignal = signal<AuthState>(AuthState.Unknown);
+  readonly authState = this.authStateSignal.asReadonly();
 
-  async setLoggedInUser(userResponse: UserResponse): Promise<void> {
+  setLoggedInUser(userResponse: UserResponse, preferences?: UserPreferences): void {
     const user: User = {
       ...userResponse,
+      userPreferences: preferences,
       isGuest: false,
     };
     this.userSignal.set(user);
     this.saveUser(user);
+    this.authStateSignal.set(AuthState.Authenticated);
   }
 
   setUserPreferences(preferences: UserPreferences): void {
@@ -35,6 +43,10 @@ export class UserService {
     }
   }
 
+  setUnauthenticated(): void {
+    this.authStateSignal.set(AuthState.Unauthenticated);
+  }
+
   logout(): void {
     const newUser: User = {
       id: uuidv4(),
@@ -42,6 +54,7 @@ export class UserService {
     };
     this.userSignal.set(newUser);
     this.saveUser(newUser);
+    this.authStateSignal.set(AuthState.Unauthenticated);
   }
 
   private loadOrCreateGuestUser(): User {

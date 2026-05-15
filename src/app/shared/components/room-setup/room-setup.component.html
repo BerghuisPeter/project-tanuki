@@ -1,23 +1,22 @@
 <mat-card>
   <mat-card-content class="flex flex-col bg-gray-100 gap-4 md:flex-row">
     <div class="flex-1 flex justify-center items-center flex-col gap-1 text-center">
-      <h2 class="m-0" i18n="@@shared.room-setup.title.your-code">Your code:</h2>
+      <h2 class="m-0">Your code:</h2>
       <p class="m-0">{{ roomCode }}</p>
-      <button (click)="copyCodeToClipboard()" color="primary" i18n="@@shared.room-setup.button.copy" mat-raised-button>
+      <button (click)="copyCodeToClipboard()" color="primary" mat-raised-button>
         Copy code
       </button>
     </div>
     <div class="border-dashed border-t-2 md:border-l-2 border-indigo-500"></div>
     <div class="flex-1 flex justify-center items-center flex-col gap-1 text-center">
-      <h2 class="m-0" i18n="@@shared.room-setup.title.enter-code">Enter code:</h2>
+      <h2 class="m-0">Enter code:</h2>
       <mat-form-field class="w-full" color="primary">
         <input [formControl]="roomCodeInputFormControl"
                [maxLength]="36"
-               i18n-placeholder="@@shared.room-setup.placeholder.enter-code"
                matInput
                placeholder="friend's code here."
                type="text">
-        <mat-error i18n="@@shared.room-setup.error.invalid-code">Not a valid code.</mat-error>
+        <mat-error>Not a valid code.</mat-error>
       </mat-form-field>
     </div>
   </mat-card-content>

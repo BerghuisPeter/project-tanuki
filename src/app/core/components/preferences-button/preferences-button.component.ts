@@ -3,28 +3,45 @@ import { MatIconModule } from "@angular/material/icon";
 import { MatButtonModule } from "@angular/material/button";
 import { MatMenuModule } from "@angular/material/menu";
 import { Router } from "@angular/router";
-import { APP_PATHS } from "../../../shared/models/app-paths.model";
+import { APP_PATHS } from "src/app/shared/models/app-paths.model";
 import { UserService } from "../../services/user.service";
+import { TranslocoModule } from '@jsverse/transloco';
 
 @Component({
   selector: "app-preferences-button",
   standalone: true,
-  imports: [MatIconModule, MatButtonModule, MatMenuModule],
+  imports: [MatIconModule, MatButtonModule, MatMenuModule, TranslocoModule],
   changeDetection: ChangeDetectionStrategy.OnPush,
   template: `
-    @if (userService.isLoggedIn()) {
-      @if (isMenuItem()) {
-        <button (click)="toPreferences()" class="flex items-center" mat-menu-item>
-          <mat-icon class="mr-1">settings</mat-icon>
-          <span i18n="@@core.preferences-button.label">Preferences</span>
-        </button>
+    <ng-container *transloco="let t">
+      @if (userService.isReady()) {
+        @if (userService.isLoggedIn()) {
+          @if (isMenuItem()) {
+            <button (click)="toPreferences()" class="flex items-center" mat-menu-item>
+              <mat-icon class="mr-1">settings</mat-icon>
+              <span>{{ t('preferences.button.open') }}</span>
+            </button>
+          } @else {
+            <button (click)="toPreferences()" class="flex items-center" mat-button>
+              <mat-icon class="mr-1">settings</mat-icon>
+              <span>{{ t('preferences.button.open') }}</span>
+            </button>
+          }
+        }
       } @else {
-        <button (click)="toPreferences()" class="flex items-center" mat-button>
-          <mat-icon class="mr-1">settings</mat-icon>
-          <span i18n="@@core.preferences-button.label">Preferences</span>
-        </button>
+        @if (isMenuItem()) {
+          <button mat-menu-item disabled class="flex items-center">
+            <mat-icon class="mr-1 opacity-20 animate-pulse">settings</mat-icon>
+            <span class="w-24 h-4 bg-black/10 dark:bg-white/10 rounded animate-pulse"></span>
+          </button>
+        } @else {
+          <button mat-button disabled class="flex items-center">
+            <mat-icon class="mr-1 opacity-20 animate-pulse">settings</mat-icon>
+            <span class="w-24 h-4 bg-black/10 dark:bg-white/10 rounded animate-pulse"></span>
+          </button>
+        }
       }
-    }
+    </ng-container>
   `,
 })
 export class PreferencesButtonComponent {
