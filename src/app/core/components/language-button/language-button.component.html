@@ -1,12 +1,12 @@
 @if (isMenuItem()) {
   <button [matMenuTriggerFor]="langMenu" class="flex items-center" mat-menu-item>
     <mat-icon class="mr-1">language</mat-icon>
-    <span i18n="@@core.language-button.label">Language</span>
+    <span>Language</span>
   </button>
 } @else {
   <button [matMenuTriggerFor]="langMenu" class="flex items-center" mat-button>
     <mat-icon class="mr-1">language</mat-icon>
-    <span i18n="@@core.language-button.label">Language</span>
+    <span>Language</span>
   </button>
 }
 

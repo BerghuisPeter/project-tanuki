@@ -1,0 +1,85 @@
+{
+  "header": {
+    "appTitle": "Project Tanuki"
+  },
+  "auth": {
+    "title": {
+      "login": "ログイン",
+      "createAccount": "アカウント作成"
+    },
+    "label": {
+      "email": "メールアドレス",
+      "password": "パスワード",
+      "confirmPassword": "パスワード確認"
+    },
+    "placeholder": {
+      "email": "email@example.com"
+    },
+    "error": {
+      "emailInvalid": "有効なメールアドレスを入力してください",
+      "passwordMinlength": "パスワードは6文字以上である必要があります",
+      "passwordsMismatch": "パスワードが一致している必要があります",
+      "invalidCredentials": "メールアドレスまたはパスワードが正しくありません",
+      "serverError": "サーバーエラーが発生しました。もう一度お試しください。",
+      "emailRegistered": "このメールアドレスは既に登録されています。ログインしてください。"
+    },
+    "button": {
+      "login": "ログイン",
+      "register": "登録"
+    },
+    "link": {
+      "gotoRegister": "アカウントをお持ちでないですか？登録",
+      "gotoLogin": "既にアカウントをお持ちですか？ログイン"
+    },
+    "text": {
+      "or": "または"
+    }
+  },
+  "globalChat": {
+    "loading": {
+      "connecting": "チャットに接続中..."
+    },
+    "currentUser": {
+      "label": "あなた:"
+    },
+    "placeholder": {
+      "message": "あなたの客観的に間違ったメッセージをここに入力..."
+    }
+  },
+  "home": {
+    "navigation": {
+      "globalChat": "グローバルチャット"
+    }
+  },
+  "preferences": {
+    "title": "ユーザー設定",
+    "label": {
+      "displayName": "表示名",
+      "colorPreference": "カラープリファレンス",
+      "language": "言語",
+      "avatarUrl": "アバターURL"
+    },
+    "placeholder": {
+      "displayName": "表示名を入力",
+      "avatarUrl": "https://example.com/avatar.png"
+    },
+    "tooltip": {
+      "clearColor": "色をクリア"
+    },
+    "error": {
+      "displayNameMaxlength": "表示名は45文字以下である必要があります",
+      "localeRequired": "言語は必須です",
+      "avatarUrlInvalid": "有効なURLを入力してください（http:// または https:// で始まるもの）"
+    },
+    "button": {
+      "reset": "変更をリセット",
+      "saving": "保存中...",
+      "save": "設定を保存"
+    },
+    "snackbar": {
+      "success": "設定が正常に保存されました",
+      "error": "設定の保存に失敗しました",
+      "close": "閉じる"
+    }
+  }
+}

@@ -13,6 +13,7 @@ import { ChatUserInfoComponent } from "./components/chat-user-info/chat-user-inf
 import { ChatSystemMessageComponent } from "./components/chat-system-message/chat-system-message.component";
 import { toSignal } from "@angular/core/rxjs-interop";
 import { map, merge, scan } from "rxjs";
+import { TranslocoModule } from '@jsverse/transloco';
 
 @Component({
   selector: 'app-global-chat',
@@ -35,7 +36,8 @@ import { map, merge, scan } from "rxjs";
     MatIconModule,
     LoadingComponent,
     ChatUserInfoComponent,
-    ChatSystemMessageComponent
+    ChatSystemMessageComponent,
+    TranslocoModule
   ]
 })
 export class GlobalChatComponent implements OnInit, OnDestroy {

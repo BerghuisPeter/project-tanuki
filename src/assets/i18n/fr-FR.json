@@ -1,0 +1,85 @@
+{
+  "header": {
+    "appTitle": "Project Tanuki"
+  },
+  "auth": {
+    "title": {
+      "login": "Connexion",
+      "createAccount": "Créer un compte"
+    },
+    "label": {
+      "email": "E-mail",
+      "password": "Mot de passe",
+      "confirmPassword": "Confirmer le mot de passe"
+    },
+    "placeholder": {
+      "email": "email@example.com"
+    },
+    "error": {
+      "emailInvalid": "Veuillez entrer une adresse e-mail valide",
+      "passwordMinlength": "Le mot de passe doit contenir au moins 6 caractères",
+      "passwordsMismatch": "Les mots de passe doivent être identiques",
+      "invalidCredentials": "E-mail ou mot de passe invalide",
+      "serverError": "Erreur du serveur. Veuillez réessayer.",
+      "emailRegistered": "Cette adresse e-mail est déjà enregistrée. Essayez de vous connecter."
+    },
+    "button": {
+      "login": "Connexion",
+      "register": "S'inscrire"
+    },
+    "link": {
+      "gotoRegister": "Vous n'avez pas de compte ? Inscrivez-vous",
+      "gotoLogin": "Vous avez déjà un compte ? Connectez-vous"
+    },
+    "text": {
+      "or": "OU"
+    }
+  },
+  "globalChat": {
+    "loading": {
+      "connecting": "Connexion au chat..."
+    },
+    "currentUser": {
+      "label": "Vous :"
+    },
+    "placeholder": {
+      "message": "Votre message objectivement faux ici..."
+    }
+  },
+  "home": {
+    "navigation": {
+      "globalChat": "Chat global"
+    }
+  },
+  "preferences": {
+    "title": "Préférences utilisateur",
+    "label": {
+      "displayName": "Nom d'affichage",
+      "colorPreference": "Préférence de couleur",
+      "language": "Langue",
+      "avatarUrl": "URL de l’avatar"
+    },
+    "placeholder": {
+      "displayName": "Votre nom d'affichage",
+      "avatarUrl": "https://example.com/avatar.png"
+    },
+    "tooltip": {
+      "clearColor": "Effacer la couleur"
+    },
+    "error": {
+      "displayNameMaxlength": "Le nom d'affichage ne peut pas dépasser 45 caractères",
+      "localeRequired": "La langue est obligatoire",
+      "avatarUrlInvalid": "Veuillez entrer une URL valide (commençant par http:// ou https://)"
+    },
+    "button": {
+      "reset": "Réinitialiser les modifications",
+      "saving": "Enregistrement...",
+      "save": "Enregistrer les préférences"
+    },
+    "snackbar": {
+      "success": "Préférences enregistrées avec succès",
+      "error": "Échec de l’enregistrement des préférences",
+      "close": "Fermer"
+    }
+  }
+}

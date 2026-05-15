@@ -1,11 +1,11 @@
-<div class="flex min-h-[80vh] items-center justify-center p-4">
+<div class="flex min-h-[80vh] items-center justify-center p-4" *transloco="let t">
   <mat-card class="w-full max-w-md p-6">
     <mat-card-header class="mb-4">
       <mat-card-title class="text-2xl font-bold">
         @if (isLoginMode()) {
-          <span i18n="@@auth.authentication.title.login">Login</span>
+          <span>{{ t('auth.title.login') }}</span>
         } @else {
-          <span i18n="@@auth.authentication.title.create-account">Create Account</span>
+          <span>{{ t('auth.title.createAccount') }}</span>
         }
       </mat-card-title>
     </mat-card-header>
@@ -13,32 +13,28 @@
     <mat-card-content>
       <form (ngSubmit)="onSubmit()" [formGroup]="loginForm" class="flex flex-col gap-4">
         <mat-form-field appearance="outline" class="w-full">
-          <mat-label i18n="@@auth.authentication.label.email">Email</mat-label>
-          <input formControlName="email" i18n-placeholder="@@auth.authentication.placeholder.email" matInput
-                 placeholder="email@example.com" type="email">
+          <mat-label>{{ t('auth.label.email') }}</mat-label>
+          <input formControlName="email" matInput
+                 [placeholder]="t('auth.placeholder.email')" type="email">
           @if (loginForm.get('email')?.hasError('email')) {
-            <mat-error i18n="@@auth.authentication.error.email-invalid">Please enter a valid email</mat-error>
+            <mat-error>{{ t('auth.error.emailInvalid') }}</mat-error>
           }
         </mat-form-field>
 
         <mat-form-field appearance="outline" class="w-full">
-          <mat-label i18n="@@auth.authentication.label.password">Password</mat-label>
+          <mat-label>{{ t('auth.label.password') }}</mat-label>
           <input formControlName="password" matInput type="password">
           @if (loginForm.get('password')?.hasError('minlength')) {
-            <mat-error i18n="@@auth.authentication.error.password-minlength">password needs to be at least 6
-              characters
-            </mat-error>
+            <mat-error>{{ t('auth.error.passwordMinlength') }}</mat-error>
           }
         </mat-form-field>
 
         @if (!isLoginMode()) {
           <mat-form-field appearance="outline" class="w-full">
-            <mat-label i18n="@@auth.authentication.label.confirm-password">Confirm Password</mat-label>
+            <mat-label>{{ t('auth.label.confirmPassword') }}</mat-label>
             <input formControlName="confirmPassword" matInput type="password">
             @if (loginForm.get('confirmPassword')?.hasError('samePasswords')) {
-              <mat-error i18n="@@auth.authentication.error.passwords-mismatch">Password needs to be identical to other
-                password
-              </mat-error>
+              <mat-error>{{ t('auth.error.passwordsMismatch') }}</mat-error>
             }
           </mat-form-field>
         }
@@ -60,9 +56,9 @@
             </div>
           } @else {
             @if (isLoginMode()) {
-              <span i18n="@@auth.authentication.button.login">Login</span>
+              <span>{{ t('auth.button.login') }}</span>
             } @else {
-              <span i18n="@@auth.authentication.button.register">Register</span>
+              <span>{{ t('auth.button.register') }}</span>
             }
           }
         </button>
@@ -70,16 +66,16 @@
         <div class="mt-4 text-center">
           <button (click)="toggleMode()" [ngClass]="{'hidden': isLoadingQuery()}" mat-button type="button">
             @if (isLoginMode()) {
-              <span i18n="@@auth.authentication.link.goto-register">Don't have an account? Register</span>
+              <span>{{ t('auth.link.gotoRegister') }}</span>
             } @else {
-              <span i18n="@@auth.authentication.link.goto-login">Already have an account? Login</span>
+              <span>{{ t('auth.link.gotoLogin') }}</span>
             }
           </button>
         </div>
 
         <div class="relative flex items-center py-4">
           <div class="flex-grow border-t border-gray-300"></div>
-          <span class="mx-4 flex-shrink text-gray-400 text-sm" i18n="@@auth.authentication.text.or">OR</span>
+          <span class="mx-4 flex-shrink text-gray-400 text-sm">{{ t('auth.text.or') }}</span>
           <div class="flex-grow border-t border-gray-300"></div>
         </div>
 

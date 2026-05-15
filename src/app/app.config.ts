@@ -1,4 +1,4 @@
-import { ApplicationConfig, ApplicationRef, importProvidersFrom, inject } from '@angular/core';
+import { ApplicationConfig, ApplicationRef, importProvidersFrom, inject, isDevMode } from '@angular/core';
 import { provideRouter } from '@angular/router';
 import { routes } from './app.routes';
 import { provideHttpClient, withInterceptors } from '@angular/common/http';
@@ -9,6 +9,8 @@ import { authInterceptor } from "./core/interceptors/auth.interceptor";
 import { provideAnimationsAsync } from "@angular/platform-browser/animations/async";
 import { MatSnackBarModule } from "@angular/material/snack-bar";
 import { AppConfigService } from './core/services/app-config.service';
+import { TranslocoHttpLoader } from './transloco-loader';
+import { provideTransloco } from '@jsverse/transloco';
 
 const options = {
   autoConnect: false,
@@ -38,6 +40,16 @@ export const appConfig: ApplicationConfig = {
       provide: BASE_PATH_PROFILE,
       useFactory: (config: AppConfigService) => config.get('NG_APP_PROFILE_API_URL'),
       deps: [AppConfigService]
-    }
+    },
+    provideTransloco({
+      config: {
+        availableLangs: ['en-US', 'fr-FR', 'ja-JP', 'nl-NL'],
+        defaultLang: 'en-US',
+        fallbackLang: 'en-US',
+        reRenderOnLangChange: true,
+        prodMode: !isDevMode(),
+      },
+      loader: TranslocoHttpLoader
+    })
   ]
 };

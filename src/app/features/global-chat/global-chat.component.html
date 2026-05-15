@@ -1,35 +1,37 @@
-@if (!isConnected()) {
-  <app-loading class="flex justify-center mt-20" title="Connecting to Chat..."></app-loading>
-} @else {
-  <h2 class="py-1 px-1 border-b-1 border-gray-300 md:px-4 m-0 flex flex-wrap items-center gap-x-2">
-    <span class="font-bold">You: </span>
-    <app-chat-user-info [avatarUrl]="userService.user().userPreferences?.avatarUrl"
-                        [color]="userService.user().userPreferences?.color"
-                        [displayName]="userService.user().userPreferences?.displayName"
-                        [id]="userService.user().id"></app-chat-user-info>
-  </h2>
-  <div #chatMessagesContainer class="flex-1 min-h-[100px] flex flex-col gap-4 overflow-y-auto pt-1 px-2 md:px-4">
-    @for (message of messages(); track message) {
-      @if (message.origin === 'USER') {
-        <div class="flex flex-col">
-          <app-chat-user-info [avatarUrl]="message.user.avatarUrl"
-                              [color]="message.user.color"
-                              [displayName]="message.user.displayName"
-                              [id]="message.user.id"
-                              [timestamp]="message.timestamp"></app-chat-user-info>
-          <span>{{ message.value }}</span>
-        </div>
-      } @else {
-        <app-chat-system-message [message]="message"></app-chat-system-message>
+<ng-container *transloco="let t">
+  @if (!isConnected()) {
+    <app-loading class="flex justify-center mt-20" [title]="t('globalChat.loading.connecting')"></app-loading>
+  } @else {
+    <h2 class="py-1 px-1 border-b-1 border-gray-300 md:px-4 m-0 flex flex-wrap items-center gap-x-2">
+      <span class="font-bold">{{ t('globalChat.currentUser.label') }} </span>
+      <app-chat-user-info [avatarUrl]="userService.user().userPreferences?.avatarUrl"
+                          [color]="userService.user().userPreferences?.color"
+                          [displayName]="userService.user().userPreferences?.displayName"
+                          [id]="userService.user().id"></app-chat-user-info>
+    </h2>
+    <div #chatMessagesContainer class="flex-1 min-h-[100px] flex flex-col gap-4 overflow-y-auto pt-1 px-2 md:px-4">
+      @for (message of messages(); track message) {
+        @if (message.origin === 'USER') {
+          <div class="flex flex-col">
+            <app-chat-user-info [avatarUrl]="message.user.avatarUrl"
+                                [color]="message.user.color"
+                                [displayName]="message.user.displayName"
+                                [id]="message.user.id"
+                                [timestamp]="message.timestamp"></app-chat-user-info>
+            <span>{{ message.value }}</span>
+          </div>
+        } @else {
+          <app-chat-system-message [message]="message"></app-chat-system-message>
+        }
       }
-    }
-  </div>
-  <mat-form-field class="w-full" color="primary">
-    <input (keyup.enter)="onEnter()"
-           [formControl]="inputFormControl"
-           matInput
-           placeholder="Your objectively wrong message goes here..."
-           type="text">
-  </mat-form-field>
-}
+    </div>
+    <mat-form-field class="w-full" color="primary">
+      <input (keyup.enter)="onEnter()"
+             [formControl]="inputFormControl"
+             [placeholder]="t('globalChat.placeholder.message')"
+             matInput
+             type="text">
+    </mat-form-field>
+  }
+</ng-container>
 

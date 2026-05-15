@@ -1,4 +1,4 @@
-import { Component, inject } from '@angular/core';
+import { Component } from '@angular/core';
 import { APP_PATHS } from "../../shared/models/app-paths.model";
 import { CommonModule } from "@angular/common";
 import { MatGridListModule } from "@angular/material/grid-list";
@@ -6,7 +6,7 @@ import { MatCardModule } from "@angular/material/card";
 import { MatButtonModule } from "@angular/material/button";
 import { MatIconModule } from "@angular/material/icon";
 import { RouterModule } from "@angular/router";
-import { AppConfigService } from '../../core/services/app-config.service';
+import { TranslocoModule } from '@jsverse/transloco';
 
 @Component({
   selector: 'app-home',
@@ -19,11 +19,10 @@ import { AppConfigService } from '../../core/services/app-config.service';
     MatCardModule,
     MatButtonModule,
     MatIconModule,
-    RouterModule
+    RouterModule,
+    TranslocoModule
   ]
 })
 export class HomeComponent {
-  private readonly configService = inject(AppConfigService);
   APP_PATHS = APP_PATHS;
-  readonly enableBattleShipFeature = this.configService.get('NG_APP_ENABLE_BATTLESHIP') == 'true';
 }

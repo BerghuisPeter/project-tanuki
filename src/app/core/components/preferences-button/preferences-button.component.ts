@@ -3,7 +3,7 @@ import { MatIconModule } from "@angular/material/icon";
 import { MatButtonModule } from "@angular/material/button";
 import { MatMenuModule } from "@angular/material/menu";
 import { Router } from "@angular/router";
-import { APP_PATHS } from "../../../shared/models/app-paths.model";
+import { APP_PATHS } from "src/app/shared/models/app-paths.model";
 import { UserService } from "../../services/user.service";
 
 @Component({
@@ -17,12 +17,12 @@ import { UserService } from "../../services/user.service";
         @if (isMenuItem()) {
           <button (click)="toPreferences()" class="flex items-center" mat-menu-item>
             <mat-icon class="mr-1">settings</mat-icon>
-            <span i18n="@@core.preferences-button.label">Preferences</span>
+            <span>Preferences</span>
           </button>
         } @else {
           <button (click)="toPreferences()" class="flex items-center" mat-button>
             <mat-icon class="mr-1">settings</mat-icon>
-            <span i18n="@@core.preferences-button.label">Preferences</span>
+            <span>Preferences</span>
           </button>
         }
       }
