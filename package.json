@@ -1,6 +1,7 @@
 {
   "name": "project-tanuki",
   "version": "0.0.0",
+  "packageManager": "npm@11.5.1",
   "scripts": {
     "ng": "ng",
     "start": "ng serve",
