@@ -1,8 +1,10 @@
-<h1>404!</h1>
-<h2>The racoons didn't find anything. Not even garbage!</h2>
-<button class="mb-8" color="primary" mat-raised-button routerLink="">Main menu
-  is HERE! (click me bro)
-</button>
-<h3>Also I ain't feeling the way the cops be movin.</h3>
-<img alt="racoon_committing_crime" src="assets/racoon-crime.jpg"
-     style="margin-left: auto; margin-right: auto; width: 40%">
+<div *transloco="let t">
+  <h1>{{ t('pageNotFound.title') }}</h1>
+  <h2>{{ t('pageNotFound.message') }}</h2>
+  <button class="mb-8" color="primary" mat-raised-button routerLink="">
+    {{ t('pageNotFound.backHome') }}
+  </button>
+  <h3>{{ t('pageNotFound.footer') }}</h3>
+  <img [alt]="t('pageNotFound.imageAlt')" src="assets/racoon-crime.jpg"
+       style="margin-left: auto; margin-right: auto; width: 40%">
+</div>

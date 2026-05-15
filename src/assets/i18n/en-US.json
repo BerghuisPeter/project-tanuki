@@ -25,7 +25,9 @@
     },
     "button": {
       "login": "Login",
-      "register": "Register"
+      "register": "Register",
+      "logout": "Logout",
+      "loading": "Loading"
     },
     "link": {
       "gotoRegister": "Don't have an account? Register",
@@ -72,6 +74,7 @@
       "avatarUrlInvalid": "Please enter a valid URL (starting with http:// or https://)"
     },
     "button": {
+      "open": "Preferences",
       "reset": "Reset Changes",
       "saving": "Saving...",
       "save": "Save Preferences"
@@ -81,6 +84,20 @@
       "error": "Failed to save preferences",
       "close": "Close"
     }
+  },
+  "theme": {
+    "label": "Theme",
+    "tooltip": {
+      "lightMode": "Light mode",
+      "darkMode": "Dark mode"
+    }
+  },
+  "pageNotFound": {
+    "title": "404!",
+    "message": "The raccoons didn't find anything. Not even garbage!",
+    "backHome": "Main menu is here!",
+    "footer": "Looks like this page went missing too.",
+    "imageAlt": "Raccoon looking guilty"
   }
 }
 

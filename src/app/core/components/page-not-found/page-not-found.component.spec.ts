@@ -3,6 +3,7 @@ import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { PageNotFoundComponent } from './page-not-found.component';
 
 import { provideZoneChangeDetection } from '@angular/core';
+import { getTranslocoTestingModule } from '../../../testing/transloco-testing';
 
 describe('PageNotFoundComponentComponent', () => {
   let component: PageNotFoundComponent;
@@ -10,7 +11,7 @@ describe('PageNotFoundComponentComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      imports: [PageNotFoundComponent],
+      imports: [PageNotFoundComponent, getTranslocoTestingModule()],
       providers: [provideZoneChangeDetection()]
     })
       .compileComponents();

@@ -14,7 +14,6 @@ import { AuthService } from "./core/services/auth.service";
   imports: [HeaderComponent, RouterOutlet, PageLoaderComponent]
 })
 export class AppComponent implements OnInit {
-  title: string = 'header.appTitle';
   private readonly matIconRegistry = inject(MatIconRegistry);
   private readonly domSanitizer = inject(DomSanitizer);
   private readonly authService = inject(AuthService);

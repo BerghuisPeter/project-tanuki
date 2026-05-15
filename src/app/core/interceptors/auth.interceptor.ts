@@ -8,7 +8,7 @@ let isRefreshing = false;
 const refreshTokenSubject: BehaviorSubject<string | null> = new BehaviorSubject<string | null>(null);
 
 export const authInterceptor: HttpInterceptorFn = (req, next) => {
-  if (req.url.includes('/assets/config.json')) {
+  if (req.url.includes('/assets/')) {
     return next(req);
   }
   const authService = inject(AuthService);

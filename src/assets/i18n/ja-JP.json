@@ -25,7 +25,9 @@
     },
     "button": {
       "login": "ログイン",
-      "register": "登録"
+      "register": "登録",
+      "logout": "ログアウト",
+      "loading": "読み込み中"
     },
     "link": {
       "gotoRegister": "アカウントをお持ちでないですか？登録",
@@ -72,6 +74,7 @@
       "avatarUrlInvalid": "有効なURLを入力してください（http:// または https:// で始まるもの）"
     },
     "button": {
+      "open": "設定",
       "reset": "変更をリセット",
       "saving": "保存中...",
       "save": "設定を保存"
@@ -81,5 +84,19 @@
       "error": "設定の保存に失敗しました",
       "close": "閉じる"
     }
+  },
+  "theme": {
+    "label": "テーマ",
+    "tooltip": {
+      "lightMode": "ライトモード",
+      "darkMode": "ダークモード"
+    }
+  },
+  "pageNotFound": {
+    "title": "404!",
+    "message": "アライグマたちは何も見つけられませんでした。ゴミさえも！",
+    "backHome": "メインメニューに戻る",
+    "footer": "このページもどこかへ消えてしまったようです。",
+    "imageAlt": "後ろめたそうなアライグマ"
   }
 }

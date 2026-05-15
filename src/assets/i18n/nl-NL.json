@@ -25,7 +25,9 @@
     },
     "button": {
       "login": "Inloggen",
-      "register": "Registreren"
+      "register": "Registreren",
+      "logout": "Uitloggen",
+      "loading": "Laden"
     },
     "link": {
       "gotoRegister": "Nog geen account? Registreer",
@@ -72,6 +74,7 @@
       "avatarUrlInvalid": "Voer een geldige URL in (beginnend met http:// of https://)"
     },
     "button": {
+      "open": "Voorkeuren",
       "reset": "Wijzigingen resetten",
       "saving": "Opslaan...",
       "save": "Voorkeuren opslaan"
@@ -81,5 +84,19 @@
       "error": "Opslaan van voorkeuren mislukt",
       "close": "Sluiten"
     }
+  },
+  "theme": {
+    "label": "Thema",
+    "tooltip": {
+      "lightMode": "Lichte modus",
+      "darkMode": "Donkere modus"
+    }
+  },
+  "pageNotFound": {
+    "title": "404!",
+    "message": "De wasberen hebben niets gevonden. Zelfs geen afval!",
+    "backHome": "Terug naar het hoofdmenu",
+    "footer": "Het lijkt erop dat deze pagina ook verdwenen is.",
+    "imageAlt": "Wasbeer die er schuldig uitziet"
   }
 }
