@@ -4,12 +4,14 @@ import { provideHttpClient } from "@angular/common/http";
 import { provideRouter } from "@angular/router";
 
 import { provideZoneChangeDetection } from '@angular/core';
+import { getTranslocoTestingModule } from './testing/transloco-testing';
 
 describe('AppComponent', () => {
   beforeEach(async () => {
     await TestBed.configureTestingModule({
       imports: [
-        AppComponent
+        AppComponent,
+        getTranslocoTestingModule()
       ],
       providers: [
         provideHttpClient(),
@@ -25,16 +27,16 @@ describe('AppComponent', () => {
     expect(app).toBeTruthy();
   });
 
-  it(`should have as title 'project-tanuki'`, () => {
+  it(`should have the translation key as title`, () => {
     const fixture = TestBed.createComponent(AppComponent);
     const app = fixture.componentInstance;
-    expect(app.title).toEqual('project-tanuki');
+    expect(app.title).toEqual('header.appTitle');
   });
 
-  it('should render title', () => {
+  it('should keep the translated title key when rendered', () => {
     const fixture = TestBed.createComponent(AppComponent);
     fixture.detectChanges();
     const app = fixture.componentInstance;
-    expect(app.title).toEqual('project-tanuki');
+    expect(app.title).toEqual('header.appTitle');
   });
 });

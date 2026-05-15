@@ -8,6 +8,7 @@ import { MatIconModule } from '@angular/material/icon';
 import { RouterTestingModule } from '@angular/router/testing';
 
 import { provideZoneChangeDetection } from '@angular/core';
+import { getTranslocoTestingModule } from '../../testing/transloco-testing';
 
 describe('HomeComponent', () => {
   let component: HomeComponent;
@@ -21,7 +22,8 @@ describe('HomeComponent', () => {
         MatCardModule,
         MatButtonModule,
         MatIconModule,
-        RouterTestingModule
+        RouterTestingModule,
+        getTranslocoTestingModule()
       ],
       providers: [provideZoneChangeDetection()]
     })

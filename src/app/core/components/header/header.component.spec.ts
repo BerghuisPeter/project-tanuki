@@ -7,6 +7,7 @@ import { MatIconModule } from "@angular/material/icon";
 import { provideHttpClient } from "@angular/common/http";
 import { provideZoneChangeDetection } from '@angular/core';
 import { provideRouter } from "@angular/router";
+import { getTranslocoTestingModule } from '../../../testing/transloco-testing';
 
 describe('HeaderComponent', () => {
   let component: HeaderComponent;
@@ -17,7 +18,8 @@ describe('HeaderComponent', () => {
       imports: [HeaderComponent,
         MatToolbarModule,
         MatButtonModule,
-        MatIconModule],
+        MatIconModule,
+        getTranslocoTestingModule()],
       providers: [
         provideHttpClient(),
         provideRouter([]),

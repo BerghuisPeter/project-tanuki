@@ -9,6 +9,7 @@ import { MatListModule } from "@angular/material/list";
 import { LoadingComponent } from "../../shared/components/loading/loading.component";
 import { provideZoneChangeDetection } from '@angular/core';
 import { CharToColorDirective } from "../../shared/directives/char-to-color/char-to-color.directive";
+import { getTranslocoTestingModule } from '../../testing/transloco-testing';
 
 describe('GlobalChatComponent', () => {
   let component: GlobalChatComponent;
@@ -51,7 +52,8 @@ describe('GlobalChatComponent', () => {
         MatInputModule,
         MatListModule,
         CharToColorDirective,
-        LoadingComponent
+        LoadingComponent,
+        getTranslocoTestingModule()
       ],
       providers: [
         { provide: ChatService, useClass: MockChatService },
