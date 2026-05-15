@@ -1,5 +1,4 @@
 import { inject, Injectable, LOCALE_ID, signal } from '@angular/core';
-import { DOCUMENT } from '@angular/common';
 
 export interface LocaleInfo {
   code: string;
@@ -10,10 +9,7 @@ export interface LocaleInfo {
   providedIn: 'root'
 })
 export class LanguageService {
-  private static readonly COOKIE_NAME = 'user_locale';
-  private readonly document = inject(DOCUMENT);
   private readonly currentLocaleId = inject(LOCALE_ID);
-  // Current locale code (e.g., 'en-US')
   public readonly currentLocale = signal<string>(this.currentLocaleId);
   private readonly supportedLocales: LocaleInfo[] = [
     { code: 'en-US', label: 'English' },
@@ -21,10 +17,6 @@ export class LanguageService {
     { code: 'nl-NL', label: 'Nederlands' },
     { code: 'ja-JP', label: '日本語' }
   ];
-
-  constructor() {
-    this.initLocale();
-  }
 
   /**
    * Returns the list of supported locales.
@@ -47,7 +39,6 @@ export class LanguageService {
   setLanguage(localeCode: string): void {
     if (globalThis.window !== undefined) {
       localStorage.setItem('user_locale', localeCode);
-      this.setCookie(localeCode);
     }
 
     const shortCode = this.getShortCode(localeCode);
@@ -57,28 +48,7 @@ export class LanguageService {
       return;
     }
 
-    const currentUrl = this.document.location.pathname;
-    const newUrl = currentUrl.replace(`/${currentShortCode}/`, `/${shortCode}/`);
-
-    // If the URL doesn't contain the short code, we might need to prepend it
-    // but usually Angular i18n with baseHref handles this.
-    if (newUrl === currentUrl) {
-      this.document.location.href = `/${shortCode}/`;
-    } else {
-      this.document.location.href = newUrl;
-    }
-  }
-
-  private initLocale(): void {
-    if (globalThis.window === undefined) {
-      return;
-    }
-    const savedLocale = localStorage.getItem('user_locale');
-    if (savedLocale) {
-      this.setCookie(savedLocale);
-    } else {
-      this.setCookie(this.currentLocaleId);
-    }
+    // todo here change language using transloco
   }
 
   private getShortCode(localeCode: string): string {
@@ -88,14 +58,5 @@ export class LanguageService {
     if (code.startsWith('nl')) return 'nl';
     if (code.startsWith('ja')) return 'ja';
     return 'en'; // Default
-  }
-
-  private setCookie(value: string): void {
-    if (typeof document !== 'undefined') {
-      const date = new Date();
-      date.setTime(date.getTime() + (365 * 24 * 60 * 60 * 1000)); // 1 year
-      const expires = "; expires=" + date.toUTCString();
-      document.cookie = LanguageService.COOKIE_NAME + "=" + (value || "") + expires + "; path=/; SameSite=Lax";
-    }
   }
 }

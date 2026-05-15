@@ -97,9 +97,9 @@ export class AuthenticationComponent {
       error: (err) => {
         this.isLoadingQuery.set(false);
         if (err.status === 401) {
-          this.authenticationError.set($localize`:@@auth.authentication.error.invalid-credentials:Invalid email or password`);
+          this.authenticationError.set('Invalid email or password');
         } else {
-          this.authenticationError.set($localize`:@@auth.authentication.error.server-error:Server error. Try again.`);
+          this.authenticationError.set('Server error. Try again.');
         }
       }
     });
@@ -116,9 +116,9 @@ export class AuthenticationComponent {
       error: (err) => {
         this.isLoadingQuery.set(false);
         if (err.status === 409) {
-          this.authenticationError.set($localize`:@@auth.authentication.error.email-registered:Email already registered. Try to login instead.`);
+          this.authenticationError.set('Email already registered. Try to login instead.');
         } else {
-          this.authenticationError.set($localize`:@@auth.authentication.error.server-error:Server error. Try again.`);
+          this.authenticationError.set('Server error. Try again.');
         }
       }
     });

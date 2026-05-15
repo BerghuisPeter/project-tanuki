@@ -4,7 +4,7 @@ import { MatIconModule } from "@angular/material/icon";
 import { MatButtonModule } from "@angular/material/button";
 import { MatMenuModule } from "@angular/material/menu";
 import { LanguageService } from "../../services/language.service";
-import { PreferencesProfileService } from "../../../../openApi/profile";
+import { PreferencesProfileService } from "src/openApi/profile";
 
 @Component({
   selector: "app-language-button",
