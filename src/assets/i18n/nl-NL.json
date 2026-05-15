@@ -1,0 +1,85 @@
+{
+  "header": {
+    "appTitle": "Project Tanuki"
+  },
+  "auth": {
+    "title": {
+      "login": "Inloggen",
+      "createAccount": "Account aanmaken"
+    },
+    "label": {
+      "email": "E-mail",
+      "password": "Wachtwoord",
+      "confirmPassword": "Bevestig wachtwoord"
+    },
+    "placeholder": {
+      "email": "email@example.com"
+    },
+    "error": {
+      "emailInvalid": "Voer een geldig e-mailadres in",
+      "passwordMinlength": "Het wachtwoord moet minimaal 6 tekens bevatten",
+      "passwordsMismatch": "Wachtwoorden moeten identiek zijn",
+      "invalidCredentials": "Ongeldig e-mailadres of wachtwoord",
+      "serverError": "Serverfout. Probeer opnieuw.",
+      "emailRegistered": "E-mailadres is al geregistreerd. Probeer in te loggen."
+    },
+    "button": {
+      "login": "Inloggen",
+      "register": "Registreren"
+    },
+    "link": {
+      "gotoRegister": "Nog geen account? Registreer",
+      "gotoLogin": "Heb je al een account? Log in"
+    },
+    "text": {
+      "or": "OF"
+    }
+  },
+  "globalChat": {
+    "loading": {
+      "connecting": "Verbinden met chat..."
+    },
+    "currentUser": {
+      "label": "Jij:"
+    },
+    "placeholder": {
+      "message": "Je objectief verkeerde bericht komt hier..."
+    }
+  },
+  "home": {
+    "navigation": {
+      "globalChat": "Globale chat"
+    }
+  },
+  "preferences": {
+    "title": "Gebruikersvoorkeuren",
+    "label": {
+      "displayName": "Weergavenaam",
+      "colorPreference": "Kleurvoorkeur",
+      "language": "Taal",
+      "avatarUrl": "Avatar-URL"
+    },
+    "placeholder": {
+      "displayName": "Je weergavenaam",
+      "avatarUrl": "https://example.com/avatar.png"
+    },
+    "tooltip": {
+      "clearColor": "Kleur wissen"
+    },
+    "error": {
+      "displayNameMaxlength": "Weergavenaam mag niet langer zijn dan 45 tekens",
+      "localeRequired": "Taal is verplicht",
+      "avatarUrlInvalid": "Voer een geldige URL in (beginnend met http:// of https://)"
+    },
+    "button": {
+      "reset": "Wijzigingen resetten",
+      "saving": "Opslaan...",
+      "save": "Voorkeuren opslaan"
+    },
+    "snackbar": {
+      "success": "Voorkeuren succesvol opgeslagen",
+      "error": "Opslaan van voorkeuren mislukt",
+      "close": "Sluiten"
+    }
+  }
+}

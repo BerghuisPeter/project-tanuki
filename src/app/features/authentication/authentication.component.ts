@@ -19,6 +19,7 @@ import { AuthService } from "../../core/services/auth.service";
 import { Router } from "@angular/router";
 import { APP_PATHS } from "../../shared/models/app-paths.model";
 import { GoogleSigningComponent } from "../../shared/components/google-signin/google-signing.component";
+import { TranslocoModule, TranslocoService } from '@jsverse/transloco';
 
 @Component({
   selector: 'app-login',
@@ -32,7 +33,8 @@ import { GoogleSigningComponent } from "../../shared/components/google-signin/go
     MatInputModule,
     MatButtonModule,
     MatIconModule,
-    GoogleSigningComponent
+    GoogleSigningComponent,
+    TranslocoModule
   ],
   styleUrls: ['./authentication.component.scss'],
   templateUrl: './authentication.component.html',
@@ -50,6 +52,7 @@ export class AuthenticationComponent {
   });
   private readonly authService = inject(AuthService);
   private readonly router = inject(Router);
+  private readonly translocoService = inject(TranslocoService);
 
   toggleMode() {
     this.authenticationError.set(null);
@@ -97,9 +100,9 @@ export class AuthenticationComponent {
       error: (err) => {
         this.isLoadingQuery.set(false);
         if (err.status === 401) {
-          this.authenticationError.set('Invalid email or password');
+          this.authenticationError.set(this.translocoService.translate('auth.error.invalidCredentials'));
         } else {
-          this.authenticationError.set('Server error. Try again.');
+          this.authenticationError.set(this.translocoService.translate('auth.error.serverError'));
         }
       }
     });
@@ -116,9 +119,9 @@ export class AuthenticationComponent {
       error: (err) => {
         this.isLoadingQuery.set(false);
         if (err.status === 409) {
-          this.authenticationError.set('Email already registered. Try to login instead.');
+          this.authenticationError.set(this.translocoService.translate('auth.error.emailRegistered'));
         } else {
-          this.authenticationError.set('Server error. Try again.');
+          this.authenticationError.set(this.translocoService.translate('auth.error.serverError'));
         }
       }
     });

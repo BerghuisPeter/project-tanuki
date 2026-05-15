@@ -8,11 +8,12 @@ import { MatButtonModule } from '@angular/material/button';
 import { MatSelectModule } from '@angular/material/select';
 import { MatOptionModule } from '@angular/material/core';
 import { MatIconModule } from '@angular/material/icon';
-import { PreferencesProfileService, UserPreferences } from '../../../openApi/profile';
+import { PreferencesProfileService, UserPreferences } from 'src/openApi/profile';
 import { UserService } from '../../core/services/user.service';
 import { MatSnackBar, MatSnackBarModule } from "@angular/material/snack-bar";
 import { MatTooltip } from "@angular/material/tooltip";
 import { LanguageService } from '../../core/services/language.service';
+import { TranslocoModule, TranslocoService } from '@jsverse/transloco';
 
 @Component({
   selector: 'app-preferences',
@@ -28,7 +29,8 @@ import { LanguageService } from '../../core/services/language.service';
     MatOptionModule,
     MatIconModule,
     MatSnackBarModule,
-    MatTooltip
+    MatTooltip,
+    TranslocoModule
   ],
   templateUrl: './preferences.component.html',
   styleUrl: './preferences.component.scss'
@@ -47,6 +49,7 @@ export class PreferencesComponent {
   private readonly preferencesService = inject(PreferencesProfileService);
   private readonly userService = inject(UserService);
   private readonly snackBar = inject(MatSnackBar);
+  private readonly translocoService = inject(TranslocoService);
 
   constructor() {
     effect(() => {
@@ -87,7 +90,11 @@ export class PreferencesComponent {
         next: (prefs) => {
           this.userService.setUserPreferences(prefs);
           this.isSaving.set(false);
-          this.snackBar.open('Preferences saved successfully', 'Close', { duration: 3000 });
+          this.snackBar.open(
+            this.translocoService.translate('preferences.snackbar.success'),
+            this.translocoService.translate('preferences.snackbar.close'),
+            { duration: 3000 }
+          );
           this.preferencesForm.markAsPristine();
           if (prefs.locale) {
             this.languageService.setLanguage(prefs.locale);
@@ -95,7 +102,11 @@ export class PreferencesComponent {
         },
         error: (err) => {
           console.error('Error saving preferences', err);
-          this.snackBar.open('Failed to save preferences', 'Close', { duration: 3000 });
+          this.snackBar.open(
+            this.translocoService.translate('preferences.snackbar.error'),
+            this.translocoService.translate('preferences.snackbar.close'),
+            { duration: 3000 }
+          );
           this.isSaving.set(false);
         }
       });
