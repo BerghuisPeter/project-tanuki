@@ -40,6 +40,9 @@ import { TranslocoModule, TranslocoService } from '@jsverse/transloco';
   styleUrl: './profile.component.scss'
 })
 export class ProfileComponent {
+  private readonly MAX_FILE_SIZE = 5242880; // 5MB
+  private readonly ALLOWED_TYPES = ['image/jpeg', 'image/png', 'image/webp'];
+
   isSaving = signal(false);
   isUploading = signal(false);
   uploadProgress = signal(0);
@@ -93,6 +96,27 @@ export class ProfileComponent {
     const input = event.target as HTMLInputElement;
     if (input.files && input.files.length > 0) {
       const file = input.files[0];
+
+      if (file.size > this.MAX_FILE_SIZE) {
+        this.snackBar.open(
+          this.translocoService.translate('profile.error.fileTooLarge'),
+          this.translocoService.translate('profile.snackbar.close'),
+          { duration: 3000 }
+        );
+        input.value = '';
+        return;
+      }
+
+      if (!this.ALLOWED_TYPES.includes(file.type)) {
+        this.snackBar.open(
+          this.translocoService.translate('profile.error.invalidFileType'),
+          this.translocoService.translate('profile.snackbar.close'),
+          { duration: 3000 }
+        );
+        input.value = '';
+        return;
+      }
+
       this.uploadAvatar(file);
     }
   }

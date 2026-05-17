@@ -71,7 +71,12 @@
     "error": {
       "displayNameMaxlength": "Display name cannot exceed 45 characters",
       "localeRequired": "Locale is required",
-      "avatarUrlInvalid": "Please enter a valid URL (starting with http:// or https://)"
+      "avatarUrlInvalid": "Please enter a valid URL (starting with http:// or https://)",
+      "fileTooLarge": "File is too large. Maximum size is 5MB.",
+      "invalidFileType": "Invalid file type. Allowed types: JPEG, PNG, WEBP."
+    },
+    "text": {
+      "uploadLimits": "Maximum size: 5MB. Allowed types: JPEG, PNG, WEBP."
     },
     "button": {
       "open": "Profile",
