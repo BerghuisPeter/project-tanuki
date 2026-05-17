@@ -17,7 +17,7 @@
         </mat-form-field>
 
         <div class="flex flex-col md:flex-row md:gap-4">
-          <mat-form-field appearance="outline" class="w-full md:w-1/2">
+          <mat-form-field appearance="outline" class="w-full">
             <mat-label>{{ t('profile.label.colorPreference') }}</mat-label>
             <div class="flex items-center gap-2">
               <input class="color-picker-square" formControlName="color" matInput type="color">
@@ -28,18 +28,6 @@
                       type="button">
                 <mat-icon>format_color_reset</mat-icon>
               </button>
-            }
-          </mat-form-field>
-
-          <mat-form-field appearance="outline" class="w-full md:w-1/2">
-            <mat-label>{{ t('profile.label.language') }}</mat-label>
-            <mat-select formControlName="locale">
-              @for (loc of locales; track loc.code) {
-                <mat-option [value]="loc.code">{{ loc.label }}</mat-option>
-              }
-            </mat-select>
-            @if (profileForm.get('locale')?.hasError('required')) {
-              <mat-error>{{ t('profile.error.localeRequired') }}</mat-error>
             }
           </mat-form-field>
         </div>
@@ -55,20 +43,38 @@
             }
           </mat-form-field>
 
-          <div class="flex flex-col gap-2">
-            <span class="text-xs text-gray-500 text-center">{{ t('profile.text.uploadLimits') }}</span>
-            <input #fileInput (change)="onFileSelected($event)" accept="image/jpeg,image/png,image/webp" class="hidden"
-                   type="file">
-            <button (click)="fileInput.click()" [disabled]="isUploading() || isSaving()"
-                    class="w-full" mat-stroked-button type="button">
-              <mat-icon>upload</mat-icon>
-              {{ t('profile.button.uploadAvatar') }}
-            </button>
+          <div class="flex flex-row items-center gap-4">
+            <div class="flex flex-col gap-2 flex-grow">
+              <span class="text-xs text-gray-500 text-center">{{ t('profile.text.uploadLimits') }}</span>
+              <input #fileInput (change)="onFileSelected($event)" accept="image/jpeg,image/png,image/webp"
+                     class="hidden"
+                     type="file">
+              <button (click)="fileInput.click()" [disabled]="isUploading() || isSaving()"
+                      class="w-full" mat-stroked-button type="button">
+                <mat-icon>upload</mat-icon>
+                {{ t('profile.button.uploadAvatar') }}
+              </button>
 
-            @if (isUploading()) {
-              <div class="flex flex-col gap-1">
-                <mat-progress-bar [value]="uploadProgress()" mode="determinate"></mat-progress-bar>
-                <span class="text-xs text-center">{{ uploadProgress() }}%</span>
+              @if (isUploading()) {
+                <div class="flex flex-col gap-1">
+                  <mat-progress-bar [value]="uploadProgress()" mode="determinate"></mat-progress-bar>
+                  <span class="text-xs text-center">{{ uploadProgress() }}%</span>
+                </div>
+              }
+            </div>
+
+            @if (profileForm.get('avatarUrl')?.value) {
+              <div class="flex-shrink-0">
+                @if (imageError()) {
+                  <mat-icon class="h-16 w-16 text-gray-400" style="font-size: 64px; width: 64px; height: 64px;">
+                    hide_image
+                  </mat-icon>
+                } @else {
+                  <img (error)="onImageError()"
+                       [src]="profileForm.get('avatarUrl')?.value"
+                       alt="Avatar preview"
+                       class="h-16 w-16 rounded-full object-cover border border-gray-200 shadow-sm">
+                }
               </div>
             }
           </div>

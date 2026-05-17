@@ -25,7 +25,10 @@ export class LanguageButtonComponent {
 
   changeLanguage(localeCode: string): void {
     if (localeCode !== this.currentLocale() && this.userService.isLoggedIn()) {
-      this.userProfileService.updateUserProfile({ locale: localeCode }).subscribe();
+      this.userProfileService.updateUserProfile({ locale: localeCode }).subscribe({
+          next: (userProfile) => this.userService.setUserProfile(userProfile)
+        }
+      );
     }
     this.languageService.setLanguage(localeCode);
   }

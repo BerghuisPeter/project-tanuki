@@ -6,7 +6,6 @@ import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
 import { MatButtonModule } from '@angular/material/button';
 import { MatSelectModule } from '@angular/material/select';
-import { MatOptionModule } from '@angular/material/core';
 import { MatIconModule } from '@angular/material/icon';
 import { ProfileProfileService, UserProfile } from 'src/openApi/profile';
 import { ProfileService } from '../../core/services/profile.service';
@@ -29,7 +28,6 @@ import { TranslocoModule, TranslocoService } from '@jsverse/transloco';
     MatInputModule,
     MatButtonModule,
     MatSelectModule,
-    MatOptionModule,
     MatIconModule,
     MatProgressBarModule,
     MatSnackBarModule,
@@ -46,13 +44,12 @@ export class ProfileComponent {
   isSaving = signal(false);
   isUploading = signal(false);
   uploadProgress = signal(0);
+  imageError = signal(false);
   private readonly languageService = inject(LanguageService);
-  locales = this.languageService.getLocales();
   private readonly fb = inject(FormBuilder);
   profileForm: FormGroup = this.fb.group({
     displayName: ['', [Validators.maxLength(45)]],
     color: [''],
-    locale: ['en-US', [Validators.required]],
     avatarUrl: ['', [Validators.pattern('^(https?://.*)?$')]]
   });
   private readonly userProfileService = inject(ProfileProfileService);
@@ -66,6 +63,7 @@ export class ProfileComponent {
       const profile = this.userService.user().profile;
       if (profile) {
         this.profileForm.patchValue(profile, { emitEvent: false });
+        this.imageError.set(false);
       }
     });
   }
@@ -78,6 +76,10 @@ export class ProfileComponent {
     }
   }
 
+  onImageError(): void {
+    this.imageError.set(true);
+  }
+
   onReset(): void {
     const profile = this.userService.user().profile;
     if (profile) {
@@ -86,10 +88,10 @@ export class ProfileComponent {
       this.profileForm.reset({
         displayName: '',
         color: '',
-        locale: 'en-US',
         avatarUrl: ''
       });
     }
+    this.imageError.set(false);
   }
 
   onFileSelected(event: Event): void {
@@ -118,13 +120,17 @@ export class ProfileComponent {
       }
 
       this.uploadAvatar(file);
+      this.imageError.set(false);
     }
   }
 
   onSubmit(): void {
     if (this.profileForm.valid) {
       this.isSaving.set(true);
-      const updatedPrefs: UserProfile = this.profileForm.value;
+      const updatedPrefs: UserProfile = {
+        ...this.profileForm.value,
+        locale: this.languageService.getCurrentLocale()
+      };
       this.userProfileService.updateUserProfile(updatedPrefs).subscribe({
         next: (prefs) => {
           this.userService.setUserProfile(prefs);
@@ -174,6 +180,7 @@ export class ProfileComponent {
               // Extract the URL before query parameters from the signed URL to get the public URL
               const publicUrl = signedUrl.split('?')[0];
               this.profileForm.patchValue({ avatarUrl: publicUrl });
+              this.imageError.set(false);
               this.profileForm.markAsDirty();
               this.isUploading.set(false);
               this.snackBar.open(
