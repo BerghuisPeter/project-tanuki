@@ -53,8 +53,8 @@
       "globalChat": "Global Chat"
     }
   },
-  "preferences": {
-    "title": "User Preferences",
+  "profile": {
+    "title": "User Profile",
     "label": {
       "displayName": "Display Name",
       "colorPreference": "Color Preference",
@@ -74,14 +74,17 @@
       "avatarUrlInvalid": "Please enter a valid URL (starting with http:// or https://)"
     },
     "button": {
-      "open": "Preferences",
+      "open": "Profile",
       "reset": "Reset Changes",
+      "uploadAvatar": "Upload Avatar",
       "saving": "Saving...",
-      "save": "Save Preferences"
+      "save": "Save Profile"
     },
     "snackbar": {
-      "success": "Preferences saved successfully",
-      "error": "Failed to save preferences",
+      "success": "Profile saved successfully",
+      "error": "Failed to save profile",
+      "uploadSuccess": "Avatar uploaded successfully",
+      "uploadError": "Failed to upload avatar",
       "close": "Close"
     }
   },

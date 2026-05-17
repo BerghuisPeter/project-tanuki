@@ -24,9 +24,9 @@ export const routes: Routes = [
     loadComponent: () => import('./features/authentication/authentication.component').then(m => m.AuthenticationComponent)
   },
   {
-    path: APP_PATHS.PREFERENCES,
+    path: APP_PATHS.PROFILE,
     canActivate: [authGuard],
-    loadComponent: () => import('./features/preferences/preferences.component').then(m => m.PreferencesComponent)
+    loadComponent: () => import('./features/profile/profile.component').then(m => m.ProfileComponent)
   },
   {
     path: '**',

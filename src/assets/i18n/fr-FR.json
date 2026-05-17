@@ -53,7 +53,7 @@
       "globalChat": "Chat global"
     }
   },
-  "preferences": {
+  "profile": {
     "title": "Préférences utilisateur",
     "label": {
       "displayName": "Nom d'affichage",

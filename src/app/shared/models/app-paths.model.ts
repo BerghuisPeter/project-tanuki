@@ -3,5 +3,5 @@ export enum APP_PATHS {
   AUTHENTICATION = 'authentication',
   BOAT = 'boat',
   CHAT = 'chat',
-  PREFERENCES = 'preferences'
+  PROFILE = 'profile'
 }
