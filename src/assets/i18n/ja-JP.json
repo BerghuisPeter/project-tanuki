@@ -53,7 +53,7 @@
       "globalChat": "グローバルチャット"
     }
   },
-  "preferences": {
+  "profile": {
     "title": "ユーザー設定",
     "label": {
       "displayName": "表示名",
@@ -74,10 +74,11 @@
       "avatarUrlInvalid": "有効なURLを入力してください（http:// または https:// で始まるもの）"
     },
     "button": {
-      "open": "設定",
+      "open": "プロフィール",
       "reset": "変更をリセット",
+      "uploadAvatar": "アバターをアップロード",
       "saving": "保存中...",
-      "save": "設定を保存"
+      "save": "プロフィールを保存"
     },
     "snackbar": {
       "success": "設定が正常に保存されました",

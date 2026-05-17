@@ -53,7 +53,7 @@
       "globalChat": "Globale chat"
     }
   },
-  "preferences": {
+  "profile": {
     "title": "Gebruikersvoorkeuren",
     "label": {
       "displayName": "Weergavenaam",
@@ -74,10 +74,11 @@
       "avatarUrlInvalid": "Voer een geldige URL in (beginnend met http:// of https://)"
     },
     "button": {
-      "open": "Voorkeuren",
+      "open": "Profiel",
       "reset": "Wijzigingen resetten",
+      "uploadAvatar": "Avatar uploaden",
       "saving": "Opslaan...",
-      "save": "Voorkeuren opslaan"
+      "save": "Profiel opslaan"
     },
     "snackbar": {
       "success": "Voorkeuren succesvol opgeslagen",

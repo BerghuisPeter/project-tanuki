@@ -74,10 +74,11 @@
       "avatarUrlInvalid": "Veuillez entrer une URL valide (commençant par http:// ou https://)"
     },
     "button": {
-      "open": "Préférences",
+      "open": "Profil",
       "reset": "Réinitialiser les modifications",
+      "uploadAvatar": "Télécharger l'avatar",
       "saving": "Enregistrement...",
-      "save": "Enregistrer les préférences"
+      "save": "Enregistrer le profil"
     },
     "snackbar": {
       "success": "Préférences enregistrées avec succès",

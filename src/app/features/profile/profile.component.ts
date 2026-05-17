@@ -8,7 +8,7 @@ import { MatButtonModule } from '@angular/material/button';
 import { MatSelectModule } from '@angular/material/select';
 import { MatOptionModule } from '@angular/material/core';
 import { MatIconModule } from '@angular/material/icon';
-import { PreferencesProfileService, UserPreferences } from 'src/openApi/profile';
+import { ProfileProfileService, UserProfile } from 'src/openApi/profile';
 import { ProfileService } from '../../core/services/profile.service';
 import { HttpEventType } from '@angular/common/http';
 import { UserService } from '../../core/services/user.service';
@@ -55,7 +55,7 @@ export class ProfileComponent {
     locale: ['en-US', [Validators.required]],
     avatarUrl: ['', [Validators.pattern('^(https?://.*)?$')]]
   });
-  private readonly preferencesService = inject(PreferencesProfileService);
+  private readonly userProfileService = inject(ProfileProfileService);
   private readonly profileService = inject(ProfileService);
   private readonly userService = inject(UserService);
   private readonly snackBar = inject(MatSnackBar);
@@ -63,9 +63,9 @@ export class ProfileComponent {
 
   constructor() {
     effect(() => {
-      const prefs = this.userService.user().userPreferences;
-      if (prefs) {
-        this.profileForm.patchValue(prefs, { emitEvent: false });
+      const profile = this.userService.user().profile;
+      if (profile) {
+        this.profileForm.patchValue(profile, { emitEvent: false });
       }
     });
   }
@@ -79,9 +79,9 @@ export class ProfileComponent {
   }
 
   onReset(): void {
-    const prefs = this.userService.user().userPreferences;
-    if (prefs) {
-      this.profileForm.reset(prefs);
+    const profile = this.userService.user().profile;
+    if (profile) {
+      this.profileForm.reset(profile);
     } else {
       this.profileForm.reset({
         displayName: '',
@@ -124,10 +124,10 @@ export class ProfileComponent {
   onSubmit(): void {
     if (this.profileForm.valid) {
       this.isSaving.set(true);
-      const updatedPrefs: UserPreferences = this.profileForm.value;
-      this.preferencesService.updateUserPreferences(updatedPrefs).subscribe({
+      const updatedPrefs: UserProfile = this.profileForm.value;
+      this.userProfileService.updateUserProfile(updatedPrefs).subscribe({
         next: (prefs) => {
-          this.userService.setUserPreferences(prefs);
+          this.userService.setUserProfile(prefs);
           this.isSaving.set(false);
           this.snackBar.open(
             this.translocoService.translate('profile.snackbar.success'),

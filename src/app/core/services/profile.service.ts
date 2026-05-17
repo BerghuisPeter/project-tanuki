@@ -1,13 +1,13 @@
 import { inject, Injectable } from '@angular/core';
 import { HttpBackend, HttpClient, HttpEvent } from '@angular/common/http';
 import { Observable } from 'rxjs';
-import { PreferencesProfileService, UploadUrlResponse } from 'src/openApi/profile';
+import { ProfileProfileService, UploadUrlResponse } from 'src/openApi/profile';
 
 @Injectable({
   providedIn: 'root'
 })
 export class ProfileService {
-  private readonly preferencesProfileService = inject(PreferencesProfileService);
+  private readonly userProfileService = inject(ProfileProfileService);
   private readonly httpBackend = inject(HttpBackend);
   private readonly externalHttpClient: HttpClient;
 
@@ -22,7 +22,7 @@ export class ProfileService {
    * @returns An Observable emitting the signed URL response.
    */
   getSignedUrl(contentType: string): Observable<UploadUrlResponse> {
-    return this.preferencesProfileService.getAvatarUploadUrl(contentType);
+    return this.userProfileService.getAvatarUploadUrl(contentType);
   }
 
   /**

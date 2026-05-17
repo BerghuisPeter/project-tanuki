@@ -2,7 +2,7 @@ import { computed, Injectable, signal } from '@angular/core';
 import { v4 as uuidv4 } from 'uuid';
 import { User } from '../../shared/models/user.model';
 import { UserResponse } from "../../../openApi/auth";
-import { UserPreferences } from "../../../openApi/profile";
+import { UserProfile } from "../../../openApi/profile";
 
 export enum AuthState {
   Authenticated = 'Authenticated',
@@ -23,10 +23,10 @@ export class UserService {
   private readonly authStateSignal = signal<AuthState>(AuthState.Unknown);
   readonly authState = this.authStateSignal.asReadonly();
 
-  setLoggedInUser(userResponse: UserResponse, preferences?: UserPreferences): void {
+  setLoggedInUser(userResponse: UserResponse, userProfile?: UserProfile): void {
     const user: User = {
       ...userResponse,
-      userPreferences: preferences,
+      profile: userProfile,
       isGuest: false,
     };
     this.userSignal.set(user);
@@ -34,10 +34,10 @@ export class UserService {
     this.authStateSignal.set(AuthState.Authenticated);
   }
 
-  setUserPreferences(preferences: UserPreferences): void {
+  setUserProfile(userProfile?: UserProfile): void {
     const currentUser = this.userSignal();
     if (!currentUser.isGuest) {
-      const updatedUser = { ...currentUser, userPreferences: preferences };
+      const updatedUser = { ...currentUser, userProfile: userProfile };
       this.userSignal.set(updatedUser);
       this.saveUser(updatedUser);
     }
