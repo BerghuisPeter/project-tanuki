@@ -32,7 +32,7 @@ export class ProfileService {
    * @param file The file to upload.
    * @returns An Observable of the upload event.
    */
-  uploadFile(url: string, file: File): Observable<HttpEvent<any>> {
+  uploadFile(url: string, file: File): Observable<HttpEvent<unknown>> {
     return this.externalHttpClient.request('PUT', url, {
       body: file,
       headers: { 'Content-Type': file.type },
