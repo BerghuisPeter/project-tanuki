@@ -1,6 +1,6 @@
-ARG NODE_VERSION=21
+ARG NODE_VERSION=24
 
-FROM node:${NODE_VERSION}-alpine
+FROM node:${NODE_VERSION}-slim
 
 # Use production node environment by default.
 ENV NODE_ENV production
