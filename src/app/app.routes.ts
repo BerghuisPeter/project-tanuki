@@ -15,10 +15,6 @@ export const routes: Routes = [
     loadComponent: () => import('./features/global-chat/global-chat.component').then(m => m.GlobalChatComponent)
   },
   {
-    path: APP_PATHS.BOAT,
-    loadChildren: () => import('./features/battleship/battleship.module').then(m => m.BattleshipModule)
-  },
-  {
     path: APP_PATHS.AUTHENTICATION,
     canActivate: [guestGuard],
     loadComponent: () => import('./features/authentication/authentication.component').then(m => m.AuthenticationComponent)

@@ -27,12 +27,10 @@ app.get('/health', (req, res) => {
 })
 
 const registerChatHandlers = require("./chatHandler");
-const registerBattleShipHandlers = require("./battleshipHandler");
 
 const onConnection = (socket) => {
   console.log("connected! ", socket.id);
   registerChatHandlers(io, socket);
-  registerBattleShipHandlers(io, socket);
 }
 
 io.on("connection", onConnection);
