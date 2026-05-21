@@ -1,6 +1,6 @@
 import { TestBed } from '@angular/core/testing';
 import { BattleshipService } from './battleship.service';
-import { Socket } from 'ngx-socket-io';
+import { SocketService } from '../../../core/services/socket.service';
 import { Subject } from 'rxjs';
 
 import { provideZoneChangeDetection } from '@angular/core';
@@ -34,7 +34,7 @@ describe('BattleshipService', () => {
     TestBed.configureTestingModule({
       providers: [
         BattleshipService,
-        { provide: Socket, useValue: socket },
+        { provide: SocketService, useValue: socket },
         provideZoneChangeDetection()
       ]
     });

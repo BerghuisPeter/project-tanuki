@@ -2,16 +2,14 @@ import { TestBed } from '@angular/core/testing';
 
 import { ChatService } from './chat.service';
 import { Subject } from "rxjs";
-import { Socket } from "ngx-socket-io";
+import { SocketService } from "../../core/services/socket.service";
 
 
 import { provideZoneChangeDetection } from '@angular/core';
 import { UserService } from "../../core/services/user.service";
 
 class MockSocket {
-  ioSocket = {
-    connected: false
-  };
+  connected = false;
 
   emit = jasmine.createSpy('emit');
   connect = jasmine.createSpy('connect');
@@ -48,7 +46,7 @@ describe('ChatService', () => {
       providers: [
         ChatService,
         UserService,
-        { provide: Socket, useValue: mockSocket },
+        { provide: SocketService, useValue: mockSocket },
         provideZoneChangeDetection()
       ]
     });

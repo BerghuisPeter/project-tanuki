@@ -1,5 +1,5 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
-import { Socket } from 'ngx-socket-io';
+import { SocketService } from '../../core/services/socket.service';
 
 import { BattleshipComponent } from './battleship.component';
 import { MatCardModule } from "@angular/material/card";
@@ -46,7 +46,7 @@ describe('BattleshipComponent', () => {
       ],
       providers: [
         { provide: BattleshipService, useClass: MockBattleshipService },
-        { provide: Socket, useClass: MockSocket },
+        { provide: SocketService, useClass: MockSocket },
         provideZoneChangeDetection()
       ],
     }).compileComponents();
