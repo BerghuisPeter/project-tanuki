@@ -37,7 +37,7 @@ export class UserService {
   setUserProfile(userProfile?: UserProfile): void {
     const currentUser = this.userSignal();
     if (!currentUser.isGuest) {
-      const updatedUser = { ...currentUser, userProfile: userProfile };
+      const updatedUser = { ...currentUser, profile: userProfile };
       this.userSignal.set(updatedUser);
       this.saveUser(updatedUser);
     }

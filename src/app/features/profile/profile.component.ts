@@ -80,6 +80,12 @@ export class ProfileComponent {
     this.imageError.set(true);
   }
 
+  removeAvatar(): void {
+    this.profileForm.patchValue({ avatarUrl: '' });
+    this.imageError.set(false);
+    this.onSubmit();
+  }
+
   onReset(): void {
     const profile = this.userService.user().profile;
     if (profile) {
@@ -127,10 +133,27 @@ export class ProfileComponent {
   onSubmit(): void {
     if (this.profileForm.valid) {
       this.isSaving.set(true);
-      const updatedPrefs: UserProfile = {
-        ...this.profileForm.value,
-        locale: this.languageService.getCurrentLocale()
-      };
+
+      const profile = this.userService.user().profile;
+      const formValue = this.profileForm.value;
+      const updatedPrefs: UserProfile = {};
+
+      if (formValue.displayName !== profile?.displayName) {
+        updatedPrefs.displayName = formValue.displayName;
+      }
+      if (formValue.color !== profile?.color) {
+        updatedPrefs.color = formValue.color;
+      }
+      if (formValue.avatarUrl !== profile?.avatarUrl) {
+        updatedPrefs.avatarUrl = formValue.avatarUrl;
+      }
+
+      if (Object.keys(updatedPrefs).length === 0) {
+        this.isSaving.set(false);
+        this.profileForm.markAsPristine();
+        return;
+      }
+
       this.userProfileService.updateUserProfile(updatedPrefs).subscribe({
         next: (prefs) => {
           this.userService.setUserProfile(prefs);
@@ -181,13 +204,13 @@ export class ProfileComponent {
               const publicUrl = signedUrl.split('?')[0];
               this.profileForm.patchValue({ avatarUrl: publicUrl });
               this.imageError.set(false);
-              this.profileForm.markAsDirty();
               this.isUploading.set(false);
               this.snackBar.open(
                 this.translocoService.translate('profile.snackbar.uploadSuccess'),
                 this.translocoService.translate('profile.snackbar.close'),
                 { duration: 3000 }
               );
+              this.onSubmit();
             }
           },
           error: (err) => {
