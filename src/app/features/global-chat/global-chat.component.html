@@ -4,9 +4,9 @@
   } @else {
     <h2 class="py-1 px-1 border-b-1 border-gray-300 md:px-4 m-0 flex flex-wrap items-center gap-x-2">
       <span class="font-bold">{{ t('globalChat.currentUser.label') }} </span>
-      <app-chat-user-info [avatarUrl]="userService.user().userPreferences?.avatarUrl"
-                          [color]="userService.user().userPreferences?.color"
-                          [displayName]="userService.user().userPreferences?.displayName"
+      <app-chat-user-info [avatarUrl]="userService.user().profile?.avatarUrl"
+                          [color]="userService.user().profile?.color"
+                          [displayName]="userService.user().profile?.displayName"
                           [id]="userService.user().id"></app-chat-user-info>
     </h2>
     <div #chatMessagesContainer class="flex-1 min-h-[100px] flex flex-col gap-4 overflow-y-auto pt-1 px-2 md:px-4">

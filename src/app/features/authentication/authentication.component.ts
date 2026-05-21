@@ -20,6 +20,8 @@ import { Router } from "@angular/router";
 import { APP_PATHS } from "../../shared/models/app-paths.model";
 import { GoogleSigningComponent } from "../../shared/components/google-signin/google-signing.component";
 import { TranslocoModule, TranslocoService } from '@jsverse/transloco';
+import { ProfileProfileService } from "../../../openApi/profile";
+import { LanguageService } from "../../core/services/language.service";
 
 @Component({
   selector: 'app-login',
@@ -43,6 +45,9 @@ export class AuthenticationComponent {
   isLoginMode = signal(true);
   isLoadingQuery = signal(false);
   authenticationError = signal<string | null>(null);
+
+  private readonly profileService = inject(ProfileProfileService);
+  private readonly languageService = inject(LanguageService);
 
   private readonly fb = inject(FormBuilder);
   loginForm: FormGroup = this.fb.group({
@@ -115,6 +120,10 @@ export class AuthenticationComponent {
       next: () => {
         this.isLoadingQuery.set(false);
         this.router.navigate([APP_PATHS.HOME], { replaceUrl: true });
+        const currentLocale = this.languageService.getCurrentLocale();
+        this.profileService.updateUserProfile({ locale: currentLocale }).subscribe({
+          error: (err) => console.error('Failed to send language preference after registration', err)
+        });
       },
       error: (err) => {
         this.isLoadingQuery.set(false);

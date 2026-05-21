@@ -25,7 +25,7 @@ const chatHandler = (io, socket) => {
         color: color,
         avatarUrl: avatarUrl,
       },
-      value: "graced us with their presence.",
+      value: "globalChat.system.userJoined",
       timestamp: Date.now()
     });
   }
@@ -68,7 +68,7 @@ const chatHandler = (io, socket) => {
         color: currentColor,
         avatarUrl: currentAvatarUrl,
       },
-      value: "has left the building !",
+      value: "globalChat.system.userLeft",
       timestamp: Date.now()
     });
   }

@@ -1,5 +1,5 @@
 import { inject, Injectable } from '@angular/core';
-import { Socket } from "ngx-socket-io";
+import { SocketService } from '../../core/services/socket.service';
 import { Message } from "../models/message.model";
 import { UserService } from "../../core/services/user.service";
 import { map, merge, startWith } from "rxjs";
@@ -8,19 +8,19 @@ import { map, merge, startWith } from "rxjs";
   providedIn: 'root'
 })
 export class ChatService {
-  private readonly socket = inject(Socket);
+  private readonly socket = inject(SocketService);
   private readonly userService = inject(UserService);
 
   readonly isConnected$ = merge(
     this.socket.fromEvent('connect').pipe(map(() => true)),
     this.socket.fromEvent('disconnect').pipe(map(() => false))
   ).pipe(
-    startWith(this.socket.ioSocket.connected)
+    startWith(this.socket.connected)
   );
 
-  message = this.socket.fromEvent<Message, 'chat:receiveMessage'>('chat:receiveMessage');
-  history = this.socket.fromEvent<Message[], 'chat:history'>('chat:history');
-  systemNotification = this.socket.fromEvent<Message, 'chat:systemNotification'>('chat:systemNotification');
+  message = this.socket.fromEvent<Message>('chat:receiveMessage');
+  history = this.socket.fromEvent<Message[]>('chat:history');
+  systemNotification = this.socket.fromEvent<Message>('chat:systemNotification');
 
   connect() {
     return this.socket.connect();
@@ -32,7 +32,7 @@ export class ChatService {
 
   joinChat(roomId: string) {
     const user = this.userService.user();
-    this.socket.emit('chat:join', roomId, user.id, user.userPreferences?.displayName, user.userPreferences?.color, user.userPreferences?.avatarUrl);
+    this.socket.emit('chat:join', roomId, user.id, user.profile?.displayName, user.profile?.color, user.profile?.avatarUrl);
   }
 
   sendMessage(roomId: string, value: string) {
@@ -41,9 +41,9 @@ export class ChatService {
       roomId,
       user: {
         userId: user.id,
-        displayName: user.userPreferences?.displayName,
-        color: user.userPreferences?.color,
-        avatarUrl: user.userPreferences?.avatarUrl
+        displayName: user.profile?.displayName,
+        color: user.profile?.color,
+        avatarUrl: user.profile?.avatarUrl
       },
       message: value
     });

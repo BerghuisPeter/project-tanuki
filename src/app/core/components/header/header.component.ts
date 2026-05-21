@@ -5,7 +5,7 @@ import { MatToolbarModule } from "@angular/material/toolbar";
 import { MatButtonModule } from "@angular/material/button";
 import { ThemeToggleComponent } from "../theme-toggle/theme-toggle.component";
 import { AuthButtonComponent } from "../auth-button/auth-button.component";
-import { PreferencesButtonComponent } from "../preferences-button/preferences-button.component";
+import { ProfileButtonComponent } from "../profile-button/profile-button.component";
 import { LanguageButtonComponent } from "../language-button/language-button.component";
 import { MatMenu, MatMenuTrigger } from "@angular/material/menu";
 import { TranslocoModule } from '@jsverse/transloco';
@@ -15,7 +15,7 @@ import { TranslocoModule } from '@jsverse/transloco';
   templateUrl: './header.component.html',
   styleUrls: ['./header.component.scss'],
   standalone: true,
-  imports: [MatIconModule, MatToolbarModule, MatButtonModule, AuthButtonComponent, PreferencesButtonComponent, LanguageButtonComponent, ThemeToggleComponent, RouterLink, MatMenu, MatMenuTrigger, TranslocoModule],
+  imports: [MatIconModule, MatToolbarModule, MatButtonModule, AuthButtonComponent, ProfileButtonComponent, LanguageButtonComponent, ThemeToggleComponent, RouterLink, MatMenu, MatMenuTrigger, TranslocoModule],
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class HeaderComponent {

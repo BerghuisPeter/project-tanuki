@@ -15,18 +15,14 @@ export const routes: Routes = [
     loadComponent: () => import('./features/global-chat/global-chat.component').then(m => m.GlobalChatComponent)
   },
   {
-    path: APP_PATHS.BOAT,
-    loadChildren: () => import('./features/battleship/battleship.module').then(m => m.BattleshipModule)
-  },
-  {
     path: APP_PATHS.AUTHENTICATION,
     canActivate: [guestGuard],
     loadComponent: () => import('./features/authentication/authentication.component').then(m => m.AuthenticationComponent)
   },
   {
-    path: APP_PATHS.PREFERENCES,
+    path: APP_PATHS.PROFILE,
     canActivate: [authGuard],
-    loadComponent: () => import('./features/preferences/preferences.component').then(m => m.PreferencesComponent)
+    loadComponent: () => import('./features/profile/profile.component').then(m => m.ProfileComponent)
   },
   {
     path: '**',

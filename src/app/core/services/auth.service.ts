@@ -14,7 +14,7 @@ import { Router } from "@angular/router";
 import { APP_PATHS } from "../../shared/models/app-paths.model";
 import { HttpErrorResponse } from "@angular/common/http";
 import { MatSnackBar } from "@angular/material/snack-bar";
-import { PreferencesProfileService, UserPreferences } from "../../../openApi/profile";
+import { ProfileProfileService, UserProfile } from "../../../openApi/profile";
 import { LanguageService } from "./language.service";
 
 @Injectable({
@@ -23,7 +23,7 @@ import { LanguageService } from "./language.service";
 export class AuthService {
   private readonly userService = inject(UserService);
   private readonly authControllerAuthService = inject(AuthControllerAuthService);
-  private readonly preferencesService = inject(PreferencesProfileService);
+  private readonly profileService = inject(ProfileProfileService);
   private readonly languageService = inject(LanguageService);
   private readonly router = inject(Router);
   private readonly snackBar = inject(MatSnackBar);
@@ -119,7 +119,7 @@ export class AuthService {
 
       try {
         const user = await firstValueFrom(this.authControllerAuthService.me());
-        await this.handleUserAndPreferences(user);
+        await this.handleUserAndProfile(user);
       } catch (error) {
         this.userService.setUnauthenticated();
         if (error instanceof HttpErrorResponse && error.status !== 401) {
@@ -134,24 +134,24 @@ export class AuthService {
   async handleAuthResponse(authRes: AuthResponse): Promise<void> {
     localStorage.setItem('access_token', authRes.accessToken);
     localStorage.setItem('refresh_token', authRes.refreshToken);
-    await this.handleUserAndPreferences(authRes.user);
+    await this.handleUserAndProfile(authRes.user);
   }
 
-  private async handleUserAndPreferences(user: UserResponse): Promise<void> {
-    let preferences: UserPreferences | undefined;
+  private async handleUserAndProfile(user: UserResponse): Promise<void> {
+    let userProfile: UserProfile | undefined;
     try {
-      const prefs = await firstValueFrom(this.preferencesService.getUserPreferences());
-      preferences = prefs ?? undefined;
+      const profile = await firstValueFrom(this.profileService.getUserProfile());
+      userProfile = profile ?? undefined;
     } catch (e) {
-      console.log('Failed to fetch user preferences (could be empty)', e);
+      console.log('Failed to fetch user profile (could be empty)', e);
     }
 
-    this.userService.setLoggedInUser(user, preferences);
+    this.userService.setLoggedInUser(user, userProfile);
 
-    if (preferences) {
+    if (userProfile) {
       const storedLocale = localStorage.getItem('user_locale');
-      if (preferences.locale && preferences.locale !== storedLocale) {
-        this.languageService.setLanguage(preferences.locale);
+      if (userProfile.locale && userProfile.locale !== storedLocale) {
+        this.languageService.setLanguage(userProfile.locale);
       }
     }
   }

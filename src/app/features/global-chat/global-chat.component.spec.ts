@@ -1,7 +1,7 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { GlobalChatComponent } from './global-chat.component';
 import { ChatService } from '../../shared/services/chat.service';
-import { Socket } from 'ngx-socket-io';
+import { SocketService } from '../../core/services/socket.service';
 import { of, Subject } from 'rxjs';
 import { ReactiveFormsModule } from "@angular/forms";
 import { MatInputModule } from "@angular/material/input";
@@ -57,7 +57,7 @@ describe('GlobalChatComponent', () => {
       ],
       providers: [
         { provide: ChatService, useClass: MockChatService },
-        { provide: Socket, useClass: MockSocket },
+        { provide: SocketService, useClass: MockSocket },
         provideZoneChangeDetection()
       ]
     })

@@ -46,6 +46,10 @@
     },
     "placeholder": {
       "message": "Votre message objectivement faux ici..."
+    },
+    "system": {
+      "userJoined": "nous a honorés de sa présence.",
+      "userLeft": "a quitté le bâtiment !"
     }
   },
   "home": {
@@ -53,7 +57,7 @@
       "globalChat": "Chat global"
     }
   },
-  "preferences": {
+  "profile": {
     "title": "Préférences utilisateur",
     "label": {
       "displayName": "Nom d'affichage",
@@ -71,17 +75,25 @@
     "error": {
       "displayNameMaxlength": "Le nom d'affichage ne peut pas dépasser 45 caractères",
       "localeRequired": "La langue est obligatoire",
-      "avatarUrlInvalid": "Veuillez entrer une URL valide (commençant par http:// ou https://)"
+      "avatarUrlInvalid": "Veuillez entrer une URL valide (commençant par http:// ou https://)",
+      "fileTooLarge": "Le fichier est trop volumineux. La taille maximale est de 5 Mo.",
+      "invalidFileType": "Type de fichier invalide. Types autorisés : JPEG, PNG, WEBP."
+    },
+    "text": {
+      "uploadLimits": "Taille maximale : 5 Mo. Types autorisés : JPEG, PNG, WEBP."
     },
     "button": {
-      "open": "Préférences",
+      "open": "Profil",
       "reset": "Réinitialiser les modifications",
+      "uploadAvatar": "Télécharger l'avatar",
       "saving": "Enregistrement...",
-      "save": "Enregistrer les préférences"
+      "save": "Enregistrer le profil"
     },
     "snackbar": {
       "success": "Préférences enregistrées avec succès",
       "error": "Échec de l’enregistrement des préférences",
+      "uploadSuccess": "Avatar téléchargé avec succès",
+      "uploadError": "Échec du téléchargement de l'avatar",
       "close": "Fermer"
     }
   },

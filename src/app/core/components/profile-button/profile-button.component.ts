@@ -8,7 +8,7 @@ import { UserService } from "../../services/user.service";
 import { TranslocoModule } from '@jsverse/transloco';
 
 @Component({
-  selector: "app-preferences-button",
+  selector: "app-profile-button",
   standalone: true,
   imports: [MatIconModule, MatButtonModule, MatMenuModule, TranslocoModule],
   changeDetection: ChangeDetectionStrategy.OnPush,
@@ -17,14 +17,14 @@ import { TranslocoModule } from '@jsverse/transloco';
       @if (userService.isReady()) {
         @if (userService.isLoggedIn()) {
           @if (isMenuItem()) {
-            <button (click)="toPreferences()" class="flex items-center" mat-menu-item>
-              <mat-icon class="mr-1">settings</mat-icon>
-              <span>{{ t('preferences.button.open') }}</span>
+            <button (click)="toProfile()" class="flex items-center" mat-menu-item>
+              <mat-icon class="mr-1">person</mat-icon>
+              <span>{{ t('profile.button.open') }}</span>
             </button>
           } @else {
-            <button (click)="toPreferences()" class="flex items-center" mat-button>
-              <mat-icon class="mr-1">settings</mat-icon>
-              <span>{{ t('preferences.button.open') }}</span>
+            <button (click)="toProfile()" class="flex items-center" mat-button>
+              <mat-icon class="mr-1">person</mat-icon>
+              <span>{{ t('profile.button.open') }}</span>
             </button>
           }
         }
@@ -44,12 +44,12 @@ import { TranslocoModule } from '@jsverse/transloco';
     </ng-container>
   `,
 })
-export class PreferencesButtonComponent {
+export class ProfileButtonComponent {
   public readonly isMenuItem = input<boolean>(false);
   public readonly userService = inject(UserService);
   private readonly router = inject(Router);
 
-  toPreferences(): void {
-    this.router.navigate([APP_PATHS.PREFERENCES]);
+  toProfile(): void {
+    this.router.navigate([APP_PATHS.PROFILE]);
   }
 }

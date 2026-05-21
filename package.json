@@ -12,6 +12,7 @@
     "socket-server": "node socket-server/app.js",
     "lint": "ng lint",
     "generate:api:auth:local": "openapi-generator-cli generate -i C:/Users/peter/IdeaProjects/project-tanuki-back/services/auth-service/openapi.yaml -g typescript-angular -o src/openApi/auth --additional-properties=serviceSuffix=AuthService,apiModulePrefix=Auth",
+    "generate:api:profile:local": "openapi-generator-cli generate -i C:/Users/peter/IdeaProjects/project-tanuki-back/services/profile-service/openapi.yaml -g typescript-angular -o src/openApi/profile --additional-properties=serviceSuffix=ProfileService,apiModulePrefix=profile",
     "generate:api:auth:dev": "openapi-generator-cli generate -i https://raw.githubusercontent.com/BerghuisPeter/project-tanuki-back/refs/heads/develop/services/auth-service/openapi.yaml -g typescript-angular -o src/openApi/auth --additional-properties=serviceSuffix=AuthService,apiModulePrefix=Auth",
     "generate:api:profile:dev": "openapi-generator-cli generate -i https://raw.githubusercontent.com/BerghuisPeter/project-tanuki-back/refs/heads/develop/services/profile-service/openapi.yaml -g typescript-angular -o src/openApi/profile --additional-properties=serviceSuffix=ProfileService,apiModulePrefix=Profile",
     "generate:api:auth:prod": "openapi-generator-cli generate -i https://raw.githubusercontent.com/BerghuisPeter/project-tanuki-back/refs/heads/develop/services/auth-service/openapi.yaml -g typescript-angular -o src/openApi/auth --additional-properties=serviceSuffix=AuthService,apiModulePrefix=Auth",
@@ -41,8 +42,8 @@
     "@angular/router": "^21.1.3",
     "@tailwindcss/postcss": "^4.1.18",
     "@types/uuid": "^9.0.1",
-    "ngx-socket-io": "^4.10.0",
     "rxjs": "~7.8.1",
+    "socket.io-client": "^4.8.3",
     "tslib": "^2.5.3",
     "uuid": "^13.0.0",
     "zone.js": "~0.15.1"
