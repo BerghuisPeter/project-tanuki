@@ -46,6 +46,10 @@
     },
     "placeholder": {
       "message": "あなたの客観的に間違ったメッセージをここに入力..."
+    },
+    "system": {
+      "userJoined": "が参加しました。",
+      "userLeft": "が退出しました。"
     }
   },
   "home": {
@@ -71,7 +75,12 @@
     "error": {
       "displayNameMaxlength": "表示名は45文字以下である必要があります",
       "localeRequired": "言語は必須です",
-      "avatarUrlInvalid": "有効なURLを入力してください（http:// または https:// で始まるもの）"
+      "avatarUrlInvalid": "有効なURLを入力してください（http:// または https:// で始まるもの）",
+      "fileTooLarge": "ファイルサイズが大きすぎます。最大サイズは5MBです。",
+      "invalidFileType": "無効なファイル形式です。許可されている形式：JPEG, PNG, WEBP。"
+    },
+    "text": {
+      "uploadLimits": "最大サイズ：5MB。許可されている形式：JPEG, PNG, WEBP。"
     },
     "button": {
       "open": "プロフィール",
@@ -83,6 +92,8 @@
     "snackbar": {
       "success": "設定が正常に保存されました",
       "error": "設定の保存に失敗しました",
+      "uploadSuccess": "アバターをアップロードしました",
+      "uploadError": "アバターのアップロードに失敗しました",
       "close": "閉じる"
     }
   },

@@ -46,6 +46,10 @@
     },
     "placeholder": {
       "message": "Your objectively wrong message goes here..."
+    },
+    "system": {
+      "userJoined": "graced us with their presence.",
+      "userLeft": "has left the building!"
     }
   },
   "home": {

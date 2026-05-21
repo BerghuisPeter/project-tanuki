@@ -46,6 +46,10 @@
     },
     "placeholder": {
       "message": "Je objectief verkeerde bericht komt hier..."
+    },
+    "system": {
+      "userJoined": "eert ons met hun aanwezigheid.",
+      "userLeft": "heeft het pand verlaten!"
     }
   },
   "home": {
