@@ -35,7 +35,7 @@ export class SocketService {
     }
   }
 
-  emit(eventName: string, ...args: any[]): void {
+  emit(eventName: string, ...args: unknown[]): void {
     this.socket.emit(eventName, ...args);
   }
 
