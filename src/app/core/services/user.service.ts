@@ -23,10 +23,9 @@ export class UserService {
   private readonly authStateSignal = signal<AuthState>(AuthState.Unknown);
   readonly authState = this.authStateSignal.asReadonly();
 
-  setLoggedInUser(userResponse: UserResponse, userProfile?: UserProfile): void {
+  setLoggedInUser(userResponse: UserResponse): void {
     const user: User = {
       ...userResponse,
-      profile: userProfile,
       isGuest: false,
     };
     this.userSignal.set(user);

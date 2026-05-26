@@ -136,27 +136,27 @@ export class ProfileComponent {
 
       const profile = this.userService.user().profile;
       const formValue = this.profileForm.value;
-      const updatedPrefs: UserProfile = {};
+      const updatedProfile: UserProfile = {};
 
       if (formValue.displayName !== profile?.displayName) {
-        updatedPrefs.displayName = formValue.displayName;
+        updatedProfile.displayName = formValue.displayName;
       }
       if (formValue.color !== profile?.color) {
-        updatedPrefs.color = formValue.color;
+        updatedProfile.color = formValue.color;
       }
       if (formValue.avatarUrl !== profile?.avatarUrl) {
-        updatedPrefs.avatarUrl = formValue.avatarUrl;
+        updatedProfile.avatarUrl = formValue.avatarUrl;
       }
 
-      if (Object.keys(updatedPrefs).length === 0) {
+      if (Object.keys(updatedProfile).length === 0) {
         this.isSaving.set(false);
         this.profileForm.markAsPristine();
         return;
       }
 
-      this.userProfileService.updateUserProfile(updatedPrefs).subscribe({
-        next: (prefs) => {
-          this.userService.setUserProfile(prefs);
+      this.userProfileService.updateUserProfile(updatedProfile).subscribe({
+        next: (profile) => {
+          this.userService.setUserProfile(profile);
           this.isSaving.set(false);
           this.snackBar.open(
             this.translocoService.translate('profile.snackbar.success'),
@@ -164,8 +164,8 @@ export class ProfileComponent {
             { duration: 3000 }
           );
           this.profileForm.markAsPristine();
-          if (prefs.locale) {
-            this.languageService.setLanguage(prefs.locale);
+          if (profile.locale) {
+            this.languageService.setLanguage(profile.locale);
           }
         },
         error: (err) => {

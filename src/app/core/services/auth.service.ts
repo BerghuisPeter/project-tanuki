@@ -9,12 +9,12 @@ import {
   RegisterRequest,
   UserResponse
 } from "../../../openApi/auth";
-import { catchError, firstValueFrom, from, map, switchMap, tap, throwError } from "rxjs";
+import { catchError, firstValueFrom, tap, throwError } from "rxjs";
 import { Router } from "@angular/router";
 import { APP_PATHS } from "../../shared/models/app-paths.model";
 import { HttpErrorResponse } from "@angular/common/http";
 import { MatSnackBar } from "@angular/material/snack-bar";
-import { ProfileProfileService, UserProfile } from "../../../openApi/profile";
+import { UserProfile } from "../../../openApi/profile";
 import { LanguageService } from "./language.service";
 
 @Injectable({
@@ -23,7 +23,6 @@ import { LanguageService } from "./language.service";
 export class AuthService {
   private readonly userService = inject(UserService);
   private readonly authControllerAuthService = inject(AuthControllerAuthService);
-  private readonly profileService = inject(ProfileProfileService);
   private readonly languageService = inject(LanguageService);
   private readonly router = inject(Router);
   private readonly snackBar = inject(MatSnackBar);
@@ -34,19 +33,15 @@ export class AuthService {
     const exchangeTempLoginTokenRequest: ExchangeTempLoginTokenRequest = { token };
     return this.authControllerAuthService.exchangeTempLoginToken(exchangeTempLoginTokenRequest)
       .pipe(
-        switchMap(authRes => {
-          return from(this.handleAuthResponse(authRes)).pipe(map(() => authRes));
-        })
+        tap(authRes => this.handleAuthResponse(authRes))
       );
   }
 
   register(email: string, password: string) {
-    const registerRequest: RegisterRequest = { email, password };
+    const registerRequest: RegisterRequest = { email, password, locale: this.languageService.currentLocale() };
     return this.authControllerAuthService.register(registerRequest)
       .pipe(
-        switchMap(authRes => {
-          return from(this.handleAuthResponse(authRes)).pipe(map(() => authRes));
-        })
+        tap(authRes => this.handleAuthResponse(authRes))
       );
   }
 
@@ -54,9 +49,7 @@ export class AuthService {
     const loginRequest: LoginRequest = { email: email, password: password };
     return this.authControllerAuthService.login(loginRequest)
       .pipe(
-        switchMap(authRes => {
-          return from(this.handleAuthResponse(authRes)).pipe(map(() => authRes));
-        })
+        tap(authRes => this.handleAuthResponse(authRes))
       );
   }
 
@@ -90,9 +83,7 @@ export class AuthService {
   refreshToken(refreshToken: string) {
     const refreshRequest: RefreshRequest = { refreshToken: refreshToken };
     return this.authControllerAuthService.refresh(refreshRequest).pipe(
-      switchMap(authRes => {
-        return from(this.handleAuthResponse(authRes)).pipe(map(() => authRes));
-      })
+      tap(authRes => this.handleAuthResponse(authRes))
     );
   }
 
@@ -119,7 +110,7 @@ export class AuthService {
 
       try {
         const user = await firstValueFrom(this.authControllerAuthService.me());
-        await this.handleUserAndProfile(user);
+        this.handleUserAndProfile(user);
       } catch (error) {
         this.userService.setUnauthenticated();
         if (error instanceof HttpErrorResponse && error.status !== 401) {
@@ -131,22 +122,16 @@ export class AuthService {
     return this.initPromise;
   }
 
-  async handleAuthResponse(authRes: AuthResponse): Promise<void> {
+  handleAuthResponse(authRes: AuthResponse): void {
     localStorage.setItem('access_token', authRes.accessToken);
     localStorage.setItem('refresh_token', authRes.refreshToken);
-    await this.handleUserAndProfile(authRes.user);
+    this.handleUserAndProfile(authRes.user);
   }
 
-  private async handleUserAndProfile(user: UserResponse): Promise<void> {
-    let userProfile: UserProfile | undefined;
-    try {
-      const profile = await firstValueFrom(this.profileService.getUserProfile());
-      userProfile = profile ?? undefined;
-    } catch (e) {
-      console.log('Failed to fetch user profile (could be empty)', e);
-    }
+  private handleUserAndProfile(user: UserResponse): void {
+    const userProfile: UserProfile | undefined = user.profile;
 
-    this.userService.setLoggedInUser(user, userProfile);
+    this.userService.setLoggedInUser(user);
 
     if (userProfile) {
       const storedLocale = localStorage.getItem('user_locale');
