@@ -14,7 +14,7 @@ export const authInterceptor: HttpInterceptorFn = (req, next) => {
   const authService = inject(AuthService);
   const token = authService.getAccessToken();
 
-  // If we have a token and it's not a login/register/refresh request, add the Authorization header
+  // If we have a token, and it's not a login/register/refresh request, add the Authorization header
   let authReq = req;
   const isAuthRequest = req.url.includes('/api/v1/auth/login') ||
     req.url.includes('/api/v1/auth/register') ||
@@ -42,8 +42,9 @@ export const authInterceptor: HttpInterceptorFn = (req, next) => {
     catchError((error) => {
       // Check for 401 error and make sure it's not from a refresh request itself
       const isRefreshRequest = req.url.includes('/api/v1/auth/refresh');
+      const isLoginRequest = req.url.includes('/api/v1/auth/login');
 
-      if (error instanceof HttpErrorResponse && error.status === 401 && !isRefreshRequest) {
+      if (error instanceof HttpErrorResponse && error.status === 401 && !isRefreshRequest && !isLoginRequest) {
         return handle401Error(authReq, next, authService);
       }
       return throwError(() => error);

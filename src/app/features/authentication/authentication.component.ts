@@ -120,10 +120,6 @@ export class AuthenticationComponent {
       next: () => {
         this.isLoadingQuery.set(false);
         this.router.navigate([APP_PATHS.HOME], { replaceUrl: true });
-        const currentLocale = this.languageService.getCurrentLocale();
-        this.profileService.updateUserProfile({ locale: currentLocale }).subscribe({
-          error: (err) => console.error('Failed to send language preference after registration', err)
-        });
       },
       error: (err) => {
         this.isLoadingQuery.set(false);
