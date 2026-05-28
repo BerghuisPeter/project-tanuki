@@ -1,6 +1,5 @@
-import { AfterViewInit, Component, inject } from '@angular/core';
-import * as L from 'leaflet';
-import { TranslocoService } from "@jsverse/transloco";
+import { AfterViewInit, Component } from '@angular/core';
+import { Map, NavigationControl } from 'maplibre-gl';
 
 @Component({
   selector: 'app-goshuin-map',
@@ -10,37 +9,20 @@ import { TranslocoService } from "@jsverse/transloco";
   styleUrl: './goshuin-map.component.scss',
 })
 export class GoshuinMapComponent implements AfterViewInit {
-  private readonly translocoService = inject(TranslocoService);
-  private map!: L.Map;
+  private map!: Map;
 
   ngAfterViewInit(): void {
     this.initMap();
   }
 
   private initMap(): void {
-    const iconRetinaUrl = 'assets/marker-icon-2x.png';
-    const iconUrl = 'assets/marker-icon.png';
-    const shadowUrl = 'assets/marker-shadow.png';
-    const iconDefault = L.icon({
-      iconRetinaUrl,
-      iconUrl,
-      shadowUrl,
-      iconSize: [25, 41],
-      iconAnchor: [12, 41],
-      popupAnchor: [1, -34],
-      tooltipAnchor: [16, -28],
-      shadowSize: [41, 41]
-    });
-    L.Marker.prototype.options.icon = iconDefault;
-
-    this.map = L.map('map', {
-      center: [35.6895, 139.6917], // Tokyo
-      zoom: 13
+    this.map = new Map({
+      container: 'map',
+      style: 'https://demotiles.maplibre.org/style.json',
+      center: [139.6917, 35.6895], // Tokyo [lng, lat]
+      zoom: 7
     });
 
-    L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
-      maxZoom: 19,
-      attribution: this.translocoService.translate('goshuin.map.attribution')
-    }).addTo(this.map);
+    this.map.addControl(new NavigationControl());
   }
 }
