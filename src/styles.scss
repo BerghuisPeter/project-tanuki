@@ -1,5 +1,6 @@
 @use '@angular/material' as mat;
 @use 'tailwindcss';
+@import "leaflet/dist/leaflet.css";
 
 @include mat.core();
 

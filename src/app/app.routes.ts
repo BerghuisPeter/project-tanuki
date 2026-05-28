@@ -25,6 +25,10 @@ export const routes: Routes = [
     loadComponent: () => import('./features/profile/profile.component').then(m => m.ProfileComponent)
   },
   {
+    path: APP_PATHS.GOSHUIN,
+    loadComponent: () => import('./features/goshuin/goshuin').then(m => m.GoshuinComponent)
+  },
+  {
     path: '**',
     component: PageNotFoundComponent
   }
