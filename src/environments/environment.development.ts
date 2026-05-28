@@ -4,4 +4,5 @@ export const environment = {
   NG_APP_ENABLE_BATTLESHIP: 'true',
   NG_APP_AUTH_API_URL: 'http://localhost:8081',
   NG_APP_PROFILE_API_URL: 'http://localhost:8082',
+  NG_APP_TILE_SERVER_URL: 'http://localhost:8083',
 };
