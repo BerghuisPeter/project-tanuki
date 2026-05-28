@@ -103,5 +103,11 @@
     "backHome": "Terug naar het hoofdmenu",
     "footer": "Het lijkt erop dat deze pagina ook verdwenen is.",
     "imageAlt": "Wasbeer die er schuldig uitziet"
+  },
+  "goshuin": {
+    "map": {
+      "loading": "Kaart laden...",
+      "attribution": "© OpenStreetMap-auteurs"
+    }
   }
 }

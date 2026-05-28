@@ -110,6 +110,12 @@
     "backHome": "Main menu is here!",
     "footer": "Looks like this page went missing too.",
     "imageAlt": "Raccoon looking guilty"
+  },
+  "goshuin": {
+    "map": {
+      "loading": "Loading map...",
+      "attribution": "© OpenStreetMap contributors"
+    }
   }
 }
 

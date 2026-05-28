@@ -110,5 +110,11 @@
     "backHome": "Retour au menu principal",
     "footer": "On dirait que cette page a disparu elle aussi.",
     "imageAlt": "Raton laveur avec un air coupable"
+  },
+  "goshuin": {
+    "map": {
+      "loading": "Chargement de la carte...",
+      "attribution": "© Contributeurs d'OpenStreetMap"
+    }
   }
 }

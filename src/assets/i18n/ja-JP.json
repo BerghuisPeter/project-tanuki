@@ -110,5 +110,11 @@
     "backHome": "メインメニューに戻る",
     "footer": "このページもどこかへ消えてしまったようです。",
     "imageAlt": "後ろめたそうなアライグマ"
+  },
+  "goshuin": {
+    "map": {
+      "loading": "地図を読み込み中...",
+      "attribution": "© OpenStreetMap 協力者"
+    }
   }
 }
