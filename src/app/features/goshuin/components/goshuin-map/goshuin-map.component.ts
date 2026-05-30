@@ -31,7 +31,7 @@ export class GoshuinMapComponent implements AfterViewInit, OnDestroy {
 
     this.map = new Map({
       container: 'map',
-      style: `${this.appConfig.get("NG_APP_TILE_SERVER_URL")}/styles/basic-preview/style.json`,
+      style: `${this.appConfig.get("NG_APP_TILE_SERVER_URL")}/styles/goshuin/style.json`,
       center: tokyo,
       maxBounds: japanBounds,
       zoom: 8,
@@ -40,26 +40,9 @@ export class GoshuinMapComponent implements AfterViewInit, OnDestroy {
       pitchWithRotate: false,
       dragRotate: false,
       touchPitch: false,
-      cooperativeGestures: true,
       attributionControl: false,
       renderWorldCopies: false,
       maxTileCacheSize: 512,
-    });
-
-    this.map.on('load', () => {
-      this.map.getStyle().layers?.forEach(layer => {
-        if (layer.type === 'symbol' && layer.layout && 'text-field' in layer.layout) {
-          const textField = layer.layout['text-field'];
-          if (textField) {
-            this.map.setLayoutProperty(layer.id, 'text-field', [
-              'coalesce',
-              ['get', 'name:en'],
-              ['get', 'name_en'],
-              ['get', 'name']
-            ]);
-          }
-        }
-      });
     });
 
     // Disable rotation completely
