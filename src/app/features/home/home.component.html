@@ -3,4 +3,8 @@
     <mat-icon class="mx-0" color="primary" fontIcon="chat"></mat-icon>
     <span class="hidden md:block ml-4">{{ t('home.navigation.globalChat') }}</span>
   </a>
+  <a [disabled]="!isGoshuinActiveFlag" [routerLink]="APP_PATHS.GOSHUIN" color="primary" mat-stroked-button>
+    <mat-icon class="mx-0" color="primary" fontIcon="book"></mat-icon>
+    <span class="hidden md:block ml-4">{{ t('home.navigation.goshuin') }}</span>
+  </a>
 </div>

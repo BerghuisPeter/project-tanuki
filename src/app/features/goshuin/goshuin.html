@@ -1,7 +1,14 @@
 <ng-container *transloco="let t">
-  @defer (on timer(1s)) {
-    <app-goshuin-map></app-goshuin-map>
-  } @placeholder {
-    <app-loading [title]="t('goshuin.map.loading')" class="flex justify-center mt-20"></app-loading>
-  }
+  <mat-tab-group>
+    <mat-tab label="List">
+      <p>Goshuin list goes here.</p>
+    </mat-tab>
+    <mat-tab label="Map">
+      @defer (on viewport) {
+        <app-goshuin-map></app-goshuin-map>
+      } @placeholder {
+        <app-loading [title]="t('goshuin.map.loading')" class="flex justify-center mt-20"></app-loading>
+      }
+    </mat-tab>
+  </mat-tab-group>
 </ng-container>

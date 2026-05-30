@@ -54,7 +54,8 @@
   },
   "home": {
     "navigation": {
-      "globalChat": "グローバルチャット"
+      "globalChat": "グローバルチャット",
+      "goshuin": "御朱印"
     }
   },
   "profile": {

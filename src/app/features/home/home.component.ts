@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, inject } from '@angular/core';
 import { APP_PATHS } from "../../shared/models/app-paths.model";
 import { CommonModule } from "@angular/common";
 import { MatGridListModule } from "@angular/material/grid-list";
@@ -7,6 +7,7 @@ import { MatButtonModule } from "@angular/material/button";
 import { MatIconModule } from "@angular/material/icon";
 import { RouterModule } from "@angular/router";
 import { TranslocoModule } from '@jsverse/transloco';
+import { AppConfigService } from "../../core/services/app-config.service";
 
 @Component({
   selector: 'app-home',
@@ -25,4 +26,7 @@ import { TranslocoModule } from '@jsverse/transloco';
 })
 export class HomeComponent {
   APP_PATHS = APP_PATHS;
+  private readonly appConfig = inject(AppConfigService);
+
+  public isGoshuinActiveFlag = this.appConfig.get('isGoshuinActiveFlag') === 'true';
 }

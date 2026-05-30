@@ -54,7 +54,8 @@
   },
   "home": {
     "navigation": {
-      "globalChat": "Global Chat"
+      "globalChat": "Global Chat",
+      "goshuin": "Goshuin"
     }
   },
   "profile": {

@@ -1,5 +1,5 @@
 import { AfterViewInit, Component, inject, OnDestroy } from '@angular/core';
-import { LngLatBounds, LngLatLike, Map, NavigationControl, ScaleControl } from 'maplibre-gl';
+import { LngLatBounds, LngLatLike, Map, NavigationControl } from 'maplibre-gl';
 import { AppConfigService } from 'src/app/core/services/app-config.service';
 
 @Component({
@@ -53,15 +53,10 @@ export class GoshuinMapComponent implements AfterViewInit, OnDestroy {
     this.map.addControl(
       new NavigationControl({
         visualizePitch: false,
-        showCompass: true,
+        showCompass: false,
+        showZoom: false,
       }),
       'top-right'
-    );
-
-    this.map.addControl(
-      new ScaleControl({
-        unit: 'metric',
-      })
     );
   }
 }
