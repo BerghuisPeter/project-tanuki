@@ -49,7 +49,7 @@ export class GoshuinBrowserComponent implements OnInit {
         this.searchResults.set(goshuins);
         this.isLoadingQuery.set(false);
       },
-      error: (error) => {
+      error: () => {
         this.isLoadingQuery.set(false);
         this.snackBar.open('error loading search', 'Close', {
           duration: 3000,
