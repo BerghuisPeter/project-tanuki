@@ -2,6 +2,10 @@
   "header": {
     "appTitle": "Project Tanuki"
   },
+  "common": {
+    "loading": "Chargement...",
+    "loadingSubText": "Les ratons laveurs se déplacent aussi vite qu'ils le peuvent."
+  },
   "auth": {
     "title": {
       "login": "Connexion",
@@ -113,6 +117,9 @@
     "imageAlt": "Raton laveur avec un air coupable"
   },
   "goshuin": {
+    "browse": {
+      "goToMap": "Aller à la carte"
+    },
     "map": {
       "loading": "Chargement de la carte...",
       "attribution": "© Contributeurs d'OpenStreetMap"

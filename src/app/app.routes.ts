@@ -26,7 +26,25 @@ export const routes: Routes = [
   },
   {
     path: APP_PATHS.GOSHUIN,
-    loadComponent: () => import('./features/goshuin/goshuin').then(m => m.GoshuinComponent)
+    children: [
+      {
+        path: '',
+        pathMatch: 'full',
+        redirectTo: APP_PATHS.GOSHUIN_BROWSE
+      },
+      {
+        path: APP_PATHS.GOSHUIN_BROWSE,
+        loadComponent: () =>
+          import('./features/goshuin/goshuin-browser/goshuin-browser.component')
+            .then(m => m.GoshuinBrowserComponent)
+      },
+      {
+        path: APP_PATHS.GOSHUIN_MAP,
+        loadComponent: () =>
+          import('./features/goshuin/goshuin-map/goshuin-map.component')
+            .then(m => m.GoshuinMapComponent)
+      }
+    ]
   },
   {
     path: '**',

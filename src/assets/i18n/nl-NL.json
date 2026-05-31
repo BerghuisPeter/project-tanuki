@@ -2,6 +2,10 @@
   "header": {
     "appTitle": "Project Tanuki"
   },
+  "common": {
+    "loading": "Laden...",
+    "loadingSubText": "De wasberen rennen zo hard als ze kunnen."
+  },
   "auth": {
     "title": {
       "login": "Inloggen",
@@ -106,6 +110,9 @@
     "imageAlt": "Wasbeer die er schuldig uitziet"
   },
   "goshuin": {
+    "browse": {
+      "goToMap": "Ga naar de kaart"
+    },
     "map": {
       "loading": "Kaart laden...",
       "attribution": "© OpenStreetMap-auteurs"

@@ -4,6 +4,7 @@ import { routes } from './app.routes';
 import { provideHttpClient, withInterceptors } from '@angular/common/http';
 import { BASE_PATH as BASE_PATH_AUTH } from "../openApi/auth";
 import { BASE_PATH as BASE_PATH_PROFILE } from "../openApi/profile";
+import { BASE_PATH as BASE_PATH_GOSHUIN } from "../openApi/goshuin";
 import { authInterceptor } from "./core/interceptors/auth.interceptor";
 import { provideAnimationsAsync } from "@angular/platform-browser/animations/async";
 import { MatSnackBarModule } from "@angular/material/snack-bar";
@@ -25,6 +26,11 @@ export const appConfig: ApplicationConfig = {
     {
       provide: BASE_PATH_PROFILE,
       useFactory: (config: AppConfigService) => config.get('NG_APP_PROFILE_API_URL'),
+      deps: [AppConfigService]
+    },
+    {
+      provide: BASE_PATH_GOSHUIN,
+      useFactory: (config: AppConfigService) => config.get('NG_APP_GOSHUIN_API_URL'),
       deps: [AppConfigService]
     },
     provideAppTransloco()

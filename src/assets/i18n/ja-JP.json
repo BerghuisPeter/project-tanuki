@@ -2,6 +2,10 @@
   "header": {
     "appTitle": "Project Tanuki"
   },
+  "common": {
+    "loading": "読み込み中...",
+    "loadingSubText": "アライグマたちはできる限りの速さで走っている。"
+  },
   "auth": {
     "title": {
       "login": "ログイン",
@@ -113,6 +117,9 @@
     "imageAlt": "後ろめたそうなアライグマ"
   },
   "goshuin": {
+    "browse": {
+      "goToMap": "地図へ移動"
+    },
     "map": {
       "loading": "地図を読み込み中...",
       "attribution": "© OpenStreetMap 協力者"

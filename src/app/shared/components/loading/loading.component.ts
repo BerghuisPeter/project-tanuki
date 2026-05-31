@@ -1,5 +1,6 @@
-import { Component, Input } from '@angular/core';
+import { Component, inject, Input } from '@angular/core';
 import { NgOptimizedImage } from "@angular/common";
+import { TranslocoService } from "@jsverse/transloco";
 
 
 @Component({
@@ -12,6 +13,7 @@ import { NgOptimizedImage } from "@angular/common";
   ]
 })
 export class LoadingComponent {
-  @Input() title: string = 'Loading...';
+  private readonly t = inject(TranslocoService);
+  @Input() title: string = this.t.translate('common.loading');
   @Input() subTitle: string = 'The racoons are going going as fast as they can.';
 }

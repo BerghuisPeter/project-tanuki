@@ -3,5 +3,7 @@ export enum APP_PATHS {
   AUTHENTICATION = 'authentication',
   CHAT = 'chat',
   PROFILE = 'profile',
-  GOSHUIN = 'goshuin'
+  GOSHUIN = 'goshuin',
+  GOSHUIN_BROWSE = 'browse',
+  GOSHUIN_MAP = 'map',
 }

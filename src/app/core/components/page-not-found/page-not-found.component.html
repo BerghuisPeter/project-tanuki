@@ -1,4 +1,4 @@
-<div *transloco="let t">
+<ng-container *transloco="let t">
   <h1>{{ t('pageNotFound.title') }}</h1>
   <h2>{{ t('pageNotFound.message') }}</h2>
   <button class="mb-8" color="primary" mat-raised-button routerLink="">
@@ -7,4 +7,4 @@
   <h3>{{ t('pageNotFound.footer') }}</h3>
   <img [alt]="t('pageNotFound.imageAlt')" src="assets/racoon-crime.jpg"
        style="margin-left: auto; margin-right: auto; width: 40%">
-</div>
+</ng-container>

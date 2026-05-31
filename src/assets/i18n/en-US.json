@@ -2,6 +2,10 @@
   "header": {
     "appTitle": "Project Tanuki"
   },
+  "common": {
+    "loading": "Loading...",
+    "loadingSubText": "The racoons are going going as fast as they can."
+  },
   "auth": {
     "title": {
       "login": "Login",
@@ -113,6 +117,9 @@
     "imageAlt": "Raccoon looking guilty"
   },
   "goshuin": {
+    "browse": {
+      "goToMap": "Go to map"
+    },
     "map": {
       "loading": "Loading map...",
       "attribution": "© OpenStreetMap contributors"
