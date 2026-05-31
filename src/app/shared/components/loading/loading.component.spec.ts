@@ -3,6 +3,7 @@ import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { LoadingComponent } from './loading.component';
 
 import { provideZoneChangeDetection } from '@angular/core';
+import { getTranslocoTestingModule } from '../../../testing/transloco-testing';
 
 describe('LoadingComponent', () => {
   let component: LoadingComponent;
@@ -10,7 +11,7 @@ describe('LoadingComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      imports: [LoadingComponent],
+      imports: [LoadingComponent, getTranslocoTestingModule()],
       providers: [provideZoneChangeDetection()]
     })
       .compileComponents();

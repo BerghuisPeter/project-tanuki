@@ -5,6 +5,7 @@ import { provideRouter } from "@angular/router";
 
 import { provideZoneChangeDetection } from '@angular/core';
 import { getTranslocoTestingModule } from './testing/transloco-testing';
+import { registerTestIcons } from './testing/icon-testing';
 
 describe('AppComponent', () => {
   beforeEach(async () => {
@@ -19,6 +20,10 @@ describe('AppComponent', () => {
         provideZoneChangeDetection()
       ]
     }).compileComponents();
+
+    TestBed.runInInjectionContext(() => {
+      registerTestIcons();
+    });
   });
 
   it('should create the app', () => {

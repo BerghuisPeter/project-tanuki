@@ -15,5 +15,5 @@ import { TranslocoService } from "@jsverse/transloco";
 export class LoadingComponent {
   private readonly t = inject(TranslocoService);
   @Input() title: string = this.t.translate('common.loading');
-  @Input() subTitle: string = 'The racoons are going going as fast as they can.';
+  @Input() subTitle: string = this.t.translate('common.loadingSubText');
 }

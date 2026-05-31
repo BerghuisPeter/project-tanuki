@@ -8,6 +8,7 @@ import { provideHttpClient } from "@angular/common/http";
 import { provideZoneChangeDetection } from '@angular/core';
 import { provideRouter } from "@angular/router";
 import { getTranslocoTestingModule } from '../../../testing/transloco-testing';
+import { registerTestIcons } from '../../../testing/icon-testing';
 
 describe('HeaderComponent', () => {
   let component: HeaderComponent;
@@ -27,6 +28,10 @@ describe('HeaderComponent', () => {
       ]
     })
       .compileComponents();
+
+    TestBed.runInInjectionContext(() => {
+      registerTestIcons();
+    });
 
     fixture = TestBed.createComponent(HeaderComponent);
     component = fixture.componentInstance;
