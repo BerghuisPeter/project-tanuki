@@ -48,6 +48,8 @@
               <p class="text-sm">{{ result.translations[currentLocale()]?.description }}</p>
             </div>
           </mat-card>
+        } @empty {
+          <p class="text-center">No results found</p>
         }
       }
     </div>
