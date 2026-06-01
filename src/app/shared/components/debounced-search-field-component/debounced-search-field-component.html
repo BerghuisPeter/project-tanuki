@@ -1,11 +1,18 @@
-<div>
-  <mat-form-field appearance="outline" class="w-full" subscriptSizing="dynamic">
+<div class="search-wrapper">
+  <mat-form-field
+    appearance="outline"
+    class="w-full"
+    subscriptSizing="dynamic"
+  >
     <mat-label>{{ label() }}</mat-label>
 
     <input
-      [formControl]="control()"
-      [placeholder]="placeholder()"
       matInput
+      (blur)="onBlur()"
+      (input)="onInput($any($event.target).value)"
+      [disabled]="disabled()"
+      [placeholder]="placeholder()"
+      [value]="value()"
     >
 
     @if (icon()) {
@@ -16,9 +23,9 @@
   <div class="progress-container">
     <div
       [ngStyle]="{
-            transition: animating() ? 'width ' + debounceMs() + 'ms linear' : 'none',
-            width: animating() ? '100%' : '0%'
-          }"
+        transition: animating() ? 'width ' + debounceMs() + 'ms linear' : 'none',
+        width: animating() ? '100%' : '0%'
+      }"
       class="progress-bar"
     ></div>
   </div>

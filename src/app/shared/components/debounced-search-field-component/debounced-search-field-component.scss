@@ -1,9 +1,9 @@
 .progress-container {
-  height: 2px;
+  height: 3px;
   overflow: hidden;
 }
 
 .progress-bar {
   height: 100%;
-  background: #6981ff;
+  background: var(--mat-sys-primary);
 }
