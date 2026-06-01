@@ -4,17 +4,21 @@ import { APP_PATHS } from '../../../shared/models/app-paths.model';
 import { MatIcon } from '@angular/material/icon';
 import { ActivatedRoute, Params, Router, RouterLink } from '@angular/router';
 import { MatButton } from '@angular/material/button';
-import { MatFormField, MatInputModule } from '@angular/material/input';
+import { MatInputModule } from '@angular/material/input';
 import { GoshuinGoshuinService } from '../../../../openApi/goshuin';
 import { MatCard } from '@angular/material/card';
 import { LanguageService } from '../../../core/services/language.service';
 import { MatChipListbox, MatChipOption } from '@angular/material/chips';
 import { MatDivider } from '@angular/material/list';
-import { FilterContainerComponent } from './filter-container.component/filter-container.component';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { FormBuilder, ReactiveFormsModule } from '@angular/forms';
 import { debounceTime, finalize, merge, switchMap } from 'rxjs';
 import { takeUntilDestroyed, toSignal } from '@angular/core/rxjs-interop';
+import { LoadingComponent } from "../../../shared/components/loading/loading.component";
+import {
+  DebouncedSearchFieldComponent
+} from "../../../shared/components/debounced-search-field-component/debounced-search-field-component";
+import { FilterContainerComponent } from "./filter-container/filter-container.component";
 
 @Component({
   selector: 'app-goshuin-browser',
@@ -23,7 +27,6 @@ import { takeUntilDestroyed, toSignal } from '@angular/core/rxjs-interop';
     MatIcon,
     RouterLink,
     MatButton,
-    MatFormField,
     MatFormFieldModule,
     MatInputModule,
     MatCard,
@@ -32,6 +35,8 @@ import { takeUntilDestroyed, toSignal } from '@angular/core/rxjs-interop';
     MatDivider,
     FilterContainerComponent,
     ReactiveFormsModule,
+    LoadingComponent,
+    DebouncedSearchFieldComponent,
   ],
   templateUrl: './goshuin-browser.component.html',
   styleUrl: './goshuin-browser.component.scss',

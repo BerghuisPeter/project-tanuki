@@ -1,11 +1,12 @@
 <ng-container *transloco="let t">
   <div [formGroup]="filterForm" class="flex flex-col gap-2 p-2 md:p-4">
     <div class="flex flex-col gap-1 md:gap-2 md:flex-row">
-      <mat-form-field appearance="outline" class="grow">
-        <mat-label>Search</mat-label>
-        <input formControlName="search" matInput placeholder="By temple, city...">
-        <mat-icon matPrefix>search</mat-icon>
-      </mat-form-field>
+      <app-debounced-search-field-component [control]="filterForm.controls.search"
+                                            [debounceMs]="searchDebounceTime"
+                                            class="grow"
+                                            icon="search"
+                                            label="Search"
+                                            placeholder="By temple, city..."></app-debounced-search-field-component>
       <a [routerLink]="fullMapLink" class="md:mt-2" color="primary" mat-stroked-button>
         <mat-icon color="primary" fontIcon="map"></mat-icon>
         <span>{{ t('goshuin.browse.goToMap') }}</span>
@@ -21,7 +22,9 @@
       <app-filter-container title="Goshuin type">
         <mat-chip-listbox class="grow" formControlName="type" hideSingleSelectionIndicator>
           <mat-chip-option value="written">Written in Book</mat-chip-option>
-          <mat-chip-option value="paper">Paper Sheer</mat-chip-option>
+          <mat-chip-option value="paper">Paper sheet</mat-chip-option>
+          <mat-chip-option value="cut">Cut sheet</mat-chip-option>
+          <mat-chip-option value="other">Other</mat-chip-option>
         </mat-chip-listbox>
       </app-filter-container>
       <app-filter-container title="Layout Length">
@@ -35,13 +38,17 @@
     </div>
     <mat-divider></mat-divider>
     <div class="flex flex-col gap-2">
-      @for (result of searchResults(); track result.id) {
-        <mat-card>
-          <div class="flex flex-col gap-2 p-2">
-            <h2 class="text-lg">{{ result.translations[currentLocale()]?.label }}</h2>
-            <p class="text-sm">{{ result.translations[currentLocale()]?.description }}</p>
-          </div>
-        </mat-card>
+      @if (isLoadingQuery()) {
+        <app-loading/>
+      } @else {
+        @for (result of searchResults(); track result.id) {
+          <mat-card>
+            <div class="flex flex-col gap-2 p-2">
+              <h2 class="text-lg">{{ result.translations[currentLocale()]?.label }}</h2>
+              <p class="text-sm">{{ result.translations[currentLocale()]?.description }}</p>
+            </div>
+          </mat-card>
+        }
       }
     </div>
   </div>
