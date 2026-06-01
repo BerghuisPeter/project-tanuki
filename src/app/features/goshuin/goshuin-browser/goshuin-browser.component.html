@@ -1,9 +1,9 @@
 <ng-container *transloco="let t">
-  <div class="flex flex-col gap-2 p-2 md:p-4">
+  <div [formGroup]="filterForm" class="flex flex-col gap-2 p-2 md:p-4">
     <div class="flex flex-col gap-1 md:gap-2 md:flex-row">
       <mat-form-field appearance="outline" class="grow">
         <mat-label>Search</mat-label>
-        <input matInput placeholder="By temple, city...">
+        <input formControlName="search" matInput placeholder="By temple, city...">
         <mat-icon matPrefix>search</mat-icon>
       </mat-form-field>
       <a [routerLink]="fullMapLink" class="md:mt-2" color="primary" mat-stroked-button>
@@ -13,23 +13,23 @@
     </div>
     <div class="flex flex-col md:flex-row gap-4 md:justify-between lg:justify-start">
       <app-filter-container title="Affiliation">
-        <mat-chip-listbox class="grow" hideSingleSelectionIndicator>
-          <mat-chip-option selected>Shrine</mat-chip-option>
-          <mat-chip-option>Temple</mat-chip-option>
+        <mat-chip-listbox class="grow" formControlName="affiliation" hideSingleSelectionIndicator>
+          <mat-chip-option value="shrine">Shrine</mat-chip-option>
+          <mat-chip-option value="temple">Temple</mat-chip-option>
         </mat-chip-listbox>
       </app-filter-container>
       <app-filter-container title="Goshuin type">
-        <mat-chip-listbox class="grow" hideSingleSelectionIndicator>
-          <mat-chip-option>Written in Book</mat-chip-option>
-          <mat-chip-option>Paper Sheer</mat-chip-option>
+        <mat-chip-listbox class="grow" formControlName="type" hideSingleSelectionIndicator>
+          <mat-chip-option value="written">Written in Book</mat-chip-option>
+          <mat-chip-option value="paper">Paper Sheer</mat-chip-option>
         </mat-chip-listbox>
       </app-filter-container>
       <app-filter-container title="Layout Length">
-        <mat-chip-listbox class="grow" hideSingleSelectionIndicator>
-          <mat-chip-option>1 Page</mat-chip-option>
-          <mat-chip-option>2 Pages</mat-chip-option>
-          <mat-chip-option>3 Pages</mat-chip-option>
-          <mat-chip-option>4 Pages</mat-chip-option>
+        <mat-chip-listbox class="grow" formControlName="pages" hideSingleSelectionIndicator>
+          <mat-chip-option value="1">1 Page</mat-chip-option>
+          <mat-chip-option value="2">2 Pages</mat-chip-option>
+          <mat-chip-option value="3">3 Pages</mat-chip-option>
+          <mat-chip-option value="4">4 Pages</mat-chip-option>
         </mat-chip-listbox>
       </app-filter-container>
     </div>
@@ -38,8 +38,8 @@
       @for (result of searchResults(); track result.id) {
         <mat-card>
           <div class="flex flex-col gap-2 p-2">
-            <h2 class="text-lg">{{ result.translations[currentLocale()].label }}</h2>
-            <p class="text-sm">{{ result.translations[currentLocale()].description }}</p>
+            <h2 class="text-lg">{{ result.translations[currentLocale()]?.label }}</h2>
+            <p class="text-sm">{{ result.translations[currentLocale()]?.description }}</p>
           </div>
         </mat-card>
       }
