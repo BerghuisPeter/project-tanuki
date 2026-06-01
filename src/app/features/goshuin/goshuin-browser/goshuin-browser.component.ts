@@ -1,21 +1,20 @@
 import { Component, computed, inject, signal } from '@angular/core';
-import { TranslocoDirective } from "@jsverse/transloco";
-import { APP_PATHS } from "../../../shared/models/app-paths.model";
-import { MatIcon } from "@angular/material/icon";
-import { ActivatedRoute, Router, RouterLink } from "@angular/router";
-import { MatButton } from "@angular/material/button";
-import { MatFormField, MatInputModule } from "@angular/material/input";
-import { Goshuin, GoshuinGoshuinService } from "../../../../openApi/goshuin";
-import { MatSnackBar } from "@angular/material/snack-bar";
-import { MatCard } from "@angular/material/card";
-import { LanguageService } from "../../../core/services/language.service";
-import { MatChipListbox, MatChipOption } from "@angular/material/chips";
-import { MatDivider } from "@angular/material/list";
-import { FilterContainerComponent } from "./filter-container.component/filter-container.component";
-import { MatFormFieldModule } from "@angular/material/form-field";
-import { FormBuilder, ReactiveFormsModule } from "@angular/forms";
-import { distinctUntilChanged } from "rxjs";
-import { takeUntilDestroyed } from "@angular/core/rxjs-interop";
+import { TranslocoDirective } from '@jsverse/transloco';
+import { APP_PATHS } from '../../../shared/models/app-paths.model';
+import { MatIcon } from '@angular/material/icon';
+import { ActivatedRoute, Params, Router, RouterLink } from '@angular/router';
+import { MatButton } from '@angular/material/button';
+import { MatFormField, MatInputModule } from '@angular/material/input';
+import { GoshuinGoshuinService } from '../../../../openApi/goshuin';
+import { MatCard } from '@angular/material/card';
+import { LanguageService } from '../../../core/services/language.service';
+import { MatChipListbox, MatChipOption } from '@angular/material/chips';
+import { MatDivider } from '@angular/material/list';
+import { FilterContainerComponent } from './filter-container.component/filter-container.component';
+import { MatFormFieldModule } from '@angular/material/form-field';
+import { FormBuilder, ReactiveFormsModule } from '@angular/forms';
+import { debounceTime, finalize, merge, switchMap } from 'rxjs';
+import { takeUntilDestroyed, toSignal } from '@angular/core/rxjs-interop';
 
 @Component({
   selector: 'app-goshuin-browser',
@@ -39,73 +38,90 @@ import { takeUntilDestroyed } from "@angular/core/rxjs-interop";
 })
 export class GoshuinBrowserComponent {
   readonly fullMapLink = ['/', APP_PATHS.GOSHUIN, APP_PATHS.GOSHUIN_MAP];
-  isLoadingQuery = signal(true);
-  searchResults = signal<Goshuin[]>([]);
+  readonly searchDebounceTime = 700;
+
   private readonly goshuinService = inject(GoshuinGoshuinService);
-  private readonly snackBar = inject(MatSnackBar);
   private readonly languageService = inject(LanguageService);
   private readonly fb = inject(FormBuilder);
-  filterForm = this.fb.group({
+  readonly filterForm = this.fb.group({
     search: [''],
     affiliation: [''],
     type: [''],
     pages: [''],
-    sortBy: ['date']
+    sortBy: ['date'],
   });
+  readonly currentLocale = computed(() =>
+    this.languageService.currentLocale().slice(0, 2)
+  );
+  readonly isLoadingQuery = signal(true);
   private readonly router = inject(Router);
   private readonly route = inject(ActivatedRoute);
+  private readonly goshuins$ = this.route.queryParams.pipe(
+    switchMap(() => this.loadGoshuins())
+  );
 
-  currentLocale = computed(() => this.languageService.currentLocale().slice(0, 2));
+  readonly searchResults = toSignal(
+    this.goshuins$,
+    { initialValue: [] }
+  );
+
+  private readonly formChanges$ = merge(
+    this.filterForm.controls.search.valueChanges.pipe(
+      debounceTime(this.searchDebounceTime)
+    ),
+    this.filterForm.controls.affiliation.valueChanges,
+    this.filterForm.controls.type.valueChanges,
+    this.filterForm.controls.pages.valueChanges,
+    this.filterForm.controls.sortBy.valueChanges
+  );
 
   constructor() {
-    this.filterForm.valueChanges.pipe(
-      distinctUntilChanged((a, b) => JSON.stringify(a) === JSON.stringify(b)),
-      takeUntilDestroyed()
-    ).subscribe((values) => {
+    this.route.queryParams
+      .pipe(takeUntilDestroyed())
+      .subscribe(params => this.patchFormFromQueryParams(params));
 
-      console.log('values:', values);
+    this.formChanges$
+      .pipe(takeUntilDestroyed())
+      .subscribe(() => this.updateUrl());
+  }
 
-      const queryParams = Object.fromEntries(
-        Object.entries(values).filter(
-          ([_, v]) => v !== null && v !== undefined && v !== ''
-        )
-      );
+  private patchFormFromQueryParams(params: Params): void {
+    this.filterForm.patchValue(
+      {
+        ...this.filterForm.getRawValue(),
+        ...params,
+      },
+      {
+        emitEvent: false,
+      }
+    );
+  }
 
-      console.log('queryParams:', queryParams);
-
-      this.router.navigate([], {
-        relativeTo: this.route,
-        queryParams: queryParams,
-        queryParamsHandling: 'replace',
-      });
-    });
-
-    this.route.queryParams.pipe(
-      takeUntilDestroyed()
-    ).subscribe(params => {
-      this.filterForm.patchValue(params, { emitEvent: false });
-      this.search();
+  private updateUrl(): void {
+    const queryParams = this.buildQueryParams();
+    this.router.navigate([], {
+      relativeTo: this.route,
+      queryParams,
+      replaceUrl: true,
     });
   }
 
-  private search() {
+  private buildQueryParams(): Params {
+    const values = this.filterForm.getRawValue();
+
+    return Object.fromEntries(
+      Object.entries(values).map(([key, value]) => [
+        key,
+        value === '' || value == null ? null : value,
+      ])
+    );
+  }
+
+  private loadGoshuins() {
     this.isLoadingQuery.set(true);
 
-    this.goshuinService.getGoshuins().subscribe({
-      next: (goshuins) => {
-        this.searchResults.set(goshuins);
-        this.isLoadingQuery.set(false);
-      },
-      error: () => {
-        this.isLoadingQuery.set(false);
-        this.snackBar.open('error loading search', 'Close', {
-          duration: 3000,
-          horizontalPosition: 'center',
-          verticalPosition: 'bottom',
-          panelClass: ['bg-red-500', 'text-white']
-        });
-      }
-    });
+    return this.goshuinService.getGoshuins().pipe(
+      finalize(() => this.isLoadingQuery.set(false))
+    );
   }
-
 }
