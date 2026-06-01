@@ -11,21 +11,21 @@
         <span>{{ t('goshuin.browse.goToMap') }}</span>
       </a>
     </div>
-    <div class="flex flex-col md:flex-row justify-between gap-2">
+    <div class="flex flex-col md:flex-row gap-4 md:justify-between lg:justify-start">
       <app-filter-container title="Affiliation">
-        <mat-chip-listbox>
+        <mat-chip-listbox class="grow" hideSingleSelectionIndicator>
           <mat-chip-option selected>Shrine</mat-chip-option>
           <mat-chip-option>Temple</mat-chip-option>
         </mat-chip-listbox>
       </app-filter-container>
       <app-filter-container title="Goshuin type">
-        <mat-chip-listbox>
+        <mat-chip-listbox class="grow" hideSingleSelectionIndicator>
           <mat-chip-option>Written in Book</mat-chip-option>
           <mat-chip-option>Paper Sheer</mat-chip-option>
         </mat-chip-listbox>
       </app-filter-container>
       <app-filter-container title="Layout Length">
-        <mat-chip-listbox aria-orientation="horizontal" multiple>
+        <mat-chip-listbox class="grow" hideSingleSelectionIndicator>
           <mat-chip-option>1 Page</mat-chip-option>
           <mat-chip-option>2 Pages</mat-chip-option>
           <mat-chip-option>3 Pages</mat-chip-option>
