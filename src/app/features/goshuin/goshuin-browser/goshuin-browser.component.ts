@@ -4,13 +4,15 @@ import { APP_PATHS } from "../../../shared/models/app-paths.model";
 import { MatIcon } from "@angular/material/icon";
 import { RouterLink } from "@angular/router";
 import { MatButton } from "@angular/material/button";
-import { MatFormField, MatInput } from "@angular/material/input";
+import { MatFormField, MatInputModule } from "@angular/material/input";
 import { Goshuin, GoshuinGoshuinService } from "../../../../openApi/goshuin";
 import { MatSnackBar } from "@angular/material/snack-bar";
 import { MatCard } from "@angular/material/card";
 import { LanguageService } from "../../../core/services/language.service";
 import { MatChipListbox, MatChipOption } from "@angular/material/chips";
 import { MatDivider } from "@angular/material/list";
+import { FilterContainerComponent } from "./filter-container.component/filter-container.component";
+import { MatFormFieldModule } from "@angular/material/form-field";
 
 @Component({
   selector: 'app-goshuin-browser',
@@ -20,11 +22,13 @@ import { MatDivider } from "@angular/material/list";
     RouterLink,
     MatButton,
     MatFormField,
-    MatInput,
+    MatFormFieldModule,
+    MatInputModule,
     MatCard,
     MatChipOption,
     MatChipListbox,
     MatDivider,
+    FilterContainerComponent,
   ],
   templateUrl: './goshuin-browser.component.html',
   styleUrl: './goshuin-browser.component.scss',

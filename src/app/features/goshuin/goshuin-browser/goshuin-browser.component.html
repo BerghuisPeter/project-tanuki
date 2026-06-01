@@ -1,31 +1,37 @@
 <ng-container *transloco="let t">
   <div class="flex flex-col gap-2 p-2 md:p-4">
-    <h1 class="text-xl">Explore the Sacred Seals</h1>
-    <div class="flex flex-col md:flex-row gap-2 md:gap-4 items-center">
-      <mat-form-field appearance="fill" class="w-full md:w-auto">
-        <input matInput placeholder="Search by temple, city................">
-        <mat-icon matSuffix>phone</mat-icon>
+    <div class="flex flex-col gap-1 md:gap-2 md:flex-row">
+      <mat-form-field appearance="outline" class="grow">
+        <mat-label>Search</mat-label>
+        <input matInput placeholder="By temple, city...">
+        <mat-icon matPrefix>search</mat-icon>
       </mat-form-field>
-      <a [routerLink]="fullMapLink" class="w-full md:w-auto" color="primary" mat-stroked-button>
+      <a [routerLink]="fullMapLink" class="md:mt-2" color="primary" mat-stroked-button>
         <mat-icon color="primary" fontIcon="map"></mat-icon>
         <span>{{ t('goshuin.browse.goToMap') }}</span>
       </a>
     </div>
-    <div class="flex flex-col md:flex-row justify-between gap-2 ">
-      <mat-chip-listbox aria-label="Cutest dog breeds" class="">
-        <mat-chip-option selected>Shrine</mat-chip-option>
-        <mat-chip-option>Temple</mat-chip-option>
-      </mat-chip-listbox>
-      <mat-chip-listbox aria-label="Cutest dog breeds" class="">
-        <mat-chip-option>Written in Book</mat-chip-option>
-        <mat-chip-option>Paper Sheer</mat-chip-option>
-      </mat-chip-listbox>
-      <mat-chip-listbox aria-label="Cutest dog breeds" class="">
-        <mat-chip-option>1</mat-chip-option>
-        <mat-chip-option>2</mat-chip-option>
-        <mat-chip-option>3</mat-chip-option>
-        <mat-chip-option>4</mat-chip-option>
-      </mat-chip-listbox>
+    <div class="flex flex-col md:flex-row justify-between gap-2">
+      <app-filter-container title="Affiliation">
+        <mat-chip-listbox>
+          <mat-chip-option selected>Shrine</mat-chip-option>
+          <mat-chip-option>Temple</mat-chip-option>
+        </mat-chip-listbox>
+      </app-filter-container>
+      <app-filter-container title="Goshuin type">
+        <mat-chip-listbox>
+          <mat-chip-option>Written in Book</mat-chip-option>
+          <mat-chip-option>Paper Sheer</mat-chip-option>
+        </mat-chip-listbox>
+      </app-filter-container>
+      <app-filter-container title="Layout Length">
+        <mat-chip-listbox aria-orientation="horizontal" multiple>
+          <mat-chip-option>1 Page</mat-chip-option>
+          <mat-chip-option>2 Pages</mat-chip-option>
+          <mat-chip-option>3 Pages</mat-chip-option>
+          <mat-chip-option>4 Pages</mat-chip-option>
+        </mat-chip-listbox>
+      </app-filter-container>
     </div>
     <mat-divider></mat-divider>
     <div class="flex flex-col gap-2">
