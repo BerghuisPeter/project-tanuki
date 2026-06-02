@@ -5,16 +5,18 @@ import { debounceTime } from "rxjs";
 import { NG_VALUE_ACCESSOR, ReactiveFormsModule } from "@angular/forms";
 import { MatInputModule } from "@angular/material/input";
 import { MatIconModule } from "@angular/material/icon";
+import { MatButtonModule } from "@angular/material/button";
 import { toObservable } from "@angular/core/rxjs-interop";
 
 @Component({
-  selector: 'app-debounced-search-field-component',
+  selector: 'app-debounced-search-field',
   imports: [
     ReactiveFormsModule,
     NgStyle,
     MatFormFieldModule,
     MatInputModule,
     MatIconModule,
+    MatButtonModule,
   ],
   providers: [
     {
@@ -24,8 +26,8 @@ import { toObservable } from "@angular/core/rxjs-interop";
     },
   ],
   changeDetection: ChangeDetectionStrategy.OnPush,
-  templateUrl: './debounced-search-field-component.html',
-  styleUrl: './debounced-search-field-component.scss',
+  templateUrl: './debounced-search-field.component.html',
+  styleUrl: './debounced-search-field.component.scss',
 })
 export class DebouncedSearchFieldComponent {
   readonly label = input('Search');
@@ -77,6 +79,11 @@ export class DebouncedSearchFieldComponent {
 
   onBlur(): void {
     this.onTouched();
+  }
+
+  clear(): void {
+    this.value.set('');
+    this.onChange('');
   }
 
   private onChange: (value: string) => void = () => {

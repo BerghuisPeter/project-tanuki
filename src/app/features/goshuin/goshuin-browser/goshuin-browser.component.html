@@ -1,7 +1,7 @@
 <ng-container *transloco="let t">
   <div [formGroup]="filterForm" class="flex flex-col gap-2 p-2 md:p-4">
     <div class="flex flex-col gap-1 md:gap-2 md:flex-row">
-      <app-debounced-search-field-component [debounceMs]="searchDebounceTime"
+      <app-debounced-search-field [debounceMs]="searchDebounceTime"
                                             class="grow"
                                             label="Search"
                                             formControlName="search"

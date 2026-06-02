@@ -15,10 +15,10 @@ import { FormBuilder, ReactiveFormsModule } from '@angular/forms';
 import { debounceTime, finalize, merge, switchMap } from 'rxjs';
 import { takeUntilDestroyed, toSignal } from '@angular/core/rxjs-interop';
 import { LoadingComponent } from "../../../shared/components/loading/loading.component";
+import { FilterContainerComponent } from "./filter-container/filter-container.component";
 import {
   DebouncedSearchFieldComponent
-} from "../../../shared/components/debounced-search-field-component/debounced-search-field-component";
-import { FilterContainerComponent } from "./filter-container/filter-container.component";
+} from "../../../shared/components/debounced-search-field/debounced-search-field.component";
 
 @Component({
   selector: 'app-goshuin-browser',
@@ -36,6 +36,7 @@ import { FilterContainerComponent } from "./filter-container/filter-container.co
     FilterContainerComponent,
     ReactiveFormsModule,
     LoadingComponent,
+    DebouncedSearchFieldComponent,
     DebouncedSearchFieldComponent,
   ],
   templateUrl: './goshuin-browser.component.html',
