@@ -21,6 +21,7 @@
     "generate:api:auth:prod": "openapi-generator-cli generate -i https://raw.githubusercontent.com/BerghuisPeter/project-tanuki-back/refs/heads/develop/services/auth-service/openapi.yaml -g typescript-angular -o src/openApi/auth --additional-properties=serviceSuffix=AuthService,apiModulePrefix=Auth",
     "generate:api:profile:prod": "openapi-generator-cli generate -i https://raw.githubusercontent.com/BerghuisPeter/project-tanuki-back/refs/heads/develop/services/profile-service/openapi.yaml -g typescript-angular -o src/openApi/profile --additional-properties=serviceSuffix=ProfileService,apiModulePrefix=Profile",
     "generate:api:goshuin:prod": "openapi-generator-cli generate -i https://raw.githubusercontent.com/BerghuisPeter/project-tanuki-back/refs/heads/develop/services/goshuin-service/openapi.yaml -g typescript-angular -o src/openApi/goshuin --additional-properties=serviceSuffix=GoshuinService,apiModulePrefix=goshuin",
+    "generate:api:local": "npm run generate:api:auth:local && npm run generate:api:profile:local && npm run generate:api:goshuin:local",
     "generate:api": "npm run generate:api:auth:dev && npm run generate:api:profile:dev && npm run generate:api:goshuin:dev",
     "generate:api:prod": "npm run generate:api:auth:prod && npm run generate:api:profile:prod && npm run generate:api:goshuin:prod",
     "lint:report": "eslint src --format json -o eslint-report.json",

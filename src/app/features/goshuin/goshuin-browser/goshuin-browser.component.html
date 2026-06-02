@@ -15,16 +15,16 @@
     <div class="flex flex-col md:flex-row gap-4 md:justify-between lg:justify-start">
       <app-filter-container title="Affiliation">
         <mat-chip-listbox class="grow" formControlName="affiliation" hideSingleSelectionIndicator>
-          <mat-chip-option value="shrine">Shrine</mat-chip-option>
-          <mat-chip-option value="temple">Temple</mat-chip-option>
+          <mat-chip-option [value]="AffiliationType.Shinto">Shrine</mat-chip-option>
+          <mat-chip-option [value]="AffiliationType.Buddhist">Temple</mat-chip-option>
         </mat-chip-listbox>
       </app-filter-container>
       <app-filter-container title="Goshuin type">
-        <mat-chip-listbox class="grow" formControlName="type" hideSingleSelectionIndicator>
-          <mat-chip-option value="written">Written in Book</mat-chip-option>
-          <mat-chip-option value="paper">Paper sheet</mat-chip-option>
-          <mat-chip-option value="cut">Cut sheet</mat-chip-option>
-          <mat-chip-option value="other">Other</mat-chip-option>
+        <mat-chip-listbox class="grow" formControlName="format" hideSingleSelectionIndicator>
+          <mat-chip-option [value]="GoshuinFormat.Written">Written in Book</mat-chip-option>
+          <mat-chip-option [value]="GoshuinFormat.Paper">Paper sheet</mat-chip-option>
+          <mat-chip-option [value]="GoshuinFormat.Cut">Cut sheet</mat-chip-option>
+          <mat-chip-option [value]="GoshuinFormat.Other">Other</mat-chip-option>
         </mat-chip-listbox>
       </app-filter-container>
       <app-filter-container title="Layout Length">

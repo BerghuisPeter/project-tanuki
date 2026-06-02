@@ -5,7 +5,7 @@ import { MatIcon } from '@angular/material/icon';
 import { ActivatedRoute, Params, Router, RouterLink } from '@angular/router';
 import { MatButton } from '@angular/material/button';
 import { MatInputModule } from '@angular/material/input';
-import { GoshuinGoshuinService } from '../../../../openApi/goshuin';
+import { AffiliationType, GoshuinFormat, GoshuinGoshuinService } from '../../../../openApi/goshuin';
 import { MatCard } from '@angular/material/card';
 import { LanguageService } from '../../../core/services/language.service';
 import { MatChipListbox, MatChipOption } from '@angular/material/chips';
@@ -42,6 +42,7 @@ import { FilterContainerComponent } from "./filter-container/filter-container.co
   styleUrl: './goshuin-browser.component.scss',
 })
 export class GoshuinBrowserComponent {
+  readonly GoshuinFormat = GoshuinFormat;
   readonly fullMapLink = ['/', APP_PATHS.GOSHUIN, APP_PATHS.GOSHUIN_MAP];
   readonly searchDebounceTime = 700;
 
@@ -51,7 +52,7 @@ export class GoshuinBrowserComponent {
   readonly filterForm = this.fb.group({
     search: [''],
     affiliation: [''],
-    type: [''],
+    format: [''],
     pages: [''],
     sortBy: ['date'],
   });
@@ -69,16 +70,7 @@ export class GoshuinBrowserComponent {
     this.goshuins$,
     { initialValue: [] }
   );
-
-  private readonly formChanges$ = merge(
-    this.filterForm.controls.search.valueChanges.pipe(
-      debounceTime(this.searchDebounceTime)
-    ),
-    this.filterForm.controls.affiliation.valueChanges,
-    this.filterForm.controls.type.valueChanges,
-    this.filterForm.controls.pages.valueChanges,
-    this.filterForm.controls.sortBy.valueChanges
-  );
+  protected readonly AffiliationType = AffiliationType;
 
   constructor() {
     this.route.queryParams
@@ -121,11 +113,28 @@ export class GoshuinBrowserComponent {
       ])
     );
   }
+  private readonly formChanges$ = merge(
+    this.filterForm.controls.search.valueChanges.pipe(
+      debounceTime(this.searchDebounceTime)
+    ),
+    this.filterForm.controls.affiliation.valueChanges,
+    this.filterForm.controls.format.valueChanges,
+    this.filterForm.controls.pages.valueChanges,
+    this.filterForm.controls.sortBy.valueChanges
+  );
 
   private loadGoshuins() {
     this.isLoadingQuery.set(true);
 
-    return this.goshuinService.getGoshuins().pipe(
+    const pagesValue = this.filterForm.controls.pages.value;
+    const pages = pagesValue === '' || pagesValue == null ? undefined : [Number(pagesValue)];
+
+    return this.goshuinService.searchGoshuins(
+      this.filterForm.controls.format.value as GoshuinFormat || undefined,
+      pages,
+      undefined,
+      undefined
+    ).pipe(
       finalize(() => this.isLoadingQuery.set(false))
     );
   }
