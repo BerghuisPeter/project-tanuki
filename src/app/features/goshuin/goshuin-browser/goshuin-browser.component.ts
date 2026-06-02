@@ -133,7 +133,9 @@ export class GoshuinBrowserComponent {
       params['format'] as GoshuinFormat || undefined,
       pages,
       undefined,
-      undefined
+      undefined,
+      params['affiliation'] || undefined,
+      params['search'] || undefined
     ).pipe(
       finalize(() => this.isLoadingQuery.set(false))
     );
