@@ -63,7 +63,7 @@ export class GoshuinBrowserComponent {
   private readonly router = inject(Router);
   private readonly route = inject(ActivatedRoute);
   private readonly goshuins$ = this.route.queryParams.pipe(
-    switchMap(() => this.loadGoshuins())
+    switchMap((params) => this.loadGoshuins(params))
   );
 
   readonly searchResults = toSignal(
@@ -123,14 +123,16 @@ export class GoshuinBrowserComponent {
     this.filterForm.controls.sortBy.valueChanges
   );
 
-  private loadGoshuins() {
+  private loadGoshuins(params: Params) {
     this.isLoadingQuery.set(true);
 
-    const pagesValue = this.filterForm.controls.pages.value;
+    const pagesValue = params['pages'];
     const pages = pagesValue === '' || pagesValue == null ? undefined : [Number(pagesValue)];
 
     return this.goshuinService.searchGoshuins(
-      this.filterForm.controls.format.value as GoshuinFormat || undefined,
+      params['search'] || undefined,
+      params['affiliation'] as AffiliationType || undefined,
+      params['format'] as GoshuinFormat || undefined,
       pages,
       undefined,
       undefined
