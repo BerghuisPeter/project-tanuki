@@ -130,8 +130,6 @@ export class GoshuinBrowserComponent {
     const pages = pagesValue === '' || pagesValue == null ? undefined : [Number(pagesValue)];
 
     return this.goshuinService.searchGoshuins(
-      params['search'] || undefined,
-      params['affiliation'] as AffiliationType || undefined,
       params['format'] as GoshuinFormat || undefined,
       pages,
       undefined,
