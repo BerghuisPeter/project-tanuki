@@ -12,13 +12,19 @@ import { MatChipListbox, MatChipOption } from '@angular/material/chips';
 import { MatDivider } from '@angular/material/list';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { FormBuilder, ReactiveFormsModule } from '@angular/forms';
-import { debounceTime, finalize, merge, switchMap } from 'rxjs';
+import { debounceTime, finalize, map, merge, switchMap } from 'rxjs';
 import { takeUntilDestroyed, toSignal } from '@angular/core/rxjs-interop';
 import { LoadingComponent } from "../../../shared/components/loading/loading.component";
 import {
   DebouncedSearchFieldComponent
 } from "../../../shared/components/debounced-search-field/debounced-search-field.component";
 import { NamedChipListFilterComponent } from "./named-chip-list-filter/named-chip-list-filter.component";
+import {
+  MatAccordion,
+  MatExpansionPanel,
+  MatExpansionPanelHeader,
+  MatExpansionPanelTitle
+} from "@angular/material/expansion";
 
 @Component({
   selector: 'app-goshuin-browser',
@@ -37,6 +43,10 @@ import { NamedChipListFilterComponent } from "./named-chip-list-filter/named-chi
     LoadingComponent,
     DebouncedSearchFieldComponent,
     NamedChipListFilterComponent,
+    MatAccordion,
+    MatExpansionPanelTitle,
+    MatExpansionPanel,
+    MatExpansionPanelHeader,
   ],
   templateUrl: './goshuin-browser.component.html',
   styleUrl: './goshuin-browser.component.scss',
@@ -62,22 +72,41 @@ export class GoshuinBrowserComponent {
   readonly isLoadingQuery = signal(true);
   private readonly router = inject(Router);
   private readonly route = inject(ActivatedRoute);
-  private readonly goshuins$ = this.route.queryParams.pipe(
-    switchMap((params) => this.loadGoshuins(params))
-  );
 
   readonly searchResults = toSignal(
-    this.goshuins$,
+    this.route.queryParams.pipe(
+      switchMap((params) => this.loadGoshuins(params))
+    ),
     { initialValue: [] }
   );
   protected readonly AffiliationType = AffiliationType;
+
+  readonly filterCount = toSignal(
+    this.route.queryParams.pipe(
+      map((params) => {
+        return Object.entries(params).filter(([key, value]) => {
+          if (key === 'sortBy' || key === 'search') return false;
+          return value !== '' && value != null;
+        }).length;
+      })
+    ),
+    { initialValue: 0 }
+  );
+
+  private readonly anyFormChanges$ = merge(
+    this.filterForm.controls.search.valueChanges.pipe(debounceTime(this.searchDebounceTime)),
+    this.filterForm.controls.affiliation.valueChanges,
+    this.filterForm.controls.format.valueChanges,
+    this.filterForm.controls.pages.valueChanges,
+    this.filterForm.controls.sortBy.valueChanges
+  );
 
   constructor() {
     this.route.queryParams
       .pipe(takeUntilDestroyed())
       .subscribe(params => this.patchFormFromQueryParams(params));
 
-    this.formChanges$
+    this.anyFormChanges$
       .pipe(takeUntilDestroyed())
       .subscribe(() => this.updateUrl());
   }
@@ -113,16 +142,6 @@ export class GoshuinBrowserComponent {
       ])
     );
   }
-
-  private readonly formChanges$ = merge(
-    this.filterForm.controls.search.valueChanges.pipe(
-      debounceTime(this.searchDebounceTime)
-    ),
-    this.filterForm.controls.affiliation.valueChanges,
-    this.filterForm.controls.format.valueChanges,
-    this.filterForm.controls.pages.valueChanges,
-    this.filterForm.controls.sortBy.valueChanges
-  );
 
   private loadGoshuins(params: Params) {
     this.isLoadingQuery.set(true);
