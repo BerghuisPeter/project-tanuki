@@ -1,5 +1,5 @@
 <div class="flex flex-col md:flex-row border border-gray-600">
-  <div class="relative">
+  <div class="relative grow basis-0">
     <div class="absolute top-3 left-3 flex flex-col gap-1 text-white">
       <div
         class="px-3 py-1 rounded-full bg-gray-800 w-fit border border-gray-600">{{ goshuin().temple.affiliationType }}
@@ -19,21 +19,24 @@
     </div>
     <img [src]="goshuin().images?.[0]?.url" alt="goshuin" class="responsive-image">
   </div>
-  <div class="flex flex-col gap-2 p-2 hidden md:flex">
-    <h2 class="text-lg">{{ goshuin().translations[currentLocale()]?.label }}</h2>
-    <p>{{ goshuin().translations[currentLocale()]?.description }}</p>
-  </div>
-  <div class="flex py-2 px-4 justify-between items-center">
-    <div class="flex gap-4 items-center">
-      <mat-icon>account_box</mat-icon>
-      <div class="flex flex-col ">
-        <span class="text-gray-200">UserName</span>
-        <span class="text-xs text-gray-400">date added under</span>
-      </div>
+  <div class="flex flex-col gap-2 p-3 md:flex justify-between grow basis-0">
+    <div class="flex flex-col gap-2 hidden md:flex">
+      <h2 class="text-lg">{{ goshuin().translations[currentLocale()]?.label }}</h2>
+      <p>{{ goshuin().translations[currentLocale()]?.description }}</p>
     </div>
-    <button mat-button>
-      <mat-icon>comment</mat-icon>
-      12
-    </button>
+    <div class="flex justify-between items-center">
+      <div class="flex gap-4 items-center">
+        <mat-icon>account_box</mat-icon>
+        <div class="flex flex-col ">
+          <span class="text-gray-200">UserName</span>
+          <span class="text-xs text-gray-400">date added under</span>
+        </div>
+      </div>
+      <button mat-button>
+        <mat-icon>comment</mat-icon>
+        12
+      </button>
+    </div>
   </div>
+
 </div>
