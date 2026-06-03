@@ -1,0 +1,33 @@
+<mat-accordion [formGroup]="service.filterForm">
+  <mat-expansion-panel expanded>
+    <mat-expansion-panel-header>
+      <mat-panel-title>
+        <span>filters ({{ filterCount() }})</span>
+      </mat-panel-title>
+    </mat-expansion-panel-header>
+    <div class="flex flex-col md:flex-row py-2 gap-4 md:justify-between lg:justify-start">
+      <app-named-chip-list-filter title="Affiliation">
+        <mat-chip-listbox class="grow" formControlName="affiliation" hideSingleSelectionIndicator>
+          <mat-chip-option [value]="AffiliationType.Shinto">Shrine</mat-chip-option>
+          <mat-chip-option [value]="AffiliationType.Buddhist">Temple</mat-chip-option>
+        </mat-chip-listbox>
+      </app-named-chip-list-filter>
+      <app-named-chip-list-filter title="Goshuin type">
+        <mat-chip-listbox class="grow" formControlName="format" hideSingleSelectionIndicator>
+          <mat-chip-option [value]="GoshuinFormat.Written">Written in Book</mat-chip-option>
+          <mat-chip-option [value]="GoshuinFormat.Paper">Paper sheet</mat-chip-option>
+          <mat-chip-option [value]="GoshuinFormat.Cut">Cut sheet</mat-chip-option>
+          <mat-chip-option [value]="GoshuinFormat.Other">Other</mat-chip-option>
+        </mat-chip-listbox>
+      </app-named-chip-list-filter>
+      <app-named-chip-list-filter title="Layout Length">
+        <mat-chip-listbox class="grow" formControlName="pages" hideSingleSelectionIndicator>
+          <mat-chip-option value="1">1 Page</mat-chip-option>
+          <mat-chip-option value="2">2 Pages</mat-chip-option>
+          <mat-chip-option value="3">3 Pages</mat-chip-option>
+          <mat-chip-option value="4">4 Pages</mat-chip-option>
+        </mat-chip-listbox>
+      </app-named-chip-list-filter>
+    </div>
+  </mat-expansion-panel>
+</mat-accordion>

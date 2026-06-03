@@ -1,0 +1,43 @@
+import { Component, computed, inject } from '@angular/core';
+import { ReactiveFormsModule } from '@angular/forms';
+import {
+  MatAccordion,
+  MatExpansionPanel,
+  MatExpansionPanelHeader,
+  MatExpansionPanelTitle
+} from '@angular/material/expansion';
+import { MatChipListbox, MatChipOption } from '@angular/material/chips';
+import { AffiliationType, GoshuinFormat } from '../../../../../openApi/goshuin';
+import { NamedChipListFilterComponent } from '../named-chip-list-filter/named-chip-list-filter.component';
+import { GoshuinBrowserService } from '../goshuin-browser.service';
+
+@Component({
+  selector: 'app-goshuin-filter-panel',
+  standalone: true,
+  imports: [
+    ReactiveFormsModule,
+    MatAccordion,
+    MatExpansionPanel,
+    MatExpansionPanelHeader,
+    MatExpansionPanelTitle,
+    MatChipListbox,
+    MatChipOption,
+    NamedChipListFilterComponent
+  ],
+  templateUrl: './goshuin-filter-panel.component.html',
+  styleUrl: './goshuin-filter-panel.component.scss'
+})
+export class GoshuinFilterPanelComponent {
+  protected readonly service = inject(GoshuinBrowserService);
+
+  readonly filterCount = computed(() => {
+    const values = this.service.filterFormValue();
+    return Object.entries(values).filter(([key, value]) => {
+      if (key === 'sortBy' || key === 'search') return false;
+      return value !== '' && value != null;
+    }).length;
+  });
+
+  protected readonly AffiliationType = AffiliationType;
+  protected readonly GoshuinFormat = GoshuinFormat;
+}

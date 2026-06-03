@@ -1,30 +1,21 @@
-import { Component, computed, inject, signal } from '@angular/core';
+import { Component, computed, inject } from '@angular/core';
 import { TranslocoDirective } from '@jsverse/transloco';
 import { APP_PATHS } from '../../../shared/models/app-paths.model';
 import { MatIcon } from '@angular/material/icon';
-import { ActivatedRoute, Params, Router, RouterLink } from '@angular/router';
+import { RouterLink } from '@angular/router';
 import { MatButton } from '@angular/material/button';
 import { MatInputModule } from '@angular/material/input';
-import { AffiliationType, GoshuinFormat, GoshuinGoshuinService } from '../../../../openApi/goshuin';
 import { MatCard } from '@angular/material/card';
 import { LanguageService } from '../../../core/services/language.service';
-import { MatChipListbox, MatChipOption } from '@angular/material/chips';
 import { MatDivider } from '@angular/material/list';
 import { MatFormFieldModule } from '@angular/material/form-field';
-import { FormBuilder, ReactiveFormsModule } from '@angular/forms';
-import { debounceTime, finalize, map, merge, switchMap } from 'rxjs';
-import { takeUntilDestroyed, toSignal } from '@angular/core/rxjs-interop';
+import { ReactiveFormsModule } from '@angular/forms';
 import { LoadingComponent } from "../../../shared/components/loading/loading.component";
 import {
   DebouncedSearchFieldComponent
 } from "../../../shared/components/debounced-search-field/debounced-search-field.component";
-import { NamedChipListFilterComponent } from "./named-chip-list-filter/named-chip-list-filter.component";
-import {
-  MatAccordion,
-  MatExpansionPanel,
-  MatExpansionPanelHeader,
-  MatExpansionPanelTitle
-} from "@angular/material/expansion";
+import { GoshuinFilterPanelComponent } from "./goshuin-filter-panel/goshuin-filter-panel.component";
+import { GoshuinBrowserService } from './goshuin-browser.service';
 
 @Component({
   selector: 'app-goshuin-browser',
@@ -36,128 +27,23 @@ import {
     MatFormFieldModule,
     MatInputModule,
     MatCard,
-    MatChipOption,
-    MatChipListbox,
     MatDivider,
     ReactiveFormsModule,
     LoadingComponent,
     DebouncedSearchFieldComponent,
-    NamedChipListFilterComponent,
-    MatAccordion,
-    MatExpansionPanelTitle,
-    MatExpansionPanel,
-    MatExpansionPanelHeader,
+    GoshuinFilterPanelComponent,
   ],
+  providers: [GoshuinBrowserService],
   templateUrl: './goshuin-browser.component.html',
   styleUrl: './goshuin-browser.component.scss',
 })
 export class GoshuinBrowserComponent {
-  readonly GoshuinFormat = GoshuinFormat;
   readonly fullMapLink = ['/', APP_PATHS.GOSHUIN, APP_PATHS.GOSHUIN_MAP];
-  readonly searchDebounceTime = 700;
 
-  private readonly goshuinService = inject(GoshuinGoshuinService);
   private readonly languageService = inject(LanguageService);
-  private readonly fb = inject(FormBuilder);
-  readonly filterForm = this.fb.group({
-    search: [''],
-    affiliation: [''],
-    format: [''],
-    pages: [''],
-    sortBy: ['date'],
-  });
+  protected readonly service = inject(GoshuinBrowserService);
+
   readonly currentLocale = computed(() =>
     this.languageService.currentLocale().slice(0, 2)
   );
-  readonly isLoadingQuery = signal(true);
-  private readonly router = inject(Router);
-  private readonly route = inject(ActivatedRoute);
-
-  readonly searchResults = toSignal(
-    this.route.queryParams.pipe(
-      switchMap((params) => this.loadGoshuins(params))
-    ),
-    { initialValue: [] }
-  );
-  protected readonly AffiliationType = AffiliationType;
-
-  readonly filterCount = toSignal(
-    this.route.queryParams.pipe(
-      map((params) => {
-        return Object.entries(params).filter(([key, value]) => {
-          if (key === 'sortBy' || key === 'search') return false;
-          return value !== '' && value != null;
-        }).length;
-      })
-    ),
-    { initialValue: 0 }
-  );
-
-  private readonly anyFormChanges$ = merge(
-    this.filterForm.controls.search.valueChanges.pipe(debounceTime(this.searchDebounceTime)),
-    this.filterForm.controls.affiliation.valueChanges,
-    this.filterForm.controls.format.valueChanges,
-    this.filterForm.controls.pages.valueChanges,
-    this.filterForm.controls.sortBy.valueChanges
-  );
-
-  constructor() {
-    this.route.queryParams
-      .pipe(takeUntilDestroyed())
-      .subscribe(params => this.patchFormFromQueryParams(params));
-
-    this.anyFormChanges$
-      .pipe(takeUntilDestroyed())
-      .subscribe(() => this.updateUrl());
-  }
-
-  private patchFormFromQueryParams(params: Params): void {
-    this.filterForm.patchValue(
-      {
-        ...this.filterForm.getRawValue(),
-        ...params,
-      },
-      {
-        emitEvent: false,
-      }
-    );
-  }
-
-  private updateUrl(): void {
-    const queryParams = this.buildQueryParams();
-    this.router.navigate([], {
-      relativeTo: this.route,
-      queryParams,
-      replaceUrl: true,
-    });
-  }
-
-  private buildQueryParams(): Params {
-    const values = this.filterForm.getRawValue();
-
-    return Object.fromEntries(
-      Object.entries(values).map(([key, value]) => [
-        key,
-        value === '' || value == null ? null : value,
-      ])
-    );
-  }
-
-  private loadGoshuins(params: Params) {
-    this.isLoadingQuery.set(true);
-
-    const pagesValue = params['pages'];
-    const pages = pagesValue === '' || pagesValue == null ? undefined : [Number(pagesValue)];
-
-    return this.goshuinService.searchGoshuins(
-      params['format'] as GoshuinFormat || undefined,
-      pages,
-      undefined,
-      undefined,
-      params['affiliation'] || undefined,
-      params['search'] || undefined
-    ).pipe(
-      finalize(() => this.isLoadingQuery.set(false))
-    );
-  }
 }
