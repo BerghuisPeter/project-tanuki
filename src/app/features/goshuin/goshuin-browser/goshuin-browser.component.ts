@@ -15,10 +15,10 @@ import { FormBuilder, ReactiveFormsModule } from '@angular/forms';
 import { debounceTime, finalize, merge, switchMap } from 'rxjs';
 import { takeUntilDestroyed, toSignal } from '@angular/core/rxjs-interop';
 import { LoadingComponent } from "../../../shared/components/loading/loading.component";
-import { FilterContainerComponent } from "./filter-container/filter-container.component";
 import {
   DebouncedSearchFieldComponent
 } from "../../../shared/components/debounced-search-field/debounced-search-field.component";
+import { NamedChipListFilterComponent } from "./named-chip-list-filter/named-chip-list-filter.component";
 
 @Component({
   selector: 'app-goshuin-browser',
@@ -33,11 +33,10 @@ import {
     MatChipOption,
     MatChipListbox,
     MatDivider,
-    FilterContainerComponent,
     ReactiveFormsModule,
     LoadingComponent,
     DebouncedSearchFieldComponent,
-    DebouncedSearchFieldComponent,
+    NamedChipListFilterComponent,
   ],
   templateUrl: './goshuin-browser.component.html',
   styleUrl: './goshuin-browser.component.scss',
@@ -114,6 +113,7 @@ export class GoshuinBrowserComponent {
       ])
     );
   }
+
   private readonly formChanges$ = merge(
     this.filterForm.controls.search.valueChanges.pipe(
       debounceTime(this.searchDebounceTime)
