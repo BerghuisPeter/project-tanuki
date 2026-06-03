@@ -8,8 +8,8 @@ import {
 } from '@angular/material/expansion';
 import { MatChipListbox, MatChipOption } from '@angular/material/chips';
 import { AffiliationType, GoshuinFormat } from '../../../../../openApi/goshuin';
-import { NamedChipListFilterComponent } from '../named-chip-list-filter/named-chip-list-filter.component';
 import { GoshuinBrowserService } from '../goshuin-browser.service';
+import { NamedChipListFilterComponent } from "./named-chip-list-filter/named-chip-list-filter.component";
 
 @Component({
   selector: 'app-goshuin-filter-panel',

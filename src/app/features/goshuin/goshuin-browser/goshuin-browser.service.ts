@@ -8,13 +8,6 @@ import { AffiliationType, GoshuinFormat, GoshuinGoshuinService } from '../../../
 @Injectable()
 export class GoshuinBrowserService {
   readonly searchDebounceTime = 700;
-  readonly filterFormValue = toSignal(
-    this.filterForm.valueChanges.pipe(
-      startWith(this.filterForm.value)
-    ),
-    { initialValue: this.filterForm.value }
-  );
-  readonly isLoadingQuery = signal(true);
   private readonly goshuinService = inject(GoshuinGoshuinService);
   private readonly fb = inject(FormBuilder);
   readonly filterForm = this.fb.group({
@@ -24,8 +17,24 @@ export class GoshuinBrowserService {
     pages: [''],
     sortBy: ['date'],
   });
+  readonly filterFormValue = toSignal(
+    this.filterForm.valueChanges.pipe(
+      startWith(this.filterForm.value)
+    ),
+    { initialValue: this.filterForm.value }
+  );
+  readonly isLoadingQuery = signal(true);
   private readonly router = inject(Router);
   private readonly route = inject(ActivatedRoute);
+
+  private readonly anyFormChanges$ = merge(
+    this.filterForm.controls.search.valueChanges.pipe(debounceTime(this.searchDebounceTime)),
+    this.filterForm.controls.affiliation.valueChanges,
+    this.filterForm.controls.format.valueChanges,
+    this.filterForm.controls.pages.valueChanges,
+    this.filterForm.controls.sortBy.valueChanges
+  );
+
   readonly searchResults = toSignal(
     this.route.queryParams.pipe(
       tap(() => this.isLoadingQuery.set(true)),
@@ -36,14 +45,6 @@ export class GoshuinBrowserService {
       tap(() => this.isLoadingQuery.set(false))
     ),
     { initialValue: [] }
-  );
-
-  private readonly anyFormChanges$ = merge(
-    this.filterForm.controls.search.valueChanges.pipe(debounceTime(this.searchDebounceTime)),
-    this.filterForm.controls.affiliation.valueChanges,
-    this.filterForm.controls.format.valueChanges,
-    this.filterForm.controls.pages.valueChanges,
-    this.filterForm.controls.sortBy.valueChanges
   );
 
   constructor() {
