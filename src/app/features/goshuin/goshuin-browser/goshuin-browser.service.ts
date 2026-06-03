@@ -2,7 +2,7 @@ import { inject, Injectable, signal } from '@angular/core';
 import { FormBuilder } from '@angular/forms';
 import { ActivatedRoute, Params, Router } from '@angular/router';
 import { takeUntilDestroyed, toSignal } from '@angular/core/rxjs-interop';
-import { debounceTime, EMPTY, finalize, merge, startWith, switchMap, tap } from 'rxjs';
+import { debounceTime, distinctUntilChanged, EMPTY, finalize, merge, startWith, switchMap, tap } from 'rxjs';
 import { AffiliationType, GoshuinFormat, GoshuinGoshuinService } from '../../../../openApi/goshuin';
 
 @Injectable()
@@ -28,11 +28,11 @@ export class GoshuinBrowserService {
   private readonly route = inject(ActivatedRoute);
 
   private readonly anyFormChanges$ = merge(
-    this.filterForm.controls.search.valueChanges.pipe(debounceTime(this.searchDebounceTime)),
-    this.filterForm.controls.affiliation.valueChanges,
-    this.filterForm.controls.format.valueChanges,
-    this.filterForm.controls.pages.valueChanges,
-    this.filterForm.controls.sortBy.valueChanges
+    this.filterForm.controls.search.valueChanges.pipe(debounceTime(this.searchDebounceTime), distinctUntilChanged()),
+    this.filterForm.controls.affiliation.valueChanges.pipe(distinctUntilChanged()),
+    this.filterForm.controls.format.valueChanges.pipe(distinctUntilChanged()),
+    this.filterForm.controls.pages.valueChanges.pipe(distinctUntilChanged()),
+    this.filterForm.controls.sortBy.valueChanges.pipe(distinctUntilChanged())
   );
 
   readonly searchResults = toSignal(
@@ -63,9 +63,6 @@ export class GoshuinBrowserService {
       {
         ...this.filterForm.getRawValue(),
         ...params,
-      },
-      {
-        emitEvent: false,
       }
     );
   }
