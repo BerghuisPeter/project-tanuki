@@ -1,0 +1,13 @@
+<ng-container *transloco="let t">
+  <div class="flex flex-col gap-2">
+    @if (service.isLoadingQuery()) {
+      <app-loading/>
+    } @else {
+      @for (goshuin of service.searchResults(); track goshuin.id; let i = $index) {
+        <app-goshuin-browser-list-item [currentLocale]="currentLocale()" [goshuin]="goshuin"/>
+      } @empty {
+        <p class="text-center">No results found</p>
+      }
+    }
+  </div>
+</ng-container>

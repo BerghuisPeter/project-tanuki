@@ -2,7 +2,7 @@ import { inject, Injectable, signal } from '@angular/core';
 import { FormBuilder } from '@angular/forms';
 import { ActivatedRoute, Params, Router } from '@angular/router';
 import { takeUntilDestroyed, toSignal } from '@angular/core/rxjs-interop';
-import { debounceTime, EMPTY, merge, startWith, switchMap, tap } from 'rxjs';
+import { debounceTime, EMPTY, finalize, merge, startWith, switchMap, tap } from 'rxjs';
 import { AffiliationType, GoshuinFormat, GoshuinGoshuinService } from '../../../../openApi/goshuin';
 
 @Injectable()
@@ -44,9 +44,10 @@ export class GoshuinBrowserService {
           this.updateUrl();
           return EMPTY;
         }
-        return this.loadGoshuins(params);
-      }),
-      tap(() => this.isLoadingQuery.set(false))
+        return this.loadGoshuins(params).pipe(
+          finalize(() => this.isLoadingQuery.set(false))
+        );
+      })
     ),
     { initialValue: [] }
   );
