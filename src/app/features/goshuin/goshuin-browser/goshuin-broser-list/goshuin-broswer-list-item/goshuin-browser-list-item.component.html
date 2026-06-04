@@ -1,4 +1,4 @@
-<div class="flex flex-col md:flex-row border border-gray-600 md:h-80">
+<div class="flex flex-col md:flex-row border border-gray-600 md:h-90">
   <div class="relative md:grow md:basis-0 h-full">
     <div class="absolute top-3 left-3 flex flex-col gap-1 text-white">
       <div
@@ -14,7 +14,9 @@
       <span class="font-medium text-lg">{{ goshuin().temple.translations[currentLocale()]?.name }}</span>
       <button class="w-fit !pl-0" mat-button>
         <mat-icon class="">location_on</mat-icon>
-        {{ goshuin().temple.translations[currentLocale()]?.address }}
+        {{ goshuin().temple.translations[currentLocale()]?.city }}
+        , {{ goshuin().temple.translations[currentLocale()]?.prefecture }}
+        , {{ goshuin().temple.translations[currentLocale()]?.region }}
       </button>
     </div>
     <img [src]="goshuin().images?.[0]?.url" alt="goshuin" class="h-full w-full object-cover">
