@@ -40,7 +40,11 @@
     }
     <div class="flex justify-between items-center">
       <div class="flex gap-4 items-center">
-        <mat-icon>account_box</mat-icon>
+        @if (goshuin().creator.profile?.avatarUrl) {
+          <img [src]="goshuin().creator.profile?.avatarUrl" alt="avatar" class="w-6 h-6 rounded-full">
+        } @else {
+          <mat-icon class="icon-primary !overflow-visible" fontIcon="person"></mat-icon>
+        }
         <div class="flex flex-col ">
           <span class="text-gray-200">
             @if (goshuin().creator.profile?.displayName) {

@@ -3,7 +3,7 @@ import { FormBuilder } from '@angular/forms';
 import { ActivatedRoute, Params, Router } from '@angular/router';
 import { takeUntilDestroyed, toSignal } from '@angular/core/rxjs-interop';
 import { debounceTime, distinctUntilChanged, EMPTY, finalize, merge, startWith, switchMap, tap } from 'rxjs';
-import { AffiliationType, GoshuinFormat, GoshuinGoshuinService } from '../../../../openApi/goshuin';
+import { AffiliationType, GoshuinFormat, GoshuinGoshuinService, GoshuinSort } from '../../../../openApi/goshuin';
 
 @Injectable()
 export class GoshuinBrowserService {
@@ -15,7 +15,7 @@ export class GoshuinBrowserService {
     affiliation: [''],
     format: [''],
     pages: [''],
-    sortBy: ['date'],
+    sort: ['createdAt'],
   });
   readonly filterFormValue = toSignal(
     this.filterForm.valueChanges.pipe(
@@ -26,21 +26,12 @@ export class GoshuinBrowserService {
   readonly isLoadingQuery = signal(true);
   private readonly router = inject(Router);
   private readonly route = inject(ActivatedRoute);
-
-  private readonly anyFormChanges$ = merge(
-    this.filterForm.controls.search.valueChanges.pipe(debounceTime(this.searchDebounceTime), distinctUntilChanged()),
-    this.filterForm.controls.affiliation.valueChanges.pipe(distinctUntilChanged()),
-    this.filterForm.controls.format.valueChanges.pipe(distinctUntilChanged()),
-    this.filterForm.controls.pages.valueChanges.pipe(distinctUntilChanged()),
-    this.filterForm.controls.sortBy.valueChanges.pipe(distinctUntilChanged())
-  );
-
   readonly searchResults = toSignal(
     this.route.queryParams.pipe(
       tap(() => this.isLoadingQuery.set(true)),
       switchMap((params) => {
         this.patchFormFromQueryParams(params);
-        if (!params['sortBy']) {
+        if (!params['sort']) {
           this.updateUrl();
           return EMPTY;
         }
@@ -50,6 +41,13 @@ export class GoshuinBrowserService {
       })
     ),
     { initialValue: [] }
+  );
+  private readonly anyFormChanges$ = merge(
+    this.filterForm.controls.search.valueChanges.pipe(debounceTime(this.searchDebounceTime), distinctUntilChanged()),
+    this.filterForm.controls.affiliation.valueChanges.pipe(distinctUntilChanged()),
+    this.filterForm.controls.format.valueChanges.pipe(distinctUntilChanged()),
+    this.filterForm.controls.pages.valueChanges.pipe(distinctUntilChanged()),
+    this.filterForm.controls.sort.valueChanges.pipe(distinctUntilChanged())
   );
 
   constructor() {
@@ -97,7 +95,8 @@ export class GoshuinBrowserService {
       undefined,
       undefined,
       params['affiliation'] as AffiliationType || undefined,
-      params['search'] || undefined
+      params['search'] || undefined,
+      params['sort'] as GoshuinSort || undefined
     );
   }
 }

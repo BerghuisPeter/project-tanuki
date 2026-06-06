@@ -14,6 +14,8 @@ import {
 import { GoshuinFilterPanelComponent } from "./goshuin-filter-panel/goshuin-filter-panel.component";
 import { GoshuinBrowserService } from './goshuin-browser.service';
 import { GoshuinBrowserListComponent } from "./goshuin-broser-list/goshuin-browser-list.component";
+import { MatOption, MatSelect } from "@angular/material/select";
+import { GoshuinSort } from "../../../../openApi/goshuin";
 
 @Component({
   selector: 'app-goshuin-browser',
@@ -29,6 +31,8 @@ import { GoshuinBrowserListComponent } from "./goshuin-broser-list/goshuin-brows
     DebouncedSearchFieldComponent,
     GoshuinFilterPanelComponent,
     GoshuinBrowserListComponent,
+    MatSelect,
+    MatOption,
   ],
   providers: [GoshuinBrowserService],
   templateUrl: './goshuin-browser.component.html',
@@ -37,4 +41,5 @@ import { GoshuinBrowserListComponent } from "./goshuin-broser-list/goshuin-brows
 export class GoshuinBrowserComponent {
   readonly fullMapLink = ['/', APP_PATHS.GOSHUIN, APP_PATHS.GOSHUIN_MAP];
   protected readonly service = inject(GoshuinBrowserService);
+  protected readonly GoshuinSort = GoshuinSort;
 }

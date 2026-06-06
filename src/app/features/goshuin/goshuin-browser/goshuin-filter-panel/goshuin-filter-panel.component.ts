@@ -33,7 +33,7 @@ export class GoshuinFilterPanelComponent {
   readonly filterCount = computed(() => {
     const values = this.service.filterFormValue();
     return Object.entries(values).filter(([key, value]) => {
-      if (key === 'sortBy' || key === 'search') return false;
+      if (key === 'sort' || key === 'search') return false;
       return value !== '' && value != null;
     }).length;
   });
