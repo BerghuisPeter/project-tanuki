@@ -18,6 +18,9 @@
             <mat-option [value]="GoshuinSort.CommentCount">
               comments
             </mat-option>
+            <mat-option [value]="GoshuinSort.Nearby" disabled>
+              nearby
+            </mat-option>
           </mat-select>
         </mat-form-field>
         <a [routerLink]="fullMapLink" class="grow min-w-fit whitespace-nowrap" color="primary" mat-stroked-button>
