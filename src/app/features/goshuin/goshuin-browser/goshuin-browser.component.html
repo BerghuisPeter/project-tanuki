@@ -1,6 +1,6 @@
 <ng-container *transloco="let t">
   <div [formGroup]="service.filterForm" class="flex flex-col gap-2 p-2 md:p-4">
-    <div class="flex flex-col gap-2 md:flex-row">
+    <div class="flex flex-col gap-2 md:flex-row md:items-center">
       <app-debounced-search-field [debounceMs]="service.searchDebounceTime"
                                   class="grow"
                                   formControlName="search"
@@ -20,12 +20,11 @@
             </mat-option>
           </mat-select>
         </mat-form-field>
-        <a [routerLink]="fullMapLink" class="md:mt-2 grow" color="primary" mat-stroked-button>
+        <a [routerLink]="fullMapLink" class="grow min-w-fit whitespace-nowrap" color="primary" mat-stroked-button>
           <mat-icon color="primary" fontIcon="map"></mat-icon>
           <span>{{ t('goshuin.browse.goToMap') }}</span>
         </a>
       </div>
-
     </div>
     <app-goshuin-filter-panel/>
     <mat-divider></mat-divider>

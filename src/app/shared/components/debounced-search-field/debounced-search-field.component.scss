@@ -1,6 +1,10 @@
 .progress-container {
-  height: 3px;
+  height: 5px;
   overflow: hidden;
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: 0;
 }
 
 .progress-bar {
