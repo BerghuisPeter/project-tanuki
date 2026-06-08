@@ -1,0 +1,31 @@
+<ng-container *transloco="let t">
+  <div [formGroup]="service.filterForm" class="flex flex-col gap-2 md:flex-row md:items-center">
+    <app-debounced-search-field [debounceMs]="service.searchDebounceTime"
+                                class="grow"
+                                formControlName="search"
+                                label="Search"
+                                placeholder="By temple, city..."
+    />
+    <div class="flex gap-2 items-center">
+      <mat-form-field appearance="outline" subscriptSizing="dynamic">
+        <mat-label>Sort by</mat-label>
+
+        <mat-select formControlName="sort">
+          <mat-option [value]="GoshuinSort.CreatedAt">
+            newest
+          </mat-option>
+          <mat-option [value]="GoshuinSort.CommentCount">
+            comments
+          </mat-option>
+          <mat-option [value]="GoshuinSort.Nearby" disabled>
+            nearby
+          </mat-option>
+        </mat-select>
+      </mat-form-field>
+      <a [routerLink]="fullMapLink" class="grow min-w-fit whitespace-nowrap" color="primary" mat-stroked-button>
+        <mat-icon color="primary" fontIcon="map"></mat-icon>
+        <span>{{ t('goshuin.browse.goToMap') }}</span>
+      </a>
+    </div>
+  </div>
+</ng-container>
