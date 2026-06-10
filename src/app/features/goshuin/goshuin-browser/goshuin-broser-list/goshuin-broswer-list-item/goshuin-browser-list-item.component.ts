@@ -4,6 +4,7 @@ import { MatIcon } from "@angular/material/icon";
 import { MatButton } from "@angular/material/button";
 import { MatDivider } from "@angular/material/list";
 import { DatePipe } from "@angular/common";
+import { LazyLoadedImgComponent } from "src/app/shared/components/lazy-loaded-img/lazy-loaded-img.component";
 
 @Component({
   selector: 'app-goshuin-browser-list-item',
@@ -11,7 +12,8 @@ import { DatePipe } from "@angular/common";
     MatIcon,
     MatButton,
     MatDivider,
-    DatePipe
+    DatePipe,
+    LazyLoadedImgComponent
   ],
   templateUrl: './goshuin-browser-list-item.component.html',
   styleUrl: './goshuin-browser-list-item.component.scss',

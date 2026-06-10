@@ -1,0 +1,18 @@
+<div class="relative h-full w-full">
+
+  @if (!imageLoaded()) {
+    <div
+      class="absolute inset-0 animate-pulse bg-gray-700">
+    </div>
+  }
+
+  <img
+    (load)="imageLoaded.set(true)"
+    [alt]="alt()"
+    [class.opacity-0]="!imageLoaded()"
+    [class.opacity-100]="imageLoaded()"
+    [src]="imageUrl()"
+    class="transition-opacity duration-300 h-full w-full object-cover"
+    loading="lazy">
+
+</div>
