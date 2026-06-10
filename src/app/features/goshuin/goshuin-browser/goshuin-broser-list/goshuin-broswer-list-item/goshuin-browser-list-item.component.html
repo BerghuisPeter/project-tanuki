@@ -1,5 +1,5 @@
-<div class="flex flex-col md:flex-row border border-gray-600 md:h-90">
-  <div class="relative md:grow md:basis-0 h-full">
+<div class="flex flex-col md:flex-row h-110 border border-gray-600">
+  <div class="relative h-48 md:h-full grow md:basis-0">
     <app-lazy-loaded-img [imageUrl]="goshuin().images?.[0]?.url" alt="goshuin" class="h-full" />
     <div class="absolute top-3 left-3 flex flex-col gap-1 text-white">
       <div
@@ -11,22 +11,22 @@
       </div>
     </div>
     <div
-      class="absolute bottom-0 left-0 flex flex-col md:hidden bg-[linear-gradient(to_top,color-mix(in_srgb,var(--mat-sys-surface)_80%,transparent)_0%,color-mix(in_srgb,var(--mat-sys-surface)_50%,transparent)_70%,transparent_100%)] w-full p-3">
+      class="absolute bottom-0 left-0 flex flex-col md:hidden bg-[linear-gradient(to_top,color-mix(in_srgb,var(--mat-sys-surface)_80%,transparent),color-mix(in_srgb,var(--mat-sys-surface)_50%,transparent)_70%,transparent_100%)] w-full p-3">
       <span class="font-medium text-lg">{{ goshuin().temple.translations[currentLocale()]?.name }}</span>
       <button class="w-fit !pl-0" mat-button>
-        <mat-icon class="">location_on</mat-icon>
+        <mat-icon>location_on</mat-icon>
         {{ goshuin().temple.translations[currentLocale()]?.city }}
         , {{ goshuin().temple.translations[currentLocale()]?.prefecture }}
         , {{ goshuin().temple.translations[currentLocale()]?.region }}
       </button>
     </div>
   </div>
-  <div class="flex flex-col gap-2 p-3 justify-between md:grow md:basis-0 min-h-0">
+  <div class="flex flex-col gap-2 p-3 justify-between basis-0 md:grow md:basis-0">
     <div class="flex flex-col gap-2 hidden md:flex grow min-h-0">
       <h2 class="text-lg">{{ goshuin().translations[currentLocale()]?.label }}</h2>
       <h3 class="text-md">{{ goshuin().temple.translations[currentLocale()]?.name }}</h3>
       <button class="w-fit !pl-0" mat-button>
-        <mat-icon class="">location_on</mat-icon>
+        <mat-icon>location_on</mat-icon>
         {{ goshuin().temple.translations[currentLocale()]?.address }}
         , {{ goshuin().temple.translations[currentLocale()]?.city }}
         , {{ goshuin().temple.translations[currentLocale()]?.prefecture }}
@@ -44,7 +44,7 @@
         } @else {
           <mat-icon class="icon-primary !overflow-visible" fontIcon="person"></mat-icon>
         }
-        <div class="flex flex-col ">
+        <div class="flex flex-col">
           <span class="text-gray-200">
             @if (goshuin().creator.profile?.displayName) {
               {{ goshuin().creator.profile?.displayName ?? 'Unknown Creator' }}
