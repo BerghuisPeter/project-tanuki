@@ -2,8 +2,8 @@ import { Component, computed, inject } from '@angular/core';
 import { GoshuinBrowserService } from "../goshuin-browser.service";
 import { GoshuinBrowserListItemComponent } from "./goshuin-broswer-list-item/goshuin-browser-list-item.component";
 import {
-  GoshuinBrowserListSkeletonComponent
-} from "./goshuin-browser-list-skeleton/goshuin-browser-list-skeleton.component";
+  GoshuinBrowserListItemSkeletonComponent
+} from "src/app/features/goshuin/goshuin-browser/goshuin-broser-list/goshuin-browser-list-item-skeleton/goshuin-browser-list-item-skeleton.component";
 import { LanguageService } from "../../../../core/services/language.service";
 import { TranslocoDirective } from "@jsverse/transloco";
 
@@ -11,7 +11,7 @@ import { TranslocoDirective } from "@jsverse/transloco";
   selector: 'app-goshuin-browser-list',
   imports: [
     GoshuinBrowserListItemComponent,
-    GoshuinBrowserListSkeletonComponent,
+    GoshuinBrowserListItemSkeletonComponent,
     TranslocoDirective
   ],
   templateUrl: './goshuin-browser-list.component.html',

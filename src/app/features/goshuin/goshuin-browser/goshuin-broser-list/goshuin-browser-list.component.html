@@ -1,8 +1,8 @@
 <ng-container *transloco="let t">
   <div class="grid grid-cols-1 lg:grid-cols-2 xl:grid-cols-3 gap-4">
     @if (service.isLoadingQuery()) {
-      @for (i of [1, 2, 3, 4, 5, 6]; track i) {
-        <app-goshuin-browser-list-skeleton/>
+      @for (i of [1, 2, 3]; track i) {
+        <app-goshuin-browser-list-item-skeleton />
       }
     } @else {
       @for (goshuin of service.searchResults(); track goshuin.id; let i = $index) {
