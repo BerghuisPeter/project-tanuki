@@ -125,8 +125,6 @@ export class GoshuinBrowserService {
       10,
       params['format'] as GoshuinFormat || undefined,
       pages,
-      undefined,
-      undefined,
       params['affiliation'] as AffiliationType || undefined,
       params['search'] || undefined,
       params['sort'] as GoshuinSort || undefined,
