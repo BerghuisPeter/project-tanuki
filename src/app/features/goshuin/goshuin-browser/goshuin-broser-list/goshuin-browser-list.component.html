@@ -1,15 +1,37 @@
 <ng-container *transloco="let t">
   <div class="grid grid-cols-1 lg:grid-cols-2 2xl:grid-cols-3 gap-4">
+
     @if (service.isLoadingQuery()) {
+      <!-- Fresh search: full skeleton, no list -->
       @for (i of [1, 2, 3]; track i) {
-        <app-goshuin-browser-list-item-skeleton />
+        <app-goshuin-browser-list-item-skeleton/>
       }
     } @else {
-      @for (goshuin of service.searchResults(); track goshuin.id; let i = $index) {
-        <app-goshuin-browser-list-item [currentLocale]="currentLocale()" [goshuin]="goshuin"/>
+      <!-- Results always rendered here -->
+      @for (goshuin of service.goshuins(); track goshuin.id) {
+        <app-goshuin-browser-list-item
+          [currentLocale]="currentLocale()"
+          [goshuin]="goshuin"/>
       } @empty {
-        <p class="text-center">No results found</p>
+        <p class="text-center col-span-full">No results found</p>
+      }
+
+      <!-- Append skeletons below for infinite scroll pages -->
+      @if (service.isLoadingMore()) {
+        @for (i of [1, 2, 3]; track i) {
+          <app-goshuin-browser-list-item-skeleton/>
+        }
       }
     }
+
+    @if (!service.isLoadingQuery() && !service.hasMore() && service.goshuins().length > 0) {
+      <div class="flex items-center gap-3 my-4 text-sm text-gray-400">
+        <hr class="flex-1 border-t-2 border-red-800"/>
+        <span>{{ t('end') }}</span>
+        <hr class="flex-1 border-t-2 border-red-800"/>
+      </div>
+    }
+
   </div>
+  <div #sentinel class="h-1"></div>
 </ng-container>

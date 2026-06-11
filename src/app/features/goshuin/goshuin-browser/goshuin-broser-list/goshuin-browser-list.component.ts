@@ -1,4 +1,13 @@
-import { Component, computed, inject } from '@angular/core';
+import {
+  AfterViewInit,
+  ChangeDetectionStrategy,
+  Component,
+  computed,
+  ElementRef,
+  inject,
+  OnDestroy,
+  ViewChild
+} from '@angular/core';
 import { GoshuinBrowserService } from "../goshuin-browser.service";
 import { GoshuinBrowserListItemComponent } from "./goshuin-broswer-list-item/goshuin-browser-list-item.component";
 import {
@@ -16,11 +25,29 @@ import { TranslocoDirective } from "@jsverse/transloco";
   ],
   templateUrl: './goshuin-browser-list.component.html',
   styleUrl: './goshuin-browser-list.component.scss',
+  changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class GoshuinBrowserListComponent {
+export class GoshuinBrowserListComponent implements AfterViewInit, OnDestroy {
   protected readonly service = inject(GoshuinBrowserService);
   private readonly languageService = inject(LanguageService);
-  readonly currentLocale = computed(() =>
-    this.languageService.currentLocale().slice(0, 2)
-  );
+  readonly currentLocale = computed(() => this.languageService.currentLocale().slice(0, 2));
+
+  @ViewChild('sentinel') private readonly sentinel!: ElementRef<HTMLElement>;
+  private observer?: IntersectionObserver;
+
+  ngAfterViewInit(): void {
+    this.observer = new IntersectionObserver(
+      (entries) => {
+        if (entries[0].isIntersecting && this.service.hasMore() && !this.service.isLoadingMore()) {
+          this.service.loadMore();
+        }
+      },
+      { threshold: 0.1 }
+    );
+    this.observer.observe(this.sentinel.nativeElement);
+  }
+
+  ngOnDestroy(): void {
+    this.observer?.disconnect();
+  }
 }
