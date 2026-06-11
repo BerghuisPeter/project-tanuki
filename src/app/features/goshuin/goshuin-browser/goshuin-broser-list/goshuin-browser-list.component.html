@@ -24,14 +24,13 @@
       }
     }
 
-    @if (!service.isLoadingQuery() && !service.hasMore() && service.goshuins().length > 0) {
-      <div class="flex items-center gap-3 my-4 text-sm text-gray-400">
-        <hr class="flex-1 border-t-2 border-red-800"/>
-        <span>{{ t('end') }}</span>
-        <hr class="flex-1 border-t-2 border-red-800"/>
-      </div>
-    }
-
   </div>
+  @if (!service.isLoadingQuery() && !service.hasMore() && service.goshuins().length > 0) {
+    <div class="flex items-center gap-3 my-4 text-sm text-gray-400">
+      <hr class="flex-1 border-t-2 border-red-800"/>
+      <span>{{ t('end') }}</span>
+      <hr class="flex-1 border-t-2 border-red-800"/>
+    </div>
+  }
   <div #sentinel class="h-1"></div>
 </ng-container>
