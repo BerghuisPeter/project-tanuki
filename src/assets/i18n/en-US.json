@@ -38,7 +38,8 @@
       "gotoLogin": "Already have an account? Login"
     },
     "text": {
-      "or": "OR"
+      "or": "OR",
+      "end": "End of results"
     }
   },
   "globalChat": {
@@ -118,7 +119,14 @@
   },
   "goshuin": {
     "browse": {
-      "goToMap": "Go to map"
+      "goToMap": "Go to map",
+      "locationRequired": "Location Required",
+      "locationMessage": "Searching by proximity requires access to your location.",
+      "locationDenied": "Location Access Blocked",
+      "locationDeniedMessage": "We can't show nearby results because location access was denied. Please enable it in your browser settings.",
+      "locationError": "Location Unavailable",
+      "locationErrorMessage": "We couldn't get your location right now. Please try again.",
+      "tryAgain": "Try Again"
     },
     "map": {
       "loading": "Loading map...",

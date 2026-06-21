@@ -38,7 +38,8 @@
       "gotoLogin": "Heb je al een account? Log in"
     },
     "text": {
-      "or": "OF"
+      "or": "OF",
+      "end": "Einde resultaten"
     }
   },
   "globalChat": {
@@ -111,7 +112,14 @@
   },
   "goshuin": {
     "browse": {
-      "goToMap": "Ga naar de kaart"
+      "goToMap": "Ga naar de kaart",
+      "locationRequired": "Locatie vereist",
+      "locationMessage": "Zoeken op nabijheid vereist toegang tot je locatie.",
+      "locationDenied": "Locatietoegang geblokkeerd",
+      "locationDeniedMessage": "We kunnen geen resultaten in de buurt tonen omdat de toegang tot je locatie is geweigerd. Schakel dit in via de browserinstellingen.",
+      "locationError": "Locatie niet beschikbaar",
+      "locationErrorMessage": "We konden je locatie op dit moment niet ophalen. Probeer het opnieuw.",
+      "tryAgain": "Opnieuw proberen"
     },
     "map": {
       "loading": "Kaart laden...",

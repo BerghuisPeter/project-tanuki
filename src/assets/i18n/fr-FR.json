@@ -38,7 +38,8 @@
       "gotoLogin": "Vous avez déjà un compte ? Connectez-vous"
     },
     "text": {
-      "or": "OU"
+      "or": "OU",
+      "end": "Fin des résultats"
     }
   },
   "globalChat": {
@@ -118,7 +119,14 @@
   },
   "goshuin": {
     "browse": {
-      "goToMap": "Aller à la carte"
+      "goToMap": "Aller à la carte",
+      "locationRequired": "Localisation requise",
+      "locationMessage": "La recherche par proximité nécessite l'accès à votre localisation.",
+      "locationDenied": "Accès à la localisation bloqué",
+      "locationDeniedMessage": "Nous ne pouvons pas afficher les résultats à proximité car l'accès à la localisation a été refusé. Veuillez l'activer dans les paramètres de votre navigateur.",
+      "locationError": "Localisation indisponible",
+      "locationErrorMessage": "Nous n'avons pas pu obtenir votre localisation pour le moment. Veuillez réessayer.",
+      "tryAgain": "Réessayer"
     },
     "map": {
       "loading": "Chargement de la carte...",

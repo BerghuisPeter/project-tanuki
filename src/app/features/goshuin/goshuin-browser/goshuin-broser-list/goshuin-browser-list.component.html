@@ -1,25 +1,51 @@
 <ng-container *transloco="let t">
   <div class="grid grid-cols-1 lg:grid-cols-2 2xl:grid-cols-3 gap-4">
 
-    @if (service.isLoadingQuery()) {
-      <!-- Fresh search: full skeleton, no list -->
-      @for (i of [1, 2, 3]; track i) {
-        <app-goshuin-browser-list-item-skeleton/>
-      }
-    } @else {
-      <!-- Results always rendered here -->
-      @for (goshuin of service.goshuins(); track goshuin.id) {
-        <app-goshuin-browser-list-item
-          [currentLocale]="currentLocale()"
-          [goshuin]="goshuin"/>
-      } @empty {
-        <p class="text-center col-span-full">No results found</p>
-      }
-
-      <!-- Append skeletons below for infinite scroll pages -->
-      @if (service.isLoadingMore()) {
+    @switch (service.viewState()) {
+      @case ('loading') {
+        <!-- Fresh search: full skeleton, no list -->
         @for (i of [1, 2, 3]; track i) {
           <app-goshuin-browser-list-item-skeleton/>
+        }
+      }
+      @case ('locationBlocked') {
+        <div
+          class="col-span-full flex flex-col items-center justify-center py-12 text-center bg-gray-50 rounded-lg border-2 border-dashed border-gray-200">
+          <mat-icon class="text-4xl h-12 w-12 mb-4 text-gray-400" fontIcon="location_off"></mat-icon>
+          @if (locationState().permissionStatus === 'denied') {
+            <h3 class="text-lg font-medium text-gray-900">{{ t('goshuin.browse.locationDenied') }}</h3>
+            <p class="mt-1 text-sm text-gray-500 max-w-xs mx-auto">
+              {{ t('goshuin.browse.locationDeniedMessage') }}
+            </p>
+            <button (click)="locationService.checkPermission()" class="mt-4" color="primary" mat-flat-button>
+              {{ t('goshuin.browse.tryAgain') }}
+            </button>
+          } @else {
+            <h3 class="text-lg font-medium text-gray-900">{{ t('goshuin.browse.locationError') }}</h3>
+            <p class="mt-1 text-sm text-gray-500 max-w-xs mx-auto">
+              {{ t('goshuin.browse.locationErrorMessage') }}
+            </p>
+            <button (click)="locationService.refreshLocation()" class="mt-4" color="primary" mat-flat-button>
+              {{ t('goshuin.browse.tryAgain') }}
+            </button>
+          }
+        </div>
+      }
+      @default {
+        <!-- Results always rendered here -->
+        @for (goshuin of service.goshuins(); track goshuin.id) {
+          <app-goshuin-browser-list-item
+            [currentLocale]="currentLocale()"
+            [goshuin]="goshuin"/>
+        } @empty {
+          <p class="text-center col-span-full">No results found</p>
+        }
+
+        <!-- Append skeletons below for infinite scroll pages -->
+        @if (service.isLoadingMore()) {
+          @for (i of [1, 2, 3]; track i) {
+            <app-goshuin-browser-list-item-skeleton/>
+          }
         }
       }
     }

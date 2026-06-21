@@ -38,7 +38,8 @@
       "gotoLogin": "既にアカウントをお持ちですか？ログイン"
     },
     "text": {
-      "or": "または"
+      "or": "または",
+      "end": "結果の最後"
     }
   },
   "globalChat": {
@@ -118,7 +119,14 @@
   },
   "goshuin": {
     "browse": {
-      "goToMap": "地図へ移動"
+      "goToMap": "地図へ移動",
+      "locationRequired": "位置情報が必要です",
+      "locationMessage": "近接順で検索するには、位置情報へのアクセス許可が必要です。",
+      "locationDenied": "位置情報へのアクセスがブロックされました",
+      "locationDeniedMessage": "位置情報の利用が拒否されたため、近くの結果を表示できません。ブラウザの設定で有効にしてください。",
+      "locationError": "位置情報を取得できません",
+      "locationErrorMessage": "現在、位置情報を取得できませんでした。もう一度お試しください。",
+      "tryAgain": "もう一度試す"
     },
     "map": {
       "loading": "地図を読み込み中...",
