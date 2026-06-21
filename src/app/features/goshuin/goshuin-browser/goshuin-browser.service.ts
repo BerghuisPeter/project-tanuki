@@ -3,12 +3,14 @@ import { FormBuilder } from '@angular/forms';
 import { ActivatedRoute, Params, Router } from '@angular/router';
 import { takeUntilDestroyed, toObservable, toSignal } from '@angular/core/rxjs-interop';
 import {
+  catchError,
   combineLatest,
   debounceTime,
   distinctUntilChanged,
   EMPTY,
   finalize,
   merge,
+  of,
   startWith,
   switchMap,
   tap
@@ -104,11 +106,24 @@ export class GoshuinBrowserService {
           return EMPTY;
         }
 
+        // If proximity sort but no coordinates (e.g. denied), don't even call the service
+        if (params['sort'] === GoshuinSort.Proximity && !this.locationCoords()) {
+          this.isLoadingQuery.set(false);
+          this._goshuins.set([]);
+          this._nextPageToken.set(undefined);
+          this.hasMore.set(false);
+          return EMPTY;
+        }
+
         return this.loadGoshuins(params).pipe(
           tap((result) => {
             this._goshuins.set(result.goshuins ?? []);
             this._nextPageToken.set(result.nextPageToken);
             this.hasMore.set(!!result.nextPageToken);
+          }),
+          catchError(err => {
+            console.error('Error loading goshuins:', err);
+            return of({ goshuins: [], nextPageToken: undefined });
           }),
           finalize(() => this.isLoadingQuery.set(false))
         );
@@ -172,8 +187,11 @@ export class GoshuinBrowserService {
 
     if (params['sort'] === GoshuinSort.Proximity) {
       const coords = this.locationService.coords();
-      lat = coords?.latitude;
-      lng = coords?.longitude;
+      if (!coords) {
+        throw new Error('Coordinates are required for proximity sort');
+      }
+      lat = coords.latitude;
+      lng = coords.longitude;
     }
 
     return this.goshuinService.searchGoshuins(
