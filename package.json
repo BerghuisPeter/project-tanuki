@@ -5,9 +5,10 @@
   "scripts": {
     "ng": "ng",
     "start": "ng serve",
+    "start:gcp-dev": "ng serve --configuration gcp-dev",
     "start-with-defer-active": "ng serve --no-hmr",
     "build": "ng build",
-    "watch": "ng build --watch --configuration development",
+    "watch": "ng build --watch --configuration local",
     "test": "npm run test:headless",
     "test:headless": "ng test --karma-config=karma.conf.js --browsers=ChromeHeadless --watch=false --code-coverage",
     "socket-server": "node socket-server/app.js",

@@ -53,7 +53,7 @@
               ],
               "outputHashing": "all"
             },
-            "development": {
+            "local": {
               "optimization": false,
               "extractLicenses": false,
               "sourceMap": true,
@@ -61,7 +61,19 @@
               "fileReplacements": [
                 {
                   "replace": "src/environments/environment.ts",
-                  "with": "src/environments/environment.development.ts"
+                  "with": "src/environments/environment.local.ts"
+                }
+              ]
+            },
+            "gcp-dev": {
+              "optimization": false,
+              "extractLicenses": false,
+              "sourceMap": true,
+              "namedChunks": true,
+              "fileReplacements": [
+                {
+                  "replace": "src/environments/environment.ts",
+                  "with": "src/environments/environment.gcp-dev.ts"
                 }
               ]
             }
@@ -74,11 +86,14 @@
             "production": {
               "buildTarget": "project-tanuki:build:production"
             },
-            "development": {
-              "buildTarget": "project-tanuki:build:development"
+            "local": {
+              "buildTarget": "project-tanuki:build:local"
+            },
+            "gcp-dev": {
+              "buildTarget": "project-tanuki:build:gcp-dev"
             }
           },
-          "defaultConfiguration": "development"
+          "defaultConfiguration": "local"
         },
         "test": {
           "builder": "@angular/build:karma",
@@ -102,7 +117,7 @@
             "fileReplacements": [
               {
                 "replace": "src/environments/environment.ts",
-                "with": "src/environments/environment.development.ts"
+                "with": "src/environments/environment.local.ts"
               }
             ]
           }
