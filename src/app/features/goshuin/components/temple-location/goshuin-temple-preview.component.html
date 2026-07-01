@@ -1,0 +1,22 @@
+@if (templeImageUrl()) {
+  <app-lazy-loaded-img
+    [imageUrl]="templeImageUrl()"
+    alt="temple"
+    class="h-10 w-full overflow-hidden" />
+}
+
+<h3 class="text-xl">{{ temple().translations[currentLocale()]?.name }}</h3>
+<a
+  [href]="mapsUrl()"
+  class="flex items-center gap-1 text-sm
+  text-[var(--mat-sys-primary)]
+  hover:text-[var(--mat-sys-on-surface-variant)]
+  transition-colors"
+  rel="noopener noreferrer"
+  target="_blank">
+  <mat-icon [inline]="true">location_on</mat-icon>
+  <span class="hidden md:inline">{{ temple().translations[currentLocale()]?.address }},</span>
+  {{ temple().translations[currentLocale()]?.city }}
+  , {{ temple().translations[currentLocale()]?.prefecture }}
+</a>
+

@@ -1,10 +1,13 @@
 import { ChangeDetectionStrategy, Component, input } from '@angular/core';
-import { Goshuin } from "../../../../../../openApi/goshuin";
+import { Goshuin } from "src/openApi/goshuin";
 import { MatIcon } from "@angular/material/icon";
 import { MatButton } from "@angular/material/button";
 import { MatDivider } from "@angular/material/list";
 import { DatePipe } from "@angular/common";
 import { LazyLoadedImgComponent } from "src/app/shared/components/lazy-loaded-img/lazy-loaded-img.component";
+import {
+  GoshuinTemplePreviewComponent
+} from "src/app/features/goshuin/components/temple-location/goshuin-temple-preview.component";
 
 @Component({
   selector: 'app-goshuin-browser-list-item',
@@ -13,7 +16,8 @@ import { LazyLoadedImgComponent } from "src/app/shared/components/lazy-loaded-im
     MatButton,
     MatDivider,
     DatePipe,
-    LazyLoadedImgComponent
+    LazyLoadedImgComponent,
+    GoshuinTemplePreviewComponent
   ],
   templateUrl: './goshuin-browser-list-item.component.html',
   styleUrl: './goshuin-browser-list-item.component.scss',
