@@ -1,0 +1,110 @@
+<div class="p-3">
+  <!-- Header -->
+  <header class="mb-6 flex items-center">
+    <button [routerLink]="dashboardPath" aria-label="Back to dashboard" mat-icon-button>
+      <mat-icon>arrow_back</mat-icon>
+    </button>
+    <h1 class="ml-2 text-2xl font-bold text-gray-800">Add Goshuin</h1>
+  </header>
+
+  <mat-stepper #stepper [linear]="true" class="bg-white rounded-xl shadow-sm overflow-hidden" orientation="vertical">
+    <!-- Step 1: Temple Info -->
+    <mat-step [stepControl]="templeFormGroup">
+      <ng-template matStepLabel>Temple Info</ng-template>
+      <form [formGroup]="templeFormGroup" class="flex flex-col gap-4 py-4">
+        <mat-form-field appearance="outline" class="w-full">
+          <mat-label>Temple Name</mat-label>
+          <input formControlName="templeName" matInput placeholder="e.g. Meiji Jingu" required>
+          @if (templeFormGroup.get('templeName')?.hasError('required')) {
+            <mat-error>Temple name is required</mat-error>
+          }
+        </mat-form-field>
+
+        <mat-form-field appearance="outline" class="w-full">
+          <mat-label>Affiliation</mat-label>
+          <mat-select formControlName="affiliationType">
+            @for (type of affiliationTypes; track type) {
+              <mat-option [value]="type">{{ type | titlecase }}</mat-option>
+            }
+          </mat-select>
+        </mat-form-field>
+
+        <div class="flex justify-end mt-2">
+          <button color="primary" mat-flat-button matStepperNext>Next</button>
+        </div>
+      </form>
+    </mat-step>
+
+    <!-- Step 2: Goshuin Details -->
+    <mat-step [stepControl]="detailsFormGroup">
+      <ng-template matStepLabel>Goshuin Details</ng-template>
+      <form [formGroup]="detailsFormGroup" class="flex flex-col gap-4 py-4">
+        <mat-form-field appearance="outline" class="w-full">
+          <mat-label>Format</mat-label>
+          <mat-select formControlName="format">
+            @for (format of goshuinFormats; track format) {
+              <mat-option [value]="format">{{ format | titlecase }}</mat-option>
+            }
+          </mat-select>
+        </mat-form-field>
+
+        <mat-form-field appearance="outline" class="w-full">
+          <mat-label>Pages</mat-label>
+          <input formControlName="pages" matInput min="1" required type="number">
+        </mat-form-field>
+
+        <mat-form-field appearance="outline" class="w-full">
+          <mat-label>Description</mat-label>
+          <textarea formControlName="description" matInput placeholder="Add some notes..." rows="3"></textarea>
+        </mat-form-field>
+
+        <div class="flex justify-between mt-2">
+          <button mat-stroked-button matStepperPrevious>Back</button>
+          <button color="primary" mat-flat-button matStepperNext>Next</button>
+        </div>
+      </form>
+    </mat-step>
+
+    <!-- Step 3: Images & Review -->
+    <mat-step [stepControl]="imageFormGroup">
+      <ng-template matStepLabel>Image & Submit</ng-template>
+      <form [formGroup]="imageFormGroup" class="flex flex-col gap-4 py-4">
+        <div
+          class="bg-gray-100 border-2 border-dashed border-gray-300 rounded-lg p-8 flex flex-col items-center justify-center text-gray-500">
+          <mat-icon class="!text-4xl h-10 w-10 mb-2">add_a_photo</mat-icon>
+          <span class="text-sm">Upload Photo (Mock)</span>
+        </div>
+
+        <mat-form-field appearance="outline" class="w-full">
+          <mat-label>Image URL (Optional)</mat-label>
+          <input formControlName="imageUrl" matInput placeholder="https://...">
+        </mat-form-field>
+
+        <div class="mt-4 p-4 bg-primary/5 rounded-lg border border-primary/10">
+          <h3 class="font-bold text-gray-800 mb-2">Summary</h3>
+          <p class="text-sm text-gray-600"><span
+            class="font-semibold">Temple:</span> {{ templeFormGroup.get('templeName')?.value }}</p>
+          <p class="text-sm text-gray-600"><span
+            class="font-semibold">Format:</span> {{ detailsFormGroup.get('format')?.value }}</p>
+          <p class="text-sm text-gray-600"><span
+            class="font-semibold">Date:</span> {{ templeFormGroup.get('date')?.value | date:'mediumDate' }}</p>
+        </div>
+
+        <div class="flex justify-between mt-4">
+          <button [disabled]="isSubmitting()" mat-stroked-button matStepperPrevious>Back</button>
+          <button (click)="onSubmit()" [disabled]="isSubmitting() || !templeFormGroup.valid || !detailsFormGroup.valid" color="primary"
+                  mat-flat-button>
+            @if (isSubmitting()) {
+              <mat-icon class="animate-spin">sync</mat-icon>
+            }
+            @if (isSubmitting()) {
+              Submitting...
+            } @else {
+              Add Goshuin
+            }
+          </button>
+        </div>
+      </form>
+    </mat-step>
+  </mat-stepper>
+</div>

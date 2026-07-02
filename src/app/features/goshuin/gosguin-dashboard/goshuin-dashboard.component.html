@@ -1,0 +1,58 @@
+<div class="p-3">
+  <!-- Header -->
+  <header class="mb-6 flex justify-between items-center">
+    <h1 class="text-2xl font-bold text-gray-800">My Goshuins</h1>
+    <button [routerLink]="addPath" aria-label="Add Goshuin" color="primary" mat-mini-fab>
+      <mat-icon>add</mat-icon>
+    </button>
+  </header>
+
+  <!-- Goshuin List -->
+  <div class="flex flex-col gap-3">
+    @for (goshuin of goshuins(); track goshuin.id) {
+      <mat-card class="overflow-hidden hover:shadow-md transition-shadow duration-300 !flex-row h-28">
+        <!-- Image section -->
+        <div class="w-28 h-28 flex-shrink-0 bg-gray-200 relative">
+          @if (goshuin.images && goshuin.images.length > 0) {
+            <img [alt]="getTempleName(goshuin)"
+                 [src]="goshuin.images[0].url"
+                 class="w-full h-full object-cover">
+          } @else {
+            <div class="w-full h-full flex flex-col items-center justify-center text-gray-400">
+              <mat-icon class="text-2xl">image_not_supported</mat-icon>
+            </div>
+          }
+          <div class="absolute bottom-1 right-1">
+            <span class="bg-white/90 text-gray-700 text-[10px] px-1.5 py-0.5 rounded font-bold uppercase shadow-sm">
+              {{ goshuin.format }}
+            </span>
+          </div>
+        </div>
+
+        <!-- Content section -->
+        <div class="flex-grow p-3 flex flex-col justify-center min-w-0">
+          <div class="text-base font-bold truncate">
+            {{ getTempleName(goshuin) }}
+          </div>
+
+          <div class="flex items-center text-gray-500 text-sm mt-1">
+            <mat-icon class="!text-xs h-3 w-3 mr-1">calendar_today</mat-icon>
+            {{ goshuin.startDate | date:'mediumDate' }}
+          </div>
+
+          <div class="flex items-center text-gray-400 text-xs mt-1 truncate">
+            <mat-icon class="!text-[10px] h-2.5 w-2.5 mr-1">location_on</mat-icon>
+            {{ getTempleLocation(goshuin) }}
+          </div>
+        </div>
+
+        <!-- Actions section -->
+        <div class="flex items-center pr-2">
+          <button aria-label="View Details" color="primary" mat-icon-button>
+            <mat-icon>chevron_right</mat-icon>
+          </button>
+        </div>
+      </mat-card>
+    }
+  </div>
+</div>

@@ -43,6 +43,20 @@ export const routes: Routes = [
         loadComponent: () =>
           import('./features/goshuin/goshuin-map/goshuin-map.component')
             .then(m => m.GoshuinMapComponent)
+      },
+      {
+        path: APP_PATHS.GOSHUIN_DASHBOARD,
+        canActivate: [authGuard],
+        loadComponent: () =>
+          import('./features/goshuin/gosguin-dashboard/goshuin-dashboard.component')
+            .then(m => m.GoshuinDashboardComponent)
+      },
+      {
+        path: APP_PATHS.GOSHUIN_DASHBOARD + '/' + APP_PATHS.GOSHUIN_DASHBOARD_ADD,
+        canActivate: [authGuard],
+        loadComponent: () =>
+          import('./features/goshuin/goshuin-add/goshuin-add.component')
+            .then(m => m.GoshuinAddComponent)
       }
     ]
   },

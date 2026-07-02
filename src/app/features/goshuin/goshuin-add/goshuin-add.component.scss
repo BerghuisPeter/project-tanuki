@@ -1,0 +1,22 @@
+:host {
+  display: block;
+}
+
+::ng-deep {
+  .mat-stepper-vertical {
+    background: transparent !important;
+  }
+
+  .mat-step-header {
+    border-radius: 8px !important;
+    margin-bottom: 4px !important;
+
+    &:hover {
+      background-color: rgba(0, 0, 0, 0.04) !important;
+    }
+  }
+
+  .mat-step-content {
+    margin-left: 36px !important;
+  }
+}

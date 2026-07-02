@@ -6,4 +6,6 @@ export enum APP_PATHS {
   GOSHUIN = 'goshuin',
   GOSHUIN_BROWSE = 'browse',
   GOSHUIN_MAP = 'map',
+  GOSHUIN_DASHBOARD = 'dashboard',
+  GOSHUIN_DASHBOARD_ADD = 'add',
 }
