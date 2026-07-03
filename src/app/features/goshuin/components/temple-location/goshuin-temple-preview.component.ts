@@ -16,7 +16,14 @@ import { LazyLoadedImgComponent } from 'src/app/shared/components/lazy-loaded-im
 export class GoshuinTemplePreviewComponent {
   readonly temple = input.required<TempleLite>();
   readonly currentLocale = input.required<string>();
-  readonly templeImageUrl = input<string | undefined>();
+  readonly hideTempleImage = input<boolean>(false);
+
+  readonly templeImageUrl = computed(() => {
+    if (this.hideTempleImage()) {
+      return undefined;
+    }
+    return this.temple().imageUrl;
+  });
 
   readonly mapsUrl = computed(() => {
     const translation = this.temple().translations[this.currentLocale()];
@@ -29,4 +36,3 @@ export class GoshuinTemplePreviewComponent {
     return `https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(address)}`;
   });
 }
-

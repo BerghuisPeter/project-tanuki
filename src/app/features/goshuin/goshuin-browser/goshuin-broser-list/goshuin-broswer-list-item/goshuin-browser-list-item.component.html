@@ -15,6 +15,7 @@
       class="absolute bottom-0 left-0 flex flex-col md:hidden bg-[linear-gradient(to_top,color-mix(in_srgb,var(--mat-sys-surface)_80%,transparent),color-mix(in_srgb,var(--mat-sys-surface)_50%,transparent)_70%,transparent_100%)] w-full p-3">
       <app-goshuin-temple-preview
         [currentLocale]="currentLocale()"
+        [hideTempleImage]="true"
         [temple]="goshuin().temple" />
     </div>
   </div>
@@ -22,7 +23,6 @@
     <div class="flex flex-col gap-2 hidden md:flex grow min-h-0">
       <app-goshuin-temple-preview
         [currentLocale]="currentLocale()"
-        [templeImageUrl]="$any(goshuin().temple).imageUrl"
         [temple]="goshuin().temple" />
       <mat-divider></mat-divider>
       <h2 class="text-lg">{{ goshuin().translations[currentLocale()]?.label }}</h2>
