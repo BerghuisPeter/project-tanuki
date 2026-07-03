@@ -14,11 +14,33 @@
       <form [formGroup]="templeFormGroup" class="flex flex-col gap-4 py-4">
         <mat-form-field appearance="outline" class="w-full">
           <mat-label>Temple Name</mat-label>
-          <input formControlName="templeName" matInput placeholder="e.g. Meiji Jingu" required>
+          <input [matAutocomplete]="auto" formControlName="templeName" matInput placeholder="e.g. Meiji Jingu" required>
+          <mat-autocomplete #auto="matAutocomplete" (optionSelected)="onTempleSelected($event.option.value)">
+            @for (temple of filteredTemples(); track temple.id) {
+              <mat-option [value]="temple">
+                {{ getTempleName(temple) }}
+              </mat-option>
+            }
+          </mat-autocomplete>
           @if (templeFormGroup.get('templeName')?.hasError('required')) {
             <mat-error>Temple name is required</mat-error>
           }
         </mat-form-field>
+
+        @if (!templeFormGroup.get('templeId')?.value && templeFormGroup.get('templeName')?.value) {
+          <div class="bg-blue-50 p-4 rounded-lg text-sm text-blue-700 flex items-start gap-2">
+            <mat-icon class="!text-blue-500">info</mat-icon>
+            <span>Temple not found in our database? Please provide the city so we can add it.</span>
+          </div>
+
+          <mat-form-field appearance="outline" class="w-full">
+            <mat-label>City / Place</mat-label>
+            <input formControlName="city" matInput placeholder="e.g. Shibuya, Tokyo">
+            @if (templeFormGroup.get('city')?.hasError('required')) {
+              <mat-error>City is required for new temples</mat-error>
+            }
+          </mat-form-field>
+        }
 
         <mat-form-field appearance="outline" class="w-full">
           <mat-label>Affiliation</mat-label>
@@ -84,10 +106,12 @@
           <h3 class="font-bold text-gray-800 mb-2">Summary</h3>
           <p class="text-sm text-gray-600"><span
             class="font-semibold">Temple:</span> {{ templeFormGroup.get('templeName')?.value }}</p>
+          @if (templeFormGroup.get('city')?.value) {
+            <p class="text-sm text-gray-600"><span
+              class="font-semibold">City:</span> {{ templeFormGroup.get('city')?.value }}</p>
+          }
           <p class="text-sm text-gray-600"><span
             class="font-semibold">Format:</span> {{ detailsFormGroup.get('format')?.value }}</p>
-          <p class="text-sm text-gray-600"><span
-            class="font-semibold">Date:</span> {{ templeFormGroup.get('date')?.value | date:'mediumDate' }}</p>
         </div>
 
         <div class="flex justify-between mt-4">
