@@ -128,10 +128,42 @@
       "locationErrorMessage": "We couldn't get your location right now. Please try again.",
       "tryAgain": "Try Again"
     },
+    "filter": {
+      "title": "{count, plural, =0 {filters} one {1 filter} other {{count} filters}}",
+      "affiliation": "Affiliation",
+      "shinto": "Shrine",
+      "buddhist": "Temple",
+      "format": "Goshuin type",
+      "written": "Written in Book",
+      "paper": "Paper sheet",
+      "cut": "Cut sheet",
+      "other": "Other",
+      "layoutLength": "Layout Length",
+      "onePage": "1 Page",
+      "twoPages": "2 Pages",
+      "threePages": "3 Pages",
+      "fourPages": "4 Pages",
+      "pagesCount": "{count} {count, plural, one {Page} other {Pages}}"
+    },
+    "search": {
+      "label": "Search",
+      "placeholder": "By temple, city..."
+    },
+    "sort": {
+      "label": "Sort by",
+      "newest": "Newest",
+      "comments": "Comments",
+      "proximity": "Proximity"
+    },
+    "list": {
+      "noResults": "No results found",
+      "unknownCreator": "Unknown Creator",
+      "imageAlt": "Goshuin",
+      "avatarAlt": "Avatar"
+    },
     "map": {
       "loading": "Loading map...",
       "attribution": "© OpenStreetMap contributors"
     }
   }
 }
-

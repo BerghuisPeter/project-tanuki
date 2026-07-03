@@ -1,24 +1,24 @@
 <ng-container *transloco="let t">
   <div [formGroup]="service.filterForm" class="flex flex-col gap-2 md:flex-row md:items-center">
     <app-debounced-search-field [debounceMs]="service.searchDebounceTime"
+                                [label]="t('goshuin.search.label')"
+                                [placeholder]="t('goshuin.search.placeholder')"
                                 class="grow"
                                 formControlName="search"
-                                label="Search"
-                                placeholder="By temple, city..."
     />
     <div class="flex gap-2 items-center">
       <mat-form-field appearance="outline" subscriptSizing="dynamic">
-        <mat-label>Sort by</mat-label>
+        <mat-label>{{ t('goshuin.sort.label') }}</mat-label>
 
         <mat-select formControlName="sort">
           <mat-option [value]="GoshuinSort.CreatedAt">
-            Newest
+            {{ t('goshuin.sort.newest') }}
           </mat-option>
           <mat-option [value]="GoshuinSort.CommentCount">
-            Comments
+            {{ t('goshuin.sort.comments') }}
           </mat-option>
           <mat-option [value]="GoshuinSort.Proximity">
-            Proximity
+            {{ t('goshuin.sort.proximity') }}
           </mat-option>
         </mat-select>
       </mat-form-field>

@@ -121,6 +121,39 @@
       "locationErrorMessage": "We konden je locatie op dit moment niet ophalen. Probeer het opnieuw.",
       "tryAgain": "Opnieuw proberen"
     },
+    "filter": {
+      "title": "{count, plural, =0 {filters} one {1 filter} other {{count} filters}}",
+      "affiliation": "Affiliatie",
+      "shinto": "Schrijn",
+      "buddhist": "Tempel",
+      "format": "Goshuin type",
+      "written": "Geschreven in boek",
+      "paper": "Papieren vel",
+      "cut": "Vormgesneden vel",
+      "other": "Ander",
+      "layoutLength": "Lay-out lengte",
+      "onePage": "1 Pagina",
+      "twoPages": "2 Pagina's",
+      "threePages": "3 Pagina's",
+      "fourPages": "4 Pagina's",
+      "pagesCount": "{count} {count, plural, one {Pagina} other {Pagina's}}"
+    },
+    "search": {
+      "label": "Zoeken",
+      "placeholder": "Op tempel, stad..."
+    },
+    "sort": {
+      "label": "Sorteren op",
+      "newest": "Nieuwste",
+      "comments": "Reacties",
+      "proximity": "Nabijheid"
+    },
+    "list": {
+      "noResults": "Geen resultaten gevonden",
+      "unknownCreator": "Onbekende maker",
+      "imageAlt": "Goshuin",
+      "avatarAlt": "Avatar"
+    },
     "map": {
       "loading": "Kaart laden...",
       "attribution": "© OpenStreetMap-auteurs"

@@ -128,6 +128,39 @@
       "locationErrorMessage": "Nous n'avons pas pu obtenir votre localisation pour le moment. Veuillez réessayer.",
       "tryAgain": "Réessayer"
     },
+    "filter": {
+      "title": "{count, plural, =0 {filtres} one {1 filtre} other {{count} filtres}}",
+      "affiliation": "Affiliation",
+      "shinto": "Sanctuaire",
+      "buddhist": "Temple",
+      "format": "Type de Goshuin",
+      "written": "Écrit dans le carnet",
+      "paper": "Feuille volante",
+      "cut": "Feuille découpée",
+      "other": "Autre",
+      "layoutLength": "Nombre de pages",
+      "onePage": "1 Page",
+      "twoPages": "2 Pages",
+      "threePages": "3 Pages",
+      "fourPages": "4 Pages",
+      "pagesCount": "{count} {count, plural, one {Page} other {Pages}}"
+    },
+    "search": {
+      "label": "Rechercher",
+      "placeholder": "Par temple, ville..."
+    },
+    "sort": {
+      "label": "Trier par",
+      "newest": "Plus récents",
+      "comments": "Commentaires",
+      "proximity": "Proximité"
+    },
+    "list": {
+      "noResults": "Aucun résultat trouvé",
+      "unknownCreator": "Créateur inconnu",
+      "imageAlt": "Goshuin",
+      "avatarAlt": "Avatar"
+    },
     "map": {
       "loading": "Chargement de la carte...",
       "attribution": "© Contributeurs d'OpenStreetMap"

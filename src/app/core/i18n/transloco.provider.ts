@@ -1,5 +1,6 @@
 import { EnvironmentProviders, isDevMode, makeEnvironmentProviders } from '@angular/core';
 import { provideTransloco } from '@jsverse/transloco';
+import { provideTranslocoMessageformat } from '@jsverse/transloco-messageformat';
 import { TranslocoHttpLoader } from './transloco-loader';
 
 export const translocoAvailableLangs = ['en-US', 'fr-FR', 'ja-JP', 'nl-NL'] as const;
@@ -18,7 +19,7 @@ export function provideAppTransloco(): EnvironmentProviders {
     provideTransloco({
       config: translocoConfig,
       loader: TranslocoHttpLoader
-    })
+    }),
+    provideTranslocoMessageformat()
   ]);
 }
-

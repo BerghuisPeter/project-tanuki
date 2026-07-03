@@ -38,7 +38,7 @@
             [currentLocale]="currentLocale()"
             [goshuin]="goshuin"/>
         } @empty {
-          <p class="text-center col-span-full">No results found</p>
+        <p class="text-center col-span-full">{{ t('goshuin.list.noResults') }}</p>
         }
 
         <!-- Append skeletons below for infinite scroll pages -->

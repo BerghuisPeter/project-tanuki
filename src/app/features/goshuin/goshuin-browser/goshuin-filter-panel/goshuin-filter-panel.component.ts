@@ -7,6 +7,7 @@ import {
   MatExpansionPanelTitle
 } from '@angular/material/expansion';
 import { MatChipListbox, MatChipOption } from '@angular/material/chips';
+import { TranslocoDirective } from '@jsverse/transloco';
 import { AffiliationType, GoshuinFormat } from '../../../../../openApi/goshuin';
 import { GoshuinBrowserService } from '../goshuin-browser.service';
 import { NamedChipListFilterComponent } from "./named-chip-list-filter/named-chip-list-filter.component";
@@ -22,7 +23,8 @@ import { NamedChipListFilterComponent } from "./named-chip-list-filter/named-chi
     MatExpansionPanelTitle,
     MatChipListbox,
     MatChipOption,
-    NamedChipListFilterComponent
+    NamedChipListFilterComponent,
+    TranslocoDirective
   ],
   templateUrl: './goshuin-filter-panel.component.html',
   styleUrl: './goshuin-filter-panel.component.scss'

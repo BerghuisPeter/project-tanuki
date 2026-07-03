@@ -1,59 +1,66 @@
-<div
-  class="flex flex-col md:flex-row h-110 bg-[var(--mat-sys-surface-container-low)] shadow-md">
-  <div class="relative h-48 md:h-full grow md:basis-0">
-    <app-lazy-loaded-img [imageUrl]="goshuin().images?.[0]?.url" alt="goshuin" class="h-full" />
-    <div class="absolute top-3 left-3 flex flex-col gap-1 text-white">
-      <div
-        class="px-3 py-1 rounded-full bg-gray-800/75 w-fit border border-gray-600">{{ goshuin().temple.affiliationType }}
-      </div>
-      <div class="px-3 py-1 rounded-full bg-gray-800/75 w-fit border border-gray-600">{{ goshuin().format }}</div>
-      <div class="px-3 py-1 rounded-full bg-gray-800/75 w-fit border border-gray-600">
-        {{ goshuin().pages }}
-      </div>
-    </div>
-    <div
-      class="absolute bottom-0 left-0 flex flex-col md:hidden bg-[linear-gradient(to_top,color-mix(in_srgb,var(--mat-sys-surface)_80%,transparent),color-mix(in_srgb,var(--mat-sys-surface)_50%,transparent)_70%,transparent_100%)] w-full p-3">
-      <app-goshuin-temple-preview
-        [currentLocale]="currentLocale()"
-        [hideTempleImage]="true"
-        [temple]="goshuin().temple" />
-    </div>
-  </div>
-  <div class="flex flex-col gap-2 p-3 justify-between basis-0 md:grow md:basis-0">
-    <div class="flex flex-col gap-2 hidden md:flex grow min-h-0">
-      <app-goshuin-temple-preview
-        [currentLocale]="currentLocale()"
-        [temple]="goshuin().temple" />
-      <mat-divider></mat-divider>
-      <h2 class="text-lg">{{ goshuin().translations[currentLocale()]?.label }}</h2>
-      <p class="grow overflow-y-auto">{{ goshuin().translations[currentLocale()]?.description }}</p>
-    </div>
-    @if (goshuin().translations[currentLocale()]?.label) {
-      <span class="font-medium text-lg md:hidden">{{ goshuin().translations[currentLocale()]?.label }}</span>
-    }
-    <div class="flex justify-between items-center">
-      <div class="flex gap-4 items-center">
-        @if (goshuin().creator.profile?.avatarUrl) {
-          <img [src]="goshuin().creator.profile?.avatarUrl" alt="avatar" class="w-6 h-6 rounded-full">
-        } @else {
-          <mat-icon class="icon-primary !overflow-visible" fontIcon="person"></mat-icon>
-        }
-        <div class="flex flex-col">
-          <span class="">
-            @if (goshuin().creator.profile?.displayName) {
-              {{ goshuin().creator.profile?.displayName ?? 'Unknown Creator' }}
-            } @else {
-              {{ goshuin().creator.userId }}
-            }
-          </span>
-          <span class="text-xs text-gray-400">{{ goshuin().createdAt | date:'yyyy-MM-dd' }}</span>
+<ng-container *transloco="let t">
+  <div
+    class="flex flex-col md:flex-row h-110 bg-[var(--mat-sys-surface-container-low)] shadow-md">
+    <div class="relative h-48 md:h-full grow md:basis-0">
+      <app-lazy-loaded-img [alt]="t('goshuin.list.imageAlt')" [imageUrl]="goshuin().images?.[0]?.url" class="h-full" />
+      <div class="absolute top-3 left-3 flex flex-col gap-1 text-white">
+        <div
+          class="px-3 py-1 rounded-full bg-gray-800/75 w-fit border border-gray-600">
+          {{ t('goshuin.filter.' + goshuin().temple.affiliationType) }}
+        </div>
+        <div class="px-3 py-1 rounded-full bg-gray-800/75 w-fit border border-gray-600">
+          {{ t('goshuin.filter.' + goshuin().format) }}
+        </div>
+        <div class="px-3 py-1 rounded-full bg-gray-800/75 w-fit border border-gray-600">
+          {{ t('goshuin.filter.pagesCount', { count: goshuin().pages }) }}
         </div>
       </div>
-      <button mat-button>
-        <mat-icon>comment</mat-icon>
-        {{ goshuin().commentCount }}
-      </button>
+      <div
+        class="absolute bottom-0 left-0 flex flex-col md:hidden bg-[linear-gradient(to_top,color-mix(in_srgb,var(--mat-sys-surface)_80%,transparent),color-mix(in_srgb,var(--mat-sys-surface)_50%,transparent)_70%,transparent_100%)] w-full p-3">
+        <app-goshuin-temple-preview
+          [currentLocale]="currentLocale()"
+          [hideTempleImage]="true"
+          [temple]="goshuin().temple" />
+      </div>
     </div>
+    <div class="flex flex-col gap-2 p-3 justify-between basis-0 md:grow md:basis-0">
+      <div class="flex flex-col gap-2 hidden md:flex grow min-h-0">
+        <app-goshuin-temple-preview
+          [currentLocale]="currentLocale()"
+          [temple]="goshuin().temple" />
+        <mat-divider></mat-divider>
+        <h2 class="text-lg">{{ goshuin().translations[currentLocale()]?.label }}</h2>
+        <p class="grow overflow-y-auto">{{ goshuin().translations[currentLocale()]?.description }}</p>
+      </div>
+      @if (goshuin().translations[currentLocale()]?.label) {
+        <span class="font-medium text-lg md:hidden">{{ goshuin().translations[currentLocale()]?.label }}</span>
+      }
+      <div class="flex justify-between items-center">
+        <div class="flex gap-4 items-center">
+          @if (goshuin().creator.profile?.avatarUrl) {
+            <img [alt]="t('goshuin.list.avatarAlt')" [src]="goshuin().creator.profile?.avatarUrl"
+                 class="w-6 h-6 rounded-full">
+          } @else {
+            <mat-icon class="icon-primary !overflow-visible" fontIcon="person"></mat-icon>
+          }
+          <div class="flex flex-col">
+            <span class="">
+              @if (goshuin().creator.profile?.displayName) {
+                {{ goshuin().creator.profile?.displayName ?? t('goshuin.list.unknownCreator') }}
+              } @else {
+                {{ goshuin().creator.userId }}
+              }
+            </span>
+            <span class="text-xs text-gray-400">{{ goshuin().createdAt | date:'yyyy-MM-dd' }}</span>
+          </div>
+        </div>
+        <button mat-button>
+          <mat-icon>comment</mat-icon>
+          {{ goshuin().commentCount }}
+        </button>
+      </div>
+    </div>
+
   </div>
 
-</div>
+</ng-container>

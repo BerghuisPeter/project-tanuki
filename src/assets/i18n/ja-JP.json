@@ -128,6 +128,39 @@
       "locationErrorMessage": "現在、位置情報を取得できませんでした。もう一度お試しください。",
       "tryAgain": "もう一度試す"
     },
+    "filter": {
+      "title": "{count, plural, =0 {フィルター} other {フィルター ({count})}}",
+      "affiliation": "種類",
+      "shinto": "神社",
+      "buddhist": "寺院",
+      "format": "御朱印の形式",
+      "written": "御朱印帳に直接",
+      "paper": "書き置き",
+      "cut": "切り絵",
+      "other": "その他",
+      "layoutLength": "レイアウトの長さ",
+      "onePage": "1 ページ",
+      "twoPages": "2 ページ",
+      "threePages": "3 ページ",
+      "fourPages": "4 ページ",
+      "pagesCount": "{count} ページ"
+    },
+    "search": {
+      "label": "検索",
+      "placeholder": "寺院、都市名など..."
+    },
+    "sort": {
+      "label": "並べ替え",
+      "newest": "新着順",
+      "comments": "コメント数順",
+      "proximity": "現在地に近い順"
+    },
+    "list": {
+      "noResults": "結果が見つかりませんでした",
+      "unknownCreator": "不明な投稿者",
+      "imageAlt": "御朱印",
+      "avatarAlt": "アバター"
+    },
     "map": {
       "loading": "地図を読み込み中...",
       "attribution": "© OpenStreetMap 協力者"
