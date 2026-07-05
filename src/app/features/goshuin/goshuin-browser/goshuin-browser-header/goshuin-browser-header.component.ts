@@ -33,6 +33,7 @@ import { MatButton } from "@angular/material/button";
 })
 export class GoshuinBrowserHeaderComponent {
   readonly fullMapLink = ['/', APP_PATHS.GOSHUIN, APP_PATHS.GOSHUIN_MAP];
+  readonly fullDashBoardLink = ['/', APP_PATHS.GOSHUIN, APP_PATHS.GOSHUIN_DASHBOARD];
   protected readonly service = inject(GoshuinBrowserService);
   protected readonly GoshuinSort = GoshuinSort;
 }

@@ -120,6 +120,7 @@
   "goshuin": {
     "browse": {
       "goToMap": "Go to map",
+      "goToDashboard": "Go to dashboard",
       "locationRequired": "Location Required",
       "locationMessage": "Searching by proximity requires access to your location.",
       "locationDenied": "Location Access Blocked",
