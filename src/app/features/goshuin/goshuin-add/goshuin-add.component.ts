@@ -11,10 +11,10 @@ import { MatNativeDateModule } from '@angular/material/core';
 import { MatIconModule } from '@angular/material/icon';
 import { MatAutocompleteModule } from '@angular/material/autocomplete';
 import { Router, RouterLink } from '@angular/router';
-import { AffiliationType, GoshuinFormat, TempleLite } from '../../../../openApi/goshuin';
+import { AffiliationType, GoshuinFormat, Temple, TempleGoshuinService } from '../../../../openApi/goshuin';
 import { APP_PATHS } from '../../../shared/models/app-paths.model';
 import { takeUntilDestroyed, toSignal } from '@angular/core/rxjs-interop';
-import { debounceTime, distinctUntilChanged, of, switchMap } from 'rxjs';
+import { catchError, debounceTime, distinctUntilChanged, of, switchMap } from 'rxjs';
 
 @Component({
   selector: 'app-goshuin-add',
@@ -50,64 +50,17 @@ export class GoshuinAddComponent {
     city: [''],
     affiliationType: [AffiliationType.Shinto as AffiliationType, Validators.required],
   });
+  private readonly templeService = inject(TempleGoshuinService);
+  private readonly selectedTemple = signal<Temple | null>(null);
+
   filteredTemples = toSignal(
     this.templeFormGroup.get('templeName')!.valueChanges.pipe(
       debounceTime(300),
       distinctUntilChanged(),
       switchMap(value => this.searchTemples(value || ''))
     ),
-    { initialValue: [] as TempleLite[] }
+    { initialValue: [] as Temple[] }
   );
-  private readonly mockTemples: TempleLite[] = [
-    {
-      id: '1',
-      affiliationType: AffiliationType.Shinto,
-      translations: {
-        'en-US': {
-          name: 'Meiji Jingu',
-          city: 'Shibuya',
-          region: 'Tokyo',
-          postalCode: '151-8557',
-          prefecture: 'Tokyo',
-          address: '1-1 Yoyogikamizonocho'
-        }
-      },
-      longitude: 139.6993,
-      latitude: 35.6764
-    },
-    {
-      id: '2',
-      affiliationType: AffiliationType.Buddhist,
-      translations: {
-        'en-US': {
-          name: 'Senso-ji',
-          city: 'Asakusa',
-          region: 'Tokyo',
-          postalCode: '111-0032',
-          prefecture: 'Tokyo',
-          address: '2-3-1 Asakusa'
-        }
-      },
-      longitude: 139.7967,
-      latitude: 35.7148
-    },
-    {
-      id: '3',
-      affiliationType: AffiliationType.Shinto,
-      translations: {
-        'en-US': {
-          name: 'Fushimi Inari Taisha',
-          city: 'Kyoto',
-          region: 'Kansai',
-          postalCode: '612-0882',
-          prefecture: 'Kyoto',
-          address: '68 Fukakusa Yabunouchicho'
-        }
-      },
-      longitude: 135.7727,
-      latitude: 34.9671
-    }
-  ];
 
   constructor() {
     this.templeFormGroup.get('templeName')!.valueChanges.pipe(
@@ -115,26 +68,28 @@ export class GoshuinAddComponent {
     ).subscribe(value => {
       const currentSelected = this.templeFormGroup.get('templeId')?.value;
       if (currentSelected && typeof value === 'string') {
-        const temple = this.mockTemples.find(t => t.id === currentSelected);
-        if (temple && this.getTempleName(temple) !== value) {
+        const selected = this.selectedTemple();
+        if (selected && this.getTempleName(selected) !== value) {
           this.templeFormGroup.patchValue({
             templeId: '',
             city: ''
           }, { emitEvent: false });
+          this.selectedTemple.set(null);
         }
       }
     });
   }
 
-  getTempleName(temple: TempleLite | null): string {
+  getTempleName(temple: Temple | null): string {
     if (!temple) return '';
     // For simplicity, taking the first translation available or en-US
-    const translation = temple.translations['en-US'] || Object.values(temple.translations)[0];
+    const translation = temple.translations['en'] || Object.values(temple.translations)[0];
     return translation?.name || '';
   }
 
-  onTempleSelected(temple: TempleLite) {
-    const translation = temple.translations['en-US'] || Object.values(temple.translations)[0];
+  onTempleSelected(temple: Temple) {
+    this.selectedTemple.set(temple);
+    const translation = temple.translations['en'] || Object.values(temple.translations)[0];
     this.templeFormGroup.patchValue({
       templeId: temple.id,
       templeName: translation?.name || '',
@@ -185,12 +140,8 @@ export class GoshuinAddComponent {
     if (!query || typeof query !== 'string' || query.length < 2) {
       return of([]);
     }
-    const lowercaseQuery = query.toLowerCase();
-    const results = this.mockTemples.filter(temple =>
-      Object.values(temple.translations).some(t =>
-        t.name.toLowerCase().includes(lowercaseQuery)
-      )
+    return this.templeService.searchTemples(query).pipe(
+      catchError(() => of([]))
     );
-    return of(results);
   }
 }

@@ -200,6 +200,7 @@ export class GoshuinBrowserService {
       pages,
       params['affiliation'] as AffiliationType || undefined,
       params['search'] || undefined,
+      undefined,
       params['sort'] as GoshuinSort || undefined,
       lat,
       lng,
