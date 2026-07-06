@@ -165,6 +165,10 @@
     "map": {
       "loading": "Loading map...",
       "attribution": "© OpenStreetMap contributors"
+    },
+    "dashboard": {
+      "title": "My Goshuins"
     }
-  }
+  },
+  "end": "End of results"
 }

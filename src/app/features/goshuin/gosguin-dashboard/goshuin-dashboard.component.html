@@ -1,58 +1,99 @@
-<div class="p-3">
-  <!-- Header -->
-  <header class="mb-6 flex justify-between items-center">
-    <h1 class="text-2xl font-bold text-gray-800">My Goshuins</h1>
-    <button [routerLink]="addPath" aria-label="Add Goshuin" color="primary" mat-mini-fab>
-      <mat-icon>add</mat-icon>
-    </button>
-  </header>
+<ng-container *transloco="let t">
+  <div class="p-3">
+    <!-- Header -->
+    <header class="mb-6 flex justify-between items-center">
+      <h1 class="text-2xl font-bold text-gray-800">{{ t('goshuin.dashboard.title') }}</h1>
+      <button [routerLink]="addPath" aria-label="Add Goshuin" color="primary" mat-mini-fab>
+        <mat-icon>add</mat-icon>
+      </button>
+    </header>
 
-  <!-- Goshuin List -->
-  <div class="flex flex-col gap-3">
-    @for (goshuin of goshuins(); track goshuin.id) {
-      <mat-card class="overflow-hidden hover:shadow-md transition-shadow duration-300 !flex-row h-28">
-        <!-- Image section -->
-        <div class="w-28 h-28 flex-shrink-0 bg-gray-200 relative">
-          @if (goshuin.images && goshuin.images.length > 0) {
-            <img [alt]="getTempleName(goshuin)"
-                 [src]="goshuin.images[0].url"
-                 class="w-full h-full object-cover">
-          } @else {
-            <div class="w-full h-full flex flex-col items-center justify-center text-gray-400">
-              <mat-icon class="text-2xl">image_not_supported</mat-icon>
+    <!-- Goshuin List -->
+    <div class="flex flex-col gap-3">
+      @if (service.isLoadingQuery()) {
+        @for (i of [1, 2, 3, 4, 5]; track i) {
+          <div class="animate-pulse flex flex-row h-28 bg-gray-100 rounded-lg overflow-hidden">
+            <div class="w-28 h-28 bg-gray-200"></div>
+            <div class="flex-grow p-3 flex flex-col justify-center gap-2">
+              <div class="h-5 bg-gray-200 rounded w-3/4"></div>
+              <div class="h-4 bg-gray-200 rounded w-1/2"></div>
+              <div class="h-3 bg-gray-200 rounded w-2/3"></div>
             </div>
-          }
-          <div class="absolute bottom-1 right-1">
+          </div>
+        }
+      } @else {
+        @for (goshuin of goshuins(); track goshuin.id) {
+          <mat-card class="overflow-hidden hover:shadow-md transition-shadow duration-300 !flex-row h-28">
+            <!-- Image section -->
+            <div class="w-28 h-28 flex-shrink-0 bg-gray-200 relative">
+              @if (goshuin.images && goshuin.images.length > 0) {
+                <img [alt]="getTempleName(goshuin)"
+                     [src]="goshuin.images[0].url"
+                     class="w-full h-full object-cover">
+              } @else {
+                <div class="w-full h-full flex flex-col items-center justify-center text-gray-400">
+                  <mat-icon class="text-2xl">image_not_supported</mat-icon>
+                </div>
+              }
+              <div class="absolute bottom-1 right-1">
             <span class="bg-white/90 text-gray-700 text-[10px] px-1.5 py-0.5 rounded font-bold uppercase shadow-sm">
               {{ goshuin.format }}
             </span>
-          </div>
-        </div>
+              </div>
+            </div>
 
-        <!-- Content section -->
-        <div class="flex-grow p-3 flex flex-col justify-center min-w-0">
-          <div class="text-base font-bold truncate">
-            {{ getTempleName(goshuin) }}
-          </div>
+            <!-- Content section -->
+            <div class="flex-grow p-3 flex flex-col justify-center min-w-0">
+              <div class="text-base font-bold truncate">
+                {{ getTempleName(goshuin) }}
+              </div>
 
-          <div class="flex items-center text-gray-500 text-sm mt-1">
-            <mat-icon class="!text-xs h-3 w-3 mr-1">calendar_today</mat-icon>
-            {{ goshuin.startDate | date:'mediumDate' }}
-          </div>
+              <div class="flex items-center text-gray-500 text-sm mt-1">
+                <mat-icon class="!text-xs h-3 w-3 mr-1">calendar_today</mat-icon>
+                {{ goshuin.startDate | date:'mediumDate' }}
+              </div>
 
-          <div class="flex items-center text-gray-400 text-xs mt-1 truncate">
-            <mat-icon class="!text-[10px] h-2.5 w-2.5 mr-1">location_on</mat-icon>
-            {{ getTempleLocation(goshuin) }}
-          </div>
-        </div>
+              <div class="flex items-center text-gray-400 text-xs mt-1 truncate">
+                <mat-icon class="!text-[10px] h-2.5 w-2.5 mr-1">location_on</mat-icon>
+                {{ getTempleLocation(goshuin) }}
+              </div>
+            </div>
 
-        <!-- Actions section -->
-        <div class="flex items-center pr-2">
-          <button aria-label="View Details" color="primary" mat-icon-button>
-            <mat-icon>chevron_right</mat-icon>
-          </button>
-        </div>
-      </mat-card>
+            <!-- Actions section -->
+            <div class="flex items-center pr-2">
+              <button aria-label="View Details" color="primary" mat-icon-button>
+                <mat-icon>chevron_right</mat-icon>
+              </button>
+            </div>
+          </mat-card>
+        } @empty {
+          <p class="text-center py-12 text-gray-500">{{ t('goshuin.list.noResults') }}</p>
+        }
+
+        <!-- Append skeletons below for infinite scroll pages -->
+        @if (service.isLoadingMore()) {
+          @for (i of [1, 2, 3]; track i) {
+            <div class="animate-pulse flex flex-row h-28 bg-gray-50 rounded-lg overflow-hidden opacity-60">
+              <div class="w-28 h-28 bg-gray-100"></div>
+              <div class="flex-grow p-3 flex flex-col justify-center gap-2">
+                <div class="h-5 bg-gray-100 rounded w-3/4"></div>
+                <div class="h-4 bg-gray-100 rounded w-1/2"></div>
+                <div class="h-3 bg-gray-100 rounded w-2/3"></div>
+              </div>
+            </div>
+          }
+        }
+      }
+    </div>
+
+    @if (!service.isLoadingQuery() && !service.hasMore() && goshuins().length > 0) {
+      <div class="flex items-center gap-3 my-4 text-sm text-gray-400">
+        <hr class="flex-1 border-t-2 border-red-800"/>
+        <span>{{ t('end') }}</span>
+        <hr class="flex-1 border-t-2 border-red-800"/>
+      </div>
     }
+
+    <div #sentinel class="h-1"></div>
   </div>
-</div>
+</ng-container>
