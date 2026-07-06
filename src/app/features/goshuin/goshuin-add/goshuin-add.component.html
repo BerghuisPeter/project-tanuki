@@ -12,20 +12,17 @@
     <mat-step [stepControl]="templeFormGroup">
       <ng-template matStepLabel>Temple Info</ng-template>
       <form [formGroup]="templeFormGroup" class="flex flex-col gap-4 py-4">
-        <mat-form-field appearance="outline" class="w-full">
-          <mat-label>Temple Name</mat-label>
-          <input [matAutocomplete]="auto" formControlName="templeName" matInput placeholder="e.g. Meiji Jingu" required>
-          <mat-autocomplete #auto="matAutocomplete" (optionSelected)="onTempleSelected($event.option.value)">
-            @for (temple of filteredTemples(); track temple.id) {
-              <mat-option [value]="temple">
-                {{ getTempleName(temple) }}
-              </mat-option>
-            }
-          </mat-autocomplete>
+        <app-debounced-search-field
+          [debounceMs]="300"
+          [label]="'Temple Name'"
+          [placeholder]="'e.g. Meiji Jingu'"
+          [required]="true"
+          formControlName="templeName"
+        >
           @if (templeFormGroup.get('templeName')?.hasError('required')) {
             <mat-error>Temple name is required</mat-error>
           }
-        </mat-form-field>
+        </app-debounced-search-field>
 
         @if (!templeFormGroup.get('templeId')?.value && templeFormGroup.get('templeName')?.value) {
           <div class="bg-blue-50 p-4 rounded-lg text-sm text-blue-700 flex items-start gap-2">
@@ -116,7 +113,8 @@
 
         <div class="flex justify-between mt-4">
           <button [disabled]="isSubmitting()" mat-stroked-button matStepperPrevious>Back</button>
-          <button (click)="onSubmit()" [disabled]="isSubmitting() || !templeFormGroup.valid || !detailsFormGroup.valid" color="primary"
+          <button (click)="onSubmit()" [disabled]="isSubmitting() || !templeFormGroup.valid || !detailsFormGroup.valid"
+                  color="primary"
                   mat-flat-button>
             @if (isSubmitting()) {
               <mat-icon class="animate-spin">sync</mat-icon>

@@ -42,6 +42,7 @@ export class GoshuinDashboardComponent implements AfterViewInit, OnDestroy {
   readonly currentLocale = computed(() => this.languageService.currentLocale().slice(0, 2));
 
   addPath = `/${APP_PATHS.GOSHUIN}/${APP_PATHS.GOSHUIN_DASHBOARD}/${APP_PATHS.GOSHUIN_DASHBOARD_ADD}`;
+  browserPath = `/${APP_PATHS.GOSHUIN}`;
   @ViewChild('sentinel') private readonly sentinel!: ElementRef<HTMLElement>;
   private observer?: IntersectionObserver;
 

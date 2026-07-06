@@ -15,6 +15,9 @@ import { AffiliationType, GoshuinFormat, Temple, TempleGoshuinService } from '..
 import { APP_PATHS } from '../../../shared/models/app-paths.model';
 import { takeUntilDestroyed, toSignal } from '@angular/core/rxjs-interop';
 import { catchError, debounceTime, distinctUntilChanged, of, switchMap } from 'rxjs';
+import {
+  DebouncedSearchFieldComponent
+} from "../../../shared/components/debounced-search-field/debounced-search-field.component";
 
 @Component({
   selector: 'app-goshuin-add',
@@ -31,7 +34,8 @@ import { catchError, debounceTime, distinctUntilChanged, of, switchMap } from 'r
     MatDatepickerModule,
     MatNativeDateModule,
     MatIconModule,
-    RouterLink
+    RouterLink,
+    DebouncedSearchFieldComponent
   ],
   templateUrl: './goshuin-add.component.html',
   styleUrl: './goshuin-add.component.scss',
