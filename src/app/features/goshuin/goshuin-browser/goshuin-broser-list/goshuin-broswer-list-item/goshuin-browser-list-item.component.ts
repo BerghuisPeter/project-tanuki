@@ -6,9 +6,7 @@ import { MatDivider } from "@angular/material/list";
 import { DatePipe } from "@angular/common";
 import { TranslocoDirective } from "@jsverse/transloco";
 import { LazyLoadedImgComponent } from "src/app/shared/components/lazy-loaded-img/lazy-loaded-img.component";
-import {
-  GoshuinTemplePreviewComponent
-} from "src/app/features/goshuin/components/temple-location/goshuin-temple-preview.component";
+import { GoshuinTempleComponent } from "src/app/features/goshuin/components/temple-location/goshuin-temple.component";
 
 @Component({
   selector: 'app-goshuin-browser-list-item',
@@ -18,7 +16,7 @@ import {
     MatDivider,
     DatePipe,
     LazyLoadedImgComponent,
-    GoshuinTemplePreviewComponent,
+    GoshuinTempleComponent,
     TranslocoDirective
   ],
   templateUrl: './goshuin-browser-list-item.component.html',

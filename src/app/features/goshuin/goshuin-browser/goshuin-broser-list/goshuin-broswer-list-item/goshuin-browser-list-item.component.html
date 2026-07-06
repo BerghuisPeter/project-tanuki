@@ -17,7 +17,7 @@
       </div>
       <div
         class="absolute bottom-0 left-0 flex flex-col md:hidden bg-[linear-gradient(to_top,color-mix(in_srgb,var(--mat-sys-surface)_80%,transparent),color-mix(in_srgb,var(--mat-sys-surface)_50%,transparent)_70%,transparent_100%)] backdrop-blur-sm w-full p-3">
-        <app-goshuin-temple-preview
+        <app-goshuin-temple
           [currentLocale]="currentLocale()"
           [hideTempleImage]="true"
           [temple]="goshuin().temple" />
@@ -25,7 +25,7 @@
     </div>
     <div class="flex flex-col gap-2 p-3 justify-between basis-0 md:grow md:basis-0">
       <div class="flex flex-col gap-2 hidden md:flex grow min-h-0">
-        <app-goshuin-temple-preview
+        <app-goshuin-temple
           [currentLocale]="currentLocale()"
           [temple]="goshuin().temple" />
         <mat-divider></mat-divider>

@@ -7,17 +7,18 @@ import { MatInputModule } from '@angular/material/input';
 import { MatButtonModule } from '@angular/material/button';
 import { MatSelectModule } from '@angular/material/select';
 import { MatDatepickerModule } from '@angular/material/datepicker';
-import { MatNativeDateModule } from '@angular/material/core';
+import { MatNativeDateModule, MatRippleModule } from '@angular/material/core';
 import { MatIconModule } from '@angular/material/icon';
-import { MatAutocompleteModule } from '@angular/material/autocomplete';
 import { Router, RouterLink } from '@angular/router';
 import { AffiliationType, GoshuinFormat, Temple, TempleGoshuinService } from '../../../../openApi/goshuin';
 import { APP_PATHS } from '../../../shared/models/app-paths.model';
 import { takeUntilDestroyed, toSignal } from '@angular/core/rxjs-interop';
-import { catchError, debounceTime, distinctUntilChanged, of, switchMap } from 'rxjs';
+import { catchError, debounceTime, distinctUntilChanged, map, of, switchMap, tap } from 'rxjs';
 import {
   DebouncedSearchFieldComponent
 } from "../../../shared/components/debounced-search-field/debounced-search-field.component";
+import { TranslocoService } from '@jsverse/transloco';
+import { GoshuinTempleComponent } from "../components/goshuin-temple/goshuin-temple.component";
 
 @Component({
   selector: 'app-goshuin-add',
@@ -30,12 +31,13 @@ import {
     MatInputModule,
     MatButtonModule,
     MatSelectModule,
-    MatAutocompleteModule,
     MatDatepickerModule,
     MatNativeDateModule,
     MatIconModule,
+    MatRippleModule,
     RouterLink,
-    DebouncedSearchFieldComponent
+    DebouncedSearchFieldComponent,
+    GoshuinTempleComponent
   ],
   templateUrl: './goshuin-add.component.html',
   styleUrl: './goshuin-add.component.scss',
@@ -47,6 +49,18 @@ export class GoshuinAddComponent {
   goshuinFormats = Object.values(GoshuinFormat);
   isSubmitting = signal(false);
   private readonly fb = inject(FormBuilder);
+  isSearching = signal(false);
+  filteredTemples = toSignal(
+    this.templeFormGroup.get('templeName')!.valueChanges.pipe(
+      debounceTime(300),
+      distinctUntilChanged(),
+      tap(() => this.isSearching.set(true)),
+      switchMap(value => this.searchTemples(value || '')),
+      tap(() => this.isSearching.set(false))
+    ),
+    { initialValue: [] as Temple[] }
+  );
+  private readonly transloco = inject(TranslocoService);
 
   templeFormGroup = this.fb.group({
     templeId: [''],
@@ -56,15 +70,9 @@ export class GoshuinAddComponent {
   });
   private readonly templeService = inject(TempleGoshuinService);
   private readonly selectedTemple = signal<Temple | null>(null);
-
-  filteredTemples = toSignal(
-    this.templeFormGroup.get('templeName')!.valueChanges.pipe(
-      debounceTime(300),
-      distinctUntilChanged(),
-      switchMap(value => this.searchTemples(value || ''))
-    ),
-    { initialValue: [] as Temple[] }
-  );
+  currentLocale = toSignal(
+    this.transloco.langChanges$.pipe(map(() => this.transloco.getActiveLang().substring(0, 2))),
+    { initialValue: this.transloco.getActiveLang().substring(0, 2) });
 
   constructor() {
     this.templeFormGroup.get('templeName')!.valueChanges.pipe(
@@ -86,19 +94,14 @@ export class GoshuinAddComponent {
 
   getTempleName(temple: Temple | null): string {
     if (!temple) return '';
-    // For simplicity, taking the first translation available or en-US
     const translation = temple.translations['en'] || Object.values(temple.translations)[0];
     return translation?.name || '';
   }
 
   onTempleSelected(temple: Temple) {
     this.selectedTemple.set(temple);
-    const translation = temple.translations['en'] || Object.values(temple.translations)[0];
     this.templeFormGroup.patchValue({
-      templeId: temple.id,
-      templeName: translation?.name || '',
-      city: translation?.city || '',
-      affiliationType: temple.affiliationType as AffiliationType
+      templeId: temple.id
     });
   }
 

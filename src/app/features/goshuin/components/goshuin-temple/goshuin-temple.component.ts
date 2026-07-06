@@ -4,16 +4,16 @@ import { TempleLite } from 'src/openApi/goshuin';
 import { LazyLoadedImgComponent } from 'src/app/shared/components/lazy-loaded-img/lazy-loaded-img.component';
 
 @Component({
-  selector: 'app-goshuin-temple-preview',
+  selector: 'app-goshuin-temple',
   imports: [
     MatIcon,
     LazyLoadedImgComponent
   ],
-  templateUrl: './goshuin-temple-preview.component.html',
-  styleUrl: './goshuin-temple-preview.component.scss',
+  templateUrl: './goshuin-temple.component.html',
+  styleUrl: './goshuin-temple.component.scss',
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class GoshuinTemplePreviewComponent {
+export class GoshuinTempleComponent {
   readonly temple = input.required<TempleLite>();
   readonly currentLocale = input.required<string>();
   readonly hideTempleImage = input<boolean>(false);
