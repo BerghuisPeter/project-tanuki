@@ -61,7 +61,6 @@ export class GoshuinBrowserService {
     }
     return 'results';
   });
-  private readonly location$ = toObservable(this.locationService.locationState);
 
   // Accumulated results across pages
   private readonly _goshuins = signal<Goshuin[]>([]);

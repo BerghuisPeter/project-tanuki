@@ -58,7 +58,7 @@ import {
 export class GoshuinAddComponent {
   dashboardPath = `/${APP_PATHS.GOSHUIN}/${APP_PATHS.GOSHUIN_DASHBOARD}`;
   affiliationTypes = Object.values(AffiliationType);
-  searchDebounceTime = 300;
+  searchDebounceTime = 700;
   goshuinFormats = Object.values(GoshuinFormat);
   isSubmitting = signal(false);
   private readonly fb = inject(FormBuilder);
