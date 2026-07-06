@@ -34,13 +34,9 @@
               }
             </mat-select>
           </mat-form-field>
-
-          <div class="flex justify-end mt-2">
-            <button color="primary" mat-flat-button matStepperNext>Next</button>
-          </div>
         </form>
 
-        <div class="flex flex-col gap-4 border-l pl-8 border-gray-100">
+        <div class="flex flex-col gap-4 md:border-l md:pl-8 border-gray-100">
           <div class="flex items-center justify-between">
             <h3 class="text-lg font-medium text-gray-700 flex items-center gap-2">
               <mat-icon>search</mat-icon>
@@ -52,35 +48,28 @@
           </div>
           <div class="flex flex-col gap-3 overflow-y-auto h-100 pr-2">
             @for (temple of filteredTemples(); track temple.id) {
-              <div
+              <app-goshuin-temple-list-item
                 (click)="onTempleSelected(temple)"
-                [class.bg-blue-50]="templeFormGroup.get('templeId')?.value === temple.id"
-                [class.border-primary]="templeFormGroup.get('templeId')?.value === temple.id"
-                class="p-4 rounded-xl border border-gray-100 hover:border-primary/30 hover:bg-gray-50 transition-all cursor-pointer relative group"
-                matRipple
-              >
-                <app-goshuin-temple
-                  [currentLocale]="currentLocale()"
-                  [temple]="temple"
-                />
-                @if (templeFormGroup.get('templeId')?.value === temple.id) {
-                  <div class="absolute top-3 right-3">
-                    <mat-icon class="!text-primary">check_circle</mat-icon>
-                  </div>
-                }
-              </div>
+                [currentLocale]="currentLocale()"
+                [isSelected]="templeFormGroup.get('templeId')?.value === temple.id"
+                [temple]="temple"
+              />
             } @empty {
               <div
-                class="flex flex-col items-center justify-center py-20 text-gray-400 bg-gray-50 rounded-xl border-2 border-dashed border-gray-100">
-                <mat-icon class="!text-5xl h-12 w-12 mb-3 opacity-20">temple_hindu</mat-icon>
-                <p class="text-center px-6">Search for a temple by name to find matches in our database</p>
-                <div class="bg-blue-50 p-4 rounded-lg text-sm text-blue-700 flex items-start gap-2">
+                class="flex flex-col items-center justify-center gap-2 h-full text-gray-400 bg-gray-50 rounded-xl border-2 border-dashed border-gray-100">
+                <p class="text-center px-4">Search for a temple by name to find matches in our database</p>
+                <div
+                  class="bg-blue-50 p-4 rounded-lg text-sm text-blue-700 flex flex-col md:flex-row items-center gap-2">
                   <mat-icon class="!text-blue-500">info</mat-icon>
-                  <span>Temple not found in our database? Please provide the city so we can add it.</span>
+                  <span
+                    class="text-center">Temple not found in our database? Please provide the city so we can add it.</span>
                 </div>
               </div>
             }
           </div>
+        </div>
+        <div class="flex justify-end mt-2 md:col-2">
+          <button color="primary" mat-flat-button matStepperNext>Next</button>
         </div>
       </div>
     </mat-step>

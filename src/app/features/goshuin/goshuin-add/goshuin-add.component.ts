@@ -18,7 +18,9 @@ import {
   DebouncedSearchFieldComponent
 } from "../../../shared/components/debounced-search-field/debounced-search-field.component";
 import { TranslocoService } from '@jsverse/transloco';
-import { GoshuinTempleComponent } from "../components/goshuin-temple/goshuin-temple.component";
+import {
+  GoshuinTempleListItemComponent
+} from "../components/goshuin-temple-list-item/goshuin-temple-list-item.component";
 
 @Component({
   selector: 'app-goshuin-add',
@@ -37,7 +39,7 @@ import { GoshuinTempleComponent } from "../components/goshuin-temple/goshuin-tem
     MatRippleModule,
     RouterLink,
     DebouncedSearchFieldComponent,
-    GoshuinTempleComponent
+    GoshuinTempleListItemComponent
   ],
   templateUrl: './goshuin-add.component.html',
   styleUrl: './goshuin-add.component.scss',
@@ -50,16 +52,6 @@ export class GoshuinAddComponent {
   isSubmitting = signal(false);
   private readonly fb = inject(FormBuilder);
   isSearching = signal(false);
-  filteredTemples = toSignal(
-    this.templeFormGroup.get('templeName')!.valueChanges.pipe(
-      debounceTime(300),
-      distinctUntilChanged(),
-      tap(() => this.isSearching.set(true)),
-      switchMap(value => this.searchTemples(value || '')),
-      tap(() => this.isSearching.set(false))
-    ),
-    { initialValue: [] as Temple[] }
-  );
   private readonly transloco = inject(TranslocoService);
 
   templeFormGroup = this.fb.group({
@@ -73,6 +65,17 @@ export class GoshuinAddComponent {
   currentLocale = toSignal(
     this.transloco.langChanges$.pipe(map(() => this.transloco.getActiveLang().substring(0, 2))),
     { initialValue: this.transloco.getActiveLang().substring(0, 2) });
+
+  filteredTemples = toSignal(
+    this.templeFormGroup.get('templeName')!.valueChanges.pipe(
+      debounceTime(300),
+      distinctUntilChanged(),
+      tap(() => this.isSearching.set(true)),
+      switchMap(value => this.searchTemples(value || '')),
+      tap(() => this.isSearching.set(false))
+    ),
+    { initialValue: [] as Temple[] }
+  );
 
   constructor() {
     this.templeFormGroup.get('templeName')!.valueChanges.pipe(
@@ -94,7 +97,7 @@ export class GoshuinAddComponent {
 
   getTempleName(temple: Temple | null): string {
     if (!temple) return '';
-    const translation = temple.translations['en'] || Object.values(temple.translations)[0];
+    const translation = temple.translations[this.currentLocale()];
     return translation?.name || '';
   }
 

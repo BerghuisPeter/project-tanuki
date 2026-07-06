@@ -2,7 +2,8 @@
   <div
     class="flex flex-col md:flex-row h-110 bg-[color-mix(in_srgb,var(--mat-sys-surface-container-low)_70%,transparent)] backdrop-blur-md shadow-md border border-[color-mix(in_srgb,var(--mat-sys-outline-variant)_20%,transparent)] rounded-xl overflow-hidden">
     <div class="relative h-48 md:h-full grow md:basis-0">
-      <app-lazy-loaded-img [alt]="t('goshuin.list.imageAlt')" [imageUrl]="goshuin().images?.[0]?.url" class="h-full" />
+      <app-lazy-loaded-img [alt]="t('goshuin.list.imageAlt')" [imageUrl]="goshuin().images?.[0]?.url"
+                           class="w-full h-full"/>
       <div class="absolute top-3 left-3 flex flex-col gap-1 text-white">
         <div
           class="px-3 py-1 rounded-full bg-black/40 backdrop-blur-md w-fit border border-white/10 shadow-sm">
