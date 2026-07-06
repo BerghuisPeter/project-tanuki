@@ -12,8 +12,18 @@ import { MatIconModule } from '@angular/material/icon';
 import { Router, RouterLink } from '@angular/router';
 import { AffiliationType, GoshuinFormat, Temple, TempleGoshuinService } from '../../../../openApi/goshuin';
 import { APP_PATHS } from '../../../shared/models/app-paths.model';
-import { takeUntilDestroyed, toSignal } from '@angular/core/rxjs-interop';
-import { catchError, debounceTime, distinctUntilChanged, map, of, switchMap, tap } from 'rxjs';
+import { toSignal } from '@angular/core/rxjs-interop';
+import {
+  catchError,
+  combineLatest,
+  debounceTime,
+  distinctUntilChanged,
+  map,
+  of,
+  startWith,
+  switchMap,
+  tap
+} from 'rxjs';
 import {
   DebouncedSearchFieldComponent
 } from "../../../shared/components/debounced-search-field/debounced-search-field.component";
@@ -48,6 +58,7 @@ import {
 export class GoshuinAddComponent {
   dashboardPath = `/${APP_PATHS.GOSHUIN}/${APP_PATHS.GOSHUIN_DASHBOARD}`;
   affiliationTypes = Object.values(AffiliationType);
+  searchDebounceTime = 300;
   goshuinFormats = Object.values(GoshuinFormat);
   isSubmitting = signal(false);
   private readonly fb = inject(FormBuilder);
@@ -57,54 +68,38 @@ export class GoshuinAddComponent {
   templeFormGroup = this.fb.group({
     templeId: [''],
     templeName: ['', Validators.required],
-    city: [''],
-    affiliationType: [AffiliationType.Shinto as AffiliationType, Validators.required],
+    city: ['', Validators.required],
+    affiliationType: [AffiliationType.Shinto, Validators.required],
   });
   private readonly templeService = inject(TempleGoshuinService);
-  private readonly selectedTemple = signal<Temple | null>(null);
   currentLocale = toSignal(
     this.transloco.langChanges$.pipe(map(() => this.transloco.getActiveLang().substring(0, 2))),
     { initialValue: this.transloco.getActiveLang().substring(0, 2) });
 
   filteredTemples = toSignal(
-    this.templeFormGroup.get('templeName')!.valueChanges.pipe(
-      debounceTime(300),
-      distinctUntilChanged(),
+    combineLatest([
+      this.templeFormGroup.get('templeName')!.valueChanges.pipe(startWith(this.templeFormGroup.get('templeName')?.value)),
+      this.templeFormGroup.get('city')!.valueChanges.pipe(startWith(this.templeFormGroup.get('city')?.value))
+    ]).pipe(
+      debounceTime(this.searchDebounceTime),
+      distinctUntilChanged((prev, curr) => prev[0] === curr[0] && prev[1] === curr[1]),
       tap(() => this.isSearching.set(true)),
-      switchMap(value => this.searchTemples(value || '')),
+      switchMap(([name, city]) => {
+        const query = [name, city].filter(Boolean).join(' ');
+        console.log('Searching for:', query);
+        return this.searchTemples(query);
+      }),
       tap(() => this.isSearching.set(false))
     ),
     { initialValue: [] as Temple[] }
   );
 
   constructor() {
-    this.templeFormGroup.get('templeName')!.valueChanges.pipe(
-      takeUntilDestroyed()
-    ).subscribe(value => {
-      const currentSelected = this.templeFormGroup.get('templeId')?.value;
-      if (currentSelected && typeof value === 'string') {
-        const selected = this.selectedTemple();
-        if (selected && this.getTempleName(selected) !== value) {
-          this.templeFormGroup.patchValue({
-            templeId: '',
-            city: ''
-          }, { emitEvent: false });
-          this.selectedTemple.set(null);
-        }
-      }
-    });
-  }
-
-  getTempleName(temple: Temple | null): string {
-    if (!temple) return '';
-    const translation = temple.translations[this.currentLocale()];
-    return translation?.name || '';
   }
 
   onTempleSelected(temple: Temple) {
-    this.selectedTemple.set(temple);
     this.templeFormGroup.patchValue({
-      templeId: temple.id
+      templeId: temple.id,
     });
   }
 

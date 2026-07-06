@@ -4,7 +4,6 @@
     <button [routerLink]="dashboardPath" aria-label="Back to dashboard" mat-icon-button>
       <mat-icon>arrow_back</mat-icon>
     </button>
-    <h2>{{ currentLocale() }}</h2>
     <h1 class="ml-2 text-2xl font-bold text-gray-800">Add Goshuin</h1>
   </header>
 
@@ -15,7 +14,7 @@
       <div class="grid grid-cols-1 md:grid-cols-2 gap-8 py-4">
         <form [formGroup]="templeFormGroup" class="flex flex-col gap-4">
           <app-debounced-search-field
-            [debounceMs]="300"
+            [debounceMs]="searchDebounceTime"
             [label]="'Temple Name'"
             [placeholder]="'e.g. Meiji Jingu'"
             [required]="true"
@@ -23,6 +22,17 @@
           >
             @if (templeFormGroup.get('templeName')?.hasError('required')) {
               <mat-error>Temple name is required</mat-error>
+            }
+          </app-debounced-search-field>
+
+          <app-debounced-search-field
+            [debounceMs]="300"
+            [label]="'City'"
+            [placeholder]="'e.g. Tokyo'"
+            formControlName="city"
+          >
+            @if (templeFormGroup.get('city')?.hasError('required')) {
+              <mat-error>City is required for new temples</mat-error>
             }
           </app-debounced-search-field>
 
