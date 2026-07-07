@@ -43,6 +43,13 @@
               }
             </mat-select>
           </mat-form-field>
+
+          @if (templeFormGroup.hasError('templeRequired') &&
+          templeFormGroup.touched) {
+            <mat-error>
+              Select an existing temple or provide its information.
+            </mat-error>
+          }
         </form>
 
         <div class="flex flex-col gap-4 md:border-l md:pl-8 border-gray-100">

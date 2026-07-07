@@ -13,7 +13,7 @@ import { Router, RouterLink } from '@angular/router';
 import { AffiliationType, GoshuinFormat, Temple, TempleGoshuinService } from '../../../../openApi/goshuin';
 import { APP_PATHS } from '../../../shared/models/app-paths.model';
 import { toSignal } from '@angular/core/rxjs-interop';
-import { catchError, combineLatest, debounceTime, map, of, startWith, switchMap, tap } from 'rxjs';
+import { catchError, debounceTime, distinctUntilChanged, map, merge, of, switchMap, tap } from 'rxjs';
 import {
   DebouncedSearchFieldComponent
 } from "../../../shared/components/debounced-search-field/debounced-search-field.component";
@@ -21,6 +21,7 @@ import { TranslocoService } from '@jsverse/transloco';
 import {
   GoshuinTempleListItemComponent
 } from "../components/goshuin-temple-list-item/goshuin-temple-list-item.component";
+import { templeSelectionValidator } from "./utils/templeSelectionValidator";
 
 @Component({
   selector: 'app-goshuin-add',
@@ -51,32 +52,41 @@ export class GoshuinAddComponent {
   searchDebounceTime = 700;
   goshuinFormats = Object.values(GoshuinFormat);
   isSubmitting = signal(false);
-  private readonly fb = inject(FormBuilder);
   isSearching = signal(false);
+  private readonly fb = inject(FormBuilder);
   private readonly transloco = inject(TranslocoService);
 
   templeFormGroup = this.fb.group({
-    templeId: [''],
-    templeName: ['', Validators.required],
-    city: ['', Validators.required],
-    affiliationType: [AffiliationType.Shinto as AffiliationType, Validators.required],
-  });
+      templeId: [''],
+      templeName: [''],
+      city: [''],
+      affiliationType: [AffiliationType.Shinto as AffiliationType],
+    },
+    {
+      validators: templeSelectionValidator
+    });
   private readonly templeService = inject(TempleGoshuinService);
   currentLocale = toSignal(
     this.transloco.langChanges$.pipe(map(() => this.transloco.getActiveLang().substring(0, 2))),
     { initialValue: this.transloco.getActiveLang().substring(0, 2) });
 
+  private readonly templeFormGroupChanges$ = merge(
+    this.templeFormGroup.controls.templeName.valueChanges.pipe(debounceTime(this.searchDebounceTime), distinctUntilChanged()),
+    this.templeFormGroup.controls.city.valueChanges.pipe(debounceTime(this.searchDebounceTime), distinctUntilChanged()),
+    this.templeFormGroup.controls.affiliationType.valueChanges.pipe(distinctUntilChanged())
+  );
+
+
   filteredTemples = toSignal(
-    combineLatest([
-      this.templeFormGroup.get('templeName')!.valueChanges.pipe(startWith(this.templeFormGroup.get('templeName')?.value, debounceTime(this.searchDebounceTime))),
-      this.templeFormGroup.get('city')!.valueChanges.pipe(startWith(this.templeFormGroup.get('city')?.value), debounceTime(this.searchDebounceTime)),
-      this.templeFormGroup.get('affiliationType')!.valueChanges.pipe(startWith(this.templeFormGroup.get('affiliationType')?.value))
-    ]).pipe(
-      tap(() => this.isSearching.set(true)),
-      switchMap(([name, city]) => {
-        const query = [name, city].filter(Boolean).join(' ');
-        console.log('Searching for:', query);
-        return this.searchTemples(query);
+    this.templeFormGroupChanges$.pipe(
+      tap(() => {
+        this.isSearching.set(true);
+        this.templeFormGroup.controls.templeId.reset()
+      }),
+      switchMap(() => {
+        console.log('Searching for:', this.templeFormGroup.controls.templeName.value);
+        const searchValue = this.templeFormGroup?.controls?.templeName?.value || '';
+        return this.searchTemples(searchValue);
       }),
       tap(() => this.isSearching.set(false))
     ),
@@ -87,16 +97,10 @@ export class GoshuinAddComponent {
   }
 
   onTempleSelected(temple: Temple) {
-    this.templeFormGroup.patchValue({
-      templeId: temple.id
-    });
-
-    // Remove required validators when a temple is selected
-    ['templeName', 'city', 'affiliationType'].forEach(controlName => {
-      const control = this.templeFormGroup.get(controlName);
-      control?.clearValidators();
-      control?.updateValueAndValidity();
-    });
+    this.templeFormGroup.controls.templeId.patchValue(
+      temple.id,
+      { emitEvent: false }
+    );
   }
 
   onSubmit() {
