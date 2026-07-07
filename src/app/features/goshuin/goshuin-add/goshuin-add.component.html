@@ -17,7 +17,6 @@
             [debounceMs]="searchDebounceTime"
             [label]="'Temple Name'"
             [placeholder]="'e.g. Meiji Jingu'"
-            [required]="true"
             formControlName="templeName"
           >
             @if (templeFormGroup.get('templeName')?.hasError('required')) {
@@ -79,7 +78,7 @@
           </div>
         </div>
         <div class="flex justify-end mt-2 md:col-2">
-          <button color="primary" mat-flat-button matStepperNext>Next</button>
+          <button [disabled]="templeFormGroup.invalid" color="primary" mat-flat-button matStepperNext>Next</button>
         </div>
       </div>
     </mat-step>

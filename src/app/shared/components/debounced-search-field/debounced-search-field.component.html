@@ -1,4 +1,4 @@
-<div class="search-wrapper relative">
+﻿<div class="search-wrapper relative">
   <mat-form-field
     appearance="outline"
     class="w-full"
@@ -8,6 +8,7 @@
 
     <input
       matInput
+      [required]="isRequired()"
       (blur)="onBlur()"
       (input)="onInput($any($event.target).value)"
       [disabled]="disabled()"

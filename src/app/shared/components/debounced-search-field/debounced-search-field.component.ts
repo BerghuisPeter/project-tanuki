@@ -1,8 +1,8 @@
-import { ChangeDetectionStrategy, Component, effect, forwardRef, input, signal } from '@angular/core';
+import { ChangeDetectionStrategy, Component, computed, effect, inject, input, signal } from '@angular/core';
 import { NgStyle } from "@angular/common";
 import { MatFormFieldModule } from "@angular/material/form-field";
 import { debounceTime } from "rxjs";
-import { NG_VALUE_ACCESSOR, ReactiveFormsModule } from "@angular/forms";
+import { ControlValueAccessor, NgControl, ReactiveFormsModule, Validators } from "@angular/forms";
 import { MatInputModule } from "@angular/material/input";
 import { MatIconModule } from "@angular/material/icon";
 import { MatButtonModule } from "@angular/material/button";
@@ -18,30 +18,37 @@ import { toObservable } from "@angular/core/rxjs-interop";
     MatIconModule,
     MatButtonModule,
   ],
-  providers: [
-    {
-      provide: NG_VALUE_ACCESSOR,
-      useExisting: forwardRef(() => DebouncedSearchFieldComponent),
-      multi: true,
-    },
-  ],
   changeDetection: ChangeDetectionStrategy.OnPush,
   templateUrl: './debounced-search-field.component.html',
   styleUrl: './debounced-search-field.component.scss',
 })
-export class DebouncedSearchFieldComponent {
+export class DebouncedSearchFieldComponent implements ControlValueAccessor {
   readonly label = input('Search');
   readonly placeholder = input('');
   readonly icon = input('search');
   readonly debounceMs = input(500);
+  readonly required = input(false);
 
   readonly value = signal('');
   readonly disabled = signal(false);
   readonly animating = signal(false);
 
+  protected readonly ngControl = inject(NgControl, { optional: true, self: true });
+
+  protected readonly isRequired = computed(() => {
+    if (this.required()) {
+      return true;
+    }
+
+    return this.ngControl?.control?.hasValidator(Validators.required) ?? false;
+  });
+
   private readonly value$ = toObservable(this.value);
 
   constructor() {
+    if (this.ngControl) {
+      this.ngControl.valueAccessor = this;
+    }
     effect(() => {
       const debounceMs = this.debounceMs();
 

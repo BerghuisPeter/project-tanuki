@@ -13,17 +13,7 @@ import { Router, RouterLink } from '@angular/router';
 import { AffiliationType, GoshuinFormat, Temple, TempleGoshuinService } from '../../../../openApi/goshuin';
 import { APP_PATHS } from '../../../shared/models/app-paths.model';
 import { toSignal } from '@angular/core/rxjs-interop';
-import {
-  catchError,
-  combineLatest,
-  debounceTime,
-  distinctUntilChanged,
-  map,
-  of,
-  startWith,
-  switchMap,
-  tap
-} from 'rxjs';
+import { catchError, combineLatest, debounceTime, map, of, startWith, switchMap, tap } from 'rxjs';
 import {
   DebouncedSearchFieldComponent
 } from "../../../shared/components/debounced-search-field/debounced-search-field.component";
@@ -69,7 +59,7 @@ export class GoshuinAddComponent {
     templeId: [''],
     templeName: ['', Validators.required],
     city: ['', Validators.required],
-    affiliationType: [AffiliationType.Shinto, Validators.required],
+    affiliationType: [AffiliationType.Shinto as AffiliationType, Validators.required],
   });
   private readonly templeService = inject(TempleGoshuinService);
   currentLocale = toSignal(
@@ -78,11 +68,10 @@ export class GoshuinAddComponent {
 
   filteredTemples = toSignal(
     combineLatest([
-      this.templeFormGroup.get('templeName')!.valueChanges.pipe(startWith(this.templeFormGroup.get('templeName')?.value)),
-      this.templeFormGroup.get('city')!.valueChanges.pipe(startWith(this.templeFormGroup.get('city')?.value))
+      this.templeFormGroup.get('templeName')!.valueChanges.pipe(startWith(this.templeFormGroup.get('templeName')?.value, debounceTime(this.searchDebounceTime))),
+      this.templeFormGroup.get('city')!.valueChanges.pipe(startWith(this.templeFormGroup.get('city')?.value), debounceTime(this.searchDebounceTime)),
+      this.templeFormGroup.get('affiliationType')!.valueChanges.pipe(startWith(this.templeFormGroup.get('affiliationType')?.value))
     ]).pipe(
-      debounceTime(this.searchDebounceTime),
-      distinctUntilChanged((prev, curr) => prev[0] === curr[0] && prev[1] === curr[1]),
       tap(() => this.isSearching.set(true)),
       switchMap(([name, city]) => {
         const query = [name, city].filter(Boolean).join(' ');
@@ -99,21 +88,19 @@ export class GoshuinAddComponent {
 
   onTempleSelected(temple: Temple) {
     this.templeFormGroup.patchValue({
-      templeId: temple.id,
+      templeId: temple.id
+    });
+
+    // Remove required validators when a temple is selected
+    ['templeName', 'city', 'affiliationType'].forEach(controlName => {
+      const control = this.templeFormGroup.get(controlName);
+      control?.clearValidators();
+      control?.updateValueAndValidity();
     });
   }
 
   onSubmit() {
     if (this.templeFormGroup.valid && this.detailsFormGroup.valid) {
-      // Check if it's a new temple (no templeId)
-      if (!this.templeFormGroup.value.templeId) {
-        // Validation for new temple: city must be present
-        if (!this.templeFormGroup.value.city) {
-          this.templeFormGroup.get('city')?.setErrors({ required: true });
-          return;
-        }
-      }
-
       this.isSubmitting.set(true);
 
       // Simulate API call
