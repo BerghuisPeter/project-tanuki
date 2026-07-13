@@ -46,18 +46,22 @@
             </div>
 
             <!-- Content section -->
-            <div class="flex-grow p-3 flex flex-col justify-center min-w-0">
-              <div class="text-base font-bold truncate">
+            <div class="flex-grow p-3 flex flex-col gap-1 justify-center min-w-0">
+              <div class="text-base font-bold">
                 {{ getTempleName(goshuin) }}
               </div>
 
-              <div class="flex items-center text-gray-500 text-sm mt-1">
-                <mat-icon class="!text-xs h-3 w-3 mr-1">calendar_today</mat-icon>
-                {{ goshuin.startDate | date:'mediumDate' }}
+              <div class="flex items-center text-gray-500 text-sm">
+                <mat-icon class="mr-1 !w-4 !h-4 !text-base !leading-4">
+                  calendar_today
+                </mat-icon>
+                {{ goshuin.createdAt | date:'dd-MM-yyyy' }}
               </div>
 
-              <div class="flex items-center text-gray-400 text-xs mt-1 truncate">
-                <mat-icon class="!text-[10px] h-2.5 w-2.5 mr-1">location_on</mat-icon>
+              <div class="flex items-center text-gray-500 text-sm">
+                <mat-icon class="mr-1 !w-4 !h-4 !text-base !leading-4">
+                  location_on
+                </mat-icon>
                 {{ getTempleLocation(goshuin) }}
               </div>
             </div>

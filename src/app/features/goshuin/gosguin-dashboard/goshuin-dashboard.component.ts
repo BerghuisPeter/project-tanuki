@@ -69,6 +69,6 @@ export class GoshuinDashboardComponent implements AfterViewInit, OnDestroy {
   getTempleLocation(goshuin: Goshuin): string {
     const t = goshuin.temple.translations[this.currentLocale()] || goshuin.temple.translations['en'];
     if (!t) return 'Unknown Location';
-    return `${t.city}, ${t.prefecture}`;
+    return `${t.address}, ${t.city}, ${t.prefecture}, ${t.region}`;
   }
 }
