@@ -1,51 +1,54 @@
-<div
-  [ngClass]="{
-    'border-primary bg-blue-50': isSelected(),
-    'border-gray-100 hover:border-primary/30 hover:bg-gray-50': !isSelected()
-  }"
-  class="flex gap-4 p-4 rounded-xl border transition-all cursor-pointer relative group"
+<mat-card
   matRipple
 >
-  <div class="flex-shrink-0 w-24 h-24 rounded-lg overflow-hidden bg-gray-100 border border-gray-100">
-    @if (temple().imageUrl) {
-      <app-lazy-loaded-img
-        [imageUrl]="temple().imageUrl"
-        alt="temple"
-        class="w-full h-full"
-      />
-    } @else {
-      <div class="w-full h-full flex items-center justify-center text-gray-300">
-        <mat-icon class="!text-4xl">temple_hindu</mat-icon>
-      </div>
-    }
-  </div>
-
-  <div class="flex-grow flex flex-col min-w-0 justify-center">
-    <div class="flex items-start justify-between gap-2">
-      <h3 class="text-lg font-bold text-gray-800 truncate">
-        {{ translation().name }}
-      </h3>
-      @if (isSelected()) {
-        <mat-icon class="!text-primary">check_circle</mat-icon>
+  <div
+    [ngClass]="{
+    'border-[var(--mat-sys-primary)] bg-[var(--mat-sys-surface-container-high)]': isSelected(),
+    'border-[var(--mat-sys-outline-variant)] hover:border-[var(--mat-sys-primary)] hover:bg-[var(--mat-sys-surface-container)]': !isSelected()
+  }"
+    class="flex gap-4 p-4 rounded-xl border transition-all cursor-pointer relative group">
+    <div class="flex-shrink-0 w-24 h-min-24 rounded-lg overflow-hidden bg-gray-100 border border-gray-100">
+      @if (temple().imageUrl) {
+        <app-lazy-loaded-img
+          [imageUrl]="temple().imageUrl"
+          alt="temple"
+          class="w-full h-full"
+        />
+      } @else {
+        <div class="w-full h-full flex items-center justify-center text-gray-300">
+          <mat-icon class="!text-4xl">temple_hindu</mat-icon>
+        </div>
       }
     </div>
 
-    <div class="flex flex-col gap-1 mt-1">
-      <div class="flex items-center gap-1.5 text-sm text-gray-600">
-        <mat-icon class="!text-base h-4 w-4 text-gray-400">location_on</mat-icon>
-        <span class="truncate">{{ fullAddress() }}</span>
+    <div class="flex-grow flex flex-col min-w-0 justify-center">
+      <div class="flex items-start justify-between gap-2">
+        <h3 class="text-lg">
+          {{ translation().name }}
+        </h3>
+        @if (isSelected()) {
+          <mat-icon class="!text-primary">check_circle</mat-icon>
+        }
       </div>
 
-      <div class="flex items-center gap-1.5 text-sm text-gray-600">
-        <mat-icon class="!text-base h-4 w-4 text-gray-400">account_balance</mat-icon>
-        <span class="truncate">{{ temple().affiliationType | titlecase }}</span>
-      </div>
+      <div class="flex flex-col gap-1 mt-1">
+        <div class="flex items-center gap-1.5 text-sm text-gray-600">
+          <mat-icon class="!text-base h-4 w-4 text-gray-400">location_on</mat-icon>
+          <span>{{ fullAddress() }}</span>
+        </div>
 
-      @if (translation().description) {
-        <p class="text-xs text-gray-500 line-clamp-2 mt-1 italic">
-          {{ translation().description }}
-        </p>
-      }
+        <div class="flex items-center gap-1.5 text-sm text-gray-600">
+          <mat-icon class="!text-base h-4 w-4 text-gray-400">account_balance</mat-icon>
+          <span>{{ temple().affiliationType | titlecase }}</span>
+        </div>
+
+        @if (translation().description) {
+          <p class="text-xs text-gray-500 line-clamp-2 mt-1 italic">
+            {{ translation().description }}
+          </p>
+        }
+      </div>
     </div>
   </div>
-</div>
+
+</mat-card>

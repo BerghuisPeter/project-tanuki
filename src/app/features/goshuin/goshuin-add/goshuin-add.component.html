@@ -38,6 +38,7 @@
           <mat-form-field appearance="outline" class="w-full">
             <mat-label>Affiliation</mat-label>
             <mat-select formControlName="affiliationType">
+              <mat-option [value]="undefined">Unspecified</mat-option>
               @for (type of affiliationTypes; track type) {
                 <mat-option [value]="type">{{ type | titlecase }}</mat-option>
               }
@@ -65,7 +66,7 @@
           <div class="flex flex-col gap-3 overflow-y-auto h-100 pr-2">
             @for (temple of filteredTemples(); track temple.id) {
               <app-goshuin-temple-list-item
-                (click)="onTempleSelected(temple)"
+                (click)="toggleTempleSelect(temple)"
                 [currentLocale]="currentLocale()"
                 [isSelected]="templeFormGroup.get('templeId')?.value === temple.id"
                 [temple]="temple"

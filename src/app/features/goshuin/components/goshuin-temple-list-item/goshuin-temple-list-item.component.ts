@@ -4,6 +4,7 @@ import { TempleLite } from 'src/openApi/goshuin';
 import { LazyLoadedImgComponent } from 'src/app/shared/components/lazy-loaded-img/lazy-loaded-img.component';
 import { MatRippleModule } from '@angular/material/core';
 import { NgClass, TitleCasePipe } from '@angular/common';
+import { MatCard } from "@angular/material/card";
 
 @Component({
   selector: 'app-goshuin-temple-list-item',
@@ -13,7 +14,8 @@ import { NgClass, TitleCasePipe } from '@angular/common';
     LazyLoadedImgComponent,
     MatRippleModule,
     NgClass,
-    TitleCasePipe
+    TitleCasePipe,
+    MatCard
   ],
   templateUrl: './goshuin-temple-list-item.component.html',
   styleUrl: './goshuin-temple-list-item.component.scss',

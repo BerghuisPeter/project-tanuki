@@ -22,6 +22,7 @@ import {
   GoshuinTempleListItemComponent
 } from "../components/goshuin-temple-list-item/goshuin-temple-list-item.component";
 import { templeSelectionValidator } from "./utils/templeSelectionValidator";
+import { MatSnackBar } from "@angular/material/snack-bar";
 
 @Component({
   selector: 'app-goshuin-add',
@@ -55,28 +56,20 @@ export class GoshuinAddComponent {
   isSearching = signal(false);
   private readonly fb = inject(FormBuilder);
   private readonly transloco = inject(TranslocoService);
-
   templeFormGroup = this.fb.group({
       templeId: [''],
       templeName: [''],
       city: [''],
-      affiliationType: [AffiliationType.Shinto as AffiliationType],
+      affiliationType: [undefined],
     },
     {
       validators: templeSelectionValidator
     });
-  private readonly templeService = inject(TempleGoshuinService);
-  currentLocale = toSignal(
-    this.transloco.langChanges$.pipe(map(() => this.transloco.getActiveLang().substring(0, 2))),
-    { initialValue: this.transloco.getActiveLang().substring(0, 2) });
-
   private readonly templeFormGroupChanges$ = merge(
     this.templeFormGroup.controls.templeName.valueChanges.pipe(debounceTime(this.searchDebounceTime), distinctUntilChanged()),
     this.templeFormGroup.controls.city.valueChanges.pipe(debounceTime(this.searchDebounceTime), distinctUntilChanged()),
     this.templeFormGroup.controls.affiliationType.valueChanges.pipe(distinctUntilChanged())
   );
-
-
   filteredTemples = toSignal(
     this.templeFormGroupChanges$.pipe(
       tap(() => {
@@ -84,21 +77,26 @@ export class GoshuinAddComponent {
         this.templeFormGroup.controls.templeId.reset()
       }),
       switchMap(() => {
-        console.log('Searching for:', this.templeFormGroup.controls.templeName.value);
-        const searchValue = this.templeFormGroup?.controls?.templeName?.value || '';
-        return this.searchTemples(searchValue);
+        return this.searchTemples();
       }),
       tap(() => this.isSearching.set(false))
     ),
     { initialValue: [] as Temple[] }
   );
+  private readonly templeService = inject(TempleGoshuinService);
+  currentLocale = toSignal(
+    this.transloco.langChanges$.pipe(map(() => this.transloco.getActiveLang().substring(0, 2))),
+    { initialValue: this.transloco.getActiveLang().substring(0, 2) });
+  private readonly snackBar = inject(MatSnackBar);
 
   constructor() {
   }
 
-  onTempleSelected(temple: Temple) {
-    this.templeFormGroup.controls.templeId.patchValue(
-      temple.id,
+  toggleTempleSelect(temple: Temple) {
+    const templeIdControl = this.templeFormGroup.controls.templeId;
+
+    templeIdControl.patchValue(
+      templeIdControl.value === temple.id ? null : temple.id,
       { emitEvent: false }
     );
   }
@@ -132,12 +130,35 @@ export class GoshuinAddComponent {
   });
   private readonly router = inject(Router);
 
-  private searchTemples(query: string) {
-    if (!query || typeof query !== 'string' || query.length < 2) {
+  private searchTemples() {
+    const { templeName, city, affiliationType } = this.templeFormGroup.getRawValue();
+
+    if (
+      !templeName &&
+      !city &&
+      !affiliationType
+    ) {
       return of([]);
     }
-    return this.templeService.searchTemples(query).pipe(
-      catchError(() => of([]))
+
+    return this.templeService.searchTemples(
+      templeName || undefined,
+      city || undefined,
+      affiliationType ?? undefined
+    ).pipe(
+      catchError(() => {
+        this.snackBar.open(
+          'Error searching temples. Please try again later.',
+          'Dismiss',
+          {
+            duration: 5000,
+            horizontalPosition: 'center',
+            verticalPosition: 'bottom',
+          }
+        );
+
+        return of([]);
+      })
     );
   }
 }
