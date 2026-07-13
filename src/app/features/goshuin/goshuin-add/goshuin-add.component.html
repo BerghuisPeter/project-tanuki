@@ -68,7 +68,7 @@
               <app-goshuin-temple-list-item
                 (click)="toggleTempleSelect(temple)"
                 [currentLocale]="currentLocale()"
-                [isSelected]="templeFormGroup.get('templeId')?.value === temple.id"
+                [isSelected]="templeFormGroup.get('selectedTemple')?.value?.id === temple.id"
                 [temple]="temple"
               />
             } @empty {
@@ -107,6 +107,11 @@
         <mat-form-field appearance="outline" class="w-full">
           <mat-label>Pages</mat-label>
           <input formControlName="pages" matInput min="1" required type="number">
+        </mat-form-field>
+
+        <mat-form-field appearance="outline" class="w-full">
+          <mat-label>Title</mat-label>
+          <input formControlName="label" matInput type="text">
         </mat-form-field>
 
         <mat-form-field appearance="outline" class="w-full">

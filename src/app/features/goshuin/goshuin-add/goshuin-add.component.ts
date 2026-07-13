@@ -10,7 +10,15 @@ import { MatDatepickerModule } from '@angular/material/datepicker';
 import { MatNativeDateModule, MatRippleModule } from '@angular/material/core';
 import { MatIconModule } from '@angular/material/icon';
 import { Router, RouterLink } from '@angular/router';
-import { AffiliationType, GoshuinFormat, Temple, TempleGoshuinService } from '../../../../openApi/goshuin';
+import {
+  AffiliationType,
+  GoshuinCreate,
+  GoshuinFormat,
+  GoshuinGoshuinService,
+  GoshuinTranslation,
+  Temple,
+  TempleGoshuinService
+} from '../../../../openApi/goshuin';
 import { APP_PATHS } from '../../../shared/models/app-paths.model';
 import { toSignal } from '@angular/core/rxjs-interop';
 import { catchError, debounceTime, distinctUntilChanged, map, merge, of, switchMap, tap } from 'rxjs';
@@ -23,6 +31,7 @@ import {
 } from "../components/goshuin-temple-list-item/goshuin-temple-list-item.component";
 import { templeSelectionValidator } from "./utils/templeSelectionValidator";
 import { MatSnackBar } from "@angular/material/snack-bar";
+import { nonEmptyArray } from "./utils/nonEmptyArrayValidator";
 
 @Component({
   selector: 'app-goshuin-add',
@@ -50,31 +59,56 @@ import { MatSnackBar } from "@angular/material/snack-bar";
 export class GoshuinAddComponent {
   dashboardPath = `/${APP_PATHS.GOSHUIN}/${APP_PATHS.GOSHUIN_DASHBOARD}`;
   affiliationTypes = Object.values(AffiliationType);
-  searchDebounceTime = 700;
   goshuinFormats = Object.values(GoshuinFormat);
-  isSubmitting = signal(false);
-  isSearching = signal(false);
+  searchDebounceTime = 700;
   private readonly fb = inject(FormBuilder);
   private readonly transloco = inject(TranslocoService);
+  isSubmitting = signal(false);
+  isSearching = signal(false);
   templeFormGroup = this.fb.group({
-      templeId: [''],
+      selectedTemple: this.fb.control<Temple | undefined>(undefined),
       templeName: [''],
       city: [''],
-      affiliationType: [undefined],
+      affiliationType: this.fb.control<AffiliationType | undefined>(undefined),
     },
     {
       validators: templeSelectionValidator
     });
+  detailsFormGroup = this.fb.group({
+    format: this.fb.control(GoshuinFormat.Written, {
+      validators: Validators.required,
+      nonNullable: true,
+    }),
+    pages: this.fb.control(1, {
+      validators: [Validators.required, Validators.min(1)],
+      nonNullable: true,
+    }),
+    label: ['testLabel'],
+    description: ['testDescription']
+  });
+  imageFormGroup = this.fb.group({
+    imageUrl: this.fb.control(['https://storage.googleapis.com/tanuki-dev-assets/goshuin/Goshuin-Shikoku.png'], {
+      validators: [nonEmptyArray],
+      nonNullable: true,
+    }),
+  });
+  private readonly router = inject(Router);
   private readonly templeFormGroupChanges$ = merge(
     this.templeFormGroup.controls.templeName.valueChanges.pipe(debounceTime(this.searchDebounceTime), distinctUntilChanged()),
     this.templeFormGroup.controls.city.valueChanges.pipe(debounceTime(this.searchDebounceTime), distinctUntilChanged()),
     this.templeFormGroup.controls.affiliationType.valueChanges.pipe(distinctUntilChanged())
   );
+  currentLocale = toSignal(
+    this.transloco.langChanges$.pipe(map(() => this.transloco.getActiveLang().substring(0, 2))),
+    { initialValue: this.transloco.getActiveLang().substring(0, 2) });
+  private readonly goshuinService = inject(GoshuinGoshuinService);
+  private readonly templeService = inject(TempleGoshuinService);
+  private readonly snackBar = inject(MatSnackBar);
   filteredTemples = toSignal(
     this.templeFormGroupChanges$.pipe(
       tap(() => {
         this.isSearching.set(true);
-        this.templeFormGroup.controls.templeId.reset()
+        this.templeFormGroup.controls.selectedTemple.reset()
       }),
       switchMap(() => {
         return this.searchTemples();
@@ -83,20 +117,15 @@ export class GoshuinAddComponent {
     ),
     { initialValue: [] as Temple[] }
   );
-  private readonly templeService = inject(TempleGoshuinService);
-  currentLocale = toSignal(
-    this.transloco.langChanges$.pipe(map(() => this.transloco.getActiveLang().substring(0, 2))),
-    { initialValue: this.transloco.getActiveLang().substring(0, 2) });
-  private readonly snackBar = inject(MatSnackBar);
 
   constructor() {
   }
 
   toggleTempleSelect(temple: Temple) {
-    const templeIdControl = this.templeFormGroup.controls.templeId;
+    const selectedTempleControl = this.templeFormGroup.controls.selectedTemple;
 
-    templeIdControl.patchValue(
-      templeIdControl.value === temple.id ? null : temple.id,
+    selectedTempleControl.patchValue(
+      selectedTempleControl.value === temple ? undefined : temple,
       { emitEvent: false }
     );
   }
@@ -104,31 +133,20 @@ export class GoshuinAddComponent {
   onSubmit() {
     if (this.templeFormGroup.valid && this.detailsFormGroup.valid) {
       this.isSubmitting.set(true);
-
-      // Simulate API call
-      console.log('Adding Goshuin:', {
-        ...this.templeFormGroup.value,
-        ...this.detailsFormGroup.value,
-        ...this.imageFormGroup.value
-      });
-
-      setTimeout(() => {
+      const goshuin: GoshuinCreate = {
+        templeId: this.templeFormGroup.controls.selectedTemple.value?.id || undefined,
+        format: this.detailsFormGroup.controls.format.value,
+        pages: this.detailsFormGroup.controls.pages.value,
+        originalLocale: this.transloco.getActiveLang(),
+        translations: this.buildTranslations(),
+        imageUrls: this.imageFormGroup.controls.imageUrl.value
+      };
+      this.goshuinService.createGoshuin(goshuin).subscribe(() => {
         this.isSubmitting.set(false);
         this.router.navigate([this.dashboardPath]);
-      }, 1500);
+      });
     }
   }
-
-  detailsFormGroup = this.fb.group({
-    format: [GoshuinFormat.Written, Validators.required],
-    pages: [1, [Validators.required, Validators.min(1)]],
-    description: ['']
-  });
-
-  imageFormGroup = this.fb.group({
-    imageUrl: ['']
-  });
-  private readonly router = inject(Router);
 
   private searchTemples() {
     const { templeName, city, affiliationType } = this.templeFormGroup.getRawValue();
@@ -160,5 +178,21 @@ export class GoshuinAddComponent {
         return of([]);
       })
     );
+  }
+
+  private buildTranslations(): Record<string, GoshuinTranslation> {
+    const label = this.detailsFormGroup.controls.label.value?.trim();
+    const description = this.detailsFormGroup.controls.description.value?.trim();
+
+    if (!label && !description) {
+      return {};
+    }
+
+    return {
+      [this.currentLocale()]: {
+        ...(label && { label }),
+        ...(description && { description }),
+      }
+    };
   }
 }

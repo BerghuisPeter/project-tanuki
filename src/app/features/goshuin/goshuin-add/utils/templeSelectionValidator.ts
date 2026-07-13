@@ -3,10 +3,10 @@ import { AbstractControl, ValidationErrors, ValidatorFn } from '@angular/forms';
 export const templeSelectionValidator: ValidatorFn = (
   control: AbstractControl
 ): ValidationErrors | null => {
-  const templeId = control.get('templeId')?.value;
+  const selectedTemple = control.get('selectedTemple')?.value;
 
   // Existing temple selected
-  if (templeId) {
+  if (selectedTemple) {
     return null;
   }
 
