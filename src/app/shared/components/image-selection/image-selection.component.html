@@ -1,0 +1,75 @@
+<div class="flex flex-col gap-3">
+  <div class="rounded-xl border-2 border-dashed p-4 upload-box">
+    <div class="flex items-start justify-between gap-3">
+      <div class="flex flex-col gap-1">
+        <p class="text-sm font-medium label-text">{{ label() }}</p>
+        <p class="text-xs hint label-text">{{ hint() }}</p>
+      </div>
+      <span class="rounded-full px-2 py-1 text-xs shadow-sm counter-badge">
+        {{ displayCount() }}/{{ maxImages() }}
+      </span>
+    </div>
+
+    <input
+      #fileInput
+      (change)="onFilesSelected($event)"
+      [accept]="acceptAttribute()"
+      [attr.multiple]="maxImages() > 1 ? '' : null"
+      class="hidden"
+      type="file"
+    >
+
+    <div class="mt-4 flex flex-col items-center gap-2 md:flex-row md:justify-center">
+      <button
+        (click)="triggerFileSelection(fileInput)"
+        [disabled]="isBusy() || disabled()"
+        mat-stroked-button
+        type="button"
+      >
+        <mat-icon>upload</mat-icon>
+        Choose image
+      </button>
+    </div>
+
+    @if (isBusy()) {
+      <div class="mt-3 flex flex-col gap-1">
+        <mat-progress-bar class="progress-bar" mode="indeterminate"></mat-progress-bar>
+        <span class="text-xs progress-text">Processing images...</span>
+      </div>
+    }
+
+    @if (errorMessage()) {
+      <p class="mt-2 text-xs error-text">{{ errorMessage() }}</p>
+    }
+
+    @if (previewUrl()) {
+      <div class="mt-4 flex justify-center">
+        <div class="relative group">
+          @if (previewError()) {
+            <mat-icon class="h-16 w-16 text-gray-400" style="font-size: 64px; width: 64px; height: 64px;">
+              hide_image
+            </mat-icon>
+          } @else {
+            <img
+              (error)="onPreviewError()"
+              [alt]="previewAlt()"
+              [class.rounded-full]="imageVisualization() === 'circle'"
+              [class.rounded-lg]="imageVisualization() === 'rounded'"
+              [class.rounded-none]="imageVisualization() === 'square'"
+              [src]="previewUrl()"
+              class="h-16 w-16 object-cover border border-gray-200 shadow-sm"
+            >
+          }
+          <button
+            (click)="onRemoveClicked()"
+            [disabled]="!canRemove()"
+            class="absolute -top-1 -right-1 bg-white shadow-md hover:bg-gray-100 h-6 w-6 flex items-center justify-center rounded-full border border-gray-200 cursor-pointer disabled:cursor-not-allowed"
+            type="button"
+          >
+            <mat-icon class="text-red-500" style="font-size: 16px; width: 16px; height: 16px;">close</mat-icon>
+          </button>
+        </div>
+      </div>
+    }
+  </div>
+</div>

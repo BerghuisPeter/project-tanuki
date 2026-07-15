@@ -6,47 +6,16 @@
 
     <mat-card-content>
       <div class="flex flex-col items-center gap-4 mb-6">
-        <div class="flex flex-row items-center gap-4 w-full">
-          <div class="flex flex-col gap-2 flex-grow">
-            <span class="text-xs text-gray-500 text-center">{{ t('profile.text.uploadLimits') }}</span>
-            <input #fileInput (change)="onFileSelected($event)" accept="image/jpeg,image/png,image/webp"
-                   class="hidden"
-                   type="file">
-            <button (click)="fileInput.click()" [disabled]="isUploading() || isSaving()"
-                    class="w-full" mat-stroked-button type="button">
-              <mat-icon>upload</mat-icon>
-              {{ t('profile.button.uploadAvatar') }}
-            </button>
-
-            @if (isUploading()) {
-              <div class="flex flex-col gap-1">
-                <mat-progress-bar [value]="uploadProgress()" mode="determinate"></mat-progress-bar>
-                <span class="text-xs text-center">{{ uploadProgress() }}%</span>
-              </div>
-            }
-          </div>
-
-          @if (profileForm.get('avatarUrl')?.value) {
-            <div class="flex-shrink-0 relative group">
-              @if (imageError()) {
-                <mat-icon class="h-16 w-16 text-gray-400" style="font-size: 64px; width: 64px; height: 64px;">
-                  hide_image
-                </mat-icon>
-              } @else {
-                <img (error)="onImageError()"
-                     [src]="profileForm.get('avatarUrl')?.value"
-                     alt="Avatar preview"
-                     class="h-16 w-16 rounded-full object-cover border border-gray-200 shadow-sm">
-              }
-              <button (click)="removeAvatar()"
-                      [disabled]="isUploading() || isSaving()"
-                      class="absolute -top-1 -right-1 bg-white shadow-md hover:bg-gray-100 h-6 w-6 flex items-center justify-center rounded-full border border-gray-200"
-                      type="button">
-                <mat-icon class="text-red-500" style="font-size: 16px; width: 16px; height: 16px;">close</mat-icon>
-              </button>
-            </div>
-          }
-        </div>
+        <app-image-selection
+          (filesChanged)="onAvatarFilesChanged($event)"
+          (removeRequested)="removeAvatar()"
+          [currentImageUrl]="profileForm.get('avatarUrl')?.value"
+          [disabled]="isUploading() || isSaving()"
+          [hint]="t('profile.text.uploadLimits')"
+          [label]="t('profile.button.uploadAvatar')"
+          [loading]="isUploading()"
+          previewAlt="Avatar preview"
+        />
       </div>
 
       <div class="border-b border-gray-200 mb-6"></div>

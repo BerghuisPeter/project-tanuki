@@ -1,4 +1,4 @@
-import { Component, effect, inject, signal } from '@angular/core';
+import { Component, effect, inject, signal, ViewChild } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormBuilder, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
 import { MatCardModule } from '@angular/material/card';
@@ -11,11 +11,11 @@ import { ProfileProfileService, UserProfile } from 'src/openApi/profile';
 import { ProfileService } from '../../core/services/profile.service';
 import { HttpEventType } from '@angular/common/http';
 import { UserService } from '../../core/services/user.service';
-import { MatProgressBarModule } from '@angular/material/progress-bar';
 import { MatSnackBar, MatSnackBarModule } from "@angular/material/snack-bar";
 import { MatTooltip } from "@angular/material/tooltip";
 import { LanguageService } from '../../core/services/language.service';
 import { TranslocoModule, TranslocoService } from '@jsverse/transloco';
+import { ImageSelectionComponent } from '../../shared/components/image-selection/image-selection.component';
 
 @Component({
   selector: 'app-profile',
@@ -29,22 +29,20 @@ import { TranslocoModule, TranslocoService } from '@jsverse/transloco';
     MatButtonModule,
     MatSelectModule,
     MatIconModule,
-    MatProgressBarModule,
     MatSnackBarModule,
     MatTooltip,
-    TranslocoModule
+    TranslocoModule,
+    ImageSelectionComponent
   ],
   templateUrl: './profile.component.html',
   styleUrl: './profile.component.scss'
 })
 export class ProfileComponent {
-  private readonly MAX_FILE_SIZE = 5242880; // 5MB
-  private readonly ALLOWED_TYPES = ['image/jpeg', 'image/png', 'image/webp'];
-
   isSaving = signal(false);
   isUploading = signal(false);
-  uploadProgress = signal(0);
-  imageError = signal(false);
+
+  @ViewChild(ImageSelectionComponent) imageSelector!: ImageSelectionComponent;
+
   private readonly languageService = inject(LanguageService);
   private readonly fb = inject(FormBuilder);
   profileForm: FormGroup = this.fb.group({
@@ -63,7 +61,6 @@ export class ProfileComponent {
       const profile = this.userService.user().profile;
       if (profile) {
         this.profileForm.patchValue(profile, { emitEvent: false });
-        this.imageError.set(false);
       }
     });
   }
@@ -76,13 +73,9 @@ export class ProfileComponent {
     }
   }
 
-  onImageError(): void {
-    this.imageError.set(true);
-  }
-
   removeAvatar(): void {
     this.profileForm.patchValue({ avatarUrl: '' });
-    this.imageError.set(false);
+    this.imageSelector.reset();
     this.onSubmit();
   }
 
@@ -97,37 +90,17 @@ export class ProfileComponent {
         avatarUrl: ''
       });
     }
-    this.imageError.set(false);
+    this.imageSelector.reset();
   }
 
-  onFileSelected(event: Event): void {
-    const input = event.target as HTMLInputElement;
-    if (input.files && input.files.length > 0) {
-      const file = input.files[0];
+  onAvatarFilesChanged(files: File[]): void {
+    const [file] = files;
 
-      if (file.size > this.MAX_FILE_SIZE) {
-        this.snackBar.open(
-          this.translocoService.translate('profile.error.fileTooLarge'),
-          this.translocoService.translate('profile.snackbar.close'),
-          { duration: 3000 }
-        );
-        input.value = '';
-        return;
-      }
-
-      if (!this.ALLOWED_TYPES.includes(file.type)) {
-        this.snackBar.open(
-          this.translocoService.translate('profile.error.invalidFileType'),
-          this.translocoService.translate('profile.snackbar.close'),
-          { duration: 3000 }
-        );
-        input.value = '';
-        return;
-      }
-
-      this.uploadAvatar(file);
-      this.imageError.set(false);
+    if (!file || this.isUploading() || this.isSaving()) {
+      return;
     }
+
+    this.uploadAvatar(file);
   }
 
   onSubmit(): void {
@@ -183,7 +156,6 @@ export class ProfileComponent {
 
   private uploadAvatar(file: File): void {
     this.isUploading.set(true);
-    this.uploadProgress.set(0);
 
     this.profileService.getSignedUrl(file.type).subscribe({
       next: (response) => {
@@ -197,19 +169,10 @@ export class ProfileComponent {
 
         this.profileService.uploadFile(signedUrl, file).subscribe({
           next: (event) => {
-            if (event.type === HttpEventType.UploadProgress && event.total) {
-              this.uploadProgress.set(Math.round((100 * event.loaded) / event.total));
-            } else if (event.type === HttpEventType.Response) {
-              // Extract the URL before query parameters from the signed URL to get the public URL
+            if (event.type === HttpEventType.Response) {
               const publicUrl = signedUrl.split('?')[0];
               this.profileForm.patchValue({ avatarUrl: publicUrl });
-              this.imageError.set(false);
               this.isUploading.set(false);
-              this.snackBar.open(
-                this.translocoService.translate('profile.snackbar.uploadSuccess'),
-                this.translocoService.translate('profile.snackbar.close'),
-                { duration: 3000 }
-              );
               this.onSubmit();
             }
           },

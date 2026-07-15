@@ -1,0 +1,137 @@
+:host {
+  display: block;
+}
+
+.rounded-xl {
+  border-radius: 12px;
+}
+
+.border-2 {
+  border-width: 2px;
+}
+
+.border-dashed {
+  border-style: dashed;
+}
+
+.gap-3 {
+  gap: 12px;
+}
+
+.gap-1 {
+  gap: 4px;
+}
+
+.gap-2 {
+  gap: 8px;
+}
+
+.p-4 {
+  padding: 16px;
+}
+
+.mt-3 {
+  margin-top: 12px;
+}
+
+.mt-4 {
+  margin-top: 16px;
+}
+
+.flex {
+  display: flex;
+}
+
+.flex-col {
+  flex-direction: column;
+}
+
+.items-start {
+  align-items: flex-start;
+}
+
+.items-center {
+  align-items: center;
+}
+
+.justify-between {
+  justify-content: space-between;
+}
+
+.justify-center {
+  justify-content: center;
+}
+
+.w-full {
+  width: 100%;
+}
+
+.h-16 {
+  height: 64px;
+}
+
+.text-xs {
+  font-size: 12px;
+  line-height: 16px;
+}
+
+.text-sm {
+  font-size: 14px;
+  line-height: 20px;
+}
+
+.font-medium {
+  font-weight: 500;
+}
+
+.rounded-full {
+  border-radius: 9999px;
+}
+
+.px-2 {
+  padding-left: 8px;
+  padding-right: 8px;
+}
+
+.py-1 {
+  padding-top: 4px;
+  padding-bottom: 4px;
+}
+
+.shadow-sm {
+  box-shadow: 0 1px 2px 0 rgba(0, 0, 0, 0.05);
+}
+
+// Material theming using CSS variables
+.upload-box {
+  border-color: var(--mat-sys-outline);
+  background-color: var(--mat-sys-surface-dim);
+}
+
+.label-text {
+  color: var(--mat-sys-on-surface);
+
+  &.hint {
+    color: var(--mat-sys-on-surface-variant);
+  }
+}
+
+.counter-badge {
+  background-color: var(--mat-sys-surface);
+  color: var(--mat-sys-on-surface-variant);
+  border: 1px solid var(--mat-sys-outline);
+}
+
+.progress-text {
+  color: var(--mat-sys-on-surface-variant);
+}
+
+.error-text {
+  color: var(--mat-sys-error);
+}
+
+@media (prefers-color-scheme: dark) {
+  .upload-box {
+    background-color: var(--mat-sys-surface-dim);
+  }
+}
