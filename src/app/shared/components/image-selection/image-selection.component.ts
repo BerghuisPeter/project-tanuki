@@ -10,6 +10,7 @@ interface PreviewImage {
 }
 
 type ImageVisualization = 'circle' | 'rounded' | 'square';
+type ImageSize = 'sm' | 'md' | 'lg' | 'xl';
 
 @Component({
   selector: 'app-image-selection',
@@ -27,6 +28,7 @@ export class ImageSelectionComponent implements OnDestroy {
   readonly acceptedTypes = input<string[]>(['image/jpeg', 'image/png', 'image/webp']);
   readonly currentImageUrl = input<string | null>(null);
   readonly imageVisualization = input<ImageVisualization>('circle');
+  readonly imageSize = input<ImageSize>('md');
   readonly previewAlt = input('Image preview');
   readonly label = input('Upload images');
   readonly hint = input('JPEG, PNG and WEBP are supported.');
@@ -58,6 +60,15 @@ export class ImageSelectionComponent implements OnDestroy {
     return this.currentImageUrl();
   });
   readonly canRemove = computed(() => !this.disabled() && !this.isBusy() && !!this.previewUrl());
+  readonly previewClasses = computed(() => {
+    const sizeMap: Record<ImageSize, { container: string; icon: string; iconSize: number }> = {
+      sm: { container: 'h-12 w-12', icon: 'h-12 w-12', iconSize: 48 },
+      md: { container: 'h-16 w-16', icon: 'h-16 w-16', iconSize: 64 },
+      lg: { container: 'h-28 w-28', icon: 'h-28 w-28', iconSize: 112 },
+      xl: { container: 'h-40 w-40', icon: 'h-40 w-40', iconSize: 160 }
+    };
+    return sizeMap[this.imageSize()];
+  });
   private nextPreviewId = 0;
 
   triggerFileSelection(input: HTMLInputElement): void {

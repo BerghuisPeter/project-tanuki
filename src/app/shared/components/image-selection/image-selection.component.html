@@ -46,7 +46,8 @@
       <div class="mt-4 flex justify-center">
         <div class="relative group">
           @if (previewError()) {
-            <mat-icon class="h-16 w-16 text-gray-400" style="font-size: 64px; width: 64px; height: 64px;">
+            <mat-icon [class]="previewClasses().icon + ' text-gray-400'"
+                      [style]="'font-size: ' + previewClasses().iconSize + 'px; width: ' + previewClasses().iconSize + 'px; height: ' + previewClasses().iconSize + 'px;'">
               hide_image
             </mat-icon>
           } @else {
@@ -56,8 +57,8 @@
               [class.rounded-full]="imageVisualization() === 'circle'"
               [class.rounded-lg]="imageVisualization() === 'rounded'"
               [class.rounded-none]="imageVisualization() === 'square'"
+              [class]="previewClasses().container + ' object-cover border border-gray-200 shadow-sm'"
               [src]="previewUrl()"
-              class="h-16 w-16 object-cover border border-gray-200 shadow-sm"
             >
           }
           <button
