@@ -82,7 +82,6 @@ export class GoshuinAddComponent {
   isSearching = signal(false);
   isUploadingImages = signal(false);
   uploadedImageUrls = signal<string[]>([]);
-  searchDebounceTime = 700;
   private readonly fb = inject(FormBuilder);
   private readonly transloco = inject(TranslocoService);
   templeFormGroup = this.fb.group({
@@ -148,7 +147,6 @@ export class GoshuinAddComponent {
     imageUrls: this.fb.control<string[]>([], { validators: [minArrayLengthValidator(1)], nonNullable: true }),
   });
   private readonly profileService = inject(ProfileService);
-  private readonly router = inject(Router);
 
   onSubmit() {
     if (this.isUploadingImages()) {
