@@ -130,16 +130,20 @@
     <mat-step [stepControl]="imageFormGroup">
       <ng-template matStepLabel>Image & Submit</ng-template>
       <form [formGroup]="imageFormGroup" class="flex flex-col gap-4 py-4">
-        <div
-          class="bg-gray-100 border-2 border-dashed border-gray-300 rounded-lg p-8 flex flex-col items-center justify-center text-gray-500">
-          <mat-icon class="!text-4xl h-10 w-10 mb-2">add_a_photo</mat-icon>
-          <span class="text-sm">Upload Photo (Mock)</span>
-        </div>
+        <app-image-selection
+          (filesChanged)="onGoshuinImagesChanged($event)"
+          [disabled]="isSubmitting() || isUploadingImages()"
+          [loading]="isUploadingImages()"
+          [maxImages]="1"
+          hint="Upload 1 image"
+          imageVisualization="rounded"
+          label="Goshuin Images"
+          imageSize="xl"
+        />
 
-        <mat-form-field appearance="outline" class="w-full">
-          <mat-label>Image URL (Optional)</mat-label>
-          <input formControlName="imageUrl" matInput placeholder="https://...">
-        </mat-form-field>
+        @if (imageFormGroup.get('imageUrls')?.hasError('arrayMinLength') && imageFormGroup.touched) {
+          <mat-error>At least one image is required.</mat-error>
+        }
 
         <div class="mt-4 p-4 bg-primary/5 rounded-lg border border-primary/10">
           <h3 class="font-bold text-gray-800 mb-2">Summary</h3>
@@ -155,7 +159,8 @@
 
         <div class="flex justify-between mt-4">
           <button [disabled]="isSubmitting()" mat-stroked-button matStepperPrevious>Back</button>
-          <button (click)="onSubmit()" [disabled]="isSubmitting() || !templeFormGroup.valid || !detailsFormGroup.valid"
+          <button (click)="onSubmit()"
+                  [disabled]="isSubmitting() || isUploadingImages() || !templeFormGroup.valid || !detailsFormGroup.valid || !imageFormGroup.valid"
                   color="primary"
                   mat-flat-button>
             @if (isSubmitting()) {
