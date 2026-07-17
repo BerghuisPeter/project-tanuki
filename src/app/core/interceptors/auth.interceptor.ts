@@ -1,50 +1,43 @@
 import { HttpErrorResponse, HttpEvent, HttpHandlerFn, HttpInterceptorFn, HttpRequest } from '@angular/common/http';
 import { inject } from '@angular/core';
 import { AuthService } from '../services/auth.service';
-import { BehaviorSubject, catchError, filter, Observable, switchMap, take, throwError } from 'rxjs';
+import { catchError, filter, Observable, switchMap, take, throwError } from 'rxjs';
 import { APP_PATHS } from '../../shared/models/app-paths.model';
 
-let isRefreshing = false;
-const refreshTokenSubject: BehaviorSubject<string | null> = new BehaviorSubject<string | null>(null);
-
 export const authInterceptor: HttpInterceptorFn = (req, next) => {
+  // Skip logic for assets
   if (req.url.includes('/assets/')) {
     return next(req);
   }
+
   const authService = inject(AuthService);
   const token = authService.getAccessToken();
 
-  // If we have a token, and it's not a login/register/refresh request, add the Authorization header
-  let authReq = req;
-  const isAuthRequest = req.url.includes('/api/v1/auth/login') ||
-    req.url.includes('/api/v1/auth/register') ||
-    req.url.includes('/api/v1/auth/refresh') ||
-    req.url.includes('/api/v1/auth/google') ||
-    req.url.includes('/api/v1/auth/oauth2');
+  // Define endpoints that don't need the Bearer token or 401 refresh handling
+  const authEndpoints = ['/login', '/register', '/refresh'];
+  const isAuthRequest = authEndpoints.some(path => req.url.includes(path));
+
+  // 1. Prepare Headers (Combine clones for efficiency)
+  const headers: Record<string, string> = {};
 
   if (token && !isAuthRequest) {
-    authReq = req.clone({
-      setHeaders: {
-        Authorization: `Bearer ${token}`
-      }
-    });
+    headers['Authorization'] = `Bearer ${token}`;
   }
 
-  if (req.headers.has('Content-Type') && req.headers.get('Content-Type') === 'application/json') {
-    authReq = authReq.clone({
-      setHeaders: {
-        'Content-Type': 'application/json; charset=utf-8'
-      }
-    });
+  // Preserve charset for application/json requests
+  if (req.headers.get('Content-Type') === 'application/json') {
+    headers['Content-Type'] = 'application/json; charset=utf-8';
   }
 
+  const authReq = Object.keys(headers).length > 0
+    ? req.clone({ setHeaders: headers })
+    : req;
+
+  // 2. Handle Request
   return next(authReq).pipe(
     catchError((error) => {
-      // Check for 401 error and make sure it's not from a refresh request itself
-      const isRefreshRequest = req.url.includes('/api/v1/auth/refresh');
-      const isLoginRequest = req.url.includes('/api/v1/auth/login');
-
-      if (error instanceof HttpErrorResponse && error.status === 401 && !isRefreshRequest && !isLoginRequest) {
+      // Check for 401 and ensure it's not an auth request (to avoid infinite loops)
+      if (error instanceof HttpErrorResponse && error.status === 401 && !isAuthRequest) {
         return handle401Error(authReq, next, authService);
       }
       return throwError(() => error);
@@ -53,51 +46,43 @@ export const authInterceptor: HttpInterceptorFn = (req, next) => {
 };
 
 function handle401Error(req: HttpRequest<unknown>, next: HttpHandlerFn, authService: AuthService): Observable<HttpEvent<unknown>> {
-  if (isRefreshing) {
-    // If we're already refreshing, wait for the new token
-    return refreshTokenSubject.pipe(
+  // Access state from AuthService instead of global variables
+  if (authService.isRefreshing()) {
+    return authService.refreshToken$.pipe(
       filter(token => token !== null),
       take(1),
       switchMap((token) => next(req.clone({
-        setHeaders: {
-          Authorization: `Bearer ${token}`
-        }
+        setHeaders: { Authorization: `Bearer ${token}` }
       })))
     );
   } else {
-    isRefreshing = true;
-    refreshTokenSubject.next(null);
-
+    authService.setRefreshing(true);
     const refreshToken = authService.getRefreshToken();
 
-    if (refreshToken) {
-      return authService.refreshToken(refreshToken).pipe(
-        switchMap((authRes) => {
-          isRefreshing = false;
-          refreshTokenSubject.next(authRes.accessToken);
-
-          // Retry the original request with the new access token
-          return next(req.clone({
-            setHeaders: {
-              Authorization: `Bearer ${authRes.accessToken}`
-            }
-          }));
-        }),
-        catchError((err) => {
-          isRefreshing = false;
-          // If refresh fails, the session is already invalid on the backend.
-          // We just need to clear local state and redirect to login.
-          authService.clearSessionState(APP_PATHS.AUTHENTICATION);
-          authService.showSessionExpiredToast();
-          return throwError(() => err);
-        })
-      );
-    } else {
-      isRefreshing = false;
-      // No refresh token available, clear state and redirect
+    if (!refreshToken) {
+      authService.setRefreshing(false);
       authService.clearSessionState(APP_PATHS.AUTHENTICATION);
       authService.showSessionExpiredToast();
       return throwError(() => new Error('No refresh token available'));
     }
+
+    return authService.refreshToken(refreshToken).pipe(
+      switchMap((authRes) => {
+        authService.setRefreshing(false);
+        authService.notifyRefreshSuccess(authRes.accessToken);
+
+        // Retry the original request with the new access token
+        return next(req.clone({
+          setHeaders: { Authorization: `Bearer ${authRes.accessToken}` }
+        }));
+      }),
+      catchError((err) => {
+        authService.setRefreshing(false);
+        authService.notifyRefreshFailure(err);
+        authService.clearSessionState(APP_PATHS.AUTHENTICATION);
+        authService.showSessionExpiredToast();
+        return throwError(() => err);
+      })
+    );
   }
 }

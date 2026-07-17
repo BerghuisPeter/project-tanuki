@@ -1,4 +1,4 @@
-import { inject, Injectable } from "@angular/core";
+import { inject, Injectable, signal } from "@angular/core";
 import { UserService } from "./user.service";
 import {
   AuthControllerAuthService,
@@ -9,7 +9,7 @@ import {
   RegisterRequest,
   UserResponse
 } from "../../../openApi/auth";
-import { catchError, firstValueFrom, tap, throwError } from "rxjs";
+import { BehaviorSubject, catchError, firstValueFrom, tap, throwError } from "rxjs";
 import { Router } from "@angular/router";
 import { APP_PATHS } from "../../shared/models/app-paths.model";
 import { HttpErrorResponse } from "@angular/common/http";
@@ -26,6 +26,32 @@ export class AuthService {
   private readonly languageService = inject(LanguageService);
   private readonly router = inject(Router);
   private readonly snackBar = inject(MatSnackBar);
+
+  private isRefreshingSignal = signal(false);
+  private refreshTokenSubject = new BehaviorSubject<string | null>(null);
+
+  get refreshToken$() {
+    return this.refreshTokenSubject.asObservable();
+  }
+
+  isRefreshing() {
+    return this.isRefreshingSignal();
+  }
+
+  setRefreshing(value: boolean) {
+    this.isRefreshingSignal.set(value);
+    if (value) this.refreshTokenSubject.next(null);
+  }
+
+  notifyRefreshSuccess(token: string) {
+    this.refreshTokenSubject.next(token);
+  }
+
+  notifyRefreshFailure(err: unknown) {
+    this.refreshTokenSubject.error(err);
+    // Re-create subject to allow future attempts after re-login
+    this.refreshTokenSubject = new BehaviorSubject<string | null>(null);
+  }
 
   private initPromise: Promise<void> | null = null;
 
