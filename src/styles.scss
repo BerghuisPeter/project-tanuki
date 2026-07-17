@@ -1,43 +1,32 @@
 @use '@angular/material' as mat;
+@use 'themes/light' as light-theme;
+@use 'themes/dark' as dark-theme;
 @use 'tailwindcss';
 @import "maplibre-gl/dist/maplibre-gl.css";
 
 @include mat.core();
 
 html {
+  @include mat.all-component-themes(light-theme.$theme);
   height: 100%;
   min-width: 320px;
 }
 
-body.light-theme {
-  @include mat.theme((
-    color: (
-      primary: mat.$azure-palette,
-      tertiary: mat.$blue-palette,
-    ),
-    typography: Roboto,
-    density: 0,
-  ));
-}
-
-body.dark-theme {
-  @include mat.theme((
-    color: (
-      primary: mat.$red-palette,
-      tertiary: mat.$violet-palette,
-    ),
-    typography: Roboto,
-    density: 0,
-  ));
+html.dark-theme {
+  @include mat.all-component-colors(dark-theme.$theme);
 }
 
 body {
-  background-color: var(--mat-sys-background);
-  color: var(--mat-sys-on-surface);
-  font: var(--mat-sys-body-medium);
-
   margin: 0;
   height: 100%;
+}
+
+.text-primary {
+  color: var(--mat-sys-primary);
+}
+
+.text-tertiary {
+  color: var(--mat-sys-tertiary);
 }
 
 .icon-primary {

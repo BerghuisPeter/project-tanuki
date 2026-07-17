@@ -31,14 +31,15 @@ export class ThemeService {
   }
 
   private applyTheme(isDark: boolean): void {
+    const target = document.documentElement;
     if (isDark) {
-      document.body.classList.add('dark-theme');
-      document.body.classList.remove('light-theme');
-      document.body.style.colorScheme = 'dark';
+      target.classList.add('dark-theme');
+      target.classList.remove('light-theme');
+      target.style.colorScheme = 'dark';
     } else {
-      document.body.classList.add('light-theme');
-      document.body.classList.remove('dark-theme');
-      document.body.style.colorScheme = 'light';
+      target.classList.add('light-theme');
+      target.classList.remove('dark-theme');
+      target.style.colorScheme = 'light';
     }
   }
 }

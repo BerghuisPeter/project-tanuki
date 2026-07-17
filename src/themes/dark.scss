@@ -13,51 +13,51 @@ $_palettes: (
     25: #7e0000,
     30: #930000,
     35: #aa0000,
-    40: #c00000,
-    50: #e92114,
-    60: #ff5541,
-    70: #ff8a78,
-    80: #ffb4a8,
-    90: #ffdad4,
-    95: #ffedea,
-    98: #fff8f6,
+    40: #c1001d,
+    50: #ec0028,
+    60: #ff1a20,
+    70: #ff333a,
+    80: #ff4d5a,
+    90: #ff808b,
+    95: #ffb3b9,
+    98: #fff8f8,
     99: #fffbff,
     100: #ffffff,
   ),
   secondary: (
     0: #000000,
-    10: #1b1b1b,
-    20: #313030,
-    25: #3c3b3b,
-    30: #474746,
-    35: #535252,
-    40: #5f5e5e,
-    50: #787776,
-    60: #929090,
-    70: #adabaa,
-    80: #c8c6c5,
-    90: #e5e2e1,
-    95: #f3f0ef,
-    98: #fcf9f8,
-    99: #fffbfb,
+    10: #001b3d,
+    20: #003166,
+    25: #003d7c,
+    30: #004993,
+    35: #0056aa,
+    40: #0063c2,
+    50: #007eff,
+    60: #4da5ff,
+    70: #8bc6ff,
+    80: #b3dbff,
+    90: #d9edff,
+    95: #ecf6ff,
+    98: #f7fbff,
+    99: #fbfeff,
     100: #ffffff,
   ),
   tertiary: (
     0: #000000,
-    10: #241a00,
-    20: #3c2f00,
-    25: #4a3900,
-    30: #574500,
-    35: #655000,
-    40: #735c00,
-    50: #917400,
-    60: #af8d11,
-    70: #cca730,
-    80: #e9c349,
-    90: #ffe088,
-    95: #ffefcc,
-    98: #fff8f0,
-    99: #fffbff,
+    10: #261900,
+    20: #412d00,
+    25: #4f3700,
+    30: #5e4200,
+    35: #6d4e00,
+    40: #7d5a00,
+    50: #9d7200,
+    60: #be8b00,
+    70: #dfa400,
+    80: #ffc107,
+    90: #ffd966,
+    95: #ffeca9,
+    98: #fff8e1,
+    99: #fffdf6,
     100: #ffffff,
   ),
   neutral: (
@@ -126,20 +126,7 @@ $_palettes: (
   ),
 );
 
-$_rest: (
-  secondary: map.get($_palettes, secondary),
-  neutral: map.get($_palettes, neutral),
-  neutral-variant: map.get($_palettes, neutral-variant),
-  error: map.get($_palettes, error),
-);
-
-$primary-palette: map.merge(map.get($_palettes, primary), $_rest);
-$tertiary-palette: map.merge(map.get($_palettes, tertiary), $_rest);
-
 @function _high-contrast-value($light, $dark, $theme-type) {
-  @if ($theme-type == light) {
-    @return $light;
-  }
   @if ($theme-type == dark) {
     @return $dark;
   }
@@ -147,7 +134,7 @@ $tertiary-palette: map.merge(map.get($_palettes, tertiary), $_rest);
     @return light-dark(#{$light}, #{$dark});
   }
 
-  @error 'Unknown theme-type #{$theme-type}. Expected light, dark, or color-scheme';
+  @error 'Unknown theme-type #{$theme-type}. Expected dark, or color-scheme';
 }
 
 @mixin high-contrast-overrides($theme-type) {
@@ -204,10 +191,27 @@ $tertiary-palette: map.merge(map.get($_palettes, tertiary), $_rest);
   ))
 }
 
+$_rest: (
+  secondary: map.get($_palettes, secondary),
+  neutral: map.get($_palettes, neutral),
+  neutral-variant: map.get($_palettes, neutral-variant),
+  error: map.get($_palettes, error),
+);
+
+$primary-palette: map.merge(map.get($_palettes, primary), $_rest);
+$tertiary-palette: map.merge(map.get($_palettes, tertiary), $_rest);
+
 $theme: mat.define-theme((
   color: (
     theme-type: dark,
     primary: $primary-palette,
     tertiary: $tertiary-palette,
+  ),
+  typography: (
+    brand-family: 'Roboto',
+    plain-family: 'Roboto',
+  ),
+  density: (
+    scale: 0
   )
 ));

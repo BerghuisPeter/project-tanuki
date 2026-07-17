@@ -8,56 +8,56 @@
 $_palettes: (
   primary: (
     0: #000000,
-    10: #410003,
-    20: #680008,
-    25: #7d000c,
-    30: #920311,
-    35: #a4161b,
-    40: #b52526,
-    50: #d83f3b,
-    60: #fb5851,
-    70: #ff8980,
-    80: #ffb3ac,
-    90: #ffdad6,
-    95: #ffedeb,
-    98: #fff8f7,
+    10: #410004,
+    20: #69000b,
+    25: #7d0010,
+    30: #930015,
+    35: #a9001b,
+    40: #c1001d,
+    50: #ec0028,
+    60: #ff1a20,
+    70: #ff333a,
+    80: #ff4d5a,
+    90: #ff808b,
+    95: #ffb3b9,
+    98: #fff8f8,
     99: #fffbff,
     100: #ffffff,
   ),
   secondary: (
     0: #000000,
-    10: #001c3b,
-    20: #143155,
-    25: #213c61,
-    30: #2d476d,
-    35: #3a537a,
-    40: #465f86,
-    50: #5f78a1,
-    60: #7892bc,
-    70: #93acd8,
-    80: #aec8f4,
-    90: #d5e3ff,
-    95: #ebf1ff,
-    98: #f9f9ff,
-    99: #fdfbff,
+    10: #001b3d,
+    20: #003166,
+    25: #003d7c,
+    30: #004993,
+    35: #0056aa,
+    40: #0063c2,
+    50: #007eff,
+    60: #4da5ff,
+    70: #8bc6ff,
+    80: #b3dbff,
+    90: #d9edff,
+    95: #ecf6ff,
+    98: #f7fbff,
+    99: #fbfeff,
     100: #ffffff,
   ),
   tertiary: (
     0: #000000,
-    10: #241a00,
-    20: #3d2e00,
-    25: #4a3900,
-    30: #584400,
-    35: #664f00,
-    40: #755b00,
-    50: #927300,
-    60: #b18c09,
-    70: #cea72c,
-    80: #ecc246,
-    90: #ffe08e,
-    95: #ffefce,
-    98: #fff8f1,
-    99: #fffbff,
+    10: #261900,
+    20: #412d00,
+    25: #4f3700,
+    30: #5e4200,
+    35: #6d4e00,
+    40: #7d5a00,
+    50: #9d7200,
+    60: #be8b00,
+    70: #dfa400,
+    80: #ffc107,
+    90: #ffd966,
+    95: #ffeca9,
+    98: #fff8e1,
+    99: #fffdf6,
     100: #ffffff,
   ),
   neutral: (
@@ -126,28 +126,15 @@ $_palettes: (
   ),
 );
 
-$_rest: (
-  secondary: map.get($_palettes, secondary),
-  neutral: map.get($_palettes, neutral),
-  neutral-variant: map.get($_palettes, neutral-variant),
-  error: map.get($_palettes, error),
-);
-
-$primary-palette: map.merge(map.get($_palettes, primary), $_rest);
-$tertiary-palette: map.merge(map.get($_palettes, tertiary), $_rest);
-
 @function _high-contrast-value($light, $dark, $theme-type) {
   @if ($theme-type == light) {
     @return $light;
-  }
-  @if ($theme-type == dark) {
-    @return $dark;
   }
   @if ($theme-type == color-scheme) {
     @return light-dark(#{$light}, #{$dark});
   }
 
-  @error 'Unknown theme-type #{$theme-type}. Expected light, dark, or color-scheme';
+  @error 'Unknown theme-type #{$theme-type}. Expected light, or color-scheme';
 }
 
 @mixin high-contrast-overrides($theme-type) {
@@ -204,10 +191,27 @@ $tertiary-palette: map.merge(map.get($_palettes, tertiary), $_rest);
   ))
 }
 
+$_rest: (
+  secondary: map.get($_palettes, secondary),
+  neutral: map.get($_palettes, neutral),
+  neutral-variant: map.get($_palettes, neutral-variant),
+  error: map.get($_palettes, error),
+);
+
+$primary-palette: map.merge(map.get($_palettes, primary), $_rest);
+$tertiary-palette: map.merge(map.get($_palettes, tertiary), $_rest);
+
 $theme: mat.define-theme((
   color: (
     theme-type: light,
     primary: $primary-palette,
     tertiary: $tertiary-palette,
+  ),
+  typography: (
+    brand-family: 'Roboto',
+    plain-family: 'Roboto',
+  ),
+  density: (
+    scale: 0
   )
 ));
