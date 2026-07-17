@@ -156,6 +156,11 @@ export class GoshuinAddComponent {
       this.isSubmitting.set(true);
       const goshuin: GoshuinCreate = {
         templeId: this.templeFormGroup.controls.selectedTemple.value?.id || undefined,
+        temple: {
+          name: this.templeFormGroup.controls.templeName.value || undefined,
+          affiliationType: this.templeFormGroup.controls.affiliationType.value || undefined,
+          city: this.templeFormGroup.controls.city.value || undefined
+        },
         format: this.detailsFormGroup.controls.format.value,
         pages: this.detailsFormGroup.controls.pages.value,
         originalLocale: this.transloco.getActiveLang(),
