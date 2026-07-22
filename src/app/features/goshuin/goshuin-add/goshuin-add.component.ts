@@ -46,7 +46,7 @@ import {
 import { templeSelectionValidator } from "./utils/templeSelectionValidator";
 import { MatSnackBar } from "@angular/material/snack-bar";
 import { ImageSelectionComponent } from 'src/app/shared/components/image-selection/image-selection.component';
-import { ProfileService } from 'src/app/core/services/profile.service';
+import { FileUploadService } from 'src/app/core/services/file-upload.service';
 import { minArrayLengthValidator } from 'src/app/shared/validators/min-array-length.validator';
 
 @Component({
@@ -114,7 +114,8 @@ export class GoshuinAddComponent {
   currentLocale = toSignal(
     this.transloco.langChanges$.pipe(map(() => this.transloco.getActiveLang().substring(0, 2))),
     { initialValue: this.transloco.getActiveLang().substring(0, 2) });
-  private readonly goshuinService = inject(GoshuinGoshuinService);
+  private readonly goshuinApiService = inject(GoshuinGoshuinService);
+  private readonly fileUploadService = inject(FileUploadService);
   private readonly templeService = inject(TempleGoshuinService);
   private readonly snackBar = inject(MatSnackBar);
   filteredTemples = toSignal(
@@ -146,7 +147,7 @@ export class GoshuinAddComponent {
   imageFormGroup = this.fb.group({
     imageUrls: this.fb.control<string[]>([], { validators: [minArrayLengthValidator(1)], nonNullable: true }),
   });
-  private readonly profileService = inject(ProfileService);
+
 
   onSubmit() {
     if (this.isUploadingImages()) {
@@ -167,7 +168,7 @@ export class GoshuinAddComponent {
         translations: this.buildTranslations(),
         imageUrls: this.imageFormGroup.controls.imageUrls.value
       };
-      this.goshuinService.createGoshuin(goshuin).subscribe(() => {
+      this.goshuinApiService.createGoshuin(goshuin).subscribe(() => {
         this.isSubmitting.set(false);
         this.router.navigate([this.dashboardPath]);
       });
@@ -245,7 +246,7 @@ export class GoshuinAddComponent {
   }
 
   private uploadSingleImage(file: File) {
-    return this.profileService.getSignedUrl(file.type).pipe(
+    return this.goshuinApiService.getGoshuinUploadUrl(file.type).pipe(
       switchMap((response) => {
         const signedUrl = response.uploadUrl;
 
@@ -254,7 +255,7 @@ export class GoshuinAddComponent {
           return of(null);
         }
 
-        return this.profileService.uploadFile(signedUrl, file).pipe(
+        return this.fileUploadService.uploadFile(signedUrl, file).pipe(
           filter((event) => event.type === HttpEventType.Response),
           take(1),
           map(() => signedUrl.split('?')[0]),

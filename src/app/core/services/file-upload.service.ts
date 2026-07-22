@@ -1,33 +1,22 @@
 import { inject, Injectable } from '@angular/core';
 import { HttpBackend, HttpClient, HttpEvent } from '@angular/common/http';
 import { Observable } from 'rxjs';
-import { ProfileProfileService, UploadUrlResponse } from 'src/openApi/profile';
 
 @Injectable({
   providedIn: 'root'
 })
-export class ProfileService {
-  private readonly userProfileService = inject(ProfileProfileService);
+export class FileUploadService {
   private readonly httpBackend = inject(HttpBackend);
   private readonly externalHttpClient: HttpClient;
 
   constructor() {
     // Create a dedicated HttpClient that uses HttpBackend to bypass interceptors
+    // This ensures that internal Authorization headers are not sent to external URLs (like GCS)
     this.externalHttpClient = new HttpClient(this.httpBackend);
   }
 
   /**
-   * Request a signed URL from the backend for avatar upload.
-   * @param contentType The MIME type of the file to be uploaded.
-   * @returns An Observable emitting the signed URL response.
-   */
-  getSignedUrl(contentType: string): Observable<UploadUrlResponse> {
-    return this.userProfileService.getAvatarUploadUrl(contentType);
-  }
-
-  /**
-   * Upload a file to a GCS signed URL without using standard HttpClient interceptors.
-   * This ensures that internal Authorization headers are not sent to GCS.
+   * Upload a file to a signed URL without using standard HttpClient interceptors.
    * @param url The signed URL.
    * @param file The file to upload.
    * @returns An Observable of the upload event.

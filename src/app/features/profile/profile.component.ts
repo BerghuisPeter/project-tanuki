@@ -8,7 +8,7 @@ import { MatButtonModule } from '@angular/material/button';
 import { MatSelectModule } from '@angular/material/select';
 import { MatIconModule } from '@angular/material/icon';
 import { ProfileProfileService, UserProfile } from 'src/openApi/profile';
-import { ProfileService } from '../../core/services/profile.service';
+import { FileUploadService } from '../../core/services/file-upload.service';
 import { HttpEventType } from '@angular/common/http';
 import { UserService } from '../../core/services/user.service';
 import { MatSnackBar, MatSnackBarModule } from "@angular/material/snack-bar";
@@ -51,7 +51,7 @@ export class ProfileComponent {
     avatarUrl: ['', [Validators.pattern('^(https?://.*)?$')]]
   });
   private readonly userProfileService = inject(ProfileProfileService);
-  private readonly profileService = inject(ProfileService);
+  private readonly fileUploadService = inject(FileUploadService);
   private readonly userService = inject(UserService);
   private readonly snackBar = inject(MatSnackBar);
   private readonly translocoService = inject(TranslocoService);
@@ -157,7 +157,7 @@ export class ProfileComponent {
   private uploadAvatar(file: File): void {
     this.isUploading.set(true);
 
-    this.profileService.getSignedUrl(file.type).subscribe({
+    this.userProfileService.getAvatarUploadUrl(file.type).subscribe({
       next: (response) => {
         const signedUrl = response.uploadUrl;
 
@@ -167,7 +167,7 @@ export class ProfileComponent {
           return;
         }
 
-        this.profileService.uploadFile(signedUrl, file).subscribe({
+        this.fileUploadService.uploadFile(signedUrl, file).subscribe({
           next: (event) => {
             if (event.type === HttpEventType.Response) {
               const publicUrl = signedUrl.split('?')[0];
