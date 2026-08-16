@@ -7,6 +7,12 @@ export class GoshuinDashboardService {
   readonly isLoadingQuery = signal(true);
   readonly isLoadingMore = signal(false);
   readonly hasMore = signal(false);
+  readonly selectedStatuses = signal<EnrichmentStatus[]>([
+    EnrichmentStatus.Pending,
+    EnrichmentStatus.Processing,
+    EnrichmentStatus.Complete,
+    EnrichmentStatus.Failed
+  ]);
   private readonly goshuinService = inject(GoshuinGoshuinService);
   // Accumulated results across pages
   private readonly _goshuins = signal<Goshuin[]>([]);
@@ -57,6 +63,15 @@ export class GoshuinDashboardService {
     ).subscribe();
   }
 
+  setStatusFilter(statuses: EnrichmentStatus[]): void {
+    const backendStatuses = [...statuses];
+    if (statuses.includes(EnrichmentStatus.Processing)) {
+      backendStatuses.push(EnrichmentStatus.Pending);
+    }
+    this.selectedStatuses.set(backendStatuses);
+    this.loadInitial();
+  }
+
   private fetchGoshuins(pageToken?: string) {
     return this.goshuinService.searchGoshuins(
       10,
@@ -69,12 +84,7 @@ export class GoshuinDashboardService {
       undefined,
       undefined,
       pageToken,
-      [
-        EnrichmentStatus.Pending,
-        EnrichmentStatus.Processing,
-        EnrichmentStatus.Complete,
-        EnrichmentStatus.Failed
-      ],
+      this.selectedStatuses(),
     );
   }
 }

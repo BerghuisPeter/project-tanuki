@@ -179,7 +179,8 @@
       "templeProcessing": "寺院情報を取得中...",
       "goshuinComplete": "御朱印情報の取得完了",
       "templeComplete": "寺院情報の取得完了",
-      "failedMessage": "情報の取得に失敗しました"
+      "failedMessage": "情報の取得に失敗しました",
+      "statusFilter": "ステータスで絞り込む"
     }
   },
   "end": "結果の最後"

@@ -13,6 +13,7 @@ import { RouterLink } from '@angular/router';
 import { MatCardModule } from '@angular/material/card';
 import { MatButtonModule } from '@angular/material/button';
 import { MatIconModule } from '@angular/material/icon';
+import { MatChipListbox, MatChipListboxChange, MatChipOption } from '@angular/material/chips';
 import { EnrichmentStatus, Goshuin } from '../../../../openApi/goshuin';
 import { APP_PATHS } from '../../../shared/models/app-paths.model';
 import { GoshuinDashboardService } from "./goshuin-dashboard.service";
@@ -29,6 +30,8 @@ import { LazyLoadedImgComponent } from "../../../shared/components/lazy-loaded-i
     MatCardModule,
     MatButtonModule,
     MatIconModule,
+    MatChipListbox,
+    MatChipOption,
     TranslocoDirective,
     LazyLoadedImgComponent
   ],
@@ -40,6 +43,11 @@ import { LazyLoadedImgComponent } from "../../../shared/components/lazy-loaded-i
 export class GoshuinDashboardComponent implements AfterViewInit, OnDestroy {
   protected readonly service = inject(GoshuinDashboardService);
   protected readonly EnrichmentStatus = EnrichmentStatus;
+  protected readonly allStatuses = [
+    EnrichmentStatus.Processing,
+    EnrichmentStatus.Complete,
+    EnrichmentStatus.Failed
+  ];
   readonly goshuins = this.service.goshuins;
   private readonly languageService = inject(LanguageService);
   readonly currentLocale = computed(() => this.languageService.currentLocale().slice(0, 2));
@@ -63,6 +71,10 @@ export class GoshuinDashboardComponent implements AfterViewInit, OnDestroy {
 
   ngOnDestroy(): void {
     this.observer?.disconnect();
+  }
+
+  onStatusChange(event: MatChipListboxChange): void {
+    this.service.setStatusFilter(event.value);
   }
 
   getTempleName(goshuin: Goshuin): string {

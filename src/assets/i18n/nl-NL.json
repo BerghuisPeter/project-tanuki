@@ -172,7 +172,8 @@
       "templeProcessing": "Tempelgegevens verrijken...",
       "goshuinComplete": "Goshuin verrijking voltooid",
       "templeComplete": "Tempel verrijking voltooid",
-      "failedMessage": "Verrijking mislukt"
+      "failedMessage": "Verrijking mislukt",
+      "statusFilter": "Filteren op status"
     }
   }
 }

@@ -180,7 +180,8 @@
       "templeProcessing": "Enriching temple details...",
       "goshuinComplete": "Goshuin enrichment complete",
       "templeComplete": "Temple enrichment complete",
-      "failedMessage": "Enrichment failed"
+      "failedMessage": "Enrichment failed",
+      "statusFilter": "Filter by status"
     }
   },
   "end": "End of results"

@@ -179,7 +179,8 @@
       "templeProcessing": "Enrichissement des détails du temple...",
       "goshuinComplete": "Enrichissement du goshuin terminé",
       "templeComplete": "Enrichissement du temple terminé",
-      "failedMessage": "L'enrichissement a échoué"
+      "failedMessage": "L'enrichissement a échoué",
+      "statusFilter": "Filtrer par statut"
     }
   }
 }
