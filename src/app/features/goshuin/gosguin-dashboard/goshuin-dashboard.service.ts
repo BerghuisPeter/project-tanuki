@@ -1,5 +1,5 @@
 import { inject, Injectable, signal } from '@angular/core';
-import { Goshuin, GoshuinGoshuinService, GoshuinSort } from '../../../../openApi/goshuin';
+import { EnrichmentStatus, Goshuin, GoshuinGoshuinService, GoshuinSort } from '../../../../openApi/goshuin';
 import { catchError, finalize, of, tap } from 'rxjs';
 
 @Injectable()
@@ -69,7 +69,12 @@ export class GoshuinDashboardService {
       undefined,
       undefined,
       pageToken,
-      true,
+      [
+        EnrichmentStatus.Pending,
+        EnrichmentStatus.Processing,
+        EnrichmentStatus.Complete,
+        EnrichmentStatus.Failed
+      ],
     );
   }
 }
