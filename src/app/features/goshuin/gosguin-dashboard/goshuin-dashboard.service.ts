@@ -68,7 +68,8 @@ export class GoshuinDashboardService {
       GoshuinSort.CreatedAt,
       undefined,
       undefined,
-      pageToken
+      pageToken,
+      true,
     );
   }
 }
