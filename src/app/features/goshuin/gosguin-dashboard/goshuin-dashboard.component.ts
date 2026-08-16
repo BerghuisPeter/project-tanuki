@@ -13,11 +13,12 @@ import { RouterLink } from '@angular/router';
 import { MatCardModule } from '@angular/material/card';
 import { MatButtonModule } from '@angular/material/button';
 import { MatIconModule } from '@angular/material/icon';
-import { Goshuin } from '../../../../openApi/goshuin';
+import { EnrichmentStatus, Goshuin } from '../../../../openApi/goshuin';
 import { APP_PATHS } from '../../../shared/models/app-paths.model';
 import { GoshuinDashboardService } from "./goshuin-dashboard.service";
 import { LanguageService } from "../../../core/services/language.service";
 import { TranslocoDirective } from "@jsverse/transloco";
+import { LazyLoadedImgComponent } from "../../../shared/components/lazy-loaded-img/lazy-loaded-img.component";
 
 @Component({
   selector: 'app-goshuin-dashboard',
@@ -28,7 +29,8 @@ import { TranslocoDirective } from "@jsverse/transloco";
     MatCardModule,
     MatButtonModule,
     MatIconModule,
-    TranslocoDirective
+    TranslocoDirective,
+    LazyLoadedImgComponent
   ],
   providers: [GoshuinDashboardService],
   templateUrl: './goshuin-dashboard.component.html',
@@ -37,6 +39,7 @@ import { TranslocoDirective } from "@jsverse/transloco";
 })
 export class GoshuinDashboardComponent implements AfterViewInit, OnDestroy {
   protected readonly service = inject(GoshuinDashboardService);
+  protected readonly EnrichmentStatus = EnrichmentStatus;
   readonly goshuins = this.service.goshuins;
   private readonly languageService = inject(LanguageService);
   readonly currentLocale = computed(() => this.languageService.currentLocale().slice(0, 2));
@@ -70,5 +73,27 @@ export class GoshuinDashboardComponent implements AfterViewInit, OnDestroy {
     const t = goshuin.temple.translations[this.currentLocale()] || goshuin.temple.translations['en'];
     if (!t) return 'Unknown Location';
     return `${t.address}, ${t.city}, ${t.prefecture}, ${t.region}`;
+  }
+
+  getEnrichmentIcon(status: EnrichmentStatus | string | undefined, type: 'goshuin' | 'temple' = 'goshuin'): string {
+    switch (status) {
+      case EnrichmentStatus.Failed:
+        return type === 'goshuin' ? 'error' : 'report';
+      case EnrichmentStatus.Complete:
+        return type === 'goshuin' ? 'check_circle' : 'verified';
+      default:
+        return type === 'goshuin' ? 'sync' : 'autorenew';
+    }
+  }
+
+  getEnrichmentColorClass(status: EnrichmentStatus | string | undefined): string {
+    switch (status) {
+      case EnrichmentStatus.Failed:
+        return '!text-red-600';
+      case EnrichmentStatus.Complete:
+        return '!text-green-600';
+      default:
+        return '!text-blue-600';
+    }
   }
 }

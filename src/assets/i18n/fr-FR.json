@@ -164,6 +164,22 @@
     "map": {
       "loading": "Chargement de la carte...",
       "attribution": "© Contributeurs d'OpenStreetMap"
+    },
+    "dashboard": {
+      "title": "Mes Goshuins"
+    },
+    "enrichment": {
+      "pending": "En attente",
+      "processing": "Traitement en cours",
+      "complete": "Terminé",
+      "failed": "Échoué",
+      "goshuin": "Goshuin",
+      "temple": "Temple",
+      "goshuinProcessing": "Enrichissement du goshuin...",
+      "templeProcessing": "Enrichissement des détails du temple...",
+      "goshuinComplete": "Enrichissement du goshuin terminé",
+      "templeComplete": "Enrichissement du temple terminé",
+      "failedMessage": "L'enrichissement a échoué"
     }
   }
 }

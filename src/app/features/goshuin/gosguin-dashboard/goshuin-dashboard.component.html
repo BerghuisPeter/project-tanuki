@@ -30,9 +30,9 @@
             <!-- Image section -->
             <div class="w-28 h-28 flex-shrink-0 bg-gray-200 relative">
               @if (goshuin.images && goshuin.images.length > 0) {
-                <img [alt]="getTempleName(goshuin)"
-                     [src]="goshuin.images[0].url"
-                     class="w-full h-full object-cover">
+                <app-lazy-loaded-img [alt]="getTempleName(goshuin)"
+                                     [imageUrl]="goshuin.images[0].url"
+                                     class="w-full h-full object-cover"/>
               } @else {
                 <div class="w-full h-full flex flex-col items-center justify-center text-gray-400">
                   <mat-icon class="text-2xl">image_not_supported</mat-icon>
@@ -46,8 +46,37 @@
             </div>
 
             <!-- Content section -->
-            <div class="flex-grow p-3 flex flex-col gap-1 justify-center min-w-0">
-              <div class="text-base font-bold">
+            <div class="flex-grow p-3 flex flex-col gap-0.5 justify-center min-w-0">
+              <div class="flex gap-3 mb-0.5 shrink-0">
+                @if (goshuin.enrichment?.status) {
+                  <div [title]="goshuin.enrichment?.status === EnrichmentStatus.Failed ? (goshuin.enrichment?.error || t('goshuin.enrichment.failedMessage')) : (goshuin.enrichment?.status === EnrichmentStatus.Complete ? t('goshuin.enrichment.goshuinComplete') : t('goshuin.enrichment.goshuinProcessing'))"
+                       class="flex items-center gap-1">
+                    <span
+                      class="text-[10px] font-bold uppercase tracking-wider text-gray-400 select-none leading-none">{{ t('goshuin.enrichment.goshuin') }}</span>
+                    <mat-icon
+                      [class.animate-spin]="goshuin.enrichment?.status === EnrichmentStatus.Processing || goshuin.enrichment?.status === EnrichmentStatus.Pending"
+                      [class]="getEnrichmentColorClass(goshuin.enrichment?.status)"
+                      class="flex items-center justify-center !w-4 !h-4 !text-base !leading-none">
+                      {{ getEnrichmentIcon(goshuin.enrichment?.status, 'goshuin') }}
+                    </mat-icon>
+                  </div>
+                }
+                @if (goshuin.temple.enrichment?.status) {
+                  <div [title]="goshuin.temple.enrichment?.status === EnrichmentStatus.Failed ? t('goshuin.enrichment.failedMessage') : (goshuin.temple.enrichment?.status === EnrichmentStatus.Complete ? t('goshuin.enrichment.templeComplete') : t('goshuin.enrichment.templeProcessing'))"
+                       class="flex items-center gap-1">
+                    <span
+                      class="text-[10px] font-bold uppercase tracking-wider text-gray-400 select-none leading-none">{{ t('goshuin.enrichment.temple') }}</span>
+                    <mat-icon
+                      [class.animate-spin]="goshuin.temple.enrichment?.status === EnrichmentStatus.Processing || goshuin.temple.enrichment?.status === EnrichmentStatus.Pending"
+                      [class]="getEnrichmentColorClass(goshuin.temple.enrichment?.status)"
+                      class="flex items-center justify-center !w-4 !h-4 !text-base !leading-none">
+                      {{ getEnrichmentIcon(goshuin.temple.enrichment?.status, 'temple') }}
+                    </mat-icon>
+                  </div>
+                }
+              </div>
+
+              <div class="text-base font-bold truncate">
                 {{ getTempleName(goshuin) }}
               </div>
 

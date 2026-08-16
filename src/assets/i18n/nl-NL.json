@@ -157,6 +157,22 @@
     "map": {
       "loading": "Kaart laden...",
       "attribution": "© OpenStreetMap-auteurs"
+    },
+    "dashboard": {
+      "title": "Mijn Goshuins"
+    },
+    "enrichment": {
+      "pending": "In afwachting",
+      "processing": "Verwerken",
+      "complete": "Voltooid",
+      "failed": "Mislukt",
+      "goshuin": "Goshuin",
+      "temple": "Tempel",
+      "goshuinProcessing": "Goshuin verrijken...",
+      "templeProcessing": "Tempelgegevens verrijken...",
+      "goshuinComplete": "Goshuin verrijking voltooid",
+      "templeComplete": "Tempel verrijking voltooid",
+      "failedMessage": "Verrijking mislukt"
     }
   }
 }

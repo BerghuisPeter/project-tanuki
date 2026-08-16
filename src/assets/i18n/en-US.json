@@ -168,6 +168,19 @@
     },
     "dashboard": {
       "title": "My Goshuins"
+    },
+    "enrichment": {
+      "pending": "Pending",
+      "processing": "Processing",
+      "complete": "Complete",
+      "failed": "Failed",
+      "goshuin": "Goshuin",
+      "temple": "Temple",
+      "goshuinProcessing": "Enriching goshuin...",
+      "templeProcessing": "Enriching temple details...",
+      "goshuinComplete": "Goshuin enrichment complete",
+      "templeComplete": "Temple enrichment complete",
+      "failedMessage": "Enrichment failed"
     }
   },
   "end": "End of results"
